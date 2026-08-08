@@ -2,13 +2,15 @@
   "terminalApp": {
     "win": "cmd.exe"
   },
+  "openAtCurrentNoteFolder": false,
+  "reuseExistingMacApp": true,
   "enableClaude": false,
   "enableCodex": false,
   "enableCursor": false,
   "enableGemini": true,
   "enableOpencode": false,
   "enableWslOnWindows": false,
-  "enableGitCommitPush": false,
-  "enableGitPull": false,
+  "enableGitCommitPush": true,
+  "enableGitPull": true,
   "defaultCommitMessage": "update"
 }

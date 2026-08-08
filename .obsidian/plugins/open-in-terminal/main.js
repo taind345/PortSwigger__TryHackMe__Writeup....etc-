@@ -1,10 +1,10 @@
 'use strict';
 
 var child_process = require('child_process');
+var path = require('path');
 var obsidian = require('obsidian');
 var fs = require('fs');
 var os = require('os');
-var path = require('path');
 
 /******************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -113,17 +113,18 @@ const ensureTempScript = (content) => {
     };
     return { path: filePath, cleanup };
 };
-const buildMacLaunch = (terminalApp, vaultPath, toolCommand) => {
+const buildMacLaunch = (terminalApp, vaultPath, toolCommand, options) => {
     const app = sanitizeTerminalApp(terminalApp);
     if (!app) {
         return null;
     }
+    const openFlag = (options === null || options === void 0 ? void 0 : options.reuseExistingMacApp) === false ? '-na' : '-a';
     if (!toolCommand) {
         const escapedApp = escapeDoubleQuotes(app);
         const escapedPath = escapeDoubleQuotes(vaultPath);
-        const command = `open -a "${escapedApp}" "${escapedPath}"`;
+        const command = `open ${openFlag} "${escapedApp}" "${escapedPath}"`;
         logger.log('macOS simple launch', { app, command, vaultPath });
-        return { command };
+        return { command, cwd: vaultPath };
     }
     const escapedVaultPath = escapeDoubleQuotes(vaultPath);
     const scriptLines = ['#!/bin/bash', `cd "${escapedVaultPath}"`];
@@ -132,9 +133,9 @@ const buildMacLaunch = (terminalApp, vaultPath, toolCommand) => {
     }
     scriptLines.push('exec "$SHELL"');
     const { path, cleanup } = ensureTempScript(scriptLines.join('\n'));
-    const command = `open -a "${escapeDoubleQuotes(app)}" "${path}"`;
+    const command = `open ${openFlag} "${escapeDoubleQuotes(app)}" "${path}"`;
     logger.log('macOS script launch', { app, command, script: path, toolCommand });
-    return { command, cleanup };
+    return { command, cwd: vaultPath, cleanup };
 };
 const buildWindowsLaunch = (terminalApp, vaultPath, toolCommand, useWslOnWindows) => {
     const app = sanitizeTerminalApp(terminalApp);
@@ -156,7 +157,7 @@ const buildWindowsLaunch = (terminalApp, vaultPath, toolCommand, useWslOnWindows
         if (lowerApp === 'cmd.exe' || lowerApp === 'cmd') {
             const command = `start "" cmd.exe /K "${wslCommand}"`;
             logger.log('Windows launch (cmd.exe + WSL)', { command, toolCommand, vaultPath, wslVaultPath });
-            return { command };
+            return { command, cwd: vaultPath };
         }
         if (lowerApp === 'powershell' || lowerApp === 'powershell.exe') {
             const psWslPath = wslVaultPath.replace(/'/g, "''");
@@ -169,14 +170,14 @@ const buildWindowsLaunch = (terminalApp, vaultPath, toolCommand, useWslOnWindows
                 vaultPath,
                 wslVaultPath
             });
-            return { command: psCommand };
+            return { command: psCommand, cwd: vaultPath };
         }
         if (lowerApp === 'wt.exe' || lowerApp === 'wt') {
             const command = toolCommand
                 ? `start "" wt.exe new-tab wsl.exe --cd "${escapeForCmdQuotedString(wslVaultPath)}" ${toolCommand}`
                 : `start "" wt.exe new-tab wsl.exe --cd "${escapeForCmdQuotedString(wslVaultPath)}"`;
             logger.log('Windows launch (wt + WSL)', { command, toolCommand, vaultPath, wslVaultPath });
-            return { command };
+            return { command, cwd: vaultPath };
         }
         const command = `start "" cmd.exe /K "${wslCommand}"`;
         logger.log('Windows launch (generic + WSL fallback)', {
@@ -186,77 +187,77 @@ const buildWindowsLaunch = (terminalApp, vaultPath, toolCommand, useWslOnWindows
             vaultPath,
             wslVaultPath
         });
-        return { command };
+        return { command, cwd: vaultPath };
     }
     if (lowerApp === 'cmd.exe' || lowerApp === 'cmd') {
         const command = toolCommand
             ? `start "" cmd.exe /K "${cdCommand}${tool}"`
             : `start "" cmd.exe /K "${cdCommand}"`;
         logger.log('Windows launch (cmd.exe)', { command, toolCommand, vaultPath });
-        return { command };
+        return { command, cwd: vaultPath };
     }
     if (lowerApp === 'powershell' || lowerApp === 'powershell.exe') {
         if (!toolCommand) {
             const command = `start "" powershell -NoExit -Command "Set-Location '${vaultPath.replace(/'/g, "''")}';"`;
             logger.log('Windows launch (powershell)', { command, toolCommand, vaultPath });
-            return { command };
+            return { command, cwd: vaultPath };
         }
         const command = `start "" powershell -NoExit -Command "Set-Location '${vaultPath.replace(/'/g, "''")}'; ${toolCommand}"`;
         logger.log('Windows launch (powershell tool)', { command, toolCommand, vaultPath });
-        return { command };
+        return { command, cwd: vaultPath };
     }
     if (lowerApp === 'wt.exe' || lowerApp === 'wt') {
         const command = toolCommand
             ? `start "" wt.exe new-tab cmd /K "${cdCommand}${tool}"`
             : `start "" wt.exe new-tab cmd /K "${cdCommand}"`;
         logger.log('Windows launch (wt)', { command, toolCommand, vaultPath });
-        return { command };
+        return { command, cwd: vaultPath };
     }
     if (!toolCommand) {
         const command = `start "" "${app}"`;
         logger.log('Windows launch (generic simple)', { command, vaultPath });
-        return { command };
+        return { command, cwd: vaultPath };
     }
     const command = `start "" cmd.exe /K "${cdCommand}${tool}"`;
     logger.log('Windows launch (generic tool fallback)', { command, app, toolCommand, vaultPath });
-    return { command };
+    return { command, cwd: vaultPath };
 };
-const buildUnixLaunch = (terminalApp, toolCommand) => {
+const buildUnixLaunch = (terminalApp, vaultPath, toolCommand) => {
     const app = sanitizeTerminalApp(terminalApp);
     if (!app) {
         return null;
     }
     if (!toolCommand) {
         const command = `${app}`;
-        logger.log('Unix launch (simple)', { command });
-        return { command };
+        logger.log('Unix launch (simple)', { command, vaultPath });
+        return { command, cwd: vaultPath };
     }
-    const shellCommand = `cd "$PWD"; ${toolCommand}; exec "$SHELL"`;
+    const shellCommand = `cd \\\"$PWD\\\"; ${toolCommand}; exec \\\"$SHELL\\\"`;
     if (app.includes('gnome-terminal')) {
         const command = `${app} -- bash -lc "${shellCommand}"`;
-        logger.log('Unix launch (gnome-terminal)', { command, toolCommand });
-        return { command };
+        logger.log('Unix launch (gnome-terminal)', { command, toolCommand, vaultPath });
+        return { command, cwd: vaultPath };
     }
     if (app.includes('konsole')) {
         const command = `${app} -e bash -lc "${shellCommand}"`;
-        logger.log('Unix launch (konsole)', { command, toolCommand });
-        return { command };
+        logger.log('Unix launch (konsole)', { command, toolCommand, vaultPath });
+        return { command, cwd: vaultPath };
     }
     const command = `${app} -e bash -lc "${shellCommand}"`;
-    logger.log('Unix launch (generic tool)', { command, toolCommand });
-    return { command };
+    logger.log('Unix launch (generic tool)', { command, toolCommand, vaultPath });
+    return { command, cwd: vaultPath };
 };
 const buildLaunchCommand = (terminalApp, vaultPath, toolCommand, options) => {
     if (!obsidian.Platform.isDesktopApp) {
         return null;
     }
     if (obsidian.Platform.isMacOS) {
-        return buildMacLaunch(terminalApp, vaultPath, toolCommand);
+        return buildMacLaunch(terminalApp, vaultPath, toolCommand, options);
     }
     if (obsidian.Platform.isWin) {
         return buildWindowsLaunch(terminalApp, vaultPath, toolCommand, options === null || options === void 0 ? void 0 : options.useWslOnWindows);
     }
-    return buildUnixLaunch(terminalApp, toolCommand);
+    return buildUnixLaunch(terminalApp, vaultPath, toolCommand);
 };
 
 const defaultTerminalApp = () => {
@@ -299,6 +300,8 @@ const buildDefaultTerminalAppSetting = () => {
 };
 const DEFAULT_SETTINGS = {
     terminalApp: buildDefaultTerminalAppSetting(),
+    openAtCurrentNoteFolder: false,
+    reuseExistingMacApp: true,
     enableClaude: false,
     enableCodex: false,
     enableCursor: false,
@@ -338,6 +341,8 @@ const normalizeSettings = (stored) => {
     const source = isRecord(stored) ? stored : {};
     return {
         terminalApp: normalizeTerminalAppSetting(source.terminalApp, DEFAULT_SETTINGS.terminalApp),
+        openAtCurrentNoteFolder: readBoolean(source.openAtCurrentNoteFolder, DEFAULT_SETTINGS.openAtCurrentNoteFolder),
+        reuseExistingMacApp: readBoolean(source.reuseExistingMacApp, DEFAULT_SETTINGS.reuseExistingMacApp),
         enableClaude: readBoolean(source.enableClaude, DEFAULT_SETTINGS.enableClaude),
         enableCodex: readBoolean(source.enableCodex, DEFAULT_SETTINGS.enableCodex),
         enableCursor: readBoolean(source.enableCursor, DEFAULT_SETTINGS.enableCursor),
@@ -459,6 +464,22 @@ class OpenInTerminalSettingTab extends obsidian.PluginSettingTab {
             this.plugin.settings.terminalApp = setCurrentTerminalApp(this.plugin.settings.terminalApp, value);
             yield this.plugin.saveSettings();
         })));
+        new obsidian.Setting(containerEl)
+            .setName("Open at current note's folder")
+            .setDesc("Use the active note's folder as the Terminal working directory. Falls back to the vault root when no note is open.")
+            .addToggle((toggle) => toggle.setValue(this.plugin.settings.openAtCurrentNoteFolder).onChange((value) => __awaiter(this, void 0, void 0, function* () {
+            this.plugin.settings.openAtCurrentNoteFolder = value;
+            yield this.plugin.saveSettings();
+        })));
+        if (obsidian.Platform.isMacOS) {
+            new obsidian.Setting(containerEl)
+                .setName('Reuse existing Terminal instance')
+                .setDesc('Use macOS open -a to reuse the configured Terminal app. Turn this off to launch a new instance.')
+                .addToggle((toggle) => toggle.setValue(this.plugin.settings.reuseExistingMacApp).onChange((value) => __awaiter(this, void 0, void 0, function* () {
+                this.plugin.settings.reuseExistingMacApp = value;
+                yield this.plugin.saveSettings();
+            })));
+        }
         if (obsidian.Platform.isWin) {
             new obsidian.Setting(containerEl)
                 .setName('Use WSL for commands')
@@ -560,24 +581,36 @@ class OpenInTerminalPlugin extends obsidian.Plugin {
             this.registeredCommandIds.add(`${this.manifest.id}:${target.id}`);
         }
     }
-    composeLaunchCommand(toolCommand) {
+    composeLaunchCommand(toolCommand, useVaultRoot = false) {
         const adapter = this.app.vault.adapter;
         if (!(adapter instanceof obsidian.FileSystemAdapter)) {
             return null;
         }
         const vaultPath = adapter.getBasePath();
+        const launchPath = useVaultRoot ? vaultPath : this.getLaunchPath(vaultPath);
         const terminalApp = getCurrentTerminalApp(this.settings.terminalApp);
-        const launchCommand = buildLaunchCommand(terminalApp, vaultPath, toolCommand, {
-            useWslOnWindows: this.settings.enableWslOnWindows
+        const launchCommand = buildLaunchCommand(terminalApp, launchPath, toolCommand, {
+            useWslOnWindows: this.settings.enableWslOnWindows,
+            reuseExistingMacApp: this.settings.reuseExistingMacApp
         });
         logger.log('Compose launch command', {
             platform: getPlatformSummary(),
             terminalApp,
             toolCommand,
             vaultPath,
+            launchPath,
             launchCommand
         });
-        return launchCommand;
+        return launchCommand ? Object.assign(Object.assign({}, launchCommand), { cwd: launchPath }) : null;
+    }
+    getLaunchPath(vaultPath) {
+        var _a;
+        if (!this.settings.openAtCurrentNoteFolder) {
+            return vaultPath;
+        }
+        const activeFile = this.app.workspace.getActiveFile();
+        const folderPath = (_a = activeFile === null || activeFile === void 0 ? void 0 : activeFile.parent) === null || _a === void 0 ? void 0 : _a.path;
+        return folderPath ? path.join(vaultPath, folderPath) : vaultPath;
     }
     runLaunchCommand(buildCommand, label) {
         const launchCommand = buildCommand();
@@ -588,16 +621,23 @@ class OpenInTerminalPlugin extends obsidian.Plugin {
         this.executeShellCommand(launchCommand, label);
     }
     executeShellCommand(launchCommand, label) {
+        var _a;
         const adapter = this.app.vault.adapter;
         if (!(adapter instanceof obsidian.FileSystemAdapter)) {
             new obsidian.Notice('File system adapter not available. This plugin works only on desktop.');
             return;
         }
         const vaultPath = adapter.getBasePath();
+        const workingDirectory = (_a = launchCommand.cwd) !== null && _a !== void 0 ? _a : vaultPath;
         try {
-            logger.log('Spawning command', { label, command: launchCommand.command, vaultPath });
+            logger.log('Spawning command', {
+                label,
+                command: launchCommand.command,
+                vaultPath,
+                workingDirectory
+            });
             const child = child_process.spawn(launchCommand.command, {
-                cwd: vaultPath,
+                cwd: workingDirectory,
                 shell: true,
                 detached: true,
                 stdio: 'ignore'
@@ -646,7 +686,7 @@ class OpenInTerminalPlugin extends obsidian.Plugin {
                 return;
             }
             const gitCommand = this.buildGitCommitPushCommand();
-            this.runLaunchCommand(() => this.composeLaunchCommand(gitCommand), 'Git: commit and push');
+            this.runLaunchCommand(() => this.composeLaunchCommand(gitCommand, true), 'Git: commit and push');
         });
     }
     runGitPull() {
@@ -656,7 +696,7 @@ class OpenInTerminalPlugin extends obsidian.Plugin {
                 new obsidian.Notice('Not a Git repository');
                 return;
             }
-            this.runLaunchCommand(() => this.composeLaunchCommand('git pull'), 'Git: pull');
+            this.runLaunchCommand(() => this.composeLaunchCommand('git pull', true), 'Git: pull');
         });
     }
     checkGitRepo() {

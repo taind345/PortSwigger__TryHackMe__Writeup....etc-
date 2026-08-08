@@ -1,9 +1,32 @@
 ---
-tags: MOCs
----
-```folder-index-content
-```
 
-- [ ] php infor là gì?
-	- [ ] --> [[php infor]] 
-- [ ] 
+excalidraw-plugin: parsed
+tags: [excalidraw]
+
+---
+==⚠  Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠== You can decompress Drawing data with the command palette: 'Decompress current Excalidraw file'. For more info check in plugin settings under 'Saving'
+
+
+# Excalidraw Data
+
+## Text Elements
+[[upload file]] ^WLkkykKe
+
+%%
+## Drawing
+```compressed-json
+N4KAkARALgngDgUwgLgAQQQDwMYEMA2AlgCYBOuA7hADTgQBuCpAzoQPYB2KqATLZMzYBXUtiRoIACyhQ4zZAHoFAc0JRJQgEYA6bGwC2CgF7N6hbEcK4OCtptbErHALRY8RMpWdx8Q1TdIEfARcZgRmBShcZR5tHgBmOJo6IIR9BA4oZm4AbXAwUDAiiBJuCAB1ABkAa2qYaoBpJH5i2EQyqCwoZKLITG54nliAVhbIGG4eAHYATm0ANgAOKeGA
+
+RmGeYeXFmYAGebGIChJ1blXp7XiAFl3F+fnbxbup1ZnDyQRCZWlJ4bjD6zKYLcXaHZhQUhsaoIADCbHwbFIZQAxKsEGi0T1ippcNhqspIUIOMQ4QikRIIdZmHBcIFMljIAAzQj4fAAZVgwIkgg8DIg4Mh0PKJ0kkzBEKhCA5MC56B5pUOhO+HHC2TQq0ObBp2DUE3Vu1B+UgBOEcAAksQ1agcgBdQ6M8jpC3cDhCVmHQjErBlXC7PmE4kq5hW13u
+
+o38hAIYjceYzeLDYa7eLzUbhxgsdhcNAPQ7p1icABynDEZ0GUyu81WV3iUw9zAAIqlOtG0IyCGFDpphMSAKLBdKZK22w5CODEXDNs5TRbTNbLK4zV6HBF4qPcNv4DvhzqYboSQC8G4BZndHCNwxFQzOBisoABUumUcjkT2wzxeWQgbTa+YzOFA2YQjHEXhDV6CAf0yAAxXB9BZPVUCuQ4dygABBIhlCzdBgkZbpcyYKBzAIVCvgw6AtT5PRMlwT0
+
+mGdNBQ3wTVSC+T0CDvXcyiPZ9X0vZpw1wIQoDYAAlcIAKAiEhAQZdqIACU+b491QVY4gOcNJFCNioEqT1qm4CSpPDIgOF0ui3XwfIAF9wDtOhcDgOAOQnIDCkgdQ0iAiA0J+FoGEIBAKAAIVxfEAxJeFERRRkouirEIGwEQ6SgM1On0DlBVhcLyXQVF0Vy2L4tIRLkrSIK8RNIkwrJDpyA4alaQyHD8jihKGuK/QIJZdlOQ8+Vox8gqipStLJWFY
+
+hTjQPgmoG1qholaFpVlfl4QVKaWsyNqhOEZVVTOfq1qSlKAHltV1M4DT2wqZrSCDfygmD8DghDVsu9aUpuzJ/0AyYQMgabXrSTSiPQsosMa4o/oOtJHNIFDCrYCgPjPF0zIuwa0h7YlkLhhGQhbdBaUhKhUau/QscJm94A80L8v2tqIMdBBNtleifOYbBIVZAANEFWfZ+F8AATR5pqjDYAxuBcyB6AISSzks4n/v0TaKqDK0IGpnyCRIT6gJZpqt
+
+eIDkEDgbhU2KA2AFk2GIBAMdwTRgjxjct3NpjKoitBJYgAL4Tx9XlBxAAKHhVlrXhQ+ocOw92bRhgASj5ETlDdWkylIAPcGD+JQV4bPI4SHOY/jiB5eexLhuhY78M4EMUaah1oMZjIbaYjhlAl8MMntx29NISTDmwIgTbQfTDg4Rve/78NhCgIzxL7gzQP0WloVIAsJ5HhfDmX0hV7th2103yTS+KOwACsEGwLI2XHuArZt/ee9bdtF8gXF8MYG8
+
+xfwDvQLaHrUhX0zORIQ4IDAU3aKZMMoEVzQidi/e0kJUqAOrhhZ2r9ID4FCChIBn9v7I1ZCfSAjhmDdwypkLoFsMhCHXAgpqmhPSODbgABUCIyJgGQSwSC7gfPqTVCDMACowz0yhH6H1QKPfhzALYkDgGwT0f5b5wBEWIvGkjsRsEwGyFBmZ74eQolET0JcwAWX4GBd8VpgBWQskAA==
+```
+%%

@@ -6,11 +6,11 @@
     "emojiStyle": "native",
     "iconColor": null,
     "recentlyUsedIcons": [
-      "LiArrowDownToDot",
-      "📘",
-      "🍎",
-      "LiAlbum",
-      "LiActivity"
+      "🖥",
+      "LiSplitSquareHorizontal",
+      "LiSettings",
+      "🐋",
+      "LiCode"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -34,36 +34,32 @@
     "debugMode": false,
     "useInternalPlugins": false
   },
-  "cyberjutsu": "🍎",
-  "SQL injection": {
-    "iconName": "LiArrowBigRightDash",
-    "iconColor": "#db7633"
+  "CVE": {
+    "iconName": "LiCode",
+    "iconColor": "#cc0000"
   },
-  "server side vulnerabilities": {
+  "tool tips": "LiSettings",
+  "2-Ngôn ngữ lập trình/docker": "🐋",
+  "portswigger/server side vulnerabilities": {
     "iconName": "LiAppWindow",
     "iconColor": "#0a82a4"
   },
-  "server side vulnerabilities/command injection": "LiAArrowUp",
-  "SSRF": {
+  "portswigger/SQL injection": {
+    "iconName": "LiArrowBigRightDash",
+    "iconColor": "#db7633"
+  },
+  "portswigger/SQL injection/0-tổng hợp sql injection.md": {
+    "iconName": "LiArrowDownToDot",
+    "iconColor": "#ffa629"
+  },
+  "portswigger/SSRF": {
     "iconName": "LiActivity",
     "iconColor": "#f9c32f"
   },
-  "server side vulnerabilities/0-map.md": {
-    "iconName": "LiAlbum",
-    "iconColor": "#2d9d9f"
+  "portswigger/CORS": {
+    "iconName": "LiSplitSquareHorizontal",
+    "iconColor": "#7c9c07"
   },
-  "cyberjutsu/0-map cyberjutsu.md": "🍎",
-  "SQL injection/0-map SQL injection.md": {
-    "iconName": "LiArrowBigRightDash",
-    "iconColor": "#ff7b42"
-  },
-  "SSRF/0-map ssrf.md": {
-    "iconName": "LiActivity",
-    "iconColor": "#fde230"
-  },
-  "BASE.base": "LiAlbum",
-  "SQL injection/0 tổng hợp sql injection.md": {
-    "iconName": "LiArrowDownToDot",
-    "iconColor": "#ffa629"
-  }
+  "cyberjutsu": "🍎",
+  "0-INDEX.md": "🖥"
 }

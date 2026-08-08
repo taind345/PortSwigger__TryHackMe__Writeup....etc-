@@ -8,45 +8,32 @@
         "type": "tabs",
         "children": [
           {
-            "id": "fc46a93c6a74ec20",
-            "type": "leaf",
-            "state": {
-              "type": "excalidraw",
-              "state": {
-                "file": "SQL injection/các bước thu thập thông tin về csdl.md"
-              },
-              "icon": "excalidraw-icon",
-              "title": "các bước thu thập thông tin về csdl"
-            }
-          },
-          {
-            "id": "71365eebdb298247",
+            "id": "7f72976bd38864ce",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "README.md",
+                "file": "tryhackme/Active Reconnaissance.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "Active Reconnaissance"
             }
           },
           {
-            "id": "288004096b38e09b",
+            "id": "b6277a959b318349",
             "type": "leaf",
             "state": {
               "type": "excalidraw",
               "state": {
-                "file": "SQL injection/0 tổng hợp sql injection.md"
+                "file": "tryhackme/nháp-THM.md"
               },
               "icon": "excalidraw-icon",
-              "title": "0 tổng hợp sql injection"
+              "title": "nháp-THM"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -66,10 +53,12 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": true
+                "autoReveal": true,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-folder-closed",
-              "title": "Files"
+              "title": "Trình duyệt tệp"
             }
           },
           {
@@ -78,15 +67,15 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#sql",
+                "query": "gobuster",
                 "matchingCase": false,
-                "explainSearch": false,
+                "explainSearch": true,
                 "collapseAll": true,
                 "extraContext": true,
                 "sortOrder": "alphabetical"
               },
               "icon": "lucide-search",
-              "title": "Search"
+              "title": "Tìm kiếm"
             }
           },
           {
@@ -103,7 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 280.5
+    "width": 248.50329208374023
   },
   "right": {
     "id": "46d537e6b1c9f82a",
@@ -119,13 +108,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "SQL injection/các bước thu thập thông tin về csdl.md",
+                "file": "tryhackme/Active Reconnaissance.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of các bước thu thập thông tin về csdl"
+              "title": "Đề cương"
             }
           },
           {
@@ -134,12 +123,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "SSRF/Blind SSRF là gì, kịch bản tấn công.md",
+                "file": "1-Linux/find.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Blind SSRF là gì, kịch bản tấn công"
+              "title": "Outgoing links"
             }
           },
           {
@@ -148,17 +137,17 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "SSRF/Blind SSRF là gì, kịch bản tấn công.md",
-                "collapseAll": true,
+                "file": "tryhackme/Dive Into Pentesting.md",
+                "collapseAll": false,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
-                "showSearch": false,
+                "showSearch": true,
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": false
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Blind SSRF là gì, kịch bản tấn công"
+              "title": "Liên kết đến"
             }
           },
           {
@@ -180,70 +169,70 @@
       }
     ],
     "direction": "horizontal",
-    "width": 304.5,
-    "collapsed": true
+    "width": 242.739990234375
   },
   "left-ribbon": {
     "hiddenItems": {
-      "switcher:Open quick switcher": false,
-      "graph:Open graph view": false,
-      "canvas:Create new canvas": false,
-      "daily-notes:Open today's daily note": false,
-      "templates:Insert template": false,
-      "command-palette:Open command palette": false,
-      "bases:Create new base": false,
+      "switcher:Mở bộ chuyển đổi nhanh": false,
+      "graph:Mở xem biểu đồ": false,
+      "canvas:Tạo bảng mới": false,
+      "daily-notes:Mở ghi chú hôm nay": false,
+      "templates:Chèn mẫu": false,
+      "command-palette:Mở khay lệnh": false,
+      "bases:Tạo cơ sở mới": false,
       "obsidian-excalidraw-plugin:New drawing": false,
-      "obsidian-git:Open Git source control": false
+      "obsidian-git:Open Git source control": false,
+      "terminal:Open terminal": false
     }
   },
-  "active": "71365eebdb298247",
+  "active": "7f72976bd38864ce",
   "lastOpenFiles": [
-    "SQL injection/các bước thu thập thông tin về csdl.md",
-    "README.md",
-    "SQL injection/0 tổng hợp sql injection.md",
-    "SQL injection/SQL cheet sheet.md",
-    "0-asset/Pasted image 20260520172944.png",
-    "0-asset/Pasted image 20260520172832.png",
-    "0-asset/Pasted image 20260520172738.png",
-    "SQL injection/cơ bản về sql injection.md",
-    "SQL injection/Minh_hoa_prepare_sql.md",
-    "SQL injection/0-map SQL injection.md",
-    "SQL injection/các kỹ thuật chèn sql.md",
-    "0-asset/Pasted Image 20260520171448_479.png",
-    "0-asset/Pasted Image 20260520170428_250.png",
-    "0-asset/Pasted Image 20260520165340_597.png",
-    "0-asset/Pasted Image 20260520165047_697.png",
-    "0-asset/Pasted Image 20260520163907_802.png",
-    "0-asset/Pasted Image 20260520162258_420.png",
-    "0-asset/Pasted Image 20260520162229_127.png",
-    "SQL injection/xác định số cột&kiểu dl.md",
-    "SQL injection/tấn công mật khẩu.md",
-    "SQL injection/work flow rút ra sqlinjection.md",
-    "SQL injection/union sql  injection.md",
-    "SQL injection/các bước thu thập t.md",
-    "SSRF/0-map ssrf.md",
-    "BASE.base",
-    "cyberjutsu/cyber jutsu.md",
-    "0-PASS.md",
-    "SSRF/white list bypass.md",
-    "SSRF/whitelist bypass.md",
-    "SSRF/blind ssrf.md",
-    "SSRF/Blind SSRF là gì, kịch bản tấn công.md",
-    "SSRF/Hướng tư duy khai thác SSRF.md",
-    "SSRF/các cách để bypass ssrf.md",
-    "SSRF/Blacklist filter bypass.md",
-    "SSRF/nháp.md",
-    "SSRF/Dấu hiệu phát hiện ssrf.md",
-    "server side vulnerabilities/path traversal.md",
-    "0-asset/cyberark.excalidrawlib",
-    "SQL injection",
-    "server side vulnerabilities/command injection",
-    "server side vulnerabilities/sql",
-    "SSRF",
-    "CSRF",
-    "server side vulnerabilities",
-    "cyberjutsu/0_writeup/blackbox_pentest.pdf",
-    "2.cyberjutsu/1-file upload",
+    "0-asset/Pasted image 20260808063049.png",
+    "0-asset/Pasted image 20260808063033.png",
+    "2-Ngôn ngữ lập trình/java script/devtool.md",
+    "tryhackme/Active Reconnaissance.md",
+    "tryhackme/Networking.md",
+    "tryhackme/0-Try hackme.md",
+    "tryhackme/networking concept.md",
+    "tryhackme/reconise and enumeration.md",
+    "tryhackme/Passive Reconnaissance.md",
+    "4-kiến thức bên lề/MFA Bypass.md",
+    "4-kiến thức bên lề/0-tổng hợp.md",
+    "4-kiến thức bên lề/idor.md",
+    "4-kiến thức bên lề/XSS.md",
+    "0-asset/Pasted image 20260808053941.png",
+    "tryhackme/nháp-THM.md",
+    "tryhackme/sodan.md",
+    "0-asset/Pasted Image 20260808053325_252.png",
+    "0-asset/Pasted image 20260808051830.png",
+    "0-asset/Pasted image 20260808051813.png",
+    "0-asset/Pasted image 20260808051736.png",
+    "tryhackme/DNS record là gi.md",
+    "0-asset/Pasted image 20260808051021.png",
+    "0-asset/Pasted image 20260808050400.png",
+    "0-asset/Pasted image 20260808050350.png",
+    "0-asset/Pasted image 20260808045201.png",
+    "3-ctf/Crack the gate.md",
+    "3-ctf/0-ctf.md",
+    "tryhackme/Cyber killchain.md",
+    "pass.md",
+    "tryhackme/Penetration Testing Frameworks.md",
+    "portswigger/SSRF/blind ssrf.md",
+    "portswigger/SSRF/0-SSRF.md",
+    "portswigger/SSRF/mã hóa url để bypass blacklist.md",
+    "portswigger/SSRF/Blacklist filter bypass.md",
+    "portswigger/SSRF/các cách để bypass ssrf.md",
+    "portswigger/SSRF/Hướng tư duy khai thác SSRF.md",
+    "0_Excalidraw/Excalidraw/Libraries/local-library.excalidrawlib",
+    "0_Excalidraw/Excalidraw/Libraries",
+    "0_Excalidraw/Excalidraw",
+    "1-Linux/tai_lieu_netcat_tong_hop-v2.pdf",
+    "Untitled",
+    "tryhackme",
+    "hack the box",
+    "portswigger",
+    "2-Ngôn ngữ lập trình/html",
+    "2-Ngôn ngữ lập trình/java script",
     "red/Untitled.canvas",
     "Untitled.canvas"
   ]

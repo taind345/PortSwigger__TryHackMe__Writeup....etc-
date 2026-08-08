@@ -1,12 +1,12 @@
 {
-  "textFontFamily": "SVN-Book Antiqua",
-  "interfaceFontFamily": "SVN-Book Antiqua",
+  "textFontFamily": "DFVN Excalifont,SVN-Book Antiqua",
+  "interfaceFontFamily": "DFVN Excalifont,SVN-Book Antiqua,Noto Serif CJK HK",
   "cssTheme": "Underwater",
   "baseFontSizeAction": false,
-  "baseFontSize": 15,
-  "monospaceFontFamily": "Cascadia Code",
+  "baseFontSize": 17,
+  "monospaceFontFamily": "DFVN Excalifont,Cascadia Code",
   "nativeMenus": false,
   "enabledCssSnippets": [],
   "theme": "system",
-  "accentColor": ""
+  "accentColor": "#a2154e"
 }
