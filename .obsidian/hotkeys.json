@@ -102,5 +102,13 @@
       ],
       "key": "ArrowUp"
     }
+  ],
+  "editor:insert-callout": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "."
+    }
   ]
 }

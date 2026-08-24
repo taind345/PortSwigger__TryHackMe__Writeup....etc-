@@ -85,7 +85,6 @@ Câu chốt:
 >Với *html sink* thì mình dùng tab *elenment để check* với *js code sink* thì *dùng tab cosole để xem sink nó nằm ở đâu*, theo dõi cái input nó tuồn tới được các đoạn nào trong DOM js
 
 
----
 ## 3- Sources and sinks in third-party dependencies
 ### Những sink nguy hiểm từ thư viện phổ biến
 **JQuery**

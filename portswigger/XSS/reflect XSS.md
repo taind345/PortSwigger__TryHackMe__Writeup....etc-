@@ -45,7 +45,6 @@ DOM XSS:
 Input → JavaScript phía Browser → DOM Sink → XSS
 ```
 
----
 
 **Impact** của Reflected XSS có thể rất lớn: nếu JavaScript chạy trong session của nạn nhân, attacker có thể thực hiện các hành động mà nạn nhân có quyền thực hiện, đọc dữ liệu nạn nhân có thể đọc, sửa dữ liệu nạn nhân có thể sửa hoặc thực hiện hành động dưới danh nghĩa nạn nhân. Tuy nhiên, Reflected XSS thường nhẹ hơn Stored XSS vì attacker cần một **cơ chế delivery** như gửi link độc hại qua email, tin nhắn, website hoặc mạng xã hội. Với Stored XSS, payload đã được lưu trong ứng dụng nên nạn nhân chỉ cần truy cập trang bị nhiễm là có thể bị tấn công.
 

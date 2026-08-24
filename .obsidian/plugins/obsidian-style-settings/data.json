@@ -1,4 +1,8 @@
 {
   "amoled-serenity-style@@pure-amoled-background": true,
-  "underwater-theme@@underwater-colors-dark": "uw-deep"
+  "underwater-theme@@underwater-colors-dark": "obsidian-dark",
+  "underwater-theme@@underwater-colors-light": "obsidian-light",
+  "underwater-theme@@h1-color": "var(--text-normal)",
+  "underwater-theme@@h3-color": "var(--iris)",
+  "underwater-theme@@callout": "callout-solid"
 }

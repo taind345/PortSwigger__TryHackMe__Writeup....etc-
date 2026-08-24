@@ -146,7 +146,7 @@ HttpOnly Cookie
 ```
 → JavaScript **không đọc được** bằng *document.cookie*.
 
-### 5. **localStorage** ⭐
+### 5. localStorage ⭐
 
 Lưu dữ liệu trong trình duyệt.
 

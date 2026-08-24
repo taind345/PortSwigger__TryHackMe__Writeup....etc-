@@ -94,8 +94,6 @@ việc tăng dung lượng cho máy ảo KVM (file `.qcow2`) sau khi đã cài �
 
 Vì bạn đã lưu ổ cứng ở phân vùng DATA (ổ D), hãy dùng terminal đi đến đó (thay đổi đường dẫn cho đúng với thực tế máy bạn, dựa theo ảnh trước đó có thể là `/mnt/data/VM_LINUX/`):
 
-Bash
-
 ```
 cd /mnt/data/VM_LINUX/
 ```
@@ -104,27 +102,21 @@ cd /mnt/data/VM_LINUX/
 
 Gõ lệnh sau (nhớ thay tên file `kali_linux.qcow2` bằng tên file thực tế của bạn):
 
-Bash
-
 ```
 qemu-img resize kali_linux.qcow2 +20G
 ```
 
 _Hệ thống sẽ báo `Image resized` là thành công. Lúc này cái "vỏ" ổ cứng đã to ra thêm 20GB._
-
+![[Pasted image 20260823101002.png]]
 #### Giai đoạn 2: Cấp phát dung lượng mới bên trong máy ảo (Kali Linux)
 
 Mặc dù "vỏ" ổ cứng đã to ra, nhưng hệ điều hành bên trong chưa tự động nhận diện phần không gian mới này. Bạn cần gộp nó vào phân vùng hiện tại.
 
 **1.Khởi động máy ảo Kali Linux:**
-
 Mở Virtual Machine Manager và bật máy ảo lên.
 
 **2.Cài đặt công cụ GParted:**
-
 Mở terminal bên trong Kali Linux và cài đặt phần mềm quản lý phân vùng bằng giao diện trực quan:
-
-Bash
 
 ```
 sudo apt update

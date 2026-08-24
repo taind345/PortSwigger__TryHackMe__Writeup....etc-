@@ -75,7 +75,7 @@ Breakpoint
 
 Chương trình **tạm dừng**.
 
-## `debugger`
+## debugger
 
 Bạn có thể viết:
 
