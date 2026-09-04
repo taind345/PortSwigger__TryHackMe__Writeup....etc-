@@ -38,7 +38,6 @@
     "iconName": "LiCode",
     "iconColor": "#cc0000"
   },
-  "tool tips": "LiSettings",
   "2-Ngôn ngữ lập trình/docker": "🐋",
   "portswigger/server side vulnerabilities": {
     "iconName": "LiAppWindow",
@@ -60,6 +59,6 @@
     "iconName": "LiSplitSquareHorizontal",
     "iconColor": "#7c9c07"
   },
-  "cyberjutsu": "🍎",
-  "0-INDEX.md": "🖥"
+  "0-INDEX.md": "🖥",
+  "Tools": "LiSettings"
 }

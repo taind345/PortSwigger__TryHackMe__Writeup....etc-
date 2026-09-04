@@ -16,6 +16,8 @@
   "embedUseExcalidrawFolder": false,
   "templateFilePath": "Excalidraw/Template.excalidraw",
   "scriptFolderPath": "Excalidraw/Scripts",
+  "allowJavaScriptFiles": false,
+  "storeScriptFilesAsJavaScript": false,
   "fontAssetsPath": "Excalidraw/CJK Fonts",
   "loadChineseFonts": false,
   "loadJapaneseFonts": false,
@@ -23,8 +25,6 @@
   "compress": true,
   "decompressForMDView": false,
   "onceOffCompressFlagReset": true,
-  "onceOffGPTVersionReset": true,
-  "autosave": true,
   "autosaveIntervalDesktop": 60000,
   "autosaveIntervalMobile": 30000,
   "drawingFilenamePrefix": "Drawing ",
@@ -132,13 +132,13 @@
   "imageElementNotice": true,
   "mdSVGwidth": 500,
   "mdSVGmaxHeight": 800,
-  "mdFont": "Virgil",
+  "mdFont": "0_Excalidraw/font/DFVN-Excalifont.ttf",
   "mdFontColor": "Black",
   "mdBorderColor": "Black",
   "mdCSS": "",
   "markdownImageSettings": {
     "defaults": {
-      "width": 500,
+      "width": 460,
       "paddingBottom": 10,
       "fontFamily": "Virgil",
       "fontColor": "Black",
@@ -160,8 +160,11 @@
     }
   },
   "scriptEngineSettings": {},
-  "previousRelease": "2.26.4",
+  "autostartScripts": {},
+  "autostartScriptFailures": {},
+  "previousRelease": "2.27.1",
   "showReleaseNotes": true,
+  "useDeclarativeSettings": true,
   "excalidrawMasteryPromoCollapsed": false,
   "compareManifestToPluginVersion": true,
   "showNewVersionNotification": true,
@@ -513,11 +516,12 @@
     "backgroundMatchCanvas": false,
     "backgroundMatchElement": true,
     "backgroundColor": "#fff",
-    "backgroundOpacity": 60,
+    "backgroundOpacity": 0,
     "borderMatchElement": true,
     "borderColor": "#fff",
     "borderOpacity": 0,
-    "filenameVisible": false
+    "filenameVisible": false,
+    "lockedReadingMode": false
   },
   "markdownNodeOneClickEditing": false,
   "canvasImmersiveEmbed": true,
@@ -692,6 +696,7 @@
     }
   },
   "aiDefaultTextModel": "gpt-5-mini",
+  "aiDefaultMultimodalModel": "gpt-5-mini",
   "aiDefaultImageGenerationModel": "gpt-image-1",
   "aiDefaultMaxOutgoingTokens": 0,
   "aiDefaultMaxResponseTokens": 4096,
@@ -1016,5 +1021,7 @@
     "margin": "normal"
   },
   "disableContextMenu": false,
+  "onceOffGPTVersionReset": true,
+  "autosave": true,
   "isDebugMode": false
 }

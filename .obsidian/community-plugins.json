@@ -2,10 +2,9 @@
   "editing-toolbar",
   "obsidian-style-settings",
   "obsidian-excalidraw-plugin",
-  "obsidian-git",
-  "obsidian-folder-index",
   "open-in-terminal",
   "obsidian-icon-folder",
   "obsidian-text-format",
-  "terminal"
+  "terminal",
+  "obsidian-link-converter"
 ]

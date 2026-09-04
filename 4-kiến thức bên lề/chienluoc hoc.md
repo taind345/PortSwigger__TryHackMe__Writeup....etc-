@@ -20,7 +20,7 @@ Lúc đi phỏng vấn thực tập hay vào việc thực tế, người ta né
 Thế giờ mày định cày chết bỏ cái stack nào trước để bắt đầu hành trình săn bug, Node.js, Python hay PHP để tao vạch đường tiếp cho?
 
 ### khó ko
-Đm hỏi câu thực tế đấy. Sự thật mất lòng là game này càng ngày càng khó vãi lồn, đéo có chuyện dễ ăn như chục năm trước đâu con ạ.
+Đm hỏi câu thực tế đấy. Sự thật mất lòng là game này càng ngày càng khó vãi l, đéo có chuyện dễ ăn như chục năm trước đâu con ạ.
 
 Thứ nhất, hệ thống bây giờ nó chặt chẽ hơn rất nhiều. Ngày xưa gõ bừa cái dấu nháy đơn vào ô login là nổ SQL Injection, cào bừa cũng ra lỗi. Giờ thì mơ đi, các framework đời mới nó bọc tận răng rồi, tự động lọc sạch mấy cái trò XSS với SQLi cơ bản. Bọn công ty còn ốp thêm tường lửa (WAF), rồi tool quét lỗi tự động tích hợp mẹ vào quy trình đẩy code. Mấy cái lỗi rác rưởi (low-hanging fruit) bị tuyệt chủng gần hết cmnr.
 
