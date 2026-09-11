@@ -11,39 +11,44 @@
             "id": "874013a58bc53a7c",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
+              "type": "markdown",
               "state": {
-                "file": "3-ctf/ptit ctf 2026.md"
+                "file": "2-Ngôn ngữ lập trình/Python/webrecon with python.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "excalidraw-icon",
-              "title": "ptit ctf 2026"
+              "icon": "lucide-file",
+              "title": "webrecon with python"
             }
           },
           {
-            "id": "4c15416825236d6b",
+            "id": "404e4357abba681c",
             "type": "leaf",
             "state": {
               "type": "excalidraw",
               "state": {
-                "file": "5-Kinh nghiệm trải nghiệm/0-kinh nghiệm , trải nghiệm.md"
+                "file": "Tools/Metasploit- Payload Generation.md"
               },
               "icon": "excalidraw-icon",
-              "title": "0-kinh nghiệm , trải nghiệm"
+              "title": "Metasploit- Payload Generation"
             }
           },
           {
-            "id": "67f1178fb4010695",
+            "id": "de856dec1587282e",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
+              "type": "markdown",
               "state": {
-                "file": "tryhackme/nháp-THM.md"
+                "file": "Tools/curl.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "excalidraw-icon",
-              "title": "nháp-THM"
+              "icon": "lucide-file",
+              "title": "curl"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -102,7 +107,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 243.5
+    "width": 239.54751586914062
   },
   "right": {
     "id": "46d537e6b1c9f82a",
@@ -118,7 +123,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "3-ctf/ptit ctf 2026.md",
+                "file": "Tools/Metasploit- Payload Generation.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -198,7 +203,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 261.62939453125
+    "width": 394.34619140625,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -214,45 +220,47 @@
       "mermaid-tools:Open Mermaid Toolbar": false
     }
   },
-  "active": "874013a58bc53a7c",
+  "active": "404e4357abba681c",
   "lastOpenFiles": [
-    "README_NOI_BO.md",
-    "3-ctf/0-ctf.md",
-    "Tools/shells_fundalmental.md",
-    "Tools/METASPLOIT.md",
-    "Tools/0-tool.md",
-    "Tools/Burpsite.md",
-    "Tools/curl.md",
-    "Tools/Cheetsheet metasploit.md",
-    "Tools/dùng fuff trong thực tế.md",
-    "Tools/danh sách các tool kali.md",
-    "Tools/cách hoạt động của metterpreter.md",
-    "pass.md",
-    "hack the box/Chưa đặt tên.md",
-    "tryhackme/nháp-THM.md",
-    "5-Kinh nghiệm trải nghiệm/0-kinh nghiệm , trải nghiệm.md",
-    "Tools/wordlist.md",
-    "Tools/payload dùng ở phase nào.md",
-    "Tools/template fuff dùng cho cổng đăng nhập.md",
     "Tools/exploit1 External blue.md",
-    "3-ctf/ptit ctf 2026.md",
-    "3-ctf/Approve Please, Genie.md",
-    "3-ctf/operation.md",
-    "3-ctf/domixi.md",
-    "3-ctf/Crack the gate.md",
+    "Tools/cách để gửi POST trong burp.md",
+    "Tools/Metasploit- Payload Generation.md",
+    "Tools/METASPLOIT.md",
     "tryhackme/0-Try hackme.md",
-    "5-Kinh nghiệm trải nghiệm/taị sao mình cứ stuck mãi với lý thuyết.md",
-    "0asset/Pasted image 20260911163150.png",
-    "0asset/Pasted image 20260911163131.png",
-    "0asset/Pasted image 20260911162541.png",
-    "0asset/Pasted image 20260911161256.png",
+    "2-Ngôn ngữ lập trình/Python/Port scaning with python.md",
+    "2-Ngôn ngữ lập trình/Python/pentest scripting.md",
+    "5-Kinh nghiệm trải nghiệm/0-kinh nghiệm , trải nghiệm.md",
+    "5-Kinh nghiệm trải nghiệm/system thinking while coding.md",
+    "2-Ngôn ngữ lập trình/Python/ARP scaning with python.md",
+    "2-Ngôn ngữ lập trình/Python/0 tổng hợp.md",
+    "2-Ngôn ngữ lập trình/Python/xử lý tách văn bản từ input.md",
+    "2-Ngôn ngữ lập trình/Python/webrecon with python.md",
+    "Tools/curl.md",
+    "0asset/Pasted image 20260912005109.png",
+    "Tools/0-tool.md",
+    "Tools/sql map template_md.md",
+    "Tools/Chưa đặt tên.md",
+    "Tools/crawl enpoind ẩn.md",
+    "2-Ngôn ngữ lập trình/php/0-checkword.md",
+    "Tools/keyword burp.md",
+    "Tools/dùng niko trước và sau khi login có khác nhau ko.md",
+    "Tools/command-injection-payload-list/SUMMARY.md",
+    "Tools/command-injection-payload-list/README.md",
+    "Tools/command-injection-payload-list/QUICK_START.md",
+    "Tools/command-injection-payload-list/CONTRIBUTING.md",
+    "Tools/command-injection-payload-list/CHEAT_SHEET.md",
+    "0-asset/Pasted Image 20260616224954_181.png",
+    "0-asset/Pasted Image 20260616201440_589.png",
+    "0-asset/Pasted Image 20260615205733_566.png",
+    "0-asset/Pasted Image 20260615165128_859.png",
+    "0-asset/Pasted Image 20260615165006_284.png",
+    "0-asset/Pasted Image 20260615162308_008.png",
+    "0-asset/Pasted Image 20260615154933_115.png",
+    "0-asset/Pasted Image 20260615154915_644.png",
+    "0-asset/Pasted Image 20260615135432_373.png",
+    "2-Ngôn ngữ lập trình/Python",
+    "2-Ngôn ngữ lập trình/lý thuyết",
     "0asset",
-    "0asset/Pasted image 20260830022916.png",
-    "0asset/Pasted image 20260829162435.png",
-    "0asset/Pasted image 20260829162300.png",
-    "0asset/Pasted Image 20260829161816_492.png",
-    "0asset/Pasted Image 20260829161300_852.png",
-    "0asset/Pasted Image 20260829160715_603.png",
     "0Excalidraw/Excalidraw/Libraries/local-library.excalidrawlib",
     "0Excalidraw/Excalidraw/Libraries",
     "0Excalidraw/Excalidraw",
@@ -260,8 +268,6 @@
     "phật pháp/Suc-Manh-Cua-Tinh-Lang.pdf",
     "daily checklits",
     "music",
-    "phật pháp",
-    "0Excalidraw/font/Fz-Fragrant.otf",
     "red/Untitled.canvas",
     "Untitled.canvas"
   ]
