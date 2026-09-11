@@ -11,14 +11,12 @@
             "id": "874013a58bc53a7c",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "excalidraw",
               "state": {
-                "file": "Tools/shells_fundalmental.md",
-                "mode": "source",
-                "source": false
+                "file": "3-ctf/ptit ctf 2026.md"
               },
-              "icon": "lucide-file",
-              "title": "shells_fundalmental"
+              "icon": "excalidraw-icon",
+              "title": "ptit ctf 2026"
             }
           },
           {
@@ -120,7 +118,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Tools/shells_fundalmental.md",
+                "file": "3-ctf/ptit ctf 2026.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -218,6 +216,9 @@
   },
   "active": "874013a58bc53a7c",
   "lastOpenFiles": [
+    "README_NOI_BO.md",
+    "3-ctf/0-ctf.md",
+    "Tools/shells_fundalmental.md",
     "Tools/METASPLOIT.md",
     "Tools/0-tool.md",
     "Tools/Burpsite.md",
@@ -225,7 +226,6 @@
     "Tools/Cheetsheet metasploit.md",
     "Tools/dùng fuff trong thực tế.md",
     "Tools/danh sách các tool kali.md",
-    "Tools/shells_fundalmental.md",
     "Tools/cách hoạt động của metterpreter.md",
     "pass.md",
     "hack the box/Chưa đặt tên.md",
@@ -235,7 +235,6 @@
     "Tools/payload dùng ở phase nào.md",
     "Tools/template fuff dùng cho cổng đăng nhập.md",
     "Tools/exploit1 External blue.md",
-    "3-ctf/0-ctf.md",
     "3-ctf/ptit ctf 2026.md",
     "3-ctf/Approve Please, Genie.md",
     "3-ctf/operation.md",
@@ -243,7 +242,6 @@
     "3-ctf/Crack the gate.md",
     "tryhackme/0-Try hackme.md",
     "5-Kinh nghiệm trải nghiệm/taị sao mình cứ stuck mãi với lý thuyết.md",
-    "2-Ngôn ngữ lập trình/java script/0-java script.md",
     "0asset/Pasted image 20260911163150.png",
     "0asset/Pasted image 20260911163131.png",
     "0asset/Pasted image 20260911162541.png",
