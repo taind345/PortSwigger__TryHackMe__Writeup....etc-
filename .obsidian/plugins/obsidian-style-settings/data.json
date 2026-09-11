@@ -4,5 +4,6 @@
   "Brainhack@@Heading variants": "hv2",
   "Brainhack@@bgt_l": 0,
   "Brainhack@@enhanced-folders": false,
-  "underwater-theme@@h1-color": "var(--text-normal)"
+  "underwater-theme@@h1-color": "var(--text-normal)",
+  "underwater-theme@@underwater-colors-dark": "catppuccin-mocha"
 }
