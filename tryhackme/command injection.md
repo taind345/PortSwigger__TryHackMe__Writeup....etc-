@@ -78,7 +78,7 @@ Nhận diện Command Injection thì chia làm 2 trường hợp rõ ràng:
 Server chạy lệnh xong nhả thẳng kết quả lên màn hình web cho mày xem. Nhập `; whoami` vào ô tìm kiếm mà thấy nó in ra tên user (như `www-data` hay `root`) ngay trên trang thì coi như ăn tiền luôn, dễ nhất quả đất.
 
 2. Dạng mù **(Blind Command Injection)**
-Lệnh vẫn chạy ngầm trên server nhưng web đéo thèm in kết quả ra ngoài, giao diện trước và sau khi chèn lệnh nhìn y hệt nhau. Lúc này phải dùng 2 mẹo để bắt bài:
+Lệnh vẫn chạy ngầm trên server nhưng web không in kết quả ra ngoài, giao diện trước và sau khi chèn lệnh nhìn y hệt nhau. Lúc này phải dùng 2 mẹo để bắt bài:
 * Thử bằng độ trễ thời gian (Time-based):
 Bắt server phải câu giờ bằng lệnh ngủ. Ví dụ chèn `; sleep 10` (hoặc `; ping -c 10 127.0.0.1` trên Linux / `& timeout 10` trên Windows). Nếu thấy trang web tự nhiên quay mòng mòng đơ đúng 10 giây mới tải xong thì chắc chắn lệnh đã được chạy ngầm.
 * Ép kết quả ghi ra file (Output Redirection):

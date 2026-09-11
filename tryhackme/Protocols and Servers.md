@@ -207,7 +207,7 @@ FTP gửi thông tin đăng nhập và dữ liệu hoàn toàn dưới dạng v�
 * SFTP (SSH File Transfer Protocol): Chạy trên nền SSH qua port 22 và mã hóa toàn bộ lưu lượng mạng. Đây là giải pháp thay thế phổ biến nhất.
 * FTPS (FTP Secure): Bổ sung lớp mã hóa TLS vào giao thức FTP, hoạt động trên port 990 hoặc dùng STARTTLS trên port 21.
 * SCP (Secure Copy Protocol): Cũng hoạt động trên nền SSH, tuy nhiên hiện đang dần bị loại bỏ để nhường chỗ cho SFTP.
-> đại khái là nó ko an toàn , tại vì nó ko mã hóa, nên bây giờ éo ai dùng cả
+> đại khái là nó ko an toàn , tại vì nó ko mã hóa, nên bây giờ hầu như không ai dùng cả
 
 Dù vậy, bạn vẫn có thể bắt gặp FTP truyền thống trong:
 * Các hệ thống hoặc ứng dụng cũ chưa được nâng cấp.

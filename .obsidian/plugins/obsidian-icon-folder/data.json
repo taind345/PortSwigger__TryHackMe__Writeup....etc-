@@ -6,11 +6,11 @@
     "emojiStyle": "native",
     "iconColor": null,
     "recentlyUsedIcons": [
-      "🖥",
-      "LiSplitSquareHorizontal",
-      "LiSettings",
-      "🐋",
-      "LiCode"
+      "LiMusic",
+      "LiWind",
+      "LiForkKnifeCrossed",
+      "🪴",
+      "LiBookOpen"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -34,31 +34,25 @@
     "debugMode": false,
     "useInternalPlugins": false
   },
-  "CVE": {
-    "iconName": "LiCode",
-    "iconColor": "#cc0000"
+  "Brain function": {
+    "iconName": "LiBrain",
+    "iconColor": "#ffb3f5"
   },
-  "2-Ngôn ngữ lập trình/docker": "🐋",
-  "portswigger/server side vulnerabilities": {
-    "iconName": "LiAppWindow",
-    "iconColor": "#0a82a4"
+  "Secuity": {
+    "iconName": "LiShieldHalf",
+    "iconColor": "#526eff"
   },
-  "portswigger/SQL injection": {
-    "iconName": "LiArrowBigRightDash",
-    "iconColor": "#db7633"
+  "obsidian": "LiBookOpen",
+  "Brain function/0 tổng hợp -brain function.md": {
+    "iconName": "LiBrain",
+    "iconColor": "#df43bd"
   },
-  "portswigger/SQL injection/0-tổng hợp sql injection.md": {
-    "iconName": "LiArrowDownToDot",
-    "iconColor": "#ffa629"
+  "phật pháp": {
+    "iconName": "LiWind",
+    "iconColor": "#85c4ff"
   },
-  "portswigger/SSRF": {
-    "iconName": "LiActivity",
-    "iconColor": "#f9c32f"
-  },
-  "portswigger/CORS": {
-    "iconName": "LiSplitSquareHorizontal",
-    "iconColor": "#7c9c07"
-  },
-  "0-INDEX.md": "🖥",
-  "Tools": "LiSettings"
+  "Linh tinh": {
+    "iconName": "LiLightbulb",
+    "iconColor": "#f8ff8f"
+  }
 }

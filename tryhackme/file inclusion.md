@@ -21,7 +21,7 @@ Bản chất trò này diễn ra như sau:
 Ví dụ: `[web.com/get.php?file=cv.pdf](https://web.com/get.php?file=cv.pdf)`
 Server ngây thơ đi tìm đúng file `cv.pdf` trả về.
 **2-Lỗ hổng sinh ra từ đâu?**
-Server đéo thèm kiểm tra xem người dùng gửi cái gì lên. Dev chỉ mong người ta gửi `cv.pdf` hay `about.php`, nhưng gặp dân nghịch ngợm thì nó đổi thành `/etc/passwd` hoặc chèn đường dẫn file bậy bạ.
+Server không kiểm tra xem người dùng gửi cái gì lên. Dev chỉ mong người ta gửi `cv.pdf` hay `about.php`, nhưng gặp dân nghịch ngợm thì nó đổi thành `/etc/passwd` hoặc chèn đường dẫn file bậy bạ.
 ![[Pasted image 20260828225033.png|700]]
 **3- Mức độ nguy hiểm: Từ xem lén đến cướp quyền server**
 * Cấp độ 1 **(Đọc trộm**): Mày lôi được file chứa tài khoản database, mã nguồn web hoặc danh sách user hệ thống về máy để ngắm.
@@ -84,7 +84,7 @@ Dev tưởng nhét vào thư mục languages là chặn được mày, nhưng v�
 Đường dẫn thực tế thành `languages/../../../../etc/passwd`, lùi vài phát là văng ra khỏi thư mục web leo thẳng vào gốc file system.
 
 # 6-
-Khi đi pentest thực tế hoặc đánh Black-box (đéo có mã nguồn trong tay), mày phải vừa nhìn thông báo lỗi vừa dùng mấy bài lách luật (bypass) để qua mặt mấy bộ lọc nửa mùa của dev.
+Khi đi pentest thực tế hoặc đánh Black-box (không có mã nguồn trong tay), mày phải vừa nhìn thông báo lỗi vừa dùng mấy bài lách luật (bypass) để qua mặt mấy bộ lọc nửa mùa của dev.
 
 Dưới đây là 4 bài né filter kinh điển trong bài:
 

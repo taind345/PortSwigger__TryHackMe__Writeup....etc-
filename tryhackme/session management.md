@@ -66,12 +66,12 @@ Cách này được gọi là kiểu chơi đồ cổ (old-school). Khi web mu�
 
 ==Trình duyệt sẽ ghi nhớ một cookie tên là `session` mang giá trị `12345`,== và nó ==chỉ có hiệu lực với đúng cái tên miền (domain) vừa gửi nó tới.== Thêm nữa, người ta có thể gắn thêm một mớ thuộc tính (attributes) vào cái header này để tăng giáp bảo vệ. Cần nhớ mấy thằng cốt lõi sau:
 
-* `Secure`: Ra lệnh cho trình duyệt chỉ được phép gửi cookie này qua đường HTTPS an toàn. Có lỗi chứng chỉ hay dùng HTTP cùi bắp là nó chặn đéo cho gửi.
+* `Secure`: Ra lệnh cho trình duyệt chỉ được phép gửi cookie này qua đường HTTPS an toàn. Có lỗi chứng chỉ hay dùng HTTP thường là nó chặn không cho gửi.
 * `HTTPOnly`: Cấm tiệt mấy đoạn script JavaScript chạy trên trình duyệt (client-side) được phép đọc giá trị cookie. Tránh bị XSS móc lốp.
 * `Expire`: Hẹn giờ chết cho cookie. Hết hạn là trình duyệt tự động vứt sọt rác.
 * `SameSite`: Nhắc trình duyệt có được phép gửi cookie chéo trang (cross-site) hay không, mục đích là để chống lại mấy đòn tấn công CSRF.
 [[Content Discovery]]
-Cái chốt hạ cần nhớ của hệ Cookie là: Trình duyệt tự đứng ra lo liệu. Nó check domain, check thuộc tính xong là tự động kẹp cookie vào request gửi đi, đéo cần mày phải viết thêm dòng code JavaScript nào.
+Cái chốt hạ cần nhớ của hệ Cookie là: Trình duyệt tự đứng ra lo liệu. Nó check domain, check thuộc tính xong là tự động kẹp cookie vào request gửi đi, không cần mày phải viết thêm dòng code JavaScript nào.
 
 > [!NOTE] Title
 > -server gửi response với Header *set-cookie: session = 12345*, cái response này kèm một đống thuộc tính như trên 
@@ -81,7 +81,7 @@ Cái chốt hạ cần nhớ của hệ Cookie là: Trình duyệt tự đứng 
 Trò này thì mới mẻ hơn. Thay vì ỷ lại vào trình duyệt, nó dùng code JavaScript ở client để tự xử. Sau khi mày đăng nhập thành công, server sẽ vứt cho mày một cái token giấu trong phần body của response. Code JavaScript trên máy mày sẽ bế cái token này nhét vào `LocalStorage` của trình duyệt.
 
 Khi mày gửi request mới, JavaScript phải tự mò vào kho lôi token ra và đính nó vào header. Cái loại token nhẵn mặt nhất là JSON Web Tokens (JWT), thường được truyền đi qua cái header `Authorization: Bearer`.
-Ngặt nỗi, vì đéo dùng cơ chế quản lý tự động của trình duyệt nên cái xứ này hơi giống miền viễn tây - mạnh ai nấy làm. Dù có tiêu chuẩn đấy nhưng chả có cái vẹo gì ép buộc thiên hạ phải tuân theo 100% cả.
+Ngặt nỗi, vì không dùng cơ chế quản lý tự động của trình duyệt nên mảng này hơi giống miền viễn tây - mạnh ai nấy làm. Dù có tiêu chuẩn đấy nhưng chả có cơ chế nào ép buộc thiên hạ phải tuân theo 100% cả.
 
 
 > ![[Pasted image 20260825133556.png]]
@@ -95,8 +95,8 @@ Ngặt nỗi, vì đéo dùng cơ chế quản lý tự động của trình duy
 
 **Hệ Token:**
 * Phải dùng code JavaScript để tự móc token kẹp vào header của từng request.
-* Đéo có giáp tự động, lập trình viên phải tự tìm cách cất giấu token cho kỹ.
-* Mặc định chống được CSRF vì nó không tự động thêm vào request, và domain khác cũng đéo đọc trộm được LocalStorage.
+* Không có lớp bảo vệ tự động, lập trình viên phải tự tìm cách cất giấu token cho kỹ.
+* Mặc định chống được CSRF vì nó không tự động thêm vào request, và domain khác cũng không đọc trộm được LocalStorage.
 * Chơi cực mượt với các hệ thống phân tán vì nó xài qua JavaScript và bản thân cái token thường đã chứa đủ thông tin để tự xác thực rồi.
 
 > [!NOTE] tự tóm tắt lại
@@ -113,7 +113,7 @@ Ngặt nỗi, vì đéo dùng cơ chế quản lý tự động của trình duy
 Đây là giai đoạn lòi ra nhiều lỗ hổng nhất:
 * Giá trị session yếu (Weak Session Values): Do dev tự chế cơ chế tạo session ngớ ngẩn (ví dụ lấy luôn Base64 của username làm session). Kẻ tấn công đảo ngược thuật toán là đoán được session của thằng khác để cướp nick.
 * Giá trị session bị kiểm soát (Controllable Session Values): Hay gặp ở token JWT. Nếu server lười kiểm tra chữ ký (signature) hoặc tạo chữ ký sơ sài, hacker có thể tự làm giả token với quyền admin.
-* Cố định phiên (Session Fixation): Web cấp session cho mày trước cả khi đăng nhập, nhưng sau khi đăng nhập xong thì đéo thèm đổi (rotate) session mới. Hacker gài sẵn session cũ này cho nạn nhân dùng, đợi nạn nhân login xong là nhảy vào dùng chung.
+* Cố định phiên (Session Fixation): Web cấp session cho mày trước cả khi đăng nhập, nhưng sau khi đăng nhập xong thì không thèm đổi (rotate) session mới. Hacker gài sẵn session cũ này cho nạn nhân dùng, đợi nạn nhân login xong là nhảy vào dùng chung.
 * Truyền session không an toàn (Insecure Session Transmission): Thường gặp ở mấy cơ chế SSO (Single Sign-On). Lúc chuyển giao thông tin phiên từ server xác thực sang server ứng dụng qua redirect, nếu dính lỗi Open Redirect thì hacker có thể ép chuyển hướng session về server của nó.
 
 > [!NOTE] tự tóm tắt lại
@@ -127,7 +127,7 @@ Giai đoạn này hay ăn đòn ở 2 mảng:
 * Vượt mặt phân quyền (Authorisation Bypass):
 * Leo quyền dọc (Vertical): User thường chui vào trang dành riêng cho Admin.
 * Leo quyền ngang (Horizontal): Thao tác đúng quyền nhưng sờ vào dữ liệu của người khác (kiểu lỗi IDOR kinh điển).
-* Ghi log thiếu sót (Insufficient Logging): Không ghi lại hành động gắn với từng session cụ thể, hoặc chỉ ghi log mấy request bị từ chối mà quên log các request thành công. Đến lúc bị cướp session thì chịu chết đéo điều tra được.
+* Ghi log thiếu sót (Insufficient Logging): Không ghi lại hành động gắn với từng session cụ thể, hoặc chỉ ghi log mấy request bị từ chối mà quên log các request thành công. Đến lúc bị cướp session thì chịu chết không điều tra được.
 
 > [!NOTE] think
 > leo quyền dọc và leo quyền ngang , mình cũng ko hiểu rằng nó liên quan gì đến đoạn sesison tracking nữa? uhm , có lẽ nó đánh vào hành động authorise diễn ra ở giai đoạn session tracking chăng?, có lẽ đa số lỗ hổng nằm ở việc config phân quyền cho session tương ứng
@@ -146,12 +146,12 @@ Lỗi mấu chốt là khi người dùng bấm Đăng xuất nhưng server khô
 # 6- thực hành
 **my chain thought**
 bây giờ mình cần phải tự làm , mày mò các thứ, vậy thì mới đúng nghĩa thực hành,ok mình sẽ bắt tay vào làm lab.
-Có vẻ ko cần kali linux nên mình sẽ làm bằng máy fedora của mình thôi vậy, đầu tiên cứ kết nối tới machine và xem cái web nó như thế nào đã.Hình như cái lab này bắt mình đăng nhập, xong inspect đẻ xrm trường local storage của trình duyệt nó lueu những gì, sau đó mình có thể chình sue thử xêm có được ko, mà chỉnh suẳ cái gì ??đọc qua thì nó bảo chỉnh sửa role gì gì đó, vậy nó là token hay session, và t tưởng nó chỉ là một cái id thôi chứ, sao lại có cả role ở đây ?? khó hiểu vl phải làm thử mới biết được
+Có vẻ ko cần kali linux nên mình sẽ làm bằng máy fedora của mình thôi vậy, đầu tiên cứ kết nối tới machine và xem cái web nó như thế nào đã.Hình như cái lab này bắt mình đăng nhập, xong inspect đẻ xrm trường local storage của trình duyệt nó lueu những gì, sau đó mình có thể chình sue thử xêm có được ko, mà chỉnh suẳ cái gì ??đọc qua thì nó bảo chỉnh sửa role gì gì đó, vậy nó là token hay session, và t tưởng nó chỉ là một cái id thôi chứ, sao lại có cả role ở đây ?? khá là khó hiểu, phải làm thử mới biết được
 
 - đơn giản thôi, vào trang web, nhấn vô mọi thứ, xuất file burpsite, cho AI agent đọc, bảo nó lọc ra các enpoint nhạy cảm, sau đó vào thôi
 - cái thứ 2 cần đề cập là cái phân quyền khi đi vào các enpoint đó, nó đơn giản là dùng sesion để xác thực và phân quyền, đồng thời có 1 cái token(JSON) lưu cái role của người dùng, nó sẽ kẹp cái token đó vào mỗi requeest tới enpoint để có thể authorise truy câpj tới enoint.
 - Và cái token này ko có cơ chế " bảo vệ tính toàn vẹn", nên tao có thể dễ dàng chỉnh sửa role" lecture, mà khi kẹp vào request đi đến server, server nó vẫn tin tao là lecture thật, thế là tao vào được các enpoint nhạy cảm thôi, so EZ
-![[Pasted image 20260825154235.png]]nói chung là nói đ hình dung hết nổi đâu, phải thực hành nhiều nhiều vào, khi đó mày sẽ biết đống kiến thức mày học sẽ áp dụng ntnt, và cũng đừng cố nhớ các bước làm gì, cứ phá cứ hỏi tung tóe đi, ra kết quả là được, conf kiến thức sẽ tự chui vào đầu mày thôi [[mind set học đúng]]
+![[Pasted image 20260825154235.png]]nói chung là chỉ nói thôi thì không hình dung hết nổi đâu, phải thực hành nhiều nhiều vào, khi đó mày sẽ biết đống kiến thức mày học sẽ áp dụng ntnt, và cũng đừng cố nhớ các bước làm gì, cứ phá cứ hỏi tung tóe đi, ra kết quả là được, conf kiến thức sẽ tự chui vào đầu mày thôi [[mind set học đúng]]
 
 
 > [!NOTE] Title

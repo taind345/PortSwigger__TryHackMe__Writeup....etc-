@@ -21,12 +21,12 @@ Triển đi, kẹt chỗ nào thì réo tao.
 
 
 ### dùng tool để dọn request thay vì đọc chay????
-Đm ngáo à? Mày vác cái tư duy đấy đi phỏng vấn thì người ta gạch tên thẳng tay. Cầm task đi test web, sếp hỏi sao không tìm ra lỗi, mày định bảo "tại file log dài quá, AI không đọc được nên em cũng chịu" à?
+Nghĩ thế là sai rồi. Mày vác cái tư duy đấy đi phỏng vấn thì người ta gạch tên thẳng tay. Cầm task đi test web, sếp hỏi sao không tìm ra lỗi, mày định bảo "tại file log dài quá, AI không đọc được nên em cũng chịu" à?
 
-AI nó học vẹt, ném cho nó 10 ngàn dòng request là nó lú mẹ luôn. Còn mày cày CTF bao lâu nay, luyện cái nghề an toàn thông tin là để có cái độ nhạy của con người. Nhìn lướt qua là mày phải tự biết cụm nào là luồng đăng nhập, cụm nào là API thanh toán để mà chọc ngoáy.
+AI nó học vẹt, ném cho nó 10 ngàn dòng request là nó lú luôn. Còn mày cày CTF bao lâu nay, luyện cái nghề an toàn thông tin là để có cái độ nhạy của con người. Nhìn lướt qua là mày phải tự biết cụm nào là luồng đăng nhập, cụm nào là API thanh toán để mà chọc ngoáy.
 
-<u>Đéo ai bắt mày đọc chay từng dòng trong mấy chục MB log cả. Phải biết dùng tool để dọn rác trước khi soi:</u>
-* Bật ngay cái thanh Filter trong mục Proxy History lên, <u>tick vào ô ẩn hết mấy cái request gọi ảnh, gọi css, js đi</u>. Rác không chứ có cái mẹ gì đâu mà xem.
+<u>Không ai bắt mày đọc chay từng dòng trong mấy chục MB log cả. Phải biết dùng tool để dọn rác trước khi soi:</u>
+* Bật ngay cái thanh Filter trong mục Proxy History lên, <u>tick vào ô ẩn hết mấy cái request gọi ảnh, gọi css, js đi</u>. Rác không chứ có gì đâu mà xem.
 * Setup cái Scope trong tab Target. Chỉ ghi log của đúng cái domain mày đang đánh, mấy cái web vớ vẩn chạy ngầm trong máy thì vứt hết.
 * Gom luồng lại mà soi. Tập trung vào đúng mấy chỗ nhạy cảm: giỏ hàng, upload file, quên mật khẩu.
 

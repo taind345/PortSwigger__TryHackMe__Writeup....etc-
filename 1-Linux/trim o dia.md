@@ -10,7 +10,6 @@ Fedora xử lý TRIM thông qua 2 cơ chế hoạt động song song:
     systemctl status fstrim.timer
     ```
 - **Chạy TRIM thủ công ngay lập tức:**
-    Bash
     ```
     sudo fstrim -av
     ```
@@ -21,8 +20,8 @@ Fedora xử lý TRIM thông qua 2 cơ chế hoạt động song song:
 Để TRIM riêng cho phân vùng/ổ đĩa tên **DATa** trên Fedora, bạn thực hiện như sau:
  **Bước 1: Xác định đường dẫn mount (gắn đĩa)**
 Mở Terminal và tìm nơi ổ đĩa đang được hệ thống gắn vào:
-Bash
-```
+
+```bash
 lsblk -f
 ```
 Tìm dòng có nhãn (**LABEL**) là `DATa` và nhìn sang cột **MOUNTPOINTS**. Thông thường trên Fedora, đường dẫn sẽ dạng:

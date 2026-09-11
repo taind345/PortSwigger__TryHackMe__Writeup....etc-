@@ -4,37 +4,48 @@
     "type": "split",
     "children": [
       {
-        "id": "2cb08bab558f8e16",
+        "id": "bc76b12d38457934",
         "type": "tabs",
         "children": [
           {
-            "id": "5249c52678d0d8e3",
+            "id": "874013a58bc53a7c",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "1-Linux/cheetsheet nmap.md",
+                "file": "Tools/danh sách các tool kali.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "cheetsheet nmap"
+              "title": "danh sách các tool kali"
             }
           },
           {
-            "id": "0ae3e5e9a3c27d62",
+            "id": "4c15416825236d6b",
             "type": "leaf",
             "state": {
               "type": "excalidraw",
               "state": {
-                "file": "tryhackme/0-Try hackme.md"
+                "file": "5-Kinh nghiệm trải nghiệm/0-kinh nghiệm , trải nghiệm.md"
               },
               "icon": "excalidraw-icon",
-              "title": "0-Try hackme"
+              "title": "0-kinh nghiệm , trải nghiệm"
+            }
+          },
+          {
+            "id": "67f1178fb4010695",
+            "type": "leaf",
+            "state": {
+              "type": "excalidraw",
+              "state": {
+                "file": "tryhackme/nháp-THM.md"
+              },
+              "icon": "excalidraw-icon",
+              "title": "nháp-THM"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -68,15 +79,15 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "rating",
                 "matchingCase": false,
-                "explainSearch": true,
-                "collapseAll": true,
-                "extraContext": true,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
                 "sortOrder": "alphabetical"
               },
               "icon": "lucide-search",
-              "title": "Tìm kiếm"
+              "title": "Search"
             }
           },
           {
@@ -93,7 +104,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 249.066650390625
+    "width": 243.5
   },
   "right": {
     "id": "46d537e6b1c9f82a",
@@ -109,7 +120,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "tryhackme/NoScope- Finding RCE.md",
+                "file": "Tools/danh sách các tool kali.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -119,36 +130,35 @@
             }
           },
           {
-            "id": "5678013efca81752",
-            "type": "leaf",
-            "state": {
-              "type": "outgoing-link",
-              "state": {
-                "file": "tryhackme/0-Try hackme.md",
-                "linksCollapsed": false,
-                "unlinkedCollapsed": true
-              },
-              "icon": "links-going-out",
-              "title": "Liên kết đi ra"
-            }
-          },
-          {
             "id": "b011b4d6f8790a7f",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "tryhackme/0-Try hackme.md",
+                "file": "daily checklits/check list.md",
                 "collapseAll": false,
-                "extraContext": true,
+                "extraContext": false,
                 "sortOrder": "alphabetical",
-                "showSearch": true,
+                "showSearch": false,
                 "searchQuery": "",
                 "backlinkCollapsed": false,
-                "unlinkedCollapsed": false
+                "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
               "title": "Liên kết đến"
+            }
+          },
+          {
+            "id": "5678013efca81752",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Liên kết đi ra"
             }
           },
           {
@@ -158,21 +168,39 @@
               "type": "tag",
               "state": {
                 "sortOrder": "frequency",
-                "useHierarchy": false,
+                "useHierarchy": true,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-tags",
               "title": "Thẻ"
             }
+          },
+          {
+            "id": "7a43c33a231649da",
+            "type": "leaf",
+            "state": {
+              "type": "excalidraw-sidepanel",
+              "state": {},
+              "icon": "excalidraw-icon",
+              "title": "Excalidraw Sidepanel"
+            }
+          },
+          {
+            "id": "857c76ab01884272",
+            "type": "leaf",
+            "state": {
+              "type": "mermaid-toolbar-view",
+              "state": {},
+              "icon": "trident-custom",
+              "title": "Mermaid Toolbar"
+            }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 308.703369140625,
-    "collapsed": true
+    "width": 261.62939453125
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -183,59 +211,59 @@
       "templates:Chèn mẫu": false,
       "command-palette:Mở khay lệnh": false,
       "bases:Tạo cơ sở mới": false,
+      "obsidian-importer:Open Importer": false,
       "obsidian-excalidraw-plugin:New drawing": false,
-      "obsidian-git:Open Git source control": false,
-      "terminal:Open terminal": false
+      "mermaid-tools:Open Mermaid Toolbar": false
     }
   },
-  "active": "0ae3e5e9a3c27d62",
+  "active": "874013a58bc53a7c",
   "lastOpenFiles": [
-    "README.md",
-    "tryhackme/0-Try hackme.md",
-    "pass.md",
-    "Pasted.md",
-    "0-asset/Pasted image 20260904165809.png",
-    "0-asset/Pasted image 20260904165805.png",
-    "tryhackme/LAB_support_thinkingsheet.md",
-    "4-kiến thức bên lề/0-tổng hợp.md",
-    "4-kiến thức bên lề/{{}} thường có ở các chức năng nào .md",
-    "Tools/dùng fuff trong thực tế.md",
-    "tryhackme/n8n CVE-2025-68613.md",
-    "tryhackme/AD- BadSuccessor.md",
-    "0-asset/Pasted Image 20260904000020_181.png",
-    "0-asset/Pasted Image 20260903224626_274.png",
-    "0-asset/Pasted Image 20260903224406_980.png",
-    "0-asset/Pasted Image 20260903223351_457.png",
-    "0-asset/Pasted Image 20260903201216_261.png",
-    "0-asset/Pasted Image 20260903195403_635.png",
-    "0-asset/Pasted Image 20260903195136_595.png",
-    "4-kiến thức bên lề/chienluoc hoc.md",
-    "tryhackme/NoScope- Finding RCE.md",
-    "0-asset/Pasted Image 20260903194936_024.png",
-    "tryhackme/writeup_LAB_THM_support.md",
-    "Tools/curl.md",
     "Tools/0-tool.md",
-    "portswigger/XSS/DOM XSS in AngularJS expression with angle brackets and double quotes HTML-encoded.md",
-    "2-Ngôn ngữ lập trình/java script/ng-app.md",
-    "1-Linux/cheetsheet nmap.md",
-    "tryhackme/Basic Vulnerability Identification Techniques.md",
-    "4-kiến thức bên lề/Hiểu internal network của 1 system như nào cho đúng.md",
-    "tryhackme/networking etentials.md",
+    "Tools/Burpsite.md",
+    "Tools/cách hoạt động của metterpreter.md",
+    "Tools/Cheetsheet metasploit.md",
+    "Tools/METASPLOIT.md",
+    "pass.md",
+    "hack the box/Chưa đặt tên.md",
+    "Tools/shells_fundalmental.md",
+    "tryhackme/nháp-THM.md",
     "5-Kinh nghiệm trải nghiệm/0-kinh nghiệm , trải nghiệm.md",
-    "tryhackme/Vulnerability Scanning Tools.md",
-    "Tools/crawl enpoind ẩn.md",
-    "Tools/search scipt nmap.md",
+    "Tools/wordlist.md",
+    "Tools/payload dùng ở phase nào.md",
+    "Tools/template fuff dùng cho cổng đăng nhập.md",
+    "Tools/exploit1 External blue.md",
+    "3-ctf/0-ctf.md",
+    "3-ctf/ptit ctf 2026.md",
+    "3-ctf/Approve Please, Genie.md",
+    "3-ctf/operation.md",
+    "3-ctf/domixi.md",
+    "3-ctf/Crack the gate.md",
+    "tryhackme/0-Try hackme.md",
+    "5-Kinh nghiệm trải nghiệm/taị sao mình cứ stuck mãi với lý thuyết.md",
+    "2-Ngôn ngữ lập trình/java script/0-java script.md",
+    "2-Ngôn ngữ lập trình/java script/roadmap js.md",
+    "0asset/Pasted image 20260911163150.png",
+    "0asset/Pasted image 20260911163131.png",
+    "0asset/Pasted image 20260911162541.png",
+    "0asset/Pasted image 20260911161256.png",
+    "0asset",
     "Tools/sql map template.md",
-    "Tools/command-injection-payload-list/LICENSE",
-    "Tools/command-injection-payload-list/Intruder/command-injection-windows.txt",
-    "Tools/command-injection-payload-list/Intruder/command-injection-time-based.txt",
-    "Tools/command-injection-payload-list/Intruder/command-injection-special-chars.txt",
-    "Tools/command-injection-payload-list/Intruder/command-injection-polyglot.txt",
-    "Tools/command-injection-payload-list/Intruder/command-injection-out-of-band.txt",
-    "Tools/command-injection-payload-list/Intruder/command-injection-obfuscated.txt",
-    "Tools/command-injection-payload-list/Intruder/command-injection-linux.txt",
-    "Tools/command-injection-payload-list/Intruder/command-injection-encoded.txt",
-    "Tools/command-injection-payload-list/Intruder/command-injection-data-exfiltration.txt",
+    "Tools/dùng niko trước và sau khi login có khác nhau ko.md",
+    "0asset/Pasted image 20260830022916.png",
+    "0asset/Pasted image 20260829162435.png",
+    "0asset/Pasted image 20260829162300.png",
+    "0asset/Pasted Image 20260829161816_492.png",
+    "0asset/Pasted Image 20260829161300_852.png",
+    "0asset/Pasted Image 20260829160715_603.png",
+    "0Excalidraw/Excalidraw/Libraries/local-library.excalidrawlib",
+    "0Excalidraw/Excalidraw/Libraries",
+    "0Excalidraw/Excalidraw",
+    "phật pháp/phat-hoc-pho-thong-ht-thich-thien-hoa-tron-bo.pdf",
+    "phật pháp/Suc-Manh-Cua-Tinh-Lang.pdf",
+    "daily checklits",
+    "music",
+    "phật pháp",
+    "0Excalidraw/font/Fz-Fragrant.otf",
     "red/Untitled.canvas",
     "Untitled.canvas"
   ]

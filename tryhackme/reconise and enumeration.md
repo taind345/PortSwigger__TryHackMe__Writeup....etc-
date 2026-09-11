@@ -54,7 +54,7 @@ Pragma: no-cache
 Content-Type: text/html; charset=UTF-8
 ```
 -gobuster:
-```tex
+```shell
 root@tryhackme:~# gobuster dir -u http://MACHINE_IP -w /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt -x php -x php
 ===============================================================
 Gobuster v3.6

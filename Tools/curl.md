@@ -1,15 +1,20 @@
 Đi làm pentest hay cày lab thì nhớ ngần này cờ của curl là đủ xài:
+Ok, để tao giải thích nguồn gốc mấy chữ viết tắt của cờ `curl` cho mày dễ nhớ:
 
-* -X: Chọn phương thức HTTP (GET, POST, PUT, DELETE). Mặc định không ghi gì là GET.
-* -d: Nhét dữ liệu vào body (form data, chuỗi text, JSON). Cứ cắm cờ này là curl tự hiểu chuyển sang gửi POST.
-* -H: Kẹp thêm header tùy chỉnh (Content-Type, Authorization: Bearer, User-Agent...).
-* -b: Gửi cookie lên server (truyền chuỗi "name=value" hoặc trỏ tới file cookie).
-* -c: Hứng cookie server nhả về rồi lưu vào file để dùng cho các request sau.
-* -L: Tự động nhảy theo chuyển hướng (khi gặp mã 301, 302 redirect).
-* -i: In cả HTTP header của response ra màn hình để soi mã phản hồi (status code) và cookie mới.
-* -I: Chỉ lấy header (gửi HEAD request), bỏ qua phần nội dung body.
-* -k: Bỏ qua kiểm tra chứng chỉ HTTPS/SSL (cực kỳ cần khi gặp lab dùng chứng chỉ tự ký hoặc lỗi cert).
-* -x: Đẩy request qua proxy trung gian (tiện nhất là bắn thẳng qua Burp Suite: `-x [http://127.0.0.1:8080](http://127.0.0.1:8080)`).
-* -v: Chế độ verbose, in toàn bộ chi tiết quá trình gửi/nhận để debug xem lỗi ở đâu.
-* -s: Chạy ngầm, tắt thanh tiến trình download/upload cho đỡ rác màn hình terminal.
-* -o: Ghi kết quả trả về ra file thay vì in thẳng ra màn hình.
+- **-X** — e**X**ecute method? Thực ra là **Request method**, nhưng người ta hay nhớ là "X" vì nó chỉ định method tùy ý (GET, POST...).
+- **-d** — **D**ata (dữ liệu gửi trong body).
+- **-H** — **H**eader (thêm header tùy chỉnh).
+- **-b** — **B**iscuit? Không, **B**rowser cookie? Gốc là **B** (cookie) — gửi cookie lên server.
+- **-c** — **C**ookie jar — lưu cookie server trả về vào file.
+- **-L** — **L**ocation — tự đi theo header `Location` khi redirect (301/302).
+- **-i** — **I**nclude — in kèm HTTP header trong response.
+- **-I** — **I**nclude header only — chỉ lấy header (HEAD request).
+- **-k** — **K**ill SSL check — bỏ qua kiểm tra chứng chỉ (insecure).
+- **-x** — Pro**x**y — gửi request qua proxy (ví dụ Burp).
+- **-v** — **V**erbose — in chi tiết quá trình gửi/nhận.
+- **-s** — **S**ilent — chế độ im lặng, không hiện progress.
+- **-o** — **O**utput — ghi kết quả ra file thay vì in ra màn hình.
+
+Cứ nhớ theo nghĩa tiếng Anh là bám được ngay. 😎
+
+

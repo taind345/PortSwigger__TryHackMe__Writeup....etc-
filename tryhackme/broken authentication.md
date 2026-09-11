@@ -95,7 +95,7 @@ Giải mã các cờ trong lệnh:
 -do máy mình ko có wordlít nên mình cho con AI nó chạy bash luôn cho lẹ, logic cũng vậy thôi ko cso gì phức tạp cả
 
 # 5-Logic flaws
-Lỗi logic (Logic flaw) là dạng lỗ hổng xảy ra khi mày gửi dữ liệu hoàn toàn hợp lệ, nhưng lại khiến luồng xử lý của hệ thống chạy theo một hướng oái oăm mà dev đéo lường trước được. Nó không giống SQLi hay tràn bộ đệm dùng mấy ký tự dị hợm, lỗi logic dùng dữ liệu sạch 100% nhưng khai thác sự đá nhau giữa 2 luật xử lý ngớ ngẩn. <u>Mấy con tool quét tự động thường mù tịt với lỗi này, chỉ có soi code hoặc mò bằng tay mới ra</u>.
+Lỗi logic (Logic flaw) là dạng lỗ hổng xảy ra khi mày gửi dữ liệu hoàn toàn hợp lệ, nhưng lại khiến luồng xử lý của hệ thống chạy theo một hướng oái oăm mà dev không lường trước được. Nó không giống SQLi hay tràn bộ đệm dùng mấy ký tự dị hợm, lỗi logic dùng dữ liệu sạch 100% nhưng khai thác sự đá nhau giữa 2 luật xử lý ngớ ngẩn. <u>Mấy con tool quét tự động thường mù tịt với lỗi này, chỉ có soi code hoặc mò bằng tay mới ra</u>.
 
 **Ví dụ 1: Đá nhau giữa chữ hoa và chữ thường**
 Thằng định tuyến (router) của web thì dễ tính, coi `/admin` và `/adMin` là một. Nhưng đoạn code kiểm tra quyền admin lại dùng so sánh nghiêm ngặt:
@@ -158,7 +158,7 @@ Nhiều ông dev nghĩ ném giá trị qua hàm băm một chiều (như MD5, SH
 3.**Cookie dạng mã hóa định dạng (Base64 / Base32)**
 Nhiều dev nhét cả cục dữ liệu JSON vào cookie rồi mã hóa Base64 cho gọn, nhìn qua cứ tưởng là bảo mật.
 
-* Sự thật: Base64 chỉ là đổi bảng mã cho đúng chuẩn truyền tin chứ đéo có tí tính năng bảo mật nào.
+* Sự thật: Base64 chỉ là đổi bảng mã cho đúng chuẩn truyền tin chứ hoàn toàn không có tính năng bảo mật nào.
 * Cách đục: Mày bốc cái chuỗi Base64 `eyJpZCI6MSwiYWRtaW4iOmZhbHNlfQ==` đem giải mã (decode) ra sẽ thấy cục JSON gốc `{"id":1,"admin":false}`. Mày chỉ việc sửa tay thành `{"id":1,"admin":true}`, mã hóa Base64 ngược lại rồi nhét đè vào cookie gửi lên là xong phim.
 
 Chốt lại bài này: cứ thấy cookie nào đọc được, giải mã được hoặc đoán được quy luật băm mà không có chữ ký bảo vệ từ server thì cứ sửa giá trị để leo quyền.
