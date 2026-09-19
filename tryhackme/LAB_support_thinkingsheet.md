@@ -309,7 +309,7 @@ Bắt request `footer.php?skin=default` ném vào Burp Repeater, đổi `skin` t
 # Excalidraw Data
 
 ## Text Elements
-bài này bắt mình escalate lên admin, hmm, ban đầu mình đ biết như nào, một trang đăng nhập trống trơn thì làm thế nào?? ^XFiuMgDj
+bài này bắt mình escalate lên admin, hmm, ban đầu mình chưa biết xử lý như nào, một trang đăng nhập trống trơn thì làm thế nào?? ^XFiuMgDj
 
 liệu có thể bruteforce bằng fuzzing ko?
  ^DwTnQfBx

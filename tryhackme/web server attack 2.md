@@ -30,7 +30,7 @@ IIS_Attack_Chain
 ```
 bài này dạy mày toàn bộ quy trình đục một con Windows Server chạy IIS từ A đến Z:
 * Dò hàng: Soi phiên bản IIS và mò file/thư mục ẩn bằng mẹo tên rút gọn (Tilde enumeration).
-* Đục lỗ: Tận dụng tính năng WebDAV cấu hình ngu để nhét con shell ASPX vào máy bằng mẹo PUT-MOVE.
+* Khai thác: Tận dụng tính năng WebDAV cấu hình sơ hở để tải shell ASPX vào máy bằng kỹ thuật PUT-MOVE.
 * Hiểu cách shell ASPX hoạt động và cách dọn đường leo quyền lên System (Potato exploits).
 * Bới rác cấu hình: Khai thác mấy lỗi hớ hênh kinh điển không cần mã exploit (lộ web.config, trace.axd, lộ thư mục).
 # 2 -IIS finger print

@@ -34,7 +34,7 @@ Input → HTML chưa đóng → trình duyệt tiếp tục parse dữ liệu ph
 Vì vậy, Dangling Markup thường được dùng trong tình huống:
 > **Có khả năng HTML Injection, nhưng không thể thực thi JavaScript do bộ lọc hoặc CSP.**
 
->*đ hiểu cái lz j cả, tao cần ví dụ mới hiểu nổi*
+>*Đoạn này chưa rõ lắm, cần có ví dụ cụ thể mới dễ hiểu hơn.*
 
 >*Đại khái nó là html injection*
 >-và nó chèn html chưa hoàn chỉnh --> giúp lộ mấy thằng  đằng sau ra

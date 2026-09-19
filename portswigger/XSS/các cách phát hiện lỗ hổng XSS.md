@@ -51,7 +51,7 @@ document.write(name);
 4. Kiểm tra sink có nguy hiểm không
 ```
 
-> *-?? DOM khác đếch gì reflected, chăng phải nó cũng check HTML , js của trình duyệt hay sao??*
+> *-?? DOM khác gì so với reflected, chẳng phải nó cũng check HTML, JS của trình duyệt hay sao??*
 >   - câu trả lời đơn giản là với *reflected* thì *input*--> *server*; và input nằm trong đâu đó trong *response*
 >   - còn đối với  *DOM* thì input--> *đi thẳng vào mã DOM js*- Như ví dụ trên, *input* đi <u>vào luôn phần code DOM </u>thao tác trực tiếp vs html của trình duyệt. Và ở đây input nó ko đi tới phía server :D
 
@@ -114,7 +114,7 @@ Phát hiện DOM XSS
 ```
 >- thực ra nó muốn nói là 
 >	- với *reflected* : mày có thể lọc data trong response bằng grep để xem có input trong response hay ko
->	- nhưng với *DOM*: mày ko thể grep 1:1 được.Mày phải đọc mã JS của trang web, để biết cái biến đầu vào nó có nằm trong DOM hay ko.Mà nhiều khi code nó đồ sộ vl thì mày cũng ko thể nào *Static analysis* mà tìm ra biến *input* nó có nằm trong DOM hay ko.Do đó mày cần *dynamic analysis* để có thể theo dõi luồng data nó đi tới đâu để có thể phát hiện DOM XSS
+>	- nhưng với *DOM*: bạn không thể grep 1:1 được mà phải đọc mã JS của trang web để biết biến đầu vào có nằm trong DOM hay không. Nhiều khi code rất đồ sộ nên cũng không thể chỉ dùng *Static analysis* mà tìm ra biến *input* có nằm trong DOM hay không. Do đó cần *dynamic analysis* để theo dõi luồng data đi tới đâu nhằm phát hiện DOM XSS.
 
 ### Bài tập kiểm tra
 Đoạn code này có khả năng XSS không?

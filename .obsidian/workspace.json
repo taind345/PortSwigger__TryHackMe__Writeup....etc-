@@ -4,51 +4,46 @@
     "type": "split",
     "children": [
       {
-        "id": "bc76b12d38457934",
+        "id": "c2126f66f571a683",
         "type": "tabs",
+        "dimension": 50,
         "children": [
           {
-            "id": "874013a58bc53a7c",
+            "id": "fd020268102ce099",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2-Ngôn ngữ lập trình/Python/webrecon with python.md",
+                "file": "portswigger/XSS/xss-filter bypass.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "webrecon with python"
-            }
-          },
-          {
-            "id": "404e4357abba681c",
-            "type": "leaf",
-            "state": {
-              "type": "excalidraw",
-              "state": {
-                "file": "Tools/Metasploit- Payload Generation.md"
-              },
-              "icon": "excalidraw-icon",
-              "title": "Metasploit- Payload Generation"
-            }
-          },
-          {
-            "id": "de856dec1587282e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Tools/curl.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "curl"
+              "title": "xss-filter bypass"
             }
           }
-        ],
-        "currentTab": 1
+        ]
+      },
+      {
+        "id": "0c759d870e47b51e",
+        "type": "tabs",
+        "dimension": 50,
+        "children": [
+          {
+            "id": "fa1dd7e74704f2a2",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "portswigger/XSS/note xss.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "note xss"
+            }
+          }
+        ]
       }
     ],
     "direction": "vertical"
@@ -107,7 +102,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 239.54751586914062
+    "width": 239.54751586914062,
+    "collapsed": true
   },
   "right": {
     "id": "46d537e6b1c9f82a",
@@ -123,7 +119,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Tools/Metasploit- Payload Generation.md",
+                "file": "hack the box/Chưa đặt tên.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -199,7 +195,8 @@
               "title": "Mermaid Toolbar"
             }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -220,54 +217,54 @@
       "mermaid-tools:Open Mermaid Toolbar": false
     }
   },
-  "active": "404e4357abba681c",
+  "active": "fd020268102ce099",
   "lastOpenFiles": [
-    "Tools/exploit1 External blue.md",
-    "Tools/cách để gửi POST trong burp.md",
-    "Tools/Metasploit- Payload Generation.md",
-    "Tools/METASPLOIT.md",
-    "tryhackme/0-Try hackme.md",
-    "2-Ngôn ngữ lập trình/Python/Port scaning with python.md",
-    "2-Ngôn ngữ lập trình/Python/pentest scripting.md",
-    "5-Kinh nghiệm trải nghiệm/0-kinh nghiệm , trải nghiệm.md",
-    "5-Kinh nghiệm trải nghiệm/system thinking while coding.md",
-    "2-Ngôn ngữ lập trình/Python/ARP scaning with python.md",
-    "2-Ngôn ngữ lập trình/Python/0 tổng hợp.md",
-    "2-Ngôn ngữ lập trình/Python/xử lý tách văn bản từ input.md",
+    "portswigger/XSS/note xss.md",
+    "portswigger/XSS/xss-filter bypass.md",
+    "portswigger/XSS/0-XSS.md",
+    "4-kiến thức bên lề/MFA Bypass.md",
+    "portswigger/XSS/THM_blindxss.md",
+    "0asset/Pasted image 20260919114114.png",
+    "portswigger/XSS/THM_stored xss.md",
+    "0asset/Pasted image 20260919111238.png",
+    "portswigger/XSS/THM_reflect xss.md",
+    "0asset/Pasted image 20260919110008.png",
+    "2-Ngôn ngữ lập trình/java script/Browser API.md",
+    "portswigger/XSS/Xss là gì.md",
     "2-Ngôn ngữ lập trình/Python/webrecon with python.md",
-    "Tools/curl.md",
-    "0asset/Pasted image 20260912005109.png",
     "Tools/0-tool.md",
-    "Tools/sql map template_md.md",
-    "Tools/Chưa đặt tên.md",
-    "Tools/crawl enpoind ẩn.md",
-    "2-Ngôn ngữ lập trình/php/0-checkword.md",
-    "Tools/keyword burp.md",
-    "Tools/dùng niko trước và sau khi login có khác nhau ko.md",
-    "Tools/command-injection-payload-list/SUMMARY.md",
-    "Tools/command-injection-payload-list/README.md",
-    "Tools/command-injection-payload-list/QUICK_START.md",
-    "Tools/command-injection-payload-list/CONTRIBUTING.md",
-    "Tools/command-injection-payload-list/CHEAT_SHEET.md",
-    "0-asset/Pasted Image 20260616224954_181.png",
-    "0-asset/Pasted Image 20260616201440_589.png",
-    "0-asset/Pasted Image 20260615205733_566.png",
-    "0-asset/Pasted Image 20260615165128_859.png",
-    "0-asset/Pasted Image 20260615165006_284.png",
-    "0-asset/Pasted Image 20260615162308_008.png",
-    "0-asset/Pasted Image 20260615154933_115.png",
-    "0-asset/Pasted Image 20260615154915_644.png",
-    "0-asset/Pasted Image 20260615135432_373.png",
-    "2-Ngôn ngữ lập trình/Python",
-    "2-Ngôn ngữ lập trình/lý thuyết",
-    "0asset",
-    "0Excalidraw/Excalidraw/Libraries/local-library.excalidrawlib",
-    "0Excalidraw/Excalidraw/Libraries",
-    "0Excalidraw/Excalidraw",
-    "phật pháp/phat-hoc-pho-thong-ht-thich-thien-hoa-tron-bo.pdf",
-    "phật pháp/Suc-Manh-Cua-Tinh-Lang.pdf",
-    "daily checklits",
-    "music",
+    "portswigger/CSRS/0-CSRS.md",
+    "portswigger/CSRS/THM_LAB_staffthub.md",
+    "portswigger/CSRS/THM_LAB_weak_csrftoken.md",
+    "portswigger/XSS/XSS portswigger lab.md",
+    "portswigger/SQL injection/THM-0-sql injection.md",
+    "portswigger/SQL injection/0-tổng hợp sql injection.md",
+    "portswigger/SSRF/0-roadmap SSRF.md",
+    "portswigger/SSRF/0-SSRF.md",
+    "portswigger/SQL injection/Blind sql injection.md",
+    "portswigger/SQL injection/nền tẩng sql injection.md",
+    "tryhackme/0-Try hackme.md",
+    "portswigger/SSRF/hidden ssrf attack surface.md",
+    "4-kiến thức bên lề/0-tổng hợp.md",
+    "5-Kinh nghiệm trải nghiệm/workflow pentest chuẩn với AI.md",
+    "5-Kinh nghiệm trải nghiệm/0-kinh nghiệm , trải nghiệm.md",
+    "Excalidraw/Libraries/local-library.excalidrawlib",
+    "Excalidraw/Libraries",
+    "Excalidraw",
+    "0asset/Gemini_Generated_Image_a5vm3xa5vm3xa5vm.png",
+    "0asset/Pasted Image 20260917221014_529.png",
+    "0asset/Gemini_Generated_Image_qtjiddqtjiddqtji.png",
+    "0asset/Gemini_Generated_Image_hwi93rhwi93rhwi9.png",
+    "0asset/Pasted image 20260917215125.png",
+    "0asset/Pasted Image 20260917214135_668.png",
+    "0asset/Pasted Image 20260917212652_593.png",
+    "portswigger/CSRS",
+    "5-Kinh nghiệm trải nghiệm/bugbounty methology/Vuln_Methodology.txt",
+    "5-Kinh nghiệm trải nghiệm/bugbounty methodlogy/Synack",
+    "5-Kinh nghiệm trải nghiệm/bugbounty methology/Signs/XSS.txt",
+    "5-Kinh nghiệm trải nghiệm/bugbounty methology/Signs/SSRF.txt",
+    "5-Kinh nghiệm trải nghiệm/bugbounty methology/Signs/RCE.txt",
+    "5-Kinh nghiệm trải nghiệm/bugbounty methology/Signs/Prototype_Pollution.txt",
     "red/Untitled.canvas",
     "Untitled.canvas"
   ]

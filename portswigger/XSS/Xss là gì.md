@@ -97,7 +97,7 @@ Tác động thực tế của một cuộc tấn công XSS thường phụ thu�
 
 
 
-Content Security Policy (CSP)
+### Content Security Policy (CSP)
 
 Content Security Policy (CSP) là một cơ chế của trình duyệt nhằm giảm thiểu tác động của cross-site scripting và một số lỗ hổng khác. Nếu một ứng dụng sử dụng CSP có chứa hành vi giống XSS, thì CSP có thể cản trở hoặc ngăn chặn việc khai thác lỗ hổng. Thường thì CSP có thể bị vượt qua để cho phép khai thác lỗ hổng cơ bản.
 
@@ -111,7 +111,7 @@ Dangling markup injection là một kỹ thuật có thể được sử dụng 
 Đọc thêm
 - Dangling markup injection
 
-Cách ngăn chặn tấn công XSS
+### Cách ngăn chặn tấn công XSS
 
 Việc ngăn chặn cross-site scripting đôi khi đơn giản nhưng cũng có thể khó hơn nhiều tùy thuộc vào độ phức tạp của ứng dụng và cách ứng dụng xử lý dữ liệu mà người dùng có thể kiểm soát.
 
@@ -134,7 +134,7 @@ Lỗ hổng XSS rất phổ biến, và XSS có lẽ là lỗ hổng bảo mật
 Các cuộc tấn công XSS phổ biến như thế nào?  
 Rất khó để có được dữ liệu đáng tin cậy về các cuộc tấn công XSS trong thực tế, nhưng có lẽ nó ít bị khai thác thường xuyên hơn so với các lỗ hổng khác.
 
-Sự khác biệt giữa XSS và CSRF là gì?  
+### Sự khác biệt giữa XSS và CSRF là gì?  
 XSS liên quan đến việc khiến một trang web trả về JavaScript độc hại, trong khi CSRF liên quan đến việc dụ người dùng nạn nhân thực hiện các hành động mà họ không có ý định thực hiện.
 
 Sự khác biệt giữa XSS và SQL injection là gì?  

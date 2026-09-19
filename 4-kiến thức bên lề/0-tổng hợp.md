@@ -24,9 +24,9 @@ tags: [excalidraw]
 
 [[Same-Origin Policy]] ^QQiZU1ce
 
-[[XSS]] ^OPrHja5v
+[[4-kiến thức bên lề/XSS]] ^OPrHja5v
 
-[[idor]] ^Zdmq2z5H
+[[4-kiến thức bên lề/idor]] ^Zdmq2z5H
 
 [[API]] ^uvhqUOf4
 

@@ -91,7 +91,7 @@ Nhắc lại một chút,<u> header của một Ethernet frame bao gồm:</u>
 * Destination MAC address (Địa chỉ MAC đích)
 * Source MAC address (Địa chỉ MAC nguồn)
 * Type (Loại giao thức, ở đây là IPv4)
->*đ hiểu gì cả, nhưng mà như này*:*
+>*Tóm tắt lại cho dễ hiểu*:*
 >   -khi các host trong cùng 1 network giao tiếp vs nhau (layer2) thì nó cần biết địa chỉ MAC
 >    -wifi và ethernet nằm trong layer 2
 >    -ARP giúp biết được MAC của mỗi host ứng với IP , sau đó lưu lại trong ARP cache

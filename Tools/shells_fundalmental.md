@@ -289,7 +289,7 @@ Ví dụ: mày có reverse shell, gõ `vim` bị treo. Dùng **pty** là vim ch�
 - Kết quả shell như SSH thật.
 ![[Pasted image 20260909210438.png]]
 > [!NOTE] Title
-> Đ hiểu cái j
+> Chưa hiểu phần này, cần xem lại cách hoạt động.
 
 Thực tế: khi cần chạy nhiều lệnh, Ctrl+C, background job, socat là lựa chọn tốt nhất.
 

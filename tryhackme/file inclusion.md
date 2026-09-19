@@ -17,7 +17,7 @@ Mày vừa bước sang room mới về nhóm lỗ hổng đính kèm file (File
 Bản chất trò này diễn ra như sau:
 
 **1-Thằng dev lười biếng viết code**
-<u>Web hay có tính năng tải CV, đổi ngôn ngữ, xem ảnh đại diện</u>. Thằng dev ngu ngơ viết kiểu:<u> người dùng gõ gì trên URL thì bốc thẳng cái đó nhét vào hàm đọc file trên server</u> (`include`, `file_get_contents`).
+<u>Web hay có tính năng tải CV, đổi ngôn ngữ, xem ảnh đại diện</u>. Lập trình viên bất cẩn viết kiểu:<u> người dùng gõ gì trên URL thì bốc thẳng cái đó nhét vào hàm đọc file trên server</u> (`include`, `file_get_contents`).
 Ví dụ: `[web.com/get.php?file=cv.pdf](https://web.com/get.php?file=cv.pdf)`
 Server ngây thơ đi tìm đúng file `cv.pdf` trả về.
 **2-Lỗ hổng sinh ra từ đâu?**

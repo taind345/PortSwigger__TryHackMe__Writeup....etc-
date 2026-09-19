@@ -84,7 +84,7 @@ Header `Server` cho biết phần mềm cùng phiên bản cụ thể. Không ph
 > - còn với thằng express nó không có header server-> đây cũng là một tín hiệu .Thêm nữa là header `X-Powered-By`
 
 ### Cái Header X-Powered-By
-Có vài thằng framework thích thêm cái header `X-Powered-By` để khai luôn danh tính cái mảng ứng dụng đang núp bóng phía sau server. Thằng Express thì set cái này mặc định cmnr:
+Có vài thằng framework thích thêm cái header `X-Powered-By` để khai luôn danh tính cái mảng ứng dụng đang núp bóng phía sau server. Thằng Express thì thiết lập giá trị này mặc định:
 `X-Powered-By: Express`
 
 Header này không dính dáng gì đến header `Server`, và đối với Express, đây chính là dấu vân tay chuẩn xác nhất của nó. Không giống Apache hay Nginx hiển thị rõ ở header `Server`, Express dùng `X-Powered-By` để nhận diện cội nguồn. Cứ thấy port nào mà mất header `Server` hoặc nhìn chung chung quá thì bạn phải soi ngay `X-Powered-By` này.
@@ -182,7 +182,7 @@ Tìm ra server Python này là một finding cực kỳ thực tế vì bạn kh
 
 
 > [!NOTE] chốt lại
-> - sao cái chức năng này nó ngu l thế , mà thực tế vẫn có thằng dùng thật à??
+> - sao cái chức năng này lại thiếu an toàn như thế, mà thực tế vẫn có người dùng thật à??
 > ![[Pasted image 20260818154938.png]]
 
 
@@ -220,14 +220,14 @@ Mày mò vào cái link /files/ thử xem, sẽ thấy nguyên cái bảng HTML 
 > ![[Pasted image 20260819072811.png]]
 
 ### Cái trang mod_status
-<u>Thằng Apache có sẵn một cái trang trạng thái </u>do module *mod_status* gánh. Đáng lẽ chỉ cho localhost xem,<u> nhưng cứ cấu hình ngu </u>"Require all granted" là thằng ất ơ nào trên mạng cũng vào xem được. Mày gõ thử */server-status* là thấy.
+<u>Thằng Apache có sẵn một cái trang trạng thái </u>do module *mod_status* gánh. Đáng lẽ chỉ cho localhost xem,<u> nhưng nếu cấu hình sơ hở </u>"Require all granted" là bất kỳ ai trên mạng cũng vào xem được. Thử gõ */server-status* là thấy.
 
 Trang này làm lộ chi tiết: kết nối nào đang chạy, đang truy cập đường dẫn nào, tổng số request, trạng thái server (rảnh, đang ghi, đang đọc), phiên bản chuẩn và thời gian chạy. Trên server thật, thông tin này để lộ toàn bộ hoạt động của các người dùng khác và danh sách các liên kết nội bộ của hệ thống.
 ![[Pasted image 20260818161028.png]]
 Lưu ý: *mod_status* này bật mặc định trên Ubuntu. Ban đầu có chặn bằng Require local ở file security.conf, nhưng chỉ cần ai đó cấu hình *Require all granted* vào virtual host là nó đè lên luật cũ, mở toang /server-status ra ngoài. Do đó lúc nào cũng nên kiểm tra đường dẫn này kể cả khi server trông có vẻ đã được bảo mật.
 
 > [!NOTE] ok tao có thể hiểu ntn
-> cái module nằm ở thư mục */server_status* , nó sẽ lưu hết các trạng thái của server, cái này người thường đ đọc được, nhưng nếu mà dev nó cấu hình *Require all granted* thì  tất cả mọi người đều có quyền truy cập
+> cái module nằm ở thư mục */server_status* , nó sẽ lưu hết các trạng thái của server, thông thường người ngoài không đọc được, nhưng nếu mà dev nó cấu hình *Require all granted* thì  tất cả mọi người đều có quyền truy cập
 
 ### Cào file ẩn bằng Gobuster
 Không phải thông tin giá trị nào cũng hiển thị ở directory listing. Các file backup, file config cũ, file test thường nằm ở thư mục gốc mà không có link nào trỏ tới. Dùng Gobuster để rà quét bằng wordlist.
@@ -252,7 +252,7 @@ root@ip-10-81-64-63:~# gobuster dir -u http://10.48.167.138:80 -w /usr/share/wor
 
 ```
 
-Khi con Gobuster khạc ra file đuôi .bak thì mày trúng mánh cmnr, tải ngay về. File backup hay giấu mấy đoạn config bẩn, mật khẩu hoặc source code.
+Khi Gobuster quét ra file đuôi .bak thì đây là mục tiêu giá trị, nên tải ngay về để phân tích. File backup thường hay để lộ cấu hình nhạy cảm, mật khẩu hoặc mã nguồn.
 
 Nhớ để mắt tới mấy cái file .htpasswd nữa. Thằng Apache dùng file này để lưu tài khoản và mật khẩu băm cho cái Basic Auth. Vớ được file này thì vác về crack offline, đồng thời mày cũng biết được là trang này có xài xác thực, để sau đó còn biết đường mà đi bruteforce.
 
@@ -362,8 +362,8 @@ Lấy được danh sách này thì rất tiện lợi. Bạn không cần dùng
 
 > Lưu ý: Cái đường dẫn `/api/routes` kia móc data từ cái property ngầm `app._router.stack` của Express. Nhưng cái trò này chỉ mượt trên Express 4 thôi. Lên bản Express 5 tụi nó đổi lại lõi router, nên nếu chọc vào API này mà thấy nó báo lỗi hoặc nôn ra format lạ hoắc, thì tức là con server nó đang xài phiên bản Express khác, không giống lab này.
 
-### Lộ cmn Biến Môi Trường (Environment Variables)
-Mấy cái <u>biến môi trường trong Node.js toàn là ổ giấu hàng nóng: mật khẩu database, key API, cờ cấu hình các kiểu.</u> Vớ được cái endpoint nôn ra `process.env` là trúng số cmnr:
+### Lộ Biến Môi Trường (Environment Variables)
+Mấy cái <u>biến môi trường trong Node.js toàn là nơi lưu thông tin nhạy cảm: mật khẩu database, key API, cờ cấu hình các kiểu.</u> Vớ được endpoint trả về `process.env` là đã phát hiện lỗ hổng nghiêm trọng:
 
 ```text
 root@ip-10-81-64-63:~# curl -s http://MACHINE_IP:3000/api/debug/env
@@ -473,7 +473,7 @@ location /files/ {
 
 ```
 
-Đây là tính năng xịn xò có trong sách vở đàng hoàng, chuyên dùng để share file. Cái cấu hình ngu ở đây là phang nó vào cái đường dẫn chứa data nhạy cảm, hoặc để hớ hênh trên production mà không kiểm soát truy cập. Mò thử vào cái link `http://MACHINE_IP/files/` mà xem:
+Đây là tính năng chuẩn dùng để chia sẻ file. Sai sót cấu hình ở đây là áp dụng nó vào đường dẫn chứa dữ liệu nhạy cảm, hoặc để lộ trên production mà không kiểm soát truy cập. Thử truy cập vào link `http://MACHINE_IP/files/` mà xem:
 
 ```html
 root@ip-10-81-64-63:~# curl -s http://MACHINE_IP:8080/files/
@@ -600,17 +600,16 @@ Trên một server Apache để cấu hình sơ hở như này, Nikto sẽ nhanh
 
 > Mẹo: Output của Nikto thỉnh thoảng rất dài dòng. Bạn có thể dùng tùy chọn `-Tuning` để chỉ định quét một số loại lỗi cụ thể. Muốn nhanh gọn thì chạy lệnh `nikto -h TARGET -Tuning 123`, nó sẽ gom các finding phổ biến nhất mà không cần quét toàn bộ từ điển. Nhớ là các mã số tuning này viết liền nhau, không có dấu phẩy ngăn cách.
 
-### Những cái Ngu mang tính Thời Đại (Ở đâu cũng gặp)
+### Những sai sót cấu hình phổ biến (Ở đâu cũng gặp)
 
 Nhìn lại cả 4 server, bạn sẽ thấy những điểm sơ hở cấu hình này lặp đi lặp lại tương tự nhau:
 
 | Lỗi Cấu Hình | Apache | Python HTTP | Node.js | Nginx |
 | --- | --- | --- | --- | --- |
-| Khai mẹ version ở Header | Có | Có | Một phần | Có |
+| Lộ version ở Header | Có | Có | Một phần | Có |
 | Phơi danh sách thư mục | `/files/` | Đường dẫn gốc | Không có | `/files/` |
 | Lộ trang status/debug | `/server-status` | Không có | `/api/debug/env`, `/api/routes` | `/nginx_status` |
 | Lộ file nhạy cảm | `backup.bak`, `internal-notes.txt` | `.env`, `notes.txt`, `backup.zip` | `config.js` | `server-config.txt`, `deploy-notes.txt` |
 | Không có Security Headers | Tất cả | Tất cả | Tất cả | Tất cả |
 
 Điểm chung cốt lõi ở đây là: các cấu hình mặc định luôn ưu tiên sự tiện lợi hơn là bảo mật. Lộ version, lộ danh sách thư mục, hay mở trang status đều được bật mặc định để dễ theo dõi hệ thống và giảm bớt gánh nặng quản trị ban đầu. Muốn tắt hoặc siết chặt lại thì phải có người trực tiếp thao tác. Trong thực tế, các lỗi này thường không phải do quản trị viên cố ý tạo ra, mà đơn giản là do không ai rà soát lại các thiết lập mặc định từ lúc cài đặt ban đầu.
-

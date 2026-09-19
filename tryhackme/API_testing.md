@@ -104,7 +104,7 @@ Phần này dạy <u>2 cái tật cực kỳ ẩu của dev khi làm API: Lỗi 
 ![[Pasted image 20260828172943.png]]
 * Lỗi triển khai JWT cẩu thả:
    * <u>Dùng Secret key quá yếu: Đặt key băm token là mật khẩu dễ đoán</u> kiểu "secret", "password123". Hacker vứt chuỗi JWT vào hashcat hoặc jwt_tool để brute-force tìm key, tìm ra là tự tạo token giả mạo quyền admin.
-* Đòn tấn công alg "none": Sửa giá trị "alg" trong header thành "none", xóa sạch phần chữ ký ở đuôi token. Nhiều server code ngu vẫn chấp nhận coi như token hợp lệ.
+* Đòn tấn công alg "none": Sửa giá trị "alg" trong header thành "none", xóa sạch phần chữ ký ở đuôi token. Nhiều server xử lý lỏng lẻo vẫn chấp nhận coi như token hợp lệ.
 * Quên kiểm tra hạn sử dụng (exp): Token dùng từ mấy năm trước hoặc bị lộ vẫn gửi lên server xài ầm ầm mà không bao giờ hết hạn.
 
 

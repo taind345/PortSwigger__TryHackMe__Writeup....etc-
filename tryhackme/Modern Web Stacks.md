@@ -25,13 +25,13 @@ Trước khi tung ra bất kỳ payload tấn công nào, <u>bạn cần biết 
 Cookie `connect.sid` được sinh ra bởi thư viện `express-session`. Nếu ứng dụng bật tùy chọn `saveUninitialized: true`, cookie này sẽ luôn hiện diện. Nhưng nếu dev cẩn thận set nó thành `false` (khuyến cáo cho các form đăng nhập), cookie sẽ chỉ xuất hiện khi session đã thực sự được tạo.
 
 Dấu hiệu cuối cùng cực kỳ chắc chắn là cách server xử lý lỗi route. Hãy thử gọi đến một đường dẫn rác. Một ứng dụng Express mặc định sẽ trả về một trang hiển thị đúng một dòng chữ thuần túy: `Cannot GET /nonexistent`. Điểm này khác hẳn với kiểu báo lỗi hiển thị nguyên trang HTML của Django hay Next.js.
-> <u>đọc đ hiểu gì, khi nào cần sẽ đọc laij, bây giờ chỉ cần hiểu cái này nó là bước recon để biết xem hệ thống nó có dùng Express hay ko</u>
+> <u>chưa hiểu chi tiết lắm, khi nào cần sẽ đọc lại, bây giờ chỉ cần hiểu phần này là bước recon để nhận biết hệ thống có dùng Express hay không</u>
 ### Khai thác ứng dụng MERN
 #### Hack quyền Admin qua lỗ hổng Prototype Pollution (Cho dễ hiểu)
 Sau khi mày ngửi thấy mùi con server đang chạy Express (port 3000) và có xài session cookie, việc tiếp theo là đi soi mấy cái API của nó. Bọn web xài MERN stack rất hay có trò mở API nhận file JSON để user tự đổi thông tin cá nhân. Để làm được việc này, mấy thằng dev hay tự chế ra các hàm gộp data (gọi là hàm `merge`). Và việc code sơ hở ở hàm này chính là nguyên nhân đẻ ra lỗ hổng Prototype Pollution.
 
 > [!NOTE]
-> ><u>ok hiểu rồi, tức là lab ở đây tập trung vào việc dev nó viết hàm 'merge data gửi từ api' một cách ngu học</u>
+> ><u>ok hiểu rồi, tức là lab ở đây tập trung vào việc lập trình viên viết hàm 'merge data gửi từ api' còn sơ hở, thiếu kiểm soát an toàn</u>
 > 
 
 Nói thẳng luôn: Việc mày gửi data JSON qua phương thức POST không có gì sai cả, nó là giao tiếp mạng bình thường.<u> Lỗi là ở cách con server nuốt cục data đó!</u>
@@ -40,9 +40,9 @@ Nói thẳng luôn: Việc mày gửi data JSON qua phương thức POST không 
    * **`GET /api/admin/flag`**: Trả về cái cờ (flag) nếu nó check thấy mày có quyền admin.
 
 > [!NOTE]
-> > trước tiên cần hiểu tml api là cái gì đã [[API]]
+> > trước tiên cần hiểu bản chất API là cái gì đã [[API]]
 
-Bình thường, mày lấy cái acc quèn gọi thẳng vào API lấy cờ thì nó chửi thẳng mặt `{"error":"Not authorized"}` ngay, vì trong data tài khoản của mày làm gì có thuộc tính `isAdmin`.
+Bình thường, khi dùng tài khoản thông thường gọi thẳng vào API lấy cờ thì server sẽ trả về lỗi `{"error":"Not authorized"}` ngay, vì trong data tài khoản chưa có thuộc tính `isAdmin`.
 ![[Pasted image 20260816205436.png]]
 Nhưng sang cái API update,<u> mày sẽ thấy thằng dev code cực ẩu</u>. <u>Mày gửi bất cứ thứ gì lên (tên, tuổi, email...), nó cũng nhận hết và nhét thẳng vào tài khoản mày mà không hề rào trước đón sau.</u>
 
@@ -63,7 +63,7 @@ function merge(target, source) {
   for (let key in source) {
     if (typeof source[key] === 'object' && source[key] !== null) {
       if (!target[key]) target[key] = {};
-      merge(target[key], source[key]); // Đệ quy ngu học ở đây
+      merge(target[key], source[key]); // Điểm đệ quy sơ hở gây Prototype Pollution ở đây
     } else {
       target[key] = source[key];
     }
@@ -106,7 +106,7 @@ Lưu ý: 2 con CVE này chỉ dính khi app chạy ở mode production (npm run 
 App Router nó chạy React component trực tiếp trên server luôn. Thay vì ném mớ JS về cho trình duyệt, con server tự xử rồi bắn kết quả trả về client dưới một cái định dạng na ná binary gọi là giao thức RSC Flight. Cái luồng stream data này chính là cái lỗ hổng để mày đâm con CVE-2025-55182.
 
 > [!NOTE]
-> <u>nhưng t đ hiểu cái app router để làm cc j</u>
+> <u>nhưng mình chưa hiểu rõ app router dùng để làm gì</u>
 > ![[Pasted image 20260816211921.png]]
 
 #### Trinh sát (Fingerprinting) Next.js
@@ -346,7 +346,7 @@ $\rightarrow$ **`vuln_db`**
 
 ### Nhận diện hệ thống (Stack Identity)
 
-Trên con Ubuntu,<u> thằng Apache thường chạy ngầm dưới quyền user</u> `www-data`, ném file ra từ thư mục `/var/www/html`, và đá mấy cái request động sang cho PHP xử lý qua `mod_php` hoặc `PHP-FPM`. MySQL thì ôm data, PHP lo xử lý logic backend. Cái combo Linux, Apache, MySQL, PHP kinh điển này đẻ ra hằng hà sa số mấy cái bề mặt tấn công ối dồi ôi như: hớ hênh file PHP, lỗi lòi họng database, phân quyền file ngu, hoặc cấu hình Apache/PHP ngáo chó.
+Trên con Ubuntu,<u> thằng Apache thường chạy ngầm dưới quyền user</u> `www-data`, ném file ra từ thư mục `/var/www/html`, và đá mấy cái request động sang cho PHP xử lý qua `mod_php` hoặc `PHP-FPM`. MySQL thì ôm data, PHP lo xử lý logic backend. Bộ giải pháp Linux, Apache, MySQL, PHP kinh điển này tạo ra rất nhiều bề mặt tấn công phổ biến như: để lộ file PHP, lỗ hổng cơ sở dữ liệu, phân quyền file lỏng lẻo, hoặc cấu hình sai sót trong Apache/PHP.
 
 > [!NOTE]
 > <u>-ok tức là mọi lưu lượng đi qua Apache, nó sẽ nhả html từ /var/www/html; nếu cần xử lý logic thì nó ném về backend cho php xử lý-đương nhiên là cần data từ mysql mới xử lý được</u>
@@ -400,7 +400,7 @@ root@tryhackme:~# curl -v http://MACHINE_IP:8080/nonexistent 2>&1
 
 ```
 
-Cái tín hiệu chốt hạ là thư mục `/cgi-bin/`. Nếu nó chửi `403 Forbidden` thì nghĩa là cái thư mục đó có tồn tại, chỉ là nó cấm mày xem danh sách file bên trong thôi, tức là `mod_cgi` đã được cấu hình. Còn nếu nó trả về `404` thì là không có gì hết. Để ăn được quả exploit này, bắt buộc phải có mặt thằng `mod_cgi`:
+Cái tín hiệu chốt hạ là thư mục `/cgi-bin/`. Nếu server trả về `403 Forbidden` thì nghĩa là thư mục đó có tồn tại, chỉ là cấm xem danh sách file bên trong thôi, tức là `mod_cgi` đã được cấu hình. Còn nếu trả về `404` thì là không có gì hết. Để khai thác được lỗ hổng này, bắt buộc phải có sự hiện diện của `mod_cgi`:
 
 ```python
 root@tryhackme:~# curl -v http://MACHINE_IP:8080/cgi-bin/ 2>&1
@@ -459,7 +459,7 @@ Bản thân cái trò này mới chỉ là chọc ngoáy đọc file (directory 
 
 Thằng `curl` mặc định nó tự chuẩn hóa (normalize) URL trước khi gửi đi. Nếu không gắn cờ `--path-as-is`, `curl` sẽ tự dọn sạch các đoạn `.%2e/` ngay trên máy mày trước cả khi gửi đi, làm server chỉ nhận được một path bình thường không có payload gì cả. Cờ này ra lệnh cho `curl`: "Người dùng gõ gì thì gửi nguyên xi cái đấy đi, không được tự ý sửa!".
 
-> **CẢNH BÁO:** Nếu mày xài trò lội ngược thư mục mà thấy server chửi `403` thay vì chạy lệnh, thì 99% là do mày quên cờ `--path-as-is` này. Thằng `curl` âm thầm sửa URL, nên server không bao giờ nhìn thấy các dấu chấm bị encode của mày.
+> **CẢNH BÁO:** Khi thực hiện path traversal mà thấy server trả về lỗi `403` thay vì chạy lệnh, thì phần lớn là do bạn quên cờ `--path-as-is` này. Thằng `curl` âm thầm chuẩn hóa URL, nên server không bao giờ nhìn thấy các dấu chấm bị encode của bạn.
 
 #### Khai thác thực tế (Exploitation)
 
@@ -474,7 +474,7 @@ uid=1(daemon) gid=1(daemon) groups=1(daemon)
 
 ```
 
-Xác nhận có RCE cmnr! Cái tiến trình Apache đang chạy dưới quyền `daemon`. Mày đã nắm quyền chạy lệnh trên con server bằng đúng quyền của cái web process đó.
+Xác nhận đã có RCE thành công! Tiến trình Apache đang chạy dưới quyền `daemon`. Bạn đã nắm quyền thực thi lệnh trên server tương ứng với quyền của tiến trình web đó.
 
 > [!NOTE]
 ><u>- đại khái đoạn này là nó truyền vào /bin/sh vào đầu vào của /cgi-bin để thằng mod_cgi thực thi script truyền vào</u>
@@ -618,7 +618,7 @@ root@tryhackme:~# nikto -h http://10.49.174.205:8080
 
 ```
 
-Dòng `Server: Apache/2.4.49 (Unix)` là cái tín hiệu vả thẳng mặt con lỗ hổng CVE-2021-41773 cmnl. Đây là cái kết quả đáng tiền nhất mà con Nikto nôn ra được trong cả 4 lần quét: cho hẳn một con phiên bản chính xác khớp khít với một con exploit Critical cực xịn.
+Dòng `Server: Apache/2.4.49 (Unix)` là tín hiệu chỉ rõ lỗ hổng CVE-2021-41773. Đây là kết quả giá trị nhất từ lần quét Nikto: cung cấp chính xác phiên bản ứng với lỗ hổng Critical.
 
 
 **Chốt lại:**
@@ -646,7 +646,7 @@ Mày thấy đấy, 4 cái stack là 4 kiểu lỗi không giống nhau:
 
 * Thằng NodeJS chết vì cơ chế kế thừa gen gốc mù quáng của Javascript.
 * Thằng Next.js chết vì tin tưởng cái tem header nội bộ tự chế.
-* Thằng Django chết vì dev ngu đi nối chuỗi SQL thay vì dùng màng lọc ORM.
+* Thằng Django chết vì dev nối chuỗi SQL trực tiếp thay vì dùng màng lọc ORM.
 * Thằng Apache chết vì thứ tự decode màng lọc bị ngược.
 Nắm được cái lõi này thì mày gặp framework lạ cũng biết đường mà tư duy, thay vì ngồi học thuộc lòng mấy dòng payload vô tri.
 

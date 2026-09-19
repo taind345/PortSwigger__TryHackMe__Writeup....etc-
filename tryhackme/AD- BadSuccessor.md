@@ -239,8 +239,8 @@ cái này để làm gì ??? ^wyRjVO3i
 
 tiếp đến là làm cái gì đó .... ^Zmycz3Pg
 
-vấn đề là mình đ hiểu cái OU
-kerbros tickets là cái l j ^oPkntqxO
+vấn đề là mình chưa hiểu rõ về OU
+kerberos tickets là cái gì ^oPkntqxO
 
 đầu tiên là tạo tài khoản dMSA à, và OU là gì7 ^RjQsklww
 
