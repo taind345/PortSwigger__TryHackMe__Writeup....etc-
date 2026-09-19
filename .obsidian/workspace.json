@@ -6,7 +6,6 @@
       {
         "id": "c2126f66f571a683",
         "type": "tabs",
-        "dimension": 50,
         "children": [
           {
             "id": "fd020268102ce099",
@@ -14,33 +13,32 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "portswigger/XSS/xss-filter bypass.md",
+                "file": "portswigger/SSRF/intro to ssrf.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "xss-filter bypass"
+              "title": "intro to ssrf"
             }
           }
         ]
       },
       {
-        "id": "0c759d870e47b51e",
+        "id": "12d99d78b1f55ee1",
         "type": "tabs",
-        "dimension": 50,
         "children": [
           {
-            "id": "fa1dd7e74704f2a2",
+            "id": "613b0dbe5188448b",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "portswigger/XSS/note xss.md",
+                "file": "portswigger/SSRF/0-roadmap SSRF.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "note xss"
+              "title": "0-roadmap SSRF"
             }
           }
         ]
@@ -217,11 +215,18 @@
       "mermaid-tools:Open Mermaid Toolbar": false
     }
   },
-  "active": "fd020268102ce099",
+  "active": "613b0dbe5188448b",
   "lastOpenFiles": [
+    "portswigger/SSRF/intro to ssrf.md",
+    "0asset/Pasted image 20260919145554.png",
+    "portswigger/SSRF/0-roadmap SSRF.md",
+    "0asset/Pasted image 20260919145543.png",
+    "0asset/Pasted image 20260919145525.png",
+    "0asset/Pasted image 20260919145507.png",
+    "portswigger/SSRF/0-SSRF.md",
     "portswigger/XSS/note xss.md",
-    "portswigger/XSS/xss-filter bypass.md",
     "portswigger/XSS/0-XSS.md",
+    "portswigger/XSS/xss-filter bypass.md",
     "4-kiến thức bên lề/MFA Bypass.md",
     "portswigger/XSS/THM_blindxss.md",
     "0asset/Pasted image 20260919114114.png",
@@ -239,25 +244,17 @@
     "portswigger/XSS/XSS portswigger lab.md",
     "portswigger/SQL injection/THM-0-sql injection.md",
     "portswigger/SQL injection/0-tổng hợp sql injection.md",
-    "portswigger/SSRF/0-roadmap SSRF.md",
-    "portswigger/SSRF/0-SSRF.md",
     "portswigger/SQL injection/Blind sql injection.md",
     "portswigger/SQL injection/nền tẩng sql injection.md",
     "tryhackme/0-Try hackme.md",
     "portswigger/SSRF/hidden ssrf attack surface.md",
     "4-kiến thức bên lề/0-tổng hợp.md",
-    "5-Kinh nghiệm trải nghiệm/workflow pentest chuẩn với AI.md",
-    "5-Kinh nghiệm trải nghiệm/0-kinh nghiệm , trải nghiệm.md",
     "Excalidraw/Libraries/local-library.excalidrawlib",
     "Excalidraw/Libraries",
     "Excalidraw",
     "0asset/Gemini_Generated_Image_a5vm3xa5vm3xa5vm.png",
     "0asset/Pasted Image 20260917221014_529.png",
     "0asset/Gemini_Generated_Image_qtjiddqtjiddqtji.png",
-    "0asset/Gemini_Generated_Image_hwi93rhwi93rhwi9.png",
-    "0asset/Pasted image 20260917215125.png",
-    "0asset/Pasted Image 20260917214135_668.png",
-    "0asset/Pasted Image 20260917212652_593.png",
     "portswigger/CSRS",
     "5-Kinh nghiệm trải nghiệm/bugbounty methology/Vuln_Methodology.txt",
     "5-Kinh nghiệm trải nghiệm/bugbounty methodlogy/Synack",

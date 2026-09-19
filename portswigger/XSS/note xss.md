@@ -1,3 +1,4 @@
+### 19/9
 - [ ] dùng escape để prevent xss
 - [ ] điều chỉnh payload sao cho phù hợp với cách input được handle
 	- [ ] thường input nằm ở comment, feeback,...ticket
@@ -8,4 +9,5 @@ khái niệm untrusted data khá hay
 	- [ ] netcat listen trên máy mình ==> script +kèm http request lại máy==> khi script thực thi trên trình duyệt==> mình sẽ nhận biết được do có request trả về máy mình -->[[THM_blindxss]]
 -chỉ có 4 loại xss hay gặp: blind, stored và reflect, dom
 -thường thì sẽ có input filter **=>** vậy phải làm như nào?
-**-->**[[xss-filter bypass]]
+**-->**[[xss-filter bypass]] <-- đọc cái này sau
+
