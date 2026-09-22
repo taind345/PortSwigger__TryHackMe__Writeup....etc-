@@ -76,7 +76,10 @@ sqlmap -r request.txt --batch
 sqlmap -r request.txt -p username --batch
 ```
 
----
+
+> [!NOTE] Title
+> đây là 1 cách dùng rất tiện
+
 
 ## 5. Lấy dữ liệu sau khi xác nhận injection
 

@@ -6,39 +6,43 @@
       {
         "id": "c2126f66f571a683",
         "type": "tabs",
+        "dimension": 56.547300908605024,
         "children": [
           {
-            "id": "fd020268102ce099",
+            "id": "f1bd3480de846211",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "portswigger/SSRF/intro to ssrf.md",
+                "file": "tryhackme/devsecops/Intro to Containerisation.md",
                 "mode": "source",
-                "source": false
+                "source": false,
+                "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "intro to ssrf"
+              "title": "Intro to Containerisation"
             }
           }
         ]
       },
       {
-        "id": "12d99d78b1f55ee1",
+        "id": "2e8331cb964911a2",
         "type": "tabs",
+        "dimension": 43.452699091394976,
         "children": [
           {
-            "id": "613b0dbe5188448b",
+            "id": "acfcecd1c2979efb",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "portswigger/SSRF/0-roadmap SSRF.md",
+                "file": "0-Note/note-22-9.md",
                 "mode": "source",
-                "source": false
+                "source": false,
+                "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "0-roadmap SSRF"
+              "title": "note-22-9"
             }
           }
         ]
@@ -100,7 +104,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 239.54751586914062,
+    "width": 249.2020263671875,
     "collapsed": true
   },
   "right": {
@@ -110,6 +114,7 @@
       {
         "id": "3808726dc222e10a",
         "type": "tabs",
+        "dimension": 62.5,
         "children": [
           {
             "id": "a423e747bb8287a2",
@@ -117,7 +122,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "hack the box/Chưa đặt tên.md",
+                "file": "tryhackme/devsecops/Intro to Containerisation.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -132,7 +137,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "daily checklits/check list.md",
+                "file": "portswigger/SSRF/0-note-ssrf.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -143,19 +148,6 @@
               },
               "icon": "links-coming-in",
               "title": "Liên kết đến"
-            }
-          },
-          {
-            "id": "5678013efca81752",
-            "type": "leaf",
-            "state": {
-              "type": "outgoing-link",
-              "state": {
-                "linksCollapsed": false,
-                "unlinkedCollapsed": true
-              },
-              "icon": "links-going-out",
-              "title": "Liên kết đi ra"
             }
           },
           {
@@ -193,12 +185,32 @@
               "title": "Mermaid Toolbar"
             }
           }
-        ],
-        "currentTab": 4
+        ]
+      },
+      {
+        "id": "359bda98840e686f",
+        "type": "tabs",
+        "dimension": 37.5,
+        "children": [
+          {
+            "id": "5678013efca81752",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "tryhackme/devsecops/Intro to Containerisation.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Liên kết đi ra"
+            }
+          }
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 394.34619140625,
+    "width": 320.9185791015625,
     "collapsed": true
   },
   "left-ribbon": {
@@ -212,56 +224,59 @@
       "bases:Tạo cơ sở mới": false,
       "obsidian-importer:Open Importer": false,
       "obsidian-excalidraw-plugin:New drawing": false,
-      "mermaid-tools:Open Mermaid Toolbar": false
+      "mermaid-tools:Open Mermaid Toolbar": false,
+      "cornell-marginalia:Toggle Active Recall Mode": false,
+      "cornell-marginalia:Alternar Visual Helper (Cornell)": false
     }
   },
-  "active": "613b0dbe5188448b",
+  "active": "f1bd3480de846211",
   "lastOpenFiles": [
-    "portswigger/SSRF/intro to ssrf.md",
-    "0asset/Pasted image 20260919145554.png",
-    "portswigger/SSRF/0-roadmap SSRF.md",
-    "0asset/Pasted image 20260919145543.png",
-    "0asset/Pasted image 20260919145525.png",
-    "0asset/Pasted image 20260919145507.png",
-    "portswigger/SSRF/0-SSRF.md",
-    "portswigger/XSS/note xss.md",
-    "portswigger/XSS/0-XSS.md",
-    "portswigger/XSS/xss-filter bypass.md",
-    "4-kiến thức bên lề/MFA Bypass.md",
-    "portswigger/XSS/THM_blindxss.md",
-    "0asset/Pasted image 20260919114114.png",
-    "portswigger/XSS/THM_stored xss.md",
-    "0asset/Pasted image 20260919111238.png",
-    "portswigger/XSS/THM_reflect xss.md",
-    "0asset/Pasted image 20260919110008.png",
-    "2-Ngôn ngữ lập trình/java script/Browser API.md",
-    "portswigger/XSS/Xss là gì.md",
-    "2-Ngôn ngữ lập trình/Python/webrecon with python.md",
-    "Tools/0-tool.md",
-    "portswigger/CSRS/0-CSRS.md",
-    "portswigger/CSRS/THM_LAB_staffthub.md",
-    "portswigger/CSRS/THM_LAB_weak_csrftoken.md",
-    "portswigger/XSS/XSS portswigger lab.md",
-    "portswigger/SQL injection/THM-0-sql injection.md",
-    "portswigger/SQL injection/0-tổng hợp sql injection.md",
-    "portswigger/SQL injection/Blind sql injection.md",
-    "portswigger/SQL injection/nền tẩng sql injection.md",
-    "tryhackme/0-Try hackme.md",
-    "portswigger/SSRF/hidden ssrf attack surface.md",
+    "0-Note/note-22-9.md",
+    "tryhackme/devsecops/Intro to Containerisation.md",
+    "0-Note/0-index note.md",
+    "0-Note/note-21-9.md",
+    "0-Note/draff.md",
+    "0asset/Pasted image 20260922213725.png",
+    "2-Ngôn ngữ lập trình/docker/1-docker cơ bản.md",
+    "0asset/Pasted image 20260922213523.png",
+    "tryhackme/devsecops/container security.md",
+    "tryhackme/devsecops/0-index.md",
+    "tryhackme/devsecops/security of the pepline.md",
+    "tryhackme/devsecops/Intro to Pipeline Automation.md",
+    "0asset/Pasted image 20260922210933.png",
+    "hack the box/Chưa đặt tên.md",
+    "hack the box/Chưa đặt tên 1.md",
+    "hack the box/Drawing 2026-08-13 10.06.55.excalidraw.md",
+    "0asset/Pasted image 20260922201156.png",
+    "4-kiến thức bên lề/Chưa đặt tên.md",
     "4-kiến thức bên lề/0-tổng hợp.md",
+    "5-kn/0-kinh nghiệm , trải nghiệm.md",
+    "5-kn/login bypass.md",
+    "3-ctf/recruit.md",
+    "0asset/Pasted image 20260922150645.png",
+    "0asset/Pasted image 20260922150635.png",
+    "0asset/Pasted image 20260922143625.png",
+    "tryhackme/devsecops",
+    "tryhackme/jr pen/DNS record là gi.md",
+    "tryhackme/jr pen/exploitDB.md",
+    "tryhackme/jr pen/LAB_support_thinkingsheet.md",
+    "tryhackme/jr pen/Networking.md",
+    "tryhackme/jr pen/n8n CVE-2025-68613.md",
+    "tryhackme/jr pen/Modern Web Stacks.md",
+    "tryhackme/jr pen/mind set học đúng.md",
+    "tryhackme/jr pen/learning path THM.md",
+    "tryhackme/jr pen",
+    "0asset/Pasted image 20260921142037.png",
+    "0asset/Pasted image 20260921124707.png",
+    "0asset",
+    "0-Note",
+    "0-asset/0asset/Pasted image 20260921112821.png",
+    "portswigger/IDOR",
+    "Marginalia Attachments",
     "Excalidraw/Libraries/local-library.excalidrawlib",
     "Excalidraw/Libraries",
     "Excalidraw",
-    "0asset/Gemini_Generated_Image_a5vm3xa5vm3xa5vm.png",
-    "0asset/Pasted Image 20260917221014_529.png",
-    "0asset/Gemini_Generated_Image_qtjiddqtjiddqtji.png",
-    "portswigger/CSRS",
-    "5-Kinh nghiệm trải nghiệm/bugbounty methology/Vuln_Methodology.txt",
-    "5-Kinh nghiệm trải nghiệm/bugbounty methodlogy/Synack",
-    "5-Kinh nghiệm trải nghiệm/bugbounty methology/Signs/XSS.txt",
-    "5-Kinh nghiệm trải nghiệm/bugbounty methology/Signs/SSRF.txt",
-    "5-Kinh nghiệm trải nghiệm/bugbounty methology/Signs/RCE.txt",
-    "5-Kinh nghiệm trải nghiệm/bugbounty methology/Signs/Prototype_Pollution.txt",
+    "portswigger/CSRF",
     "red/Untitled.canvas",
     "Untitled.canvas"
   ]
