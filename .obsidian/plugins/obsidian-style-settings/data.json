@@ -5,5 +5,9 @@
   "Brainhack@@bgt_l": 0,
   "Brainhack@@enhanced-folders": false,
   "underwater-theme@@h1-color": "var(--text-normal)",
-  "underwater-theme@@underwater-colors-dark": "catppuccin-mocha"
+  "underwater-theme@@underwater-colors-dark": "obsidian-dark",
+  "underwater-theme@@no-animation": true,
+  "underwater-theme@@links-styling": "box-links",
+  "underwater-theme@@vault-icon": "vault-dev",
+  "underwater-theme@@underwater-colors-light": "obsidian-light"
 }

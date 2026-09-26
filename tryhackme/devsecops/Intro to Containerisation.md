@@ -1,4 +1,4 @@
-==>[[note-22-9#2-container]]
+==>[[note-docker-pipeline#2-container]]
 # 2-What is a containersation
 
 ![[Pasted image 20260922213523.png]]Trong thuật ngữ điện toán, **containerisation** (container hóa) là quá trình đóng gói một ứng dụng cùng các tài nguyên cần thiết (như các **libraries** và **packages**) vào trong một gói duy nhất gọi là **container**. Quá trình này giúp ứng dụng có tính di động rất cao (**portable**) và có thể vận hành trơn tru mà không gặp rắc rối.
@@ -104,3 +104,73 @@ Docker Engine cũng hỗ trợ điều phối (**orchestration**) các container
 > 
 > * **Tính di động (Portability):** Bạn gửi file `docker-compose.yml` này cho bất kỳ ai (dù họ dùng Windows, macOS hay Linux Ubuntu), họ chỉ cần gõ đúng một lệnh `docker compose up -d` là hệ thống sẽ khởi chạy giống hệt 100% như trên máy bạn mà không lo xung đột môi trường.
 
+# 3-How does container work
+Nếu những điều trước đó vẫn chưa đủ thuyết phục, thì dưới đây là một tóm lược rõ ràng hơn: Docker là một phương thức linh hoạt (agile), tiện lợi và toàn diện để triển khai ứng dụng. Hãy cùng tìm hiểu chi tiết qua các đề mục bên dưới.
+### Docker miễn phí
+Hệ sinh thái Docker là mã nguồn mở và miễn phí sử dụng. Dù có các gói dịch vụ thương mại dành cho doanh nghiệp, bạn hoàn toàn có thể tải về, sử dụng, tạo mới, khởi chạy và chia sẻ các image mà không tốn chi phí nào.
+
+### Docker có tính tương thích cao
+Nền tảng Docker tương thích với Linux, macOS và Windows. Nhờ vào cơ chế hoạt động của container hóa, chỉ cần thiết bị hỗ trợ Docker Engine, bạn có thể chạy bất kỳ container nào mà không phải bận tâm về ứng dụng bên trong hay các thành phần phụ thuộc (dependencies).
+
+### Docker hiệu quả & Tối giản
+Docker là giải pháp cô lập ứng dụng hiệu quả vượt trội so với các phương án thay thế như máy ảo (lab machines). Nguyên nhân là do Docker Engine chạy và tương tác trực tiếp với hệ điều hành máy chủ (host OS), đồng thời các container không cần phải chạy một hệ điều hành hoàn chỉnh riêng biệt. Chẳng hạn, các container có thể dùng chung một base OS image tối giản, nghĩa là bạn chỉ cần lưu trữ image đó một lần duy nhất.
+
+Một image Ubuntu tối giản chỉ nặng khoảng 100MB, lưu một lần nhưng dùng lại được nhiều lần. So sánh với image Ubuntu Server dùng cho máy ảo (VM), dung lượng sau khi cài mới đã ngốn khoảng 1GB.
+
+> **Kiểm tra kích thước của Docker image "ubuntu":**
+
+```bash
+ubuntu@thm:~$ docker image ls
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+ubuntu       latest    27941809078c   4 weeks ago   77.8MB
+ubuntu@thm:~$
+
+```
+
+### Dễ dàng bắt đầu tiếp cận
+
+Tài liệu hướng dẫn dành cho lập trình viên của Docker được biên soạn rất chi tiết, đi kèm nhiều bài viết, ví dụ thực tế và các câu hỏi được giải đáp rộng rãi trên Internet. Hầu như bất kỳ tác vụ nào bạn muốn làm với Docker thì đều đã có người từng hỏi hoặc thực hiện trước đó.
+
+Cú pháp để bắt đầu với Docker rất trực quan và dễ tiếp thu. Bạn có thể khởi chạy container đầu tiên chỉ trong chốc lát (đặc biệt là nhờ sự hỗ trợ của các docker image dựng sẵn cho đủ mọi loại ứng dụng đã được cộng đồng phát hành).
+
+### Dễ dàng chia sẻ với người khác
+
+Lợi ích lớn của Docker là tính di động (portability). Docker sử dụng các "image" để lưu trữ các chỉ dẫn quy định cách một container được build (tương tự như một cuốn sách hướng dẫn từng bước).
+
+Các image này có thể được xuất ra, chia sẻ và tải lên các kho lưu trữ (repositories) công khai hoặc riêng tư như Docker Hub hay GitHub. Một image có thể chạy trên bất kỳ môi trường nào hỗ trợ Docker Engine, miễn là cú pháp cấu hình hợp lệ.
+
+### Tinh gọn và gia tăng bảo mật
+
+Các Docker image này rất tinh gọn. Bạn sẽ thường thấy trong một container thiếu vắng nhiều công cụ hay gói phần mềm tiện ích vốn quen thuộc trên hệ điều hành thông thường. Dù thoạt nhìn có vẻ là một bất lợi, nhưng thực chất điều này mang lại:
+
+* Khả năng đóng gói container chính xác theo đúng những gì lập trình viên mong muốn, không dư thừa.
+* Mức độ bảo mật cao hơn: việc biết chính xác những gì đang chạy bên trong container giúp giảm thiểu nguy cơ các package không cần thiết dính lỗ hổng bảo mật (vulnerabilities) gây rủi ro cho toàn hệ thống.
+
+### Chi phí vận hành tiết kiệm hơn
+
+Chạy container thường là lựa chọn tiết kiệm chi phí hơn nhiều so với việc chạy máy ảo. Điều này thể hiện rõ rệt nhất trong các môi trường Cloud (đám mây), nơi tài nguyên CPU, RAM và dung lượng ổ đĩa có giá khá đắt.
+
+Bạn hoàn toàn có thể chạy mượt mà vài container trên một gói Cloud VPS chỉ $5, trong khi cấu hình đó không thể gánh nổi một máy ảo. Điều này xuất phát từ hai lý do:
+
+* Chạy máy ảo đòi hỏi phần cứng hỗ trợ ảo hóa (hardware virtualization) — tính năng thường chỉ xuất hiện trên các gói dịch vụ cao cấp đắt đỏ của các nhà cung cấp đám mây.
+* Máy ảo tiêu tốn rất nhiều RAM và dung lượng đĩa do phải vận hành một hệ điều hành riêng biệt đè lên máy vật lý.
+
+# 4-
+Namespaces essentially segregate system resources such as processes, files and memory away from other namespaces.  
+
+Every process running on Linux will be assigned two things:  
+
+- A namespace
+- A process identifier (PID)
+
+Namespaces are how containerisation is achieved! Processes can only "see" other processes that are in the same namespace - no conflicts in theory. Take Docker, for example, every new container will be running as a new namespace, although the container may be running multiple applications (and in turn, processes).
+
+Let's prove the concept of containerisation by comparing the number of processes there are in a Docker container that is running a web server versus the host operating system at the time:
+
+![an image depicting the large amount of processes running within a normal operating system](https://cdn-images.tryhackme.com/user-uploads/5de96d9ca744773ea7ef8c00/room-content/ca9a3fd100bc4f0f9709d62925678cbc.png)  
+
+Put simply, the process with an ID of 0 is the process that is started when the system boots. Process numbers increment and must be started by another process, so naturally, the next process ID will be #1. This process is the systems `init` , for example, the latest versions of Ubuntu use `systemd`. Any other process that runs will be controlled by `systemd` (process #1).
+
+We can use process #1's namespace on an operating system to escalate our privileges. Whilst containers are designed to use these namespaces to isolate from each other, they can instead coincide with the host computer's processes... This gives us a nice opportunity to escape!
+
+![an image depicting the limited amount of processes running within a container](https://cdn-images.tryhackme.com/user-uploads/5de96d9ca744773ea7ef8c00/room-content/8dc65b64a94dcd264dfddf8feca7af8f.png)

@@ -1,12 +1,12 @@
 {
-  "textFontFamily": "Cascadia Code,Consolas,DFVN Excalifont,SVN-Book Antiqua",
-  "interfaceFontFamily": "Cascadia Code,DFVN Excalifont,SVN-Book Antiqua",
-  "cssTheme": "Underwater",
-  "baseFontSizeAction": false,
-  "baseFontSize": 17,
+  "textFontFamily": "Cascadia Code,SVN-Book Antiqua,Consolas,DFVN Excalifont",
+  "interfaceFontFamily": "Cascadia Code,SVN-Book Antiqua,DFVN Excalifont",
+  "cssTheme": "",
+  "baseFontSizeAction": true,
+  "baseFontSize": 18,
   "monospaceFontFamily": "Cascadia Code,DFVN Excalifont",
   "nativeMenus": false,
   "enabledCssSnippets": [],
-  "theme": "obsidian",
+  "theme": "moonstone",
   "accentColor": "#00b303"
 }

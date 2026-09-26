@@ -1,4 +1,4 @@
-[[note-22-9]]
+[[note-docker-pipeline]]
 # 1-intro
 Con người luôn tìm kiếm những cách thức đơn giản và hiệu quả hơn để làm việc. Ngay từ khi bắt đầu lập trình và phát triển phần mềm, chúng ta đã tìm cách tự động hóa một số tác vụ. Ngày nay, tự động hóa gắn liền mật thiết với Vòng đời phát triển phần mềm (SDLC) và các quy trình DevOps. Mặc dù điều này mang lại lợi ích to lớn cho hệ thống, giúp phát triển và triển khai nhanh hơn, nhưng nó cũng đi kèm với những rủi ro bảo mật mới.
 
