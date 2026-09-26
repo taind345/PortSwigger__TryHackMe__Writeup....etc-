@@ -1,9 +1,9 @@
 {
-  "textFontFamily": "Cascadia Code,SVN-Book Antiqua,Consolas,DFVN Excalifont",
+  "textFontFamily": "Cascadia Code,Consolas,DFVN Excalifont,SVN-Book Antiqua",
   "interfaceFontFamily": "Cascadia Code,SVN-Book Antiqua,DFVN Excalifont",
   "cssTheme": "",
   "baseFontSizeAction": true,
-  "baseFontSize": 18,
+  "baseFontSize": 17,
   "monospaceFontFamily": "Cascadia Code,DFVN Excalifont",
   "nativeMenus": false,
   "enabledCssSnippets": [],

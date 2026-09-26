@@ -1,7 +1,7 @@
+# 1-Roadmap Csrs
 -ok , đầu tiên là cần có tree kiến thức về CSRS đã, sau đó đá sang các lab về CSRS
-CSRS có thể là bạn gõ nhầm **CSRF** (Cross-Site Request Forgery). Dưới đây là tree keyword chi tiết về CSRF để bạn học nhanh.
+**-note về phần này đọc ở đây ==>**[[0-note-csrf]]
 
-```
 CSRF (Cross-Site Request Forgery)
 │
 ├── 1. Khái niệm
@@ -51,15 +51,15 @@ CSRF (Cross-Site Request Forgery)
 │   └── Blind CSRF
 │       └── Không thấy response, chỉ cần request được thực thi
 │
-├── 4. Kỹ thuật khai thác
+├── ==4. Kỹ thuật khai thác==
 │   ├── HTML form auto-submit
 │   ├── Thẻ img
-│   │   └── <img src="https://target/action?param=value">
+│   │   └──` <img src="https://target/action?param=value">`
 │   ├── iframe
 │   ├── fetch/XHR
 │   │   └── Cần CORS misconfig hoặc same-origin
 │   ├── Method override
-│   │   └── Dùng _method=POST hoặc header X-HTTP-Method-Override
+│   │   └── Dùng method=POST hoặc header X-HTTP-Method-Override
 │   ├── Chaining với XSS
 │   │   └── XSS lấy token, gửi request hợp lệ
 │   ├── Chaining với Clickjacking
@@ -67,8 +67,8 @@ CSRF (Cross-Site Request Forgery)
 │   └── Chaining với CORS misconfig
 │       └── Đọc response trái phép
 │
-├── 5. Bypass phòng thủ
-│   ├── Token bypass
+├── ==5. Bypass phòng thủ==
+│   ├── Token bypass==>[[csrf token bypass]]
 │   │   ├── Xóa token
 │   │   ├── Để trống token
 │   │   ├── Dùng token cũ
@@ -93,8 +93,8 @@ CSRF (Cross-Site Request Forgery)
 │   └── CORS misconfig
 │       └── Cho phép origin attacker đọc response
 │
-├── 6. Phòng chống
-│   ├── CSRF Token
+├── ==6. Phòng chống==
+│   ├── CSRF Token==> [[csrf token]]
 │   │   ├── Synchronizer Token Pattern
 │   │   ├── Double Submit Cookie
 │   │   ├── Per-request token
@@ -183,27 +183,11 @@ CSRF (Cross-Site Request Forgery)
     ├── CSRF PoC
     ├── Login CSRF
     └── Logout CSRF
-```
 
 
-### note
-
-> [!NOTE]
-> can this request actually from user?
-
-> [!NOTE] Title
-> Cốt lõi vẫn là giả danh request hợp lệ.Cái website mà hacker dựng lên sẽ giả danh request hợp lệ--> bắt trình duyệt của victim gửi request đó 
 
 
-> [!NOTE] csrf token
-> với các request nhạy cảm , sửa thông tin, để tránh bị giả mạo reuest khi victtim bị csrf thì người ta thêm một cái csrf token vào các request nhạy cảm đó
-> 
-
-> [!NOTE] Title
-> GET và POST liên quan gì đến CSRF?
-> - 
-
-### LAB
+# 2-LAB CSRS
 1.Lab đầu tiên là lab THM về thực hành tấn công CSRF qua 1 cái web.
 đại khái là nó sẽ bắt mình viết 1 trang web mà sẽ gửi cái POST request giả danh cái POST request đăng nhập của trang đó==> sau đó email của nạn nhân đã được đổi thành email của attacker
 [[THM_LAB_staffthub]]
@@ -212,3 +196,20 @@ CSRF (Cross-Site Request Forgery)
 => mấu chốt là cái token này quá dễ đoán(chỉ mã hóa role bằng base 64)
 ==> do đó có thể dễ dàng giả danh request
 [[THM_LAB_weak_csrftoken]]
+
+
+3-Lab portswigger đầu tiên về csrf
+[[Lab-CSRF vulnerability with no defenses]]
+-> đoạn này mình hiểu thêm về triết lý đơn giản của CSRS, và nguyên nhân khiến một request có thể dính CSRF
+
+4-tiếp tục đến với series lab của portswigger, phần này tập trung vào việc bypass csrf token .Mình cũng có thể đọc lý thuyết ở bên trên.
+    ==>[[csrf token bypass]]
+lab này có vẻ nói về csrs token vailidation 
+[[Lab-CSRF where token validation depends on request method]]
+-> lab này cho mình các kiến thức về bypass csrf token bằng another method request, liệu có thể fake origin/referer hay ko?
+
+-tiếp tục là bypass bằng cách xóa csrf token
+[[Lab-CSRF where token validation depends on token being present]]
+
+-lab tiếp theo sẽ pratice về việc csrf ko gắn với session của người dùng.Thực ra mấy bài này toàn là mấy cái rất ngớ ngẩn, nhưng mục đích học tập là chính, chứ mình nghĩ thực tế chả ai làm lỗi như thế cả.
+[[Lab-CSRF where token is not tied to user session]]
