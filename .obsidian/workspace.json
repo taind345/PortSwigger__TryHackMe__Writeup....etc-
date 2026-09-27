@@ -6,7 +6,7 @@
       {
         "id": "9ebdf084b23a8b76",
         "type": "tabs",
-        "dimension": 54.035275253874936,
+        "dimension": 53.500801710315336,
         "children": [
           {
             "id": "646d9341f26da6cc",
@@ -38,13 +38,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "portswigger/CSRF/0-CSRS.md",
+                "file": "portswigger/CSRF/0-CSRF.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "0-CSRS"
+              "title": "0-CSRF"
             }
           }
         ],
@@ -53,7 +53,7 @@
       {
         "id": "3627becbb616eba2",
         "type": "tabs",
-        "dimension": 45.96472474612507,
+        "dimension": 46.499198289684664,
         "children": [
           {
             "id": "b24e38736f42feb7",
@@ -253,10 +253,13 @@
       "cornell-marginalia:Alternar Visual Helper (Cornell)": false
     }
   },
-  "active": "d291855b6f237edb",
+  "active": "35a67487ee4c9143",
   "lastOpenFiles": [
+    "portswigger/CSRF/0-note-csrf.md",
+    "portswigger/CSRF/0-CSRF.md",
+    "portswigger/CSRF/Lab-CSRF where token is not tied to user session.md",
+    "0-asset/Pasted image 20260927002848.png",
     "portswigger/CSRF/csrf token bypass.md",
-    "portswigger/CSRF/0-CSRS.md",
     "portswigger/CSRF/csrf token.md",
     "portswigger/CORS/0-map CORS.md",
     "portswigger/IDOR/IDOR.md",
@@ -268,14 +271,12 @@
     "0-asset/Pasted image 20260927000628.png",
     "0-asset/Pasted image 20260927000016.png",
     "portswigger/CSRF/Lab-CSRF where token validation depends on request method.md",
-    "portswigger/CSRF/0-note-csrf.md",
     "Tools/Burpsite.md",
     "0-asset/Pasted image 20260926233218.png",
     "0-asset/Pasted image 20260926232959.png",
     "0-asset/Pasted image 20260926232953.png",
     "0-asset/Pasted image 20260926232211.png",
     "Tools/tips and trick burpsite.md",
-    "0-asset/Pasted image 20260926232159.png",
     "Tools/cách để gửi POST trong burp.md",
     "Tools/0-tool.md",
     "portswigger/CSRF/Lab-CSRF vulnerability with no defenses.md",
@@ -289,7 +290,6 @@
     "tryhackme/Soc1/Chưa đặt tên.md",
     "0-Note/0-index note.md",
     "0-Note/cheetsheet skill.md",
-    "tryhackme/Soc1/Chưa đặt tên 1.md",
     "tryhackme/Soc1",
     "tryhackme/devsecops",
     "tryhackme/jr pen",

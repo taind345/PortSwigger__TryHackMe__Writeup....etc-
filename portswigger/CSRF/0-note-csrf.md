@@ -18,7 +18,7 @@
 > [!NOTE]
 > lợi dụng việc trình duyệt auto gán cookie vào request trên máy nạn nhân + thêm yếu tố ko có cái xác thực rằng liệu request này có thực sự đưowcj gửi từ máy nạn nhân hay ko==> CSRF
 
-
+### 27/9
 -3 yếu tố liên quan tới csrs
 - [ ] csrs token
 - [ ] origin /referer
@@ -45,7 +45,6 @@ với method GET thì dùng iframe hoặc img
 ```
 <img src="https://0af4004d0304d32680ff031e00fe00e5.web-security-academy.net/my-account/change-email?email=ha%40gmail.com">
 ```
-
 
 -trình duyệt tự gán origin và referer vào request
 => ko có cách nào thay đổi origin.Ngoại trừ thêm cờ no referer

@@ -1,6 +1,7 @@
+**-note về phần này đọc ở đây ==>**[[0-note-csrf]]
 # 1-Roadmap Csrs
 -ok , đầu tiên là cần có tree kiến thức về CSRS đã, sau đó đá sang các lab về CSRS
-**-note về phần này đọc ở đây ==>**[[0-note-csrf]]
+
 
 CSRF (Cross-Site Request Forgery)
 │
