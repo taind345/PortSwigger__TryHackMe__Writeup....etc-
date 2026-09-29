@@ -58,3 +58,26 @@ với method GET thì dùng iframe hoặc img
   </body>
 </html>
 ```
+
+### 28/9
+-làm lab, mình có được các kiến thức
+- [ ] csrf token
+- [ ] cơ chế dùng 1 lần của csrf token
+- [ ] csrf key 
+
+
+### 29/9
+- [ ] same site : phải cùng site thì request mới được chấp nhận
+	- [ ] nó nhìn vào trường origin và referer trong request để biết thằng request này có samesite hay ko
+	- [ ] ngăn chặn theo cơ chế gắn cookie vào request
+	- [ ] 3 thuộc tính samesite= lax, strcit, none
+	- [ ] xss có thể bypass đc , do khác domain nhưng samesite
+- [ ] origin : xét theo nguồn gốc từ request
+  - [ ] khác port, khác domain,==> bị lọc luôn ko đính kém cookie để gửi  
+
+=> có thể nói , 2 thằng trên là các cơ chế bảo mật dành cho cookie...
+-Như đã nói ở trên thì origin và referer ko thể fake được trong request
+![[Pasted image 20260929155838.png|464]]
+-> trường same site ko nằm trong request mà nằm trong response của server gửi về
+![[Pasted image 20260929160322.png]]
+-> để có thể biết trang web có samesite hay ko , ta nhìn vào phần cookie trong devtool

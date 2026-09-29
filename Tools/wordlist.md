@@ -168,24 +168,24 @@ Thư mục: `/usr/share/seclists/Discovery/Web-Content/`
 > **Mẹo:** `gobuster dir -u URL -w /usr/share/seclists/Discovery/Web-Content/raft-medium-files.txt -x php,txt,html,bak`
 
 ### Fuzz / mở rộng
-| Đường dẫn | Ghi chú |
-| :--- | :--- |
-| `web-extensions.txt` | Đuôi web |
-| `web-extensions-big.txt` | Đuôi web lớn |
-| `web-all-content-types.txt` | Content types |
-| `web-mutations.txt` | Mutations |
-| `burp-parameter-names.txt` | Parameter names |
-| `url-params_from-top-55-most-popular-apps.txt` | URL params |
-| `graphql.txt` | GraphQL |
-| `Logins.fuzz.txt` | Login paths |
-| `Passwords.fuzz.txt` | Password paths |
-| `LinuxFileList.txt` | File Linux |
-| `UnixDotfiles.fuzz.txt` | Dotfiles Unix |
-| `versioning_metafiles.txt` | Metafiles |
-| `dsstorewordlist.txt` | .DS_Store |
-| `default-web-root-directory-linux.txt` | Document root Linux |
-| `default-web-root-directory-windows.txt` | Document root Windows |
-| `vulnerability-scan_j2ee-websites_WEB-INF.txt` | J2EE WEB-INF |
+| Đường dẫn                                      | Ghi chú               |
+| :--------------------------------------------- | :-------------------- |
+| `web-extensions.txt`                           | Đuôi web              |
+| `web-extensions-big.txt`                       | Đuôi web lớn          |
+| `web-all-content-types.txt`                    | Content types         |
+| `web-mutations.txt`                            | Mutations             |
+| `burp-parameter-names.txt`                     | Parameter names       |
+| `url-params_from-top-55-most-popular-apps.txt` | URL params            |
+| `graphql.txt`                                  | GraphQL               |
+| `Logins.fuzz.txt`                              | Login paths           |
+| `Passwords.fuzz.txt`                           | Password paths        |
+| `LinuxFileList.txt`                            | File Linux            |
+| `UnixDotfiles.fuzz.txt`                        | Dotfiles Unix         |
+| `versioning_metafiles.txt`                     | Metafiles             |
+| `dsstorewordlist.txt`                          | .DS_Store             |
+| `default-web-root-directory-linux.txt`         | Document root Linux   |
+| `default-web-root-directory-windows.txt`       | Document root Windows |
+| `vulnerability-scan_j2ee-websites_WEB-INF.txt` | J2EE WEB-INF          |
 
 ### Công nghệ cụ thể
 | Đường dẫn | Ghi chú |

@@ -77,7 +77,7 @@ CSRF (Cross-Site Request Forgery)
 │   │   ├── Token yếu, đoán được
 │   │   ├── Token leak qua Referer
 │   │   └── Dùng XSS lấy token
-│   ├── SameSite bypass
+│   ├── SameSite bypass -->[[Csrf Same site]]
 │   │   ├── SameSite=Lax + POST top-level navigation
 │   │   ├── SameSite=Lax + GET
 │   │   ├── SameSite=Strict bypass qua sibling domain
@@ -203,14 +203,30 @@ CSRF (Cross-Site Request Forgery)
 [[Lab-CSRF vulnerability with no defenses]]
 -> đoạn này mình hiểu thêm về triết lý đơn giản của CSRS, và nguyên nhân khiến một request có thể dính CSRF
 
-4-tiếp tục đến với series lab của portswigger, phần này tập trung vào việc bypass csrf token .Mình cũng có thể đọc lý thuyết ở bên trên.
+4-tiếp tục đến với series lab của portswigger, phần này tập trung vào việc **bypass csrf token** .Mình cũng có thể đọc lý thuyết ở bên trên.
     ==>[[csrf token bypass]]
 lab này có vẻ nói về csrs token vailidation 
 [[Lab-CSRF where token validation depends on request method]]
--> lab này cho mình các kiến thức về bypass csrf token bằng another method request, liệu có thể fake origin/referer hay ko?
+ -> lab này cho mình các kiến thức về bypass csrf token bằng another method request, liệu có thể fake origin/referer hay ko?
 
 -tiếp tục là bypass bằng cách xóa csrf token
 [[Lab-CSRF where token validation depends on token being present]]
 
 -lab tiếp theo sẽ pratice về việc csrf ko gắn với session của người dùng.Thực ra mấy bài này toàn là mấy cái rất ngớ ngẩn, nhưng mục đích học tập là chính, chứ mình nghĩ thực tế chả ai làm lỗi như thế cả.
 [[Lab-CSRF where token is not tied to user session]]
+  -> học thêm được về cách mà csrf nó re generate mỗi lần ấn submit-> cách để bypass nó
+
+-Phần này nói thêm về cơ chế gọi là csrf-key. Đại khái là mỗi một user sẽ có một csrf-key -->sỉnh ra--> csrf-token
+- [ ] =>mỗi lần regenerate lại csrf token , thì nó dùng cái csrf-key để sinh ra csrf-token mới
+[[Lab-CSRF where token is tied to non-session cookie]]
+
+-thêm 1 lab nữa
+[[Lab-CSRF where token is duplicated in cookie]]
+
+
+5- kết thúc section về chủ đề csrf token-> ta tiến tới phần tiếp theo
+- [ ] Phần này ta sẽ thực hành về **SAME SITE** trong xác thực request--> các lỗi phổ biến dẫn đến ta có thể bypass nó
+- [ ] đọc lý thuyết ở đây ==> [[Csrf Same site]]
+[[Lab-SameSite Lax bypass via method override]] -> lab này mình biết thêm được cách để biết 1 trang web đang áp dụng cơ chế bảo mật nào cho cookie .
+- tiếp tục ta đến với lab tiếp theo, giúp hiểu thêm về các case thường gặp của samesite
+[[Lab-SameSite Strict bypass via client-side redirect]]

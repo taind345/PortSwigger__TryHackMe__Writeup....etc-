@@ -44,3 +44,34 @@ Khi nạn nhân truy cập, trình duyệt tự động gửi request kèm cooki
 **Trong thực tế lập trình:**
 Các framework hiện đại (Django, Laravel, Spring Security, ASP.NET) đều tự động sinh và kiểm tra CSRF token. Lập trình viên thường chỉ cần thêm một dòng như `{% csrf_token %}` (Django) hoặc `@csrf` (Laravel) vào form là đã được bảo vệ.
 
+# 2-csrf key
+**Kịch bản thực tế** 
+**Bối cảnh:** Shop.com bảo vệ bằng 2 cookie:
+- `session` → biết bạn là ai (Carlos).
+- `csrfKey` → dùng để sinh token.
+- Server kiểm tra: *"Token có khớp với `csrfKey` không?"* — nhưng **quên** kiểm tra `csrfKey` có thuộc về `session` không.
+
+**Tấn công:**
+
+1. **Hacker** đăng nhập tài khoản riêng, lấy được `csrfKey=key_hacker` và `token_hacker`.
+
+2. **Hacker** phát hiện chức năng Search bị lỗi CRLF Injection. Hắn tạo link:
+   ```
+   shop.com/search?q=test%0d%0aSet-Cookie:%20csrfKey=key_hacker
+   ```
+
+3. **Carlos** (đang đăng nhập) bấm link → Trình duyệt tự động ghi đè cookie:
+   - `session=carlos` (giữ nguyên)
+   - `csrfKey=key_hacker` (bị tráo)
+
+4. **Trang độc** tự động submit form đổi email:
+   - `email=hacker@evil.com`
+   - `csrf=token_hacker`
+   - Cookie gửi kèm: `session=carlos` + `csrfKey=key_hacker`
+
+5. **Server kiểm tra:**
+   - `token_hacker` khớp với `csrfKey=key_hacker`? → **Có** ✓
+   - `csrfKey` có thuộc về `session=carlos` không? → **Không kiểm tra** ✗
+   - → Đổi email của Carlos thành công.
+
+**Lỗi chí mạng:** Token gắn với `csrfKey`, mà `csrfKey` không gắn với `session`. Hacker tráo được `csrfKey` → qua mặt server.
