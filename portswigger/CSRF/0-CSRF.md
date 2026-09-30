@@ -230,3 +230,5 @@ lab này có vẻ nói về csrs token vailidation
 [[Lab-SameSite Lax bypass via method override]] -> lab này mình biết thêm được cách để biết 1 trang web đang áp dụng cơ chế bảo mật nào cho cookie .
 - tiếp tục ta đến với lab tiếp theo, giúp hiểu thêm về các case thường gặp của samesite
 [[Lab-SameSite Strict bypass via client-side redirect]]
+-bypass dua tren subdomain
+[[Lab-SameSite Strict bypass via sibling domain]]
