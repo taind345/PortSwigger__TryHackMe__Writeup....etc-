@@ -1,5 +1,5 @@
 {
-  "textFontFamily": "Cascadia Code,Consolas,DFVN Excalifont,SVN-Book Antiqua",
+  "textFontFamily": "Cascadia Code,DFVN Excalifont,Consolas,SVN-Book Antiqua",
   "interfaceFontFamily": "Cascadia Code,SVN-Book Antiqua,DFVN Excalifont",
   "cssTheme": "",
   "baseFontSizeAction": true,
@@ -7,6 +7,6 @@
   "monospaceFontFamily": "Cascadia Code,DFVN Excalifont",
   "nativeMenus": false,
   "enabledCssSnippets": [],
-  "theme": "moonstone",
+  "theme": "system",
   "accentColor": "#00b303"
 }

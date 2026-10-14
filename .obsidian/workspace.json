@@ -4,80 +4,40 @@
     "type": "split",
     "children": [
       {
-        "id": "9ebdf084b23a8b76",
+        "id": "344079031af9cab8",
         "type": "tabs",
         "children": [
           {
-            "id": "646d9341f26da6cc",
+            "id": "e53c658a5fbc7d2c",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "portswigger/CSRF/Lab-SameSite Strict bypass via client-side redirect.md",
+                "file": "portswigger/server side vulnerabilities/Lab-Path traversal encoded.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lab-SameSite Strict bypass via client-side redirect"
+              "title": "Lab-Path traversal encoded"
             }
           },
           {
-            "id": "1c99dc518dbbc33b",
-            "type": "leaf",
-            "state": {
-              "type": "excalidraw",
-              "state": {
-                "file": "Tools/Burpsite.md"
-              },
-              "icon": "excalidraw-icon",
-              "title": "Burpsite"
-            }
-          },
-          {
-            "id": "6da1593c5dd3ee6a",
+            "id": "91d60e604f3c168e",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "portswigger/SSRF/0-roadmap SSRF.md",
+                "file": "3-Linux/wsl hoạt động như nào.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "0-roadmap SSRF"
-            }
-          },
-          {
-            "id": "1d6e282afe787cd4",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "3-Linux/cheetsheet nmap.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "cheetsheet nmap"
-            }
-          },
-          {
-            "id": "2fafc4cac0c2e4d7",
-            "type": "leaf",
-            "state": {
-              "type": "excalidraw",
-              "state": {
-                "file": "0_Excalidraw/Drawing 2026-09-29 18.03.07.excalidraw.md"
-              },
-              "icon": "excalidraw-icon",
-              "title": "Drawing 2026-09-29 18.03.07.excalidraw"
+              "title": "wsl hoạt động như nào"
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "vertical"
@@ -87,7 +47,7 @@
     "type": "split",
     "children": [
       {
-        "id": "a87c1c4c18145d89",
+        "id": "52c065631afcaa73",
         "type": "tabs",
         "children": [
           {
@@ -102,7 +62,7 @@
                 "searchQuery": ""
               },
               "icon": "lucide-folder-closed",
-              "title": "Trình duyệt tệp"
+              "title": "Files"
             }
           },
           {
@@ -111,7 +71,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "rating",
+                "query": "jwt ",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -119,7 +79,7 @@
                 "sortOrder": "alphabetical"
               },
               "icon": "lucide-search",
-              "title": "Search"
+              "title": "Tìm kiếm"
             }
           },
           {
@@ -127,16 +87,19 @@
             "type": "leaf",
             "state": {
               "type": "bookmarks",
-              "state": {},
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
               "icon": "lucide-bookmark",
-              "title": "Bookmarks"
+              "title": "Đánh dấu"
             }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 249.2020263671875
+    "width": 215.68142700195312
   },
   "right": {
     "id": "46d537e6b1c9f82a",
@@ -153,13 +116,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "0-Note/note-docker-pipeline.md",
+                "file": "hack the box/on tap vin.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline"
+              "title": "Đề cương"
             }
           },
           {
@@ -205,19 +168,9 @@
               "icon": "excalidraw-icon",
               "title": "Excalidraw Sidepanel"
             }
-          },
-          {
-            "id": "faa652422aef2fff",
-            "type": "leaf",
-            "state": {
-              "type": "mermaid-toolbar-view",
-              "state": {},
-              "icon": "trident-custom",
-              "title": "Mermaid Toolbar"
-            }
           }
         ],
-        "currentTab": 4
+        "currentTab": 2
       },
       {
         "id": "359bda98840e686f",
@@ -230,7 +183,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "0-Note/note-dung AI để tìm enpoint.md",
+                "file": "MyBook Note 1.mynote.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -242,73 +195,70 @@
       }
     ],
     "direction": "horizontal",
-    "width": 240.7474365234375,
+    "width": 224.281982421875,
     "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
-      "switcher:Mở bộ chuyển đổi nhanh": false,
-      "graph:Mở xem biểu đồ": false,
-      "canvas:Tạo bảng mới": false,
-      "daily-notes:Mở ghi chú hôm nay": false,
-      "templates:Chèn mẫu": false,
-      "command-palette:Mở khay lệnh": false,
-      "bases:Tạo cơ sở mới": false,
-      "obsidian-importer:Open Importer": false,
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false,
       "obsidian-excalidraw-plugin:New drawing": false,
-      "mermaid-tools:Open Mermaid Toolbar": false,
-      "cornell-marginalia:Toggle Active Recall Mode": false,
-      "cornell-marginalia:Alternar Visual Helper (Cornell)": false
+      "mybook-notebook:Mở vở MyBook mới": false
     }
   },
-  "active": "1d6e282afe787cd4",
+  "active": "e53c658a5fbc7d2c",
   "lastOpenFiles": [
+    "portswigger/server side vulnerabilities/Lab-File upload unrestricted.md",
+    "portswigger/OAuth/0-index OAuth.md",
+    "portswigger/OAuth/Lab-OpenID dynamic registration SSRF.md",
+    "portswigger/OAuth/Lab-Forced OAuth linking.md",
+    "portswigger/server side vulnerabilities/0-index server side.md",
+    "portswigger/SQL injection/0-index SQL injection.md",
+    "portswigger/SSRF/Lab-Blind SSRF Shellshock.md",
+    "portswigger/SQL injection/0-tổng hợp sql injection.md",
+    "portswigger/SQL injection/bai1- based errorr sql injection.md",
+    "portswigger/SSRF/0-index SSRF.md",
+    "portswigger/SQL injection/Lab-Blind OAST exfiltration.md",
+    "portswigger/SSRF/lys thuyet SSRF.md",
+    "portswigger/IDOR/Lab-Multi-step no access control.md",
+    "portswigger/IDOR/Lab-Referer-based access control.md",
+    "portswigger/XSS/Lab-AngularJS sandbox escape.md",
+    "portswigger/XSS/0-index XSS.md",
+    "portswigger/OAuth/Lab-OAuth open redirect steal.md",
+    "portswigger/OAuth/Lab-OAuth redirect_uri hijack.md",
+    "portswigger/OAuth/Lab-OAuth implicit flow.md",
+    "portswigger/OAuth/lys thuyet OAuth.md",
+    "portswigger/OAuth",
+    "portswigger/JWT/Lab-JWT kid SQL injection.md",
+    "portswigger/XSS/0-XSS.md",
     "Tools/0-tool.md",
-    "portswigger/CSRF/0-CSRF.md",
-    "portswigger/CSRF/Lab-SameSite Strict bypass via sibling domain.md",
-    "0-asset/Pasted image 20260930072443.png",
-    "portswigger/CSRF/Lab-SameSite Strict bypass via client-side redirect.md",
-    "Tools/wordlist.md",
-    "tryhackme/jr pen/n8n CVE-2025-68613.md",
-    "tryhackme/jr pen/0-Try hackme.md",
-    "0-Note/note-dung AI để tìm enpoint.md",
-    "0-asset/Pasted image 20260929181454.png",
-    "0-asset/Pasted image 20260929180922.png",
-    "0_Excalidraw/Drawing 2026-09-29 18.03.07.excalidraw.md",
-    "0-asset/Pasted image 20260929180508.png",
-    "portswigger/SSRF/0-roadmap SSRF.md",
-    "Tools/Burpsite.md",
-    "0-asset/Pasted image 20260929175735.png",
-    "0-Note/note-kubernet.md",
-    "0-asset/Pasted image 20260929173900.png",
-    "0-asset/Pasted image 20260929173742.png",
-    "0-asset/Pasted image 20260929173712.png",
-    "0-asset/Pasted image 20260929173346.png",
-    "portswigger/CSRF/Lab-CSRF where token is tied to non-session cookie.md",
-    "portswigger/CSRF/Lab-SameSite Lax bypass via method override.md",
-    "portswigger/CSRF/Csrf Same site.md",
-    "0-Note/0-index note.md",
-    "0-asset/Pasted image 20260929164731.png",
-    "portswigger/CSRF/0-note-csrf.md",
-    "portswigger/SSRF/dạng SSRF lấy dữ liệu từ backend system-internal system.md",
-    "portswigger/SSRF/SSRF-Blacklist bypass.md",
-    "portswigger/SSRF/0-SSRF.md",
-    "0_Excalidraw/Drawing 2026-09-28 20.41.18.excalidraw.md",
-    "portswigger/CSRF/Lab-CSRF where token is duplicated in cookie.md",
-    "portswigger/CSRF/Lab-CSRF where token is not tied to user session.md",
-    "0_Excalidraw/Drawing 2026-09-26 21.31.28.excalidraw.md",
-    "0_Excalidraw/Drawing 2026-09-28 20.40.12.excalidraw.md",
-    "portswigger/SSRF/0-note-ssrf.md",
-    "4-kn/bugbounty methodlogy/script.py",
-    "sample_script.py",
-    "tryhackme/Soc1",
-    "tryhackme/devsecops",
-    "tryhackme/jr pen",
-    "0-asset/0asset 1",
-    "0-Note",
-    "portswigger/IDOR",
-    "Marginalia Attachments",
-    "Excalidraw/Libraries/local-library.excalidrawlib",
+    "portswigger/JWT/Lab-JWT kid path traversal.md",
+    "portswigger/JWT/Lab-JWT jwk injection.md",
+    "portswigger/JWT/Lab-JWT algorithm confusion.md",
+    "portswigger/JWT",
+    "0-asset/Pasted image 20261014213505.png",
+    "0-asset/Pasted image 20261014204442.png",
+    "0-asset/Pasted image 20261014204355.png",
+    "0-asset/Pasted image 20261014204349.png",
+    "0-asset/Pasted image 20261014203648.png",
+    "0-asset/Pasted image 20261014203115.png",
+    "0-asset/Pasted image 20261014201925.png",
+    "0-asset/Pasted Image 20261010164636_846.png",
+    "0-asset/Pasted Image 20261010164419_374.png",
+    "0-asset/Pasted Image 20261009210501_135.png",
+    "0-CODE/quiz/questions-deep.js",
+    "0-CODE/quiz/questions-extra.js",
+    "0-CODE/quiz/app.js",
+    "0-CODE/quiz/style.css",
+    "0-CODE/quiz/index.html",
+    "0-CODE/quiz/questions.js",
+    "0-CODE/quiz",
+    "0-CODE",
     "red/Untitled.canvas",
     "Untitled.canvas"
   ]

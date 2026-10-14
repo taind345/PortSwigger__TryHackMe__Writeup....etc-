@@ -18,8 +18,8 @@
 -lab tiếp theo sẽ luyện tập về DOM xss bằng cách khai thác các thư viện bên ngoài như *jquery* hay *angularjs* 
 [[DOM XSS in jQuery anchor href attribute sink using location.search  source]]
 - tiếp tục với jquery ta sẽ tiếp tục luyện tập 
-[[ DOM XSS in jQuery selector sink using a hashchange event]]
-- tiep tuc khai thác XSS qua lỗ hổng của angular js [[ DOM XSS in AngularJS expression with angle brackets and double quotes HTML-encoded]]
+[[lab-DOM XSS in jQuery selector sink using a hashchange event]]
+- tiep tuc khai thác XSS qua lỗ hổng của angular js [[lab-DOM XSS in AngularJS expression with angle brackets and double quotes HTML-encoded]]
 
 -khai thac lo hong DOM+ reflected xss
 [[LAB-Reflected DOM XSS]]

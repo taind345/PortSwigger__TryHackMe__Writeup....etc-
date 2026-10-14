@@ -232,3 +232,10 @@ lab này có vẻ nói về csrs token vailidation
 [[Lab-SameSite Strict bypass via client-side redirect]]
 -bypass dua tren subdomain
 [[Lab-SameSite Strict bypass via sibling domain]]
+
+6- section về Referer validation: server check Referer nhưng check ẩu
+[[Lab-CSRF where Referer validation depends on header being present]] -> bài này mình chỉ cần xóa luôn header Referer (dùng `<meta name="referrer" content="never">`) là qua, vì server chỉ check khi header tồn tại.
+[[Lab-CSRF with broken Referer validation]] -> server check bằng `contains` nên mình nhét domain lab vào query của domain đểu (`evil.com/?LAB-ID...`) là qua.
+
+7- SameSite Lax nâng cao
+[[Lab-SameSite Lax bypass via cookie refresh]] -> bài này khoai, phải refresh cookie bằng top-level navigation trước rồi mới POST được. Mình phải đọc solution 2 lần mới hiểu.

@@ -1,5 +1,5 @@
 ---
-excalidraw-plugin: parsed
+mybook-plugin: parsed
 tags: [digital-notebook, excalidraw]
 title: "0-mynote crsf"
 pageCount: 8

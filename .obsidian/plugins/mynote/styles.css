@@ -1,0 +1,6531 @@
+/* src/app.obsidian.css */
+@font-face  {
+  .mybook-obsidian-host font-family: "Cascadia Code";
+  src: local("Cascadia Code"),
+.mybook-obsidian-host local("CascadiaCode");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Virgil";
+  src: local("sans-serif");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+.mybook-obsidian-host {
+  --desk-bg: #e5e5e5;
+  --paper-bg: #ffffff;
+  --line-pitch: 32px;
+  --top-margin: 64px;
+  --ruled-line-color: rgba(186, 215, 248, 0.85);
+  --margin-line-color: rgba(244, 63, 94, 0.55);
+  --header-line-color: rgba(186, 215, 248, 0.95);
+  --spine-shadow: rgba(0, 0, 0, 0.07);
+  --font-cascadia:
+    "Cascadia Code",
+    "Cascadia Mono",
+    Consolas,
+    "Courier New",
+    monospace;
+  --font-sans:
+    "Cascadia Code",
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  --font-handwriting:
+    "Patrick Hand",
+    "Virgil",
+    "Comic Sans MS",
+    cursive,
+    sans-serif;
+  --font-serif:
+    "Georgia",
+    "Times New Roman",
+    serif;
+  --font-mono:
+    "Cascadia Code",
+    "Cascadia Mono",
+    "JetBrains Mono",
+    "Fira Code",
+    Consolas,
+    monospace;
+  --current-font: var(--font-cascadia);
+  --obsidian-green: #10b981;
+  --obsidian-green-hover: #059669;
+  --obsidian-bg-tint: rgba(16, 185, 129, 0.06);
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --toolbar-bg: #ffffff;
+  --toolbar-border: #e2e8f0;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+}
+.mybook-obsidian-host * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.mybook-obsidian-host .notebook-app {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+.mybook-obsidian-host .font-cascadia {
+  --current-font: var(--font-cascadia);
+}
+.mybook-obsidian-host .font-handwriting {
+  --current-font: var(--font-handwriting);
+}
+.mybook-obsidian-host .font-sans {
+  --current-font: var(--font-sans);
+}
+.mybook-obsidian-host .font-serif {
+  --current-font: var(--font-serif);
+}
+.mybook-obsidian-host .font-mono {
+  --current-font: var(--font-mono);
+}
+.mybook-obsidian-host .app-header {
+  height: 44px;
+  background: var(--toolbar-bg);
+  border-bottom: 1px solid var(--toolbar-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  position: relative;
+  z-index: 30;
+  user-select: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  gap: 8px;
+}
+.mybook-obsidian-host .header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.mybook-obsidian-host .brand-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #0f172a;
+}
+.mybook-obsidian-host .brand-icon {
+  font-size: 17px;
+}
+.mybook-obsidian-host .file-menu-container {
+  position: relative;
+}
+.mybook-obsidian-host .file-menu-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #334155;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.mybook-obsidian-host .file-menu-btn:hover,
+.mybook-obsidian-host .file-menu-btn.active {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+.mybook-obsidian-host .file-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 250px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  z-index: 120;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  animation: fadeInDown 0.12s ease-out;
+}
+@keyframes fadeInDown  {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.mybook-obsidian-host .dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: #334155;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s ease, color 0.12s ease;
+  width: 100%;
+}
+.mybook-obsidian-host .dropdown-item:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+.mybook-obsidian-host .dropdown-item.highlight {
+  color: #2563eb;
+  font-weight: 600;
+}
+.mybook-obsidian-host .dropdown-item.highlight:hover {
+  background: #eff6ff;
+}
+.mybook-obsidian-host .dropdown-divider {
+  height: 1px;
+  background: #e2e8f0;
+  margin: 4px 0;
+}
+.mybook-obsidian-host .autosave-indicator {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  padding: 3px 7px;
+  border-radius: 9999px;
+  background: #f1f5f9;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.mybook-obsidian-host .autosave-indicator.status-saved {
+  color: #16a34a;
+  background: #f0fdf4;
+}
+.mybook-obsidian-host .autosave-indicator.status-saving {
+  color: #2563eb;
+  background: #eff6ff;
+}
+.mybook-obsidian-host .autosave-indicator.status-dirty {
+  color: #d97706;
+  background: #fffbeb;
+}
+.mybook-obsidian-host .spin-icon {
+  animation: spin 1s linear infinite;
+}
+@keyframes spin  {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.mybook-obsidian-host .header-center-tools {
+  display: flex;
+  align-items: center;
+  background: #f8fafc;
+  padding: 2px 4px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  gap: 1px;
+  flex-shrink: 0;
+}
+.mybook-obsidian-host .tool-button {
+  position: relative;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #475569;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.mybook-obsidian-host .tool-button:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+.mybook-obsidian-host .tool-button.active {
+  background: #dbeafe !important;
+  color: #1d4ed8 !important;
+  box-shadow: 0 0 0 1.5px #3b82f6 inset, 0 1px 2px rgba(37, 99, 235, 0.15);
+}
+.mybook-obsidian-host .tool-button.active svg {
+  stroke: #1d4ed8;
+  stroke-width: 2.2;
+}
+.mybook-obsidian-host .tool-shortcut-badge {
+  position: absolute;
+  bottom: 1.5px;
+  right: 2.5px;
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1;
+  color: #94a3b8;
+  pointer-events: none;
+  font-family: var(--font-sans);
+}
+.mybook-obsidian-host .tool-button:hover .tool-shortcut-badge {
+  color: #475569;
+}
+.mybook-obsidian-host .tool-button.active .tool-shortcut-badge {
+  color: #1d4ed8;
+  font-weight: 800;
+}
+.mybook-obsidian-host .tool-button.lock-button.active.locked {
+  background: #2563eb !important;
+  color: #ffffff !important;
+}
+.mybook-obsidian-host .tool-button.lock-button.active.locked .tool-shortcut-badge {
+  color: #ffffff;
+}
+.mybook-obsidian-host .tool-divider {
+  width: 1px;
+  height: 18px;
+  background: #cbd5e1;
+  margin: 0 3px;
+}
+.mybook-obsidian-host .header-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.mybook-obsidian-host .stroke-controls-pill {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #f8fafc;
+  padding: 2px 6px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+}
+.mybook-obsidian-host .color-swatches.mini {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.mybook-obsidian-host .color-swatches.mini .color-dot {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+}
+.mybook-obsidian-host .color-swatches.mini .color-dot:hover {
+  transform: scale(1.15);
+}
+.mybook-obsidian-host .color-swatches.mini .color-dot.selected {
+  transform: scale(1.18);
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #2563eb !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  z-index: 2;
+}
+.mybook-obsidian-host .compact-select {
+  height: 28px;
+  line-height: 26px;
+  padding: 0 22px 0 8px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 6px center;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  font-size: 11px;
+  font-weight: 500;
+  color: #334155;
+  cursor: pointer;
+  outline: none;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  user-select: auto;
+  -webkit-user-select: auto;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+.mybook-obsidian-host .compact-select:hover {
+  border-color: #94a3b8;
+}
+.mybook-obsidian-host .compact-select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+.mybook-obsidian-host .flip-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #475569;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  transition: all 0.12s ease;
+}
+.mybook-obsidian-host .flip-toggle-btn.active {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #2563eb;
+}
+.mybook-obsidian-host .flip-toggle-btn:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+.mybook-obsidian-host .header-undo-redo-group {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+.mybook-obsidian-host .undo-redo-btn {
+  width: 28px;
+  height: 100%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.1s ease, color 0.1s ease;
+}
+.mybook-obsidian-host .undo-redo-btn:hover:not(:disabled) {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+.mybook-obsidian-host .undo-redo-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.mybook-obsidian-host .undo-redo-sep {
+  width: 1px;
+  height: 16px;
+  background: #e2e8f0;
+}
+.mybook-obsidian-host .header-action-btn {
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  transition: all 0.12s ease;
+}
+.mybook-obsidian-host .header-action-btn:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+.mybook-obsidian-host .header-action-btn.icon-only {
+  width: 28px;
+  padding: 0;
+  justify-content: center;
+}
+.mybook-obsidian-host .header-action-btn.add-page-btn {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #1e293b;
+}
+.mybook-obsidian-host .header-action-btn.add-page-btn:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #2563eb;
+}
+.mybook-obsidian-host .notebook-workspace {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px 24px 140px 24px;
+  position: relative;
+  z-index: 1;
+  scroll-behavior: smooth;
+}
+.mybook-obsidian-host .notebook-desk {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  transition: transform 0.1s ease-out;
+}
+.mybook-obsidian-host .notebook-desk.spread-view {
+  gap: 14px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+  perspective: 1600px;
+}
+.mybook-obsidian-host .notebook-desk.single-view {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+}
+.mybook-obsidian-host .notebook-workspace.mode-single-vertical {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.mybook-obsidian-host .notebook-desk.vertical-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding-bottom: 80px;
+}
+.mybook-obsidian-host .notebook-desk.vertical-view .page-wrapper {
+  box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.12);
+}
+.mybook-obsidian-host .notebook-desk.spread-view {
+  gap: 14px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+  perspective: 2600px;
+  transform-style: preserve-3d;
+}
+.mybook-obsidian-host .notebook-desk.flipping-next.flip-phase-closing .notebook-sheet.has-spine-left {
+  transform-origin: left center;
+  animation: notebookCurlNext 0.18s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  z-index: 50;
+  box-shadow: -15px 10px 30px rgba(0, 0, 0, 0.25);
+}
+.mybook-obsidian-host .notebook-desk.flipping-prev.flip-phase-closing .notebook-sheet.has-spine-right {
+  transform-origin: right center;
+  animation: notebookCurlPrev 0.18s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  z-index: 50;
+  box-shadow: 15px 10px 30px rgba(0, 0, 0, 0.25);
+}
+.mybook-obsidian-host .notebook-desk.flipping-next.flip-phase-opening .notebook-sheet.has-spine-right {
+  transform-origin: right center;
+  animation: notebookUncurlNext 0.18s cubic-bezier(0.2, 0.8, 0.4, 1) forwards;
+  z-index: 50;
+  box-shadow: 15px 10px 30px rgba(0, 0, 0, 0.25);
+}
+.mybook-obsidian-host .notebook-desk.flipping-prev.flip-phase-opening .notebook-sheet.has-spine-left {
+  transform-origin: left center;
+  animation: notebookUncurlPrev 0.18s cubic-bezier(0.2, 0.8, 0.4, 1) forwards;
+  z-index: 50;
+  box-shadow: -15px 10px 30px rgba(0, 0, 0, 0.25);
+}
+@keyframes notebookCurlNext  {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(-88deg) scale(0.97);
+  }
+}
+@keyframes notebookUncurlNext  {
+  0% {
+    transform: rotateY(88deg) scale(0.97);
+  }
+  100% {
+    transform: rotateY(0deg) scale(1);
+  }
+}
+@keyframes notebookCurlPrev  {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(88deg) scale(0.97);
+  }
+}
+@keyframes notebookUncurlPrev  {
+  0% {
+    transform: rotateY(-88deg) scale(0.97);
+  }
+  100% {
+    transform: rotateY(0deg) scale(1);
+  }
+}
+.mybook-obsidian-host .notebook-sheet {
+  position: relative;
+  background-color: var(--paper-bg);
+  overflow: hidden;
+  user-select: none;
+  font-family: var(--current-font, var(--font-cascadia));
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+.mybook-obsidian-host .notebook-desk.flipping-next,
+.mybook-obsidian-host .notebook-desk.flipping-prev {
+  pointer-events: none;
+}
+.mybook-obsidian-host .notebook-sheet.pattern-ruled {
+  background-color: #ffffff;
+  background-image:
+    linear-gradient(
+      to bottom,
+      transparent 31px,
+      var(--ruled-line-color, rgba(186, 215, 248, 0.85)) 31px,
+      var(--ruled-line-color, rgba(186, 215, 248, 0.85)) 32px);
+  background-size: 100% 32px;
+  background-position: 0 0;
+}
+.mybook-obsidian-host .notebook-sheet.pattern-grid {
+  background-color: #ffffff;
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(203, 213, 225, 0.5) 1px,
+      transparent 1px),
+    linear-gradient(
+      to bottom,
+      rgba(203, 213, 225, 0.5) 1px,
+      transparent 1px);
+  background-size: 24px 24px;
+}
+.mybook-obsidian-host .notebook-sheet.pattern-dots {
+  background-color: #ffffff;
+  background-image: radial-gradient(rgba(148, 163, 184, 0.7) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.mybook-obsidian-host .notebook-sheet.pattern-blank {
+  background-color: #ffffff;
+}
+.mybook-obsidian-host .notebook-margin-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 72px;
+  width: 2px;
+  border-left: 1px solid var(--margin-line-color);
+  border-right: 1px solid var(--margin-line-color);
+  pointer-events: none;
+  z-index: 2;
+}
+.mybook-obsidian-host .notebook-header-line {
+  position: absolute;
+  top: var(--top-margin);
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--header-line-color);
+  pointer-events: none;
+  z-index: 2;
+}
+.mybook-obsidian-host .notebook-sheet.has-spine-right {
+  border-right: 1px solid #cbd5e1;
+  box-shadow: inset -12px 0 18px -10px var(--spine-shadow);
+}
+.mybook-obsidian-host .notebook-sheet.has-spine-left {
+  border-left: 1px solid #cbd5e1;
+  box-shadow: inset 12px 0 18px -10px var(--spine-shadow);
+}
+.mybook-obsidian-host .notebook-footer {
+  position: absolute;
+  bottom: 12px;
+  right: 24px;
+  font-size: 13px;
+  color: #94a3b8;
+  font-family: var(--font-mono);
+  letter-spacing: 0.5px;
+  pointer-events: none;
+  z-index: 2;
+}
+.mybook-obsidian-host .textbox-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+.mybook-obsidian-host .textbox-layer.no-interact .notebook-textbox,
+.mybook-obsidian-host .textbox-layer.no-interact .notebook-textbox * {
+  pointer-events: none !important;
+}
+.mybook-obsidian-host .notebook-textbox {
+  position: absolute;
+  min-height: 32px;
+  cursor: text;
+  user-select: text;
+  border-radius: 6px;
+  text-align: left;
+  font-family: var(--current-font, var(--font-cascadia));
+  transition: background 0.1s ease, box-shadow 0.15s ease;
+  pointer-events: auto;
+  padding: 6px 12px;
+}
+.mybook-obsidian-host .textbox-hover-grip {
+  position: absolute;
+  left: -18px;
+  top: 6px;
+  width: 14px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  cursor: grab;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  user-select: none;
+  pointer-events: auto;
+}
+.mybook-obsidian-host .notebook-textbox:hover .textbox-hover-grip,
+.mybook-obsidian-host .notebook-textbox.selected .textbox-hover-grip,
+.mybook-obsidian-host .notebook-textbox.is-selected .textbox-hover-grip {
+  opacity: 1;
+}
+.mybook-obsidian-host .textbox-hover-grip:hover {
+  color: #0f172a;
+}
+.mybook-obsidian-host .notebook-textbox.selected,
+.mybook-obsidian-host .notebook-textbox.is-selected {
+  background: rgba(241, 245, 249, 0.35);
+  box-shadow: 0 0 0 1.5px #60a5fa;
+}
+.mybook-obsidian-host .notebook-textbox.editing,
+.mybook-obsidian-host .notebook-textbox.is-editing {
+  background: transparent;
+  box-shadow: 0 0 0 1.5px #3b82f6;
+}
+.mybook-obsidian-host .notebook-textbox.dragging,
+.mybook-obsidian-host .notebook-textbox.is-dragging {
+  opacity: 0.85;
+  outline: 1.5px dashed #2563eb;
+  cursor: grabbing;
+}
+.mybook-obsidian-host .textbox-resize-handle {
+  position: absolute;
+  right: -6px;
+  top: 0;
+  bottom: 0;
+  width: 12px;
+  cursor: ew-resize;
+  background: transparent;
+}
+.mybook-obsidian-host .textbox-resize-handle::after {
+  content: "";
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 18px;
+  background: #cbd5e1;
+  border-radius: 2px;
+}
+.mybook-obsidian-host .obsidian-toolbar-wrapper {
+  position: absolute;
+  left: 0;
+  z-index: 60;
+  pointer-events: auto;
+}
+.mybook-obsidian-host .obsidian-toolbar-wrapper.placement-above {
+  top: -44px;
+  animation: fadeInDown 0.12s ease-out;
+}
+.mybook-obsidian-host .obsidian-toolbar-wrapper.placement-below {
+  top: auto;
+  bottom: -46px;
+  animation: fadeInUp 0.12s ease-out;
+}
+.mybook-obsidian-host .obsidian-markdown-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 3px 6px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  user-select: none;
+  white-space: nowrap;
+}
+.mybook-obsidian-host .md-toolbar-btn {
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #475569;
+  transition: all 0.1s ease;
+}
+.mybook-obsidian-host .md-toolbar-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+.mybook-obsidian-host .md-toolbar-btn.wikilink-btn {
+  color: #10b981;
+}
+.mybook-obsidian-host .md-toolbar-btn.wikilink-btn:hover {
+  background: #ecfdf5;
+  color: #059669;
+}
+.mybook-obsidian-host .md-toolbar-divider {
+  width: 1px;
+  height: 16px;
+  background: #e2e8f0;
+  margin: 0 3px;
+}
+.mybook-obsidian-host .tool-button.lock-button.active.locked {
+  background: #2563eb;
+  color: #ffffff;
+}
+.mybook-obsidian-host .handdrawn-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 7px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #475569;
+  transition: all 0.12s ease;
+}
+.mybook-obsidian-host .handdrawn-toggle-btn.active {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #2563eb;
+}
+.mybook-obsidian-host .handdrawn-toggle-btn:hover {
+  background: #e2e8f0;
+}
+.mybook-obsidian-host .excalidraw-curve-handle {
+  animation: pulseCurve 1.5s infinite alternate;
+}
+@keyframes pulseCurve  {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.15);
+  }
+}
+.mybook-obsidian-host .textbox-content-wrapper {
+  width: 100%;
+  height: 100%;
+}
+.mybook-obsidian-host .obsidian-editor {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #0f172a;
+  font-family: inherit;
+  resize: none;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  text-align: left;
+}
+.mybook-obsidian-host .obsidian-markdown-body {
+  color: #0f172a;
+  font-size: 15px;
+  word-break: break-word;
+  text-align: left;
+  font-family: var(--current-font, var(--font-cascadia));
+}
+.mybook-obsidian-host .obsidian-markdown-body h1 {
+  font-size: 22px;
+  line-height: calc(var(--line-pitch, 32px) * 2);
+  margin: 0;
+  padding: 0;
+  font-weight: 700;
+  color: #0f172a;
+  text-align: left;
+}
+.mybook-obsidian-host .obsidian-markdown-body h2 {
+  font-size: 18px;
+  line-height: var(--line-pitch, 32px);
+  margin: 0;
+  padding: 0;
+  font-weight: 700;
+  color: #0f172a;
+  text-align: left;
+}
+.mybook-obsidian-host .obsidian-markdown-body h3 {
+  font-size: 16px;
+  line-height: var(--line-pitch, 32px);
+  margin: 0;
+  padding: 0;
+  font-weight: 600;
+  color: #1e293b;
+  text-align: left;
+}
+.mybook-obsidian-host .obsidian-markdown-body p {
+  margin: 0;
+  padding: 0;
+  line-height: var(--line-pitch, 32px);
+  text-align: left;
+}
+.mybook-obsidian-host .obsidian-markdown-body ul,
+.mybook-obsidian-host .obsidian-markdown-body ol {
+  margin: 0;
+  padding-left: 18px;
+  list-style-position: outside;
+}
+.mybook-obsidian-host .obsidian-markdown-body li {
+  line-height: var(--line-pitch, 32px);
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+.mybook-obsidian-host .obsidian-markdown-body li > p {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  line-height: inherit;
+}
+.mybook-obsidian-host .obsidian-task-item {
+  list-style: none !important;
+  display: flex !important;
+  align-items: center;
+  line-height: var(--line-pitch, 32px);
+  margin: 0;
+  padding: 0;
+  cursor: default;
+}
+.mybook-obsidian-host .obsidian-checkbox-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  min-width: 15px;
+  border: 1.5px solid #94a3b8;
+  border-radius: 3px;
+  margin-right: 8px;
+  cursor: pointer;
+  background: #ffffff;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.mybook-obsidian-host .obsidian-checkbox-box:hover {
+  border-color: var(--obsidian-green);
+}
+.mybook-obsidian-host .obsidian-checkbox-box.checked {
+  background-color: var(--obsidian-green);
+  border-color: var(--obsidian-green);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: bold;
+}
+.mybook-obsidian-host .task-text {
+  flex: 1;
+}
+.mybook-obsidian-host .task-done {
+  color: #94a3b8;
+  text-decoration: line-through;
+}
+.mybook-obsidian-host .obsidian-wikilink {
+  color: var(--obsidian-green);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(16, 185, 129, 0.4);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.mybook-obsidian-host .obsidian-wikilink:hover {
+  border-bottom-color: var(--obsidian-green);
+  background: var(--obsidian-bg-tint);
+}
+.mybook-obsidian-host .obsidian-markdown-body a {
+  color: var(--obsidian-green);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.mybook-obsidian-host .obsidian-highlight {
+  background: rgba(16, 185, 129, 0.2);
+  color: #065f46;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-weight: 500;
+}
+.mybook-obsidian-host .obsidian-image-container {
+  margin: 12px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.mybook-obsidian-host .obsidian-embedded-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  display: block;
+  object-fit: contain;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.mybook-obsidian-host .obsidian-embedded-image:hover {
+  transform: scale(1.01);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+.mybook-obsidian-host .obsidian-arrow {
+  color: var(--obsidian-green);
+  font-weight: 700;
+  margin: 0 4px;
+}
+.mybook-obsidian-host .obsidian-callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  border-left: 3.5px solid var(--obsidian-green);
+  background: var(--obsidian-bg-tint);
+  padding: 2px 12px;
+  margin: 4px 0;
+  border-radius: 0 6px 6px 0;
+  line-height: var(--line-pitch, 32px);
+}
+.mybook-obsidian-host .callout-chevron {
+  color: var(--obsidian-green);
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: -1px;
+}
+.mybook-obsidian-host .callout-content {
+  flex: 1;
+}
+.mybook-obsidian-host .obsidian-code-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  margin: 6px 0;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+.mybook-obsidian-host .code-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 10px;
+  background: #f1f5f9;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 11px;
+  color: #64748b;
+  font-family: var(--font-mono);
+}
+.mybook-obsidian-host .code-card-copy-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #64748b;
+  padding: 3px 5px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+.mybook-obsidian-host .code-card-copy-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+.mybook-obsidian-host .obsidian-code-card pre {
+  margin: 0;
+  padding: 10px 14px;
+  overflow-x: auto;
+  background: transparent;
+  font-family: var(--font-cascadia), var(--font-mono);
+  font-size: 13px;
+  line-height: 22px;
+  color: #1e293b;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+.mybook-obsidian-host .obsidian-code-card pre::-webkit-scrollbar {
+  height: 4px;
+}
+.mybook-obsidian-host .obsidian-code-card pre::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+.mybook-obsidian-host .obsidian-code-card pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+.mybook-obsidian-host .obsidian-code-card code {
+  font-family: inherit;
+  font-size: inherit;
+  background: transparent;
+  padding: 0;
+}
+.mybook-obsidian-host .empty-placeholder {
+  color: #94a3b8;
+}
+.mybook-obsidian-host .page-drawing-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+}
+.mybook-obsidian-host .page-drawing-layer.is-active-drawing {
+  cursor: crosshair;
+}
+.mybook-obsidian-host .drawing-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.mybook-obsidian-host .static-canvas {
+  pointer-events: none;
+}
+.mybook-obsidian-host .active-canvas {
+  touch-action: none;
+}
+.mybook-obsidian-host .page-navigator-bar {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 44px;
+  background: #ffffff;
+  border: 1px solid var(--toolbar-border);
+  border-radius: 22px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 16px;
+  z-index: 40;
+  user-select: none;
+}
+.mybook-obsidian-host .nav-zoom-controls,
+.mybook-obsidian-host .nav-page-controls,
+.mybook-obsidian-host .nav-right-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mybook-obsidian-host .nav-icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #475569;
+  transition: background 0.15s ease;
+}
+.mybook-obsidian-host .nav-icon-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+.mybook-obsidian-host .nav-icon-btn.active {
+  background: #dbeafe;
+  color: #2563eb;
+}
+.mybook-obsidian-host .nav-icon-btn.danger:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+.mybook-obsidian-host .zoom-percent-btn {
+  background: transparent;
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: #334155;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+.mybook-obsidian-host .zoom-percent-btn:hover {
+  background: #f1f5f9;
+}
+.mybook-obsidian-host .nav-page-btn {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #1e293b;
+  transition: background 0.15s ease;
+}
+.mybook-obsidian-host .nav-page-btn:hover:not(:disabled) {
+  background: #e2e8f0;
+}
+.mybook-obsidian-host .nav-page-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.mybook-obsidian-host .nav-page-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: #334155;
+  min-width: 110px;
+  text-align: center;
+}
+.mybook-obsidian-host .page-thumbnail-drawer {
+  position: absolute;
+  bottom: 72px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  max-width: 90vw;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  padding: 16px;
+  z-index: 45;
+}
+.mybook-obsidian-host .thumbnail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.mybook-obsidian-host .thumbnail-header h4 {
+  font-size: 14px;
+  color: #0f172a;
+}
+.mybook-obsidian-host .close-drawer-btn {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #64748b;
+}
+.mybook-obsidian-host .thumbnail-list {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+.mybook-obsidian-host .thumbnail-card {
+  flex: 0 0 100px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.mybook-obsidian-host .thumbnail-sheet-preview {
+  width: 100px;
+  height: 135px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 6px;
+  position: relative;
+  transition: transform 0.1s ease, border-color 0.1s ease;
+}
+.mybook-obsidian-host .thumbnail-card:hover .thumbnail-sheet-preview {
+  transform: translateY(-2px);
+  border-color: #3b82f6;
+}
+.mybook-obsidian-host .thumbnail-card.active-card .thumbnail-sheet-preview {
+  border: 2px solid #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+.mybook-obsidian-host .thumb-lines {
+  position: absolute;
+  top: 10px;
+  left: 8px;
+  right: 8px;
+  bottom: 24px;
+  background-image:
+    linear-gradient(
+      to bottom,
+      #e2e8f0 1px,
+      transparent 1px);
+  background-size: 100% 8px;
+}
+.mybook-obsidian-host .thumb-counter {
+  font-size: 9px;
+  color: #94a3b8;
+  text-align: center;
+  z-index: 2;
+}
+.mybook-obsidian-host .thumbnail-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #475569;
+}
+.mybook-obsidian-host .modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  backdrop-filter: blur(2px);
+}
+.mybook-obsidian-host .modal-dialog {
+  width: 480px;
+  max-width: 95vw;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.mybook-obsidian-host .modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mybook-obsidian-host .modal-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mybook-obsidian-host .modal-icon {
+  color: #2563eb;
+}
+.mybook-obsidian-host .modal-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f172a;
+}
+.mybook-obsidian-host .modal-close-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #64748b;
+  padding: 4px;
+}
+.mybook-obsidian-host .modal-close-btn:hover {
+  color: #0f172a;
+}
+.mybook-obsidian-host .modal-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.mybook-obsidian-host .section-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 8px;
+  display: block;
+}
+.mybook-obsidian-host .resolution-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+.mybook-obsidian-host .res-btn {
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 10px 8px;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  transition: all 0.15s ease;
+}
+.mybook-obsidian-host .res-btn strong {
+  font-size: 12px;
+  color: #0f172a;
+}
+.mybook-obsidian-host .res-btn span {
+  font-size: 10px;
+  color: #64748b;
+}
+.mybook-obsidian-host .res-btn:hover {
+  border-color: #94a3b8;
+  background: #f1f5f9;
+}
+.mybook-obsidian-host .res-btn.selected {
+  border-color: #2563eb;
+  background: #eff6ff;
+}
+.mybook-obsidian-host .res-btn.selected strong {
+  color: #2563eb;
+}
+.mybook-obsidian-host .range-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.mybook-obsidian-host .radio-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #334155;
+  cursor: pointer;
+}
+.mybook-obsidian-host .modal-footer {
+  padding: 14px 20px;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  background: #f8fafc;
+}
+.mybook-obsidian-host .btn-secondary {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.mybook-obsidian-host .btn-secondary:hover {
+  background: #f1f5f9;
+}
+.mybook-obsidian-host .btn-primary {
+  background: #2563eb;
+  border: 1px solid #1d4ed8;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mybook-obsidian-host .btn-primary:hover {
+  background: #1d4ed8;
+}
+.mybook-obsidian-host .export-progress-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 24px 0;
+  gap: 12px;
+}
+.mybook-obsidian-host .spin-loader {
+  animation: spin 1s linear infinite;
+  color: #2563eb;
+}
+.mybook-obsidian-host .progress-subtext {
+  font-size: 12px;
+  color: #64748b;
+  max-width: 320px;
+}
+.mybook-obsidian-host .progress-bar-track {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+.mybook-obsidian-host .progress-bar-fill {
+  height: 100%;
+  background: #2563eb;
+  transition: width 0.2s ease;
+}
+.mybook-obsidian-host .progress-percent {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2563eb;
+}
+.mybook-obsidian-host .export-error-banner {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+.mybook-obsidian-host .app-loading-screen {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--desk-bg);
+  gap: 12px;
+}
+.mybook-obsidian-host .notebook-spine-icon {
+  font-size: 48px;
+}
+.mybook-obsidian-host .app-root-container {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--desk-bg);
+}
+.mybook-obsidian-host .app-main-layout {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+.mybook-obsidian-host .app-center-workspace {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 0;
+  overflow: hidden;
+  background: #f8fafc;
+  position: relative;
+}
+.mybook-obsidian-host .mynote-workspace-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 40px);
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+}
+.mybook-obsidian-host .obsidian-sidebar-container {
+  width: 270px;
+  min-width: 220px;
+  max-width: 380px;
+  height: 100%;
+  background: #f8fafc;
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  user-select: none;
+  z-index: 50;
+  transition: width 0.2s ease;
+}
+.mybook-obsidian-host .vault-header {
+  height: 44px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e2e8f0;
+  background: #ffffff;
+}
+.mybook-obsidian-host .vault-name-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+  max-width: 155px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+.mybook-obsidian-host .vault-name-badge:hover {
+  background: #f1f5f9;
+}
+.mybook-obsidian-host .theme-pastel .vault-name-badge {
+  padding: 5px 10px;
+  border-radius: 9px;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+.mybook-obsidian-host .theme-pastel .vault-name-badge:hover {
+  background: #eef2f7;
+  border-color: #e2e8f0;
+}
+.mybook-obsidian-host .vault-icon {
+  color: #10b981;
+  flex-shrink: 0;
+}
+.mybook-obsidian-host .vault-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mybook-obsidian-host .vault-dropdown-arrow {
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+.mybook-obsidian-host .vault-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.mybook-obsidian-host .vault-action-icon-btn {
+  background: transparent;
+  border: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #64748b;
+  transition: all 0.15s ease;
+}
+.mybook-obsidian-host .vault-action-icon-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+.mybook-obsidian-host .vault-action-icon-btn.highlight-mynote {
+  color: #0ea5e9;
+}
+.mybook-obsidian-host .vault-action-icon-btn.highlight-mynote:hover {
+  background: #e0f2fe;
+}
+.mybook-obsidian-host .vault-action-icon-btn.settings-sidebar-btn:hover,
+.mybook-obsidian-host .vault-action-icon-btn.collapse-sidebar-btn:hover {
+  background: #f1f5f9;
+}
+.mybook-obsidian-host .theme-pastel .vault-actions-group {
+  gap: 2px;
+  background: #f3efe1;
+  border: 1px solid #e9e2cf;
+  border-radius: 10px;
+  padding: 2px 3px;
+}
+.mybook-obsidian-host .theme-pastel .vault-action-icon-btn {
+  width: 27px;
+  height: 27px;
+  border-radius: 8px;
+  color: #7c8aa5;
+}
+.mybook-obsidian-host .theme-pastel .vault-action-icon-btn:hover {
+  background: #fffdf7;
+  color: #4a5ac8;
+  box-shadow: 0 1px 4px rgba(108, 123, 214, 0.18);
+  transform: translateY(-0.5px);
+}
+.mybook-obsidian-host .theme-pastel .vault-action-icon-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+.mybook-obsidian-host .theme-pastel .vault-action-icon-btn.highlight-mynote {
+  color: #0284c7;
+  background: rgba(14, 165, 233, 0.1);
+}
+.mybook-obsidian-host .theme-pastel .vault-action-icon-btn.highlight-mynote:hover {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+.mybook-obsidian-host .theme-pastel .vault-action-icon-btn.highlight-code {
+  color: #7c3aed;
+  background: rgba(139, 92, 246, 0.1);
+}
+.mybook-obsidian-host .theme-pastel .vault-action-icon-btn.highlight-code:hover {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+.mybook-obsidian-host .vault-action-icon-btn.spinning svg {
+  animation: spin 1s linear infinite;
+}
+.mybook-obsidian-host .vault-search-box {
+  padding: 8px 12px;
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.mybook-obsidian-host .vault-search-box .search-icon {
+  position: absolute;
+  left: 20px;
+  color: #94a3b8;
+  pointer-events: none;
+}
+.mybook-obsidian-host .vault-search-box .search-input {
+  width: 100%;
+  height: 28px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 0 24px 0 28px;
+  font-size: 12px;
+  outline: none;
+  background: #f8fafc;
+  color: #1e293b;
+}
+.mybook-obsidian-host .vault-search-box .search-input:focus {
+  border-color: #10b981;
+  background: #ffffff;
+}
+.mybook-obsidian-host .vault-search-box .search-clear-btn {
+  position: absolute;
+  right: 18px;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+}
+.mybook-obsidian-host .vault-file-tree {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 6px 0;
+}
+.mybook-obsidian-host .vault-tree-node {
+  display: flex;
+  flex-direction: column;
+}
+.mybook-obsidian-host .vault-tree-item {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  font-size: 13px;
+  color: #334155;
+  cursor: pointer;
+  padding-right: 12px;
+  border-radius: 4px;
+  margin: 1px 6px;
+  transition: background 0.1s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mybook-obsidian-host .vault-tree-item:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+.mybook-obsidian-host .vault-tree-item.active {
+  background: rgba(16, 185, 129, 0.15);
+  color: #065f46;
+  font-weight: 600;
+}
+.mybook-obsidian-host .folder-chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  color: #64748b;
+  border-radius: 3px;
+}
+.mybook-obsidian-host .folder-chevron:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+.mybook-obsidian-host .file-indent-space {
+  width: 16px;
+  display: inline-block;
+}
+.mybook-obsidian-host .item-icon {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+.mybook-obsidian-host .color-folder {
+  color: #64748b;
+}
+.mybook-obsidian-host .color-folder-open {
+  color: #3b82f6;
+}
+.mybook-obsidian-host .color-mynote {
+  color: #0ea5e9;
+}
+.mybook-obsidian-host .color-md {
+  color: #10b981;
+}
+.mybook-obsidian-host .color-code {
+  color: #8b5cf6;
+}
+.mybook-obsidian-host .color-img {
+  color: #f59e0b;
+}
+.mybook-obsidian-host .item-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mybook-obsidian-host .vault-subtree {
+  display: flex;
+  flex-direction: column;
+}
+.mybook-obsidian-host .vault-empty-folder-hint {
+  font-size: 11px;
+  color: #94a3b8;
+  font-style: italic;
+  padding: 4px 0;
+}
+.mybook-obsidian-host .vault-loading-state,
+.mybook-obsidian-host .vault-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  color: #64748b;
+  font-size: 13px;
+  text-align: center;
+  gap: 10px;
+}
+.mybook-obsidian-host .vault-loading-state .spin-icon {
+  animation: spin 1s linear infinite;
+  color: #10b981;
+}
+.mybook-obsidian-host .open-sample-btn {
+  background: #10b981;
+  color: #ffffff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.mybook-obsidian-host .open-sample-btn:hover {
+  background: #059669;
+}
+.mybook-obsidian-host .folder-picker-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.mybook-obsidian-host .folder-picker-modal {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  width: 440px;
+  max-width: 90vw;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+.mybook-obsidian-host .folder-picker-modal .modal-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mybook-obsidian-host .folder-picker-modal .modal-header h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+}
+.mybook-obsidian-host .modal-close {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 4px;
+}
+.mybook-obsidian-host .modal-close:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+.mybook-obsidian-host .folder-picker-modal .modal-body {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.mybook-obsidian-host .folder-picker-modal .modal-body label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #334155;
+}
+.mybook-obsidian-host .folder-path-input {
+  width: 100%;
+  height: 36px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 0 12px;
+  font-size: 13px;
+  outline: none;
+  font-family: var(--font-mono);
+}
+.mybook-obsidian-host .folder-path-input:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+.mybook-obsidian-host .quick-presets {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.mybook-obsidian-host .preset-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #94a3b8;
+  letter-spacing: 0.5px;
+}
+.mybook-obsidian-host .preset-btn {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+  color: #334155;
+}
+.mybook-obsidian-host .preset-btn:hover {
+  background: #f1f5f9;
+  border-color: #10b981;
+  color: #065f46;
+}
+.mybook-obsidian-host .folder-picker-modal .modal-footer {
+  padding: 12px 18px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.mybook-obsidian-host .btn-cancel {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.mybook-obsidian-host .btn-cancel:hover {
+  background: #f1f5f9;
+}
+.mybook-obsidian-host .creation-modal-card {
+  width: 520px;
+  max-width: 92vw;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.22);
+}
+.mybook-obsidian-host .creation-kind-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  padding: 12px 18px 0;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+.mybook-obsidian-host .kind-tab-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 6px;
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  background: transparent;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.mybook-obsidian-host .kind-tab-btn:hover {
+  color: #0f172a;
+  background: #f1f5f9;
+}
+.mybook-obsidian-host .kind-tab-btn.active {
+  background: #ffffff;
+  color: #0f172a;
+  font-weight: 600;
+  border-color: #e2e8f0;
+  border-top: 2px solid #3b82f6;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.03);
+}
+.mybook-obsidian-host .kind-tab-btn.active.md {
+  border-top-color: #10b981;
+  color: #065f46;
+}
+.mybook-obsidian-host .kind-tab-btn.active.mynote {
+  border-top-color: #0ea5e9;
+  color: #0369a1;
+}
+.mybook-obsidian-host .kind-tab-btn.active.code {
+  border-top-color: #8b5cf6;
+  color: #6d28d9;
+}
+.mybook-obsidian-host .kind-tab-btn.active.folder {
+  border-top-color: #f59e0b;
+  color: #b45309;
+}
+.mybook-obsidian-host .creation-location-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 12px;
+}
+.mybook-obsidian-host .location-label {
+  color: #64748b;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+.mybook-obsidian-host .location-path {
+  color: #1e293b;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mybook-obsidian-host .code-ext-selection-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.mybook-obsidian-host .ext-presets-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #64748b;
+  letter-spacing: 0.5px;
+}
+.mybook-obsidian-host .code-ext-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.mybook-obsidian-host .ext-chip-btn {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #334155;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.12s ease;
+}
+.mybook-obsidian-host .ext-chip-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+.mybook-obsidian-host .ext-chip-btn.active {
+  background: #ede9fe;
+  border-color: #8b5cf6;
+  color: #6d28d9;
+  font-weight: 600;
+}
+.mybook-obsidian-host .ext-chip-btn .chip-ext {
+  opacity: 0.7;
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+.mybook-obsidian-host .creation-name-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #334155;
+  margin-top: 4px;
+}
+.mybook-obsidian-host .creation-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.mybook-obsidian-host .creation-name-input {
+  padding-right: 80px;
+  font-weight: 500;
+}
+.mybook-obsidian-host .creation-ext-badge {
+  position: absolute;
+  right: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  pointer-events: none;
+}
+.mybook-obsidian-host .vault-context-menu {
+  position: fixed;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  padding: 4px;
+  z-index: 1000;
+  min-width: 170px;
+  display: flex;
+  flex-direction: column;
+}
+.mybook-obsidian-host .context-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #334155;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+.mybook-obsidian-host .context-menu-item:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+.mybook-obsidian-host .context-menu-item.danger {
+  color: #e11d48;
+}
+.mybook-obsidian-host .context-menu-item.danger:hover {
+  background: #ffe4e6;
+  color: #be123c;
+}
+.mybook-obsidian-host .context-divider {
+  height: 1px;
+  background: #f1f5f9;
+  margin: 4px 0;
+}
+.mybook-obsidian-host .object-context-menu {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  padding: 4px;
+  min-width: 160px;
+  display: flex;
+  flex-direction: column;
+}
+.mybook-obsidian-host .obj-context-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #334155;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: background 0.1s ease;
+}
+.mybook-obsidian-host .obj-context-item:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+.mybook-obsidian-host .obj-context-item.danger {
+  color: #e11d48;
+}
+.mybook-obsidian-host .obj-context-item.danger:hover {
+  background: #ffe4e6;
+  color: #be123c;
+}
+.mybook-obsidian-host .textbox-lock-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 22px;
+  height: 22px;
+  background: #f59e0b;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  z-index: 35;
+  pointer-events: none;
+}
+.mybook-obsidian-host .obsidian-tab-strip {
+  height: 38px;
+  background: #edf2f7;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  gap: 4px;
+  user-select: none;
+  position: relative;
+  z-index: 120;
+}
+.mybook-obsidian-host .tabbar-sidebar-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+.mybook-obsidian-host .tabbar-sidebar-toggle-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+.mybook-obsidian-host .tabbar-sidebar-toggle-btn.active {
+  color: #2563eb;
+  background: #e0e7ff;
+}
+.mybook-obsidian-host .tab-items-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+  flex: 1;
+  scrollbar-width: none;
+}
+.mybook-obsidian-host .tab-items-container::-webkit-scrollbar {
+  display: none;
+}
+.mybook-obsidian-host .obsidian-tab {
+  height: 32px;
+  padding: 0 10px;
+  background: #e2e8f0;
+  border-radius: 6px 6px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #475569;
+  cursor: pointer;
+  max-width: 220px;
+  border-top: 2px solid transparent;
+  transition: all 0.15s ease;
+}
+.mybook-obsidian-host .obsidian-tab:hover {
+  background: #cbd5e1;
+  color: #0f172a;
+}
+.mybook-obsidian-host .obsidian-tab.active {
+  background: #ffffff;
+  color: #0f172a;
+  font-weight: 500;
+  border-top: 2px solid #10b981;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+.mybook-obsidian-host .tab-type-icon {
+  flex-shrink: 0;
+}
+.mybook-obsidian-host .tab-type-icon.mynote {
+  color: #0ea5e9;
+}
+.mybook-obsidian-host .tab-type-icon.code {
+  color: #8b5cf6;
+}
+.mybook-obsidian-host .tab-type-icon.md {
+  color: #10b981;
+}
+.mybook-obsidian-host .tab-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mybook-obsidian-host .tab-dirty-dot {
+  font-size: 8px;
+  color: #f59e0b;
+  margin-left: 2px;
+}
+.mybook-obsidian-host .tab-close-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  padding: 2px;
+  margin-left: 4px;
+}
+.mybook-obsidian-host .tab-close-btn:hover {
+  background: rgba(0, 0, 0, 0.08);
+  color: #0f172a;
+}
+.mybook-obsidian-host .tab-new-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.mybook-obsidian-host .tab-new-btn {
+  background: transparent;
+  border: none;
+  height: 26px;
+  width: 26px;
+  padding: 0;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #64748b;
+  margin-left: 3px;
+  transition: all 0.12s ease;
+}
+.mybook-obsidian-host .tab-new-btn:hover {
+  background: #cbd5e1;
+  color: #0f172a;
+}
+.mybook-obsidian-host .tab-new-dropdown {
+  position: absolute;
+  top: 32px;
+  left: 0;
+  right: auto;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+  padding: 4px;
+  z-index: 1000;
+  min-width: 190px;
+  display: flex;
+  flex-direction: column;
+}
+.mybook-obsidian-host .tab-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #334155;
+  cursor: pointer;
+  text-align: left;
+}
+.mybook-obsidian-host .tab-dropdown-item:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+.mybook-obsidian-host .tabbar-mountain-doodle {
+  display: none;
+  align-items: flex-end;
+  gap: 2px;
+  margin-left: auto;
+  padding-right: 6px;
+  flex-shrink: 0;
+  pointer-events: none;
+  user-select: none;
+}
+.mybook-obsidian-host .tabbar-mountain-doodle img {
+  height: 26px;
+  width: auto;
+  opacity: 0.85;
+}
+.mybook-obsidian-host .tabbar-mountain-doodle .tabbar-sun {
+  height: 14px;
+  margin-bottom: 12px;
+}
+.mybook-obsidian-host .theme-pastel .tabbar-mountain-doodle {
+  display: flex;
+}
+.mybook-obsidian-host .pure-markdown-editor-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 40px);
+  min-height: 0;
+  overflow: hidden;
+  background: #ffffff;
+}
+.mybook-obsidian-host .md-editor-header {
+  border-bottom: 1px solid #e2e8f0;
+  background: #ffffff;
+}
+.mybook-obsidian-host .md-editor-title-row {
+  height: 48px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #f1f5f9;
+  position: relative;
+}
+.mybook-obsidian-host .md-editor-left-cluster {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  max-width: 38%;
+}
+.mybook-obsidian-host .md-editor-left-cluster .md-editor-file-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mybook-obsidian-host .md-editor-file-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+}
+.mybook-obsidian-host .md-editor-stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  color: #64748b;
+}
+.mybook-obsidian-host .save-status-pill {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.mybook-obsidian-host .save-status-pill.saved {
+  background: #ecfdf5;
+  color: #059669;
+}
+.mybook-obsidian-host .save-status-pill.saving {
+  background: #eff6ff;
+  color: #2563eb;
+}
+.mybook-obsidian-host .save-status-pill.dirty {
+  background: #fffbeb;
+  color: #d97706;
+}
+.mybook-obsidian-host .md-editor-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.mybook-obsidian-host .view-mode-toggle-group.view-mode-centered {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.mybook-obsidian-host .md-save-split {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+}
+.mybook-obsidian-host .md-save-split .md-save-btn {
+  border-radius: 6px 0 0 6px;
+}
+.mybook-obsidian-host .md-save-chevron {
+  display: flex;
+  align-items: center;
+  background: #0da271;
+  border: none;
+  border-left: 1px solid rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  padding: 0 7px;
+  border-radius: 0 6px 6px 0;
+  cursor: pointer;
+}
+.mybook-obsidian-host .md-save-chevron:hover {
+  background: #059669;
+}
+.mybook-obsidian-host .md-save-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 200px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.16);
+  padding: 4px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+}
+.mybook-obsidian-host .md-save-dropdown button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #334155;
+  cursor: pointer;
+  text-align: left;
+}
+.mybook-obsidian-host .md-save-dropdown button:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+.mybook-obsidian-host .md-save-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #10b981;
+  border: none;
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.mybook-obsidian-host .md-save-btn:hover {
+  background: #059669;
+}
+.mybook-obsidian-host .view-mode-toggle-group {
+  display: flex;
+  align-items: center;
+  background: #f1f5f9;
+  border-radius: 6px;
+  padding: 2px;
+}
+.mybook-obsidian-host .view-mode-btn {
+  background: transparent;
+  border: none;
+  padding: 5px 11px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+  transition: all 0.15s ease;
+}
+.mybook-obsidian-host .view-mode-btn:hover {
+  color: #0f172a;
+  background: rgba(15, 23, 42, 0.05);
+}
+.mybook-obsidian-host .view-mode-btn.active {
+  background: #ffffff;
+  color: #1d4ed8;
+  font-weight: 800;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+.mybook-obsidian-host .view-mode-btn.active.reading {
+  color: #047857;
+}
+.mybook-obsidian-host .md-editor-file-title {
+  font-weight: 800;
+  color: #0f172a;
+}
+.mybook-obsidian-host .md-editor-stats {
+  font-weight: 600;
+  color: #475569;
+}
+.mybook-obsidian-host .tab-title {
+  font-weight: 600;
+}
+.mybook-obsidian-host .obsidian-tab.active .tab-title {
+  font-weight: 700;
+  color: #0f172a;
+}
+.mybook-obsidian-host .vault-tree-item {
+  font-weight: 500;
+  color: #1e293b;
+}
+.mybook-obsidian-host .vault-tree-item.active {
+  font-weight: 700;
+}
+.mybook-obsidian-host .header-action-btn,
+.mybook-obsidian-host .file-menu-btn {
+  font-weight: 700;
+}
+.mybook-obsidian-host .split-pane-title,
+.mybook-obsidian-host .quickopen-section-label,
+.mybook-obsidian-host .split-picker-section-label {
+  font-weight: 800;
+}
+.mybook-obsidian-host .simple-tool-btn {
+  font-weight: 700;
+  color: #334155;
+}
+.mybook-obsidian-host .app-root-container button,
+.mybook-obsidian-host .app-root-container input,
+.mybook-obsidian-host .app-root-container select,
+.mybook-obsidian-host .app-root-container textarea.md-raw-textarea {
+  font-family:
+    "Cascadia Code",
+    "Cascadia Mono",
+    Consolas,
+    "Courier New",
+    monospace;
+}
+.mybook-obsidian-host .app-root-container button {
+  font-weight: 700;
+}
+.mybook-obsidian-host .app-header,
+.mybook-obsidian-host .obsidian-tab-strip,
+.mybook-obsidian-host .obsidian-sidebar-container,
+.mybook-obsidian-host .md-editor-header,
+.mybook-obsidian-host .code-editor-header,
+.mybook-obsidian-host .page-navigator-bar,
+.mybook-obsidian-host .split-pane-header,
+.mybook-obsidian-host .modal-dialog,
+.mybook-obsidian-host .quickopen-modal,
+.mybook-obsidian-host .split-picker-panel,
+.mybook-obsidian-host .settings-modal-card,
+.mybook-obsidian-host .simple-toolbar,
+.mybook-obsidian-host .live-toolbar-row .obsidian-markdown-toolbar {
+  font-family:
+    "Cascadia Code",
+    "Cascadia Mono",
+    Consolas,
+    "Courier New",
+    monospace;
+}
+.mybook-obsidian-host .vault-name-badge,
+.mybook-obsidian-host .vault-search-box .search-input,
+.mybook-obsidian-host .tab-title,
+.mybook-obsidian-host .nav-page-text,
+.mybook-obsidian-host .md-editor-file-title,
+.mybook-obsidian-host .code-filename,
+.mybook-obsidian-host .page-number-label,
+.mybook-obsidian-host .split-pane-title {
+  font-weight: 700;
+}
+.mybook-obsidian-host .vault-tree-item .item-label,
+.mybook-obsidian-host .quickopen-item-name,
+.mybook-obsidian-host .split-picker-tab-title {
+  font-weight: 600;
+}
+.mybook-obsidian-host .md-editor-toolbar-row {
+  padding: 4px 12px;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+}
+.mybook-obsidian-host .md-editor-body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  height: calc(100% - 88px);
+}
+.mybook-obsidian-host .md-editor-body.view-preview {
+  height: calc(100% - 44px);
+}
+.mybook-obsidian-host .md-editor-body.view-live,
+.mybook-obsidian-host .md-editor-body.view-simple {
+  height: calc(100% - 98px);
+  justify-content: center;
+  background: #f8fafc;
+}
+.mybook-obsidian-host .md-editor-body.view-edit,
+.mybook-obsidian-host .md-editor-body.view-preview {
+  justify-content: center;
+  background: #f8fafc;
+}
+.mybook-obsidian-host .md-editor-pane.editor-live {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  max-width: 880px;
+  width: 100%;
+  margin: 0 auto;
+  background: #ffffff;
+  border-left: 1px solid #e2e8f0;
+  border-right: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  padding: 0;
+  overflow: hidden;
+}
+.mybook-obsidian-host .md-editor-pane.editor-live .live-toolbar-row {
+  padding: 8px 16px;
+  border-bottom: 1px solid #f1f5f9;
+}
+.mybook-obsidian-host .md-editor-pane {
+  flex: 1;
+  height: 100%;
+  overflow-y: auto;
+  padding: 24px 32px;
+}
+.mybook-obsidian-host .md-editor-body.view-edit .md-editor-pane,
+.mybook-obsidian-host .md-editor-body.view-preview .md-editor-pane {
+  max-width: 880px;
+  width: 100%;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 40px 64px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  border-left: 1px solid #e2e8f0;
+  border-right: 1px solid #e2e8f0;
+}
+.mybook-obsidian-host .md-editor-pane.editor-left {
+  border-right: 1px solid #e2e8f0;
+}
+.mybook-obsidian-host .md-raw-textarea {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: var(--font-cascadia), var(--font-sans);
+  font-size: 15px;
+  line-height: 1.7;
+  color: #1e293b;
+  background: transparent;
+}
+.mybook-obsidian-host .md-editor-pane.preview-right {
+  background: #ffffff;
+}
+.mybook-obsidian-host .empty-preview-hint {
+  color: #94a3b8;
+  font-style: italic;
+}
+.mybook-obsidian-host .code-editor-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 40px);
+  min-height: 0;
+  overflow: hidden;
+  background: #1e1e2e;
+  color: #cdd6f4;
+}
+.mybook-obsidian-host .code-editor-header {
+  height: 44px;
+  padding: 0 16px;
+  background: #181825;
+  border-bottom: 1px solid #313244;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mybook-obsidian-host .code-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mybook-obsidian-host .code-icon {
+  color: #89b4fa;
+}
+.mybook-obsidian-host .code-filename {
+  font-size: 14px;
+  font-weight: 600;
+  color: #cdd6f4;
+}
+.mybook-obsidian-host .code-lang-tag {
+  background: #313244;
+  color: #f38ba8;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+}
+.mybook-obsidian-host .code-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mybook-obsidian-host .code-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #313244;
+  border: 1px solid #45475a;
+  color: #cdd6f4;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.mybook-obsidian-host .code-action-btn:hover {
+  background: #45475a;
+}
+.mybook-obsidian-host .code-action-btn.primary {
+  background: #89b4fa;
+  color: #11111b;
+  border-color: #89b4fa;
+  font-weight: 600;
+}
+.mybook-obsidian-host .code-action-btn.primary:hover {
+  background: #b4befe;
+}
+.mybook-obsidian-host .color-green {
+  color: #a6e3a1;
+}
+.mybook-obsidian-host .code-editor-body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+.mybook-obsidian-host .code-gutter-line-numbers {
+  width: 50px;
+  background: #181825;
+  color: #585b70;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 22px;
+  text-align: right;
+  padding: 16px 10px 16px 0;
+  user-select: none;
+  overflow: hidden;
+  flex-shrink: 0;
+  border-right: 1px solid #313244;
+}
+.mybook-obsidian-host .gutter-number {
+  height: 22px;
+}
+.mybook-obsidian-host .code-textarea {
+  flex: 1;
+  height: 100%;
+  background: transparent;
+  color: #cdd6f4;
+  border: none;
+  outline: none;
+  resize: none;
+  padding: 16px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 22px;
+  tab-size: 2;
+  white-space: pre;
+  overflow: auto;
+}
+.mybook-obsidian-host .code-status-bar {
+  height: 24px;
+  background: #11111b;
+  border-top: 1px solid #313244;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 16px;
+  font-size: 11px;
+  color: #6c7086;
+  font-family: var(--font-mono);
+}
+.mybook-obsidian-host .new-file-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.mybook-obsidian-host .new-file-modal-card {
+  background: #ffffff !important;
+  border-radius: 12px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+  width: 440px;
+  max-width: 90vw;
+  overflow: hidden;
+  border: 1px solid #cbd5e1;
+  position: relative;
+  z-index: 1001;
+}
+.mybook-obsidian-host .new-file-modal-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mybook-obsidian-host .new-file-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+.mybook-obsidian-host .new-file-close-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+}
+.mybook-obsidian-host .new-file-close-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+.mybook-obsidian-host .new-file-modal-body {
+  padding: 20px 18px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.mybook-obsidian-host .new-file-prompt-text {
+  font-size: 14px;
+  color: #475569;
+  margin: 0;
+}
+.mybook-obsidian-host .new-file-target-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px dashed #10b981;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  word-break: break-all;
+}
+.mybook-obsidian-host .new-file-modal-actions {
+  padding: 14px 18px;
+  background: #f8fafc;
+  border-top: 1px solid #f1f5f9;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+.mybook-obsidian-host .new-file-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+.mybook-obsidian-host .new-file-btn.action-create-md {
+  background: #10b981;
+  color: #ffffff;
+  border-color: #059669;
+}
+.mybook-obsidian-host .new-file-btn.action-create-md:hover {
+  background: #059669;
+}
+.mybook-obsidian-host .new-file-btn.action-create-mynote {
+  background: #0ea5e9;
+  color: #ffffff;
+  border-color: #0284c7;
+}
+.mybook-obsidian-host .new-file-btn.action-create-mynote:hover {
+  background: #0284c7;
+}
+.mybook-obsidian-host .new-file-btn.action-nevermind {
+  background: #ffffff;
+  color: #64748b;
+  border-color: #cbd5e1;
+}
+.mybook-obsidian-host .new-file-btn.action-nevermind:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+.mybook-obsidian-host .stroke-level-selector {
+  display: flex;
+  align-items: center;
+  background: #f1f5f9;
+  border-radius: 6px;
+  padding: 2px;
+  gap: 2px;
+}
+.mybook-obsidian-host .stroke-level-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  height: 24px;
+  min-width: 22px;
+  padding: 0 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  transition: background 0.1s ease;
+}
+.mybook-obsidian-host .stroke-level-btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+.mybook-obsidian-host .stroke-level-btn.active {
+  background: #eff6ff !important;
+  border: 1.5px solid #3b82f6 !important;
+  box-shadow: 0 0 0 1px #3b82f6 inset, 0 1px 2px rgba(37, 99, 235, 0.15) !important;
+}
+.mybook-obsidian-host .stroke-level-btn .level-dot {
+  background: #1e293b;
+  border-radius: 50%;
+  display: inline-block;
+  transition: transform 0.12s ease;
+}
+.mybook-obsidian-host .stroke-level-btn.active .level-dot {
+  transform: scale(1.15);
+}
+.mybook-obsidian-host .stroke-level-btn .level-num {
+  font-size: 11px;
+  font-weight: 600;
+  color: #475569;
+}
+.mybook-obsidian-host .pen-style-toggle-btn {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #334155;
+  transition: all 0.15s ease;
+}
+.mybook-obsidian-host .pen-style-toggle-btn:hover {
+  background: #e2e8f0;
+}
+.mybook-obsidian-host .pen-style-toggle-btn.active {
+  background: #e0f2fe;
+  border-color: #38bdf8;
+  color: #0369a1;
+}
+.mybook-obsidian-host .page-drawing-layer.is-eraser-mode,
+.mybook-obsidian-host .drawing-canvas.is-eraser-mode,
+.mybook-obsidian-host .is-eraser-mode {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%23fbcfe8' stroke='%23334155' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21' /%3E%3Cpath d='M22 21H7' stroke='%23334155' /%3E%3Cpath d='m5 11 9 9' stroke='%23334155' /%3E%3C/svg%3E") 4 20, crosshair !important;
+}
+.mybook-obsidian-host .link-pin {
+  font-size: 13px;
+  margin-right: 2px;
+  display: inline-block;
+  opacity: 0.9;
+}
+.mybook-obsidian-host .link-external-icon {
+  font-size: 12px;
+  margin-left: 2px;
+  display: inline-block;
+  opacity: 0.8;
+  font-weight: 700;
+}
+.mybook-obsidian-host .sidebar-expand-floating-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  color: #475569;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.15s ease;
+}
+.mybook-obsidian-host .sidebar-expand-floating-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+  border-color: #94a3b8;
+  transform: scale(1.05);
+}
+.mybook-obsidian-host .notebook-sheet-placeholder {
+  flex-shrink: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+.mybook-obsidian-host .settings-modal-overlay {
+  z-index: 10000;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(4px);
+}
+.mybook-obsidian-host .settings-modal-card {
+  width: 580px;
+  max-width: 92vw;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff !important;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  border: 1px solid #cbd5e1;
+  overflow: hidden;
+}
+.mybook-obsidian-host .settings-header {
+  padding: 14px 18px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mybook-obsidian-host .settings-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: #0f172a;
+}
+.mybook-obsidian-host .settings-icon {
+  color: #3b82f6;
+}
+.mybook-obsidian-host .settings-tabs-strip {
+  display: flex;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f1f5f9;
+  padding: 0 12px;
+  gap: 4px;
+}
+.mybook-obsidian-host .settings-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.mybook-obsidian-host .settings-tab-btn:hover {
+  color: #0f172a;
+}
+.mybook-obsidian-host .settings-tab-btn.active {
+  color: #2563eb;
+  border-bottom-color: #2563eb;
+  background: #ffffff;
+}
+.mybook-obsidian-host .settings-body {
+  padding: 16px 20px;
+  overflow-y: auto;
+  max-height: 55vh;
+}
+.mybook-obsidian-host .shortcuts-table-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.mybook-obsidian-host .shortcuts-instruction-hint {
+  font-size: 12px;
+  color: #64748b;
+  padding: 6px 10px;
+  background: #f8fafc;
+  border-radius: 6px;
+  border-left: 3px solid #3b82f6;
+}
+.mybook-obsidian-host .shortcuts-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.mybook-obsidian-host .shortcuts-table th {
+  text-align: left;
+  padding: 8px 10px;
+  background: #f8fafc;
+  color: #475569;
+  font-weight: 600;
+  border-bottom: 1px solid #e2e8f0;
+}
+.mybook-obsidian-host .shortcuts-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #f1f5f9;
+}
+.mybook-obsidian-host .action-name-cell {
+  color: #1e293b;
+  font-weight: 500;
+}
+.mybook-obsidian-host .key-badge-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 60px;
+  padding: 4px 10px;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-family: var(--font-cascadia, monospace);
+  font-size: 12px;
+  font-weight: 600;
+  color: #0f172a;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.15s ease;
+}
+.mybook-obsidian-host .key-badge-btn:hover {
+  background: #e2e8f0;
+  border-color: #94a3b8;
+}
+.mybook-obsidian-host .key-badge-btn.recording {
+  background: #eff6ff;
+  border-color: #3b82f6;
+  color: #2563eb;
+  animation: pulse 1s infinite;
+}
+.mybook-obsidian-host .edit-rebind-btn {
+  padding: 3px 8px;
+  background: transparent;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  font-size: 11px;
+  color: #64748b;
+  cursor: pointer;
+}
+.mybook-obsidian-host .edit-rebind-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+.mybook-obsidian-host .cancel-rebind-btn {
+  padding: 3px 8px;
+  background: #fee2e2;
+  border: 1px solid #fca5a5;
+  border-radius: 4px;
+  font-size: 11px;
+  color: #dc2626;
+  cursor: pointer;
+}
+.mybook-obsidian-host .general-settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.mybook-obsidian-host .setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #f1f5f9;
+}
+.mybook-obsidian-host .setting-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.mybook-obsidian-host .setting-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+}
+.mybook-obsidian-host .setting-desc {
+  font-size: 12px;
+  color: #64748b;
+}
+.mybook-obsidian-host .settings-select {
+  min-width: 170px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  font-size: 12px;
+  color: #1e293b;
+  background: #ffffff;
+}
+.mybook-obsidian-host .settings-toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.mybook-obsidian-host .settings-toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.mybook-obsidian-host .switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #cbd5e1;
+  transition: 0.2s;
+  border-radius: 24px;
+}
+.mybook-obsidian-host .switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.2s;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+.mybook-obsidian-host .settings-toggle-switch input:checked + .switch-slider {
+  background-color: #2563eb;
+}
+.mybook-obsidian-host .settings-toggle-switch input:checked + .switch-slider:before {
+  transform: translateX(20px);
+}
+.mybook-obsidian-host .settings-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+}
+.mybook-obsidian-host .footer-right-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mybook-obsidian-host .reset-defaults-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #64748b;
+}
+.mybook-obsidian-host .reset-defaults-btn:hover {
+  color: #dc2626;
+}
+.mybook-obsidian-host .save-settings-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mybook-obsidian-host .compact-icon-btn.flip-toggle-btn.active {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #2563eb;
+  font-weight: 600;
+}
+.mybook-obsidian-host .compact-icon-btn.settings-btn {
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  border-radius: 6px;
+  padding: 0 7px;
+  height: 28px;
+}
+.mybook-obsidian-host .compact-icon-btn.settings-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+.mybook-obsidian-host .theme-picker-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.mybook-obsidian-host .theme-option-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1.5px solid #e2e8f0;
+  background: #f8fafc;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+  position: relative;
+}
+.mybook-obsidian-host .theme-option-card:hover {
+  border-color: #94a3b8;
+}
+.mybook-obsidian-host .theme-option-card.active {
+  border-color: #2563eb;
+  background: #eff6ff;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+}
+.mybook-obsidian-host .theme-swatches {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.mybook-obsidian-host .theme-swatches .sw {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  margin-left: -7px;
+}
+.mybook-obsidian-host .theme-swatches .sw:first-child {
+  margin-left: 0;
+}
+.mybook-obsidian-host .theme-preview-default .sw-bg {
+  background: #e5e5e5;
+}
+.mybook-obsidian-host .theme-preview-default .sw-paper {
+  background: #ffffff;
+}
+.mybook-obsidian-host .theme-preview-default .sw-accent {
+  background: #2563eb;
+}
+.mybook-obsidian-host .theme-preview-pastel .sw-bg {
+  background: #f4f1e8;
+}
+.mybook-obsidian-host .theme-preview-pastel .sw-paper {
+  background: #fffdf6;
+}
+.mybook-obsidian-host .theme-preview-pastel .sw-accent {
+  background: #7c8cf8;
+}
+.mybook-obsidian-host .theme-option-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+.mybook-obsidian-host .theme-option-text strong {
+  font-size: 13px;
+  color: #0f172a;
+}
+.mybook-obsidian-host .theme-option-text span {
+  font-size: 11px;
+  color: #64748b;
+}
+.mybook-obsidian-host .theme-check {
+  color: #2563eb;
+  flex-shrink: 0;
+}
+.mybook-obsidian-host .split-panes {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+  overflow: hidden;
+}
+.mybook-obsidian-host .split-pane {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+.mybook-obsidian-host .split-pane.split-right {
+  border-left: 1px solid var(--toolbar-border);
+}
+.mybook-obsidian-host .split-pane .pure-markdown-editor-container,
+.mybook-obsidian-host .split-pane .code-editor-container,
+.mybook-obsidian-host .split-pane .mynote-workspace-wrapper,
+.mybook-obsidian-host .split-pane .split-mynote-pane {
+  height: auto;
+  flex: 1;
+  min-height: 0;
+}
+.mybook-obsidian-host .split-pane-header {
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  background: var(--toolbar-bg);
+  border-bottom: 1px solid var(--toolbar-border);
+  z-index: 20;
+}
+.mybook-obsidian-host .split-pane-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+.mybook-obsidian-host .split-tab-select {
+  flex: 1;
+  min-width: 0;
+}
+.mybook-obsidian-host .split-pane-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+.mybook-obsidian-host .split-empty-hint {
+  margin: auto;
+  color: var(--text-muted);
+  font-size: 13px;
+  padding: 20px;
+  text-align: center;
+}
+.mybook-obsidian-host .split-mynote-pane {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.mybook-obsidian-host .split-mynote-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 10px 120px 10px;
+}
+.mybook-obsidian-host .split-mynote-page-wrap {
+  flex-shrink: 0;
+  box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.12);
+}
+.mybook-obsidian-host .split-mini-bar {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #ffffff;
+  border: 1px solid var(--toolbar-border);
+  border-radius: 9999px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  padding: 4px 10px;
+  z-index: 30;
+  font-size: 12px;
+  color: var(--text-muted);
+  user-select: none;
+}
+.mybook-obsidian-host .split-mini-bar button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 700;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mybook-obsidian-host .split-mini-bar button:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+.mybook-obsidian-host .quickopen-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 12vh;
+  z-index: 500;
+  backdrop-filter: blur(2px);
+  animation: fadeInDown 0.12s ease-out;
+}
+.mybook-obsidian-host .quickopen-modal {
+  width: 560px;
+  max-width: 92vw;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+.mybook-obsidian-host .quickopen-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  border-bottom: 1px solid #e2e8f0;
+}
+.mybook-obsidian-host .quickopen-search-icon {
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+.mybook-obsidian-host .quickopen-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: #0f172a;
+  background: transparent;
+}
+.mybook-obsidian-host .quickopen-list {
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 6px;
+}
+.mybook-obsidian-host .quickopen-empty {
+  padding: 18px;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 13px;
+}
+.mybook-obsidian-host .quickopen-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 10px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+}
+.mybook-obsidian-host .quickopen-item.active {
+  background: #eff6ff;
+}
+.mybook-obsidian-host .quickopen-item-icon {
+  color: #64748b;
+  flex-shrink: 0;
+}
+.mybook-obsidian-host .quickopen-item.active .quickopen-item-icon {
+  color: #2563eb;
+}
+.mybook-obsidian-host .quickopen-item-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+  white-space: nowrap;
+}
+.mybook-obsidian-host .quickopen-item-path {
+  font-size: 11px;
+  color: #94a3b8;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-left: auto;
+  padding-left: 12px;
+}
+.mybook-obsidian-host .quickopen-hint {
+  padding: 8px 14px;
+  border-top: 1px solid #f1f5f9;
+  font-size: 11px;
+  color: #94a3b8;
+  background: #f8fafc;
+}
+.mybook-obsidian-host .quickopen-section-label {
+  padding: 8px 10px 4px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #94a3b8;
+}
+.mybook-obsidian-host .quickopen-create .quickopen-item-name {
+  color: #2563eb;
+}
+.mybook-obsidian-host .split-picker-panel {
+  position: fixed;
+  top: 46px;
+  right: 10px;
+  width: 330px;
+  max-width: calc(100vw - 20px);
+  max-height: calc(100vh - 70px);
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
+  z-index: 400;
+  overflow: hidden;
+  animation: fadeInDown 0.12s ease-out;
+}
+.mybook-obsidian-host .split-picker-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f172a;
+}
+.mybook-obsidian-host .split-picker-close {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #64748b;
+  padding: 3px;
+  border-radius: 4px;
+  display: flex;
+}
+.mybook-obsidian-host .split-picker-close:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+.mybook-obsidian-host .split-picker-section-label {
+  padding: 8px 12px 4px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #94a3b8;
+}
+.mybook-obsidian-host .split-picker-tabs {
+  padding: 0 8px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+.mybook-obsidian-host .split-picker-empty {
+  padding: 8px 10px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+.mybook-obsidian-host .split-picker-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 10px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+}
+.mybook-obsidian-host .split-picker-tab:hover {
+  background: #eff6ff;
+}
+.mybook-obsidian-host .split-picker-tab-title {
+  font-size: 13px;
+  color: #0f172a;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mybook-obsidian-host .split-picker-newrow {
+  display: flex;
+  gap: 6px;
+  padding: 6px 4px 2px 4px;
+}
+.mybook-obsidian-host .split-picker-newrow button {
+  flex: 1;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #334155;
+  padding: 6px 0;
+  cursor: pointer;
+}
+.mybook-obsidian-host .split-picker-newrow button:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #2563eb;
+}
+.mybook-obsidian-host .split-picker-search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 2px 12px 6px 12px;
+  padding: 0 10px;
+  height: 30px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #94a3b8;
+}
+.mybook-obsidian-host .split-picker-search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 13px;
+  color: #0f172a;
+}
+.mybook-obsidian-host .split-picker-files {
+  padding: 0 8px 8px 8px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+.mybook-obsidian-host .split-picker-file {
+  display: block;
+  width: 100%;
+  padding: 7px 10px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+}
+.mybook-obsidian-host .split-picker-file.active {
+  background: #eff6ff;
+}
+.mybook-obsidian-host .split-picker-file-name {
+  font-size: 13px;
+  color: #0f172a;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+.mybook-obsidian-host .theme-pastel .split-picker-panel {
+  background: #fffdf7;
+  border-color: #e9e2cf;
+}
+.mybook-obsidian-host .theme-pastel .split-picker-header {
+  border-bottom-color: #ece5d1;
+}
+.mybook-obsidian-host .md-editor-pane.editor-left {
+  position: relative;
+}
+.mybook-obsidian-host .wikilink-suggest-popup {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  width: 340px;
+  max-width: calc(100% - 24px);
+  max-height: 240px;
+  overflow-y: auto;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  z-index: 60;
+  padding: 4px;
+}
+.mybook-obsidian-host .wikilink-suggest-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 10px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+}
+.mybook-obsidian-host .wikilink-suggest-item.active {
+  background: rgba(16, 185, 129, 0.12);
+}
+.mybook-obsidian-host .wikilink-suggest-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #065f46;
+  white-space: nowrap;
+}
+.mybook-obsidian-host .wikilink-suggest-path {
+  font-size: 11px;
+  color: #94a3b8;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-left: auto;
+}
+.mybook-obsidian-host .app-sidebar-slide {
+  width: 272px;
+  min-width: 272px;
+  max-width: 272px;
+  overflow: hidden;
+  flex-shrink: 0;
+  opacity: 1;
+  transition:
+    width 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    min-width 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    max-width 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.2s ease;
+}
+.mybook-obsidian-host .app-sidebar-slide.collapsed {
+  width: 0 !important;
+  min-width: 0 !important;
+  max-width: 0 !important;
+  opacity: 0;
+}
+.mybook-obsidian-host .app-sidebar-slide > aside {
+  width: 272px;
+}
+.mybook-obsidian-host .sidebar-pastel-doodle {
+  display: flex;
+  flex-shrink: 0;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 6px 12px 8px 10px;
+  border-top: 1px solid #f1f5f9;
+  background: #f8fafc;
+  overflow: hidden;
+  max-height: 128px;
+}
+.mybook-obsidian-host .sidebar-pastel-doodle img {
+  height: 104px;
+  width: auto;
+  flex-shrink: 0;
+  user-select: none;
+  filter: saturate(0.7);
+  opacity: 0.92;
+}
+.mybook-obsidian-host .sidebar-pastel-doodle span {
+  font-family:
+    "Patrick Hand",
+    "Comic Sans MS",
+    cursive;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #8a93ad;
+  padding-bottom: 8px;
+  transform: rotate(-2deg);
+}
+.mybook-obsidian-host .theme-pastel .sidebar-pastel-doodle {
+  border-top-color: #ece5d1;
+  background: #faf7ee;
+}
+.mybook-obsidian-host .theme-pastel .sidebar-pastel-doodle img {
+  filter: none;
+  opacity: 1;
+}
+.mybook-obsidian-host .theme-pastel .sidebar-pastel-doodle span {
+  color: #7b86b8;
+}
+.mybook-obsidian-host .vault-error-banner {
+  margin-top: 8px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+.mybook-obsidian-host .vault-path-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.mybook-obsidian-host .vault-path-row .folder-path-input {
+  flex: 1;
+  min-width: 0;
+}
+.mybook-obsidian-host .md-preview-pretty {
+  --pretty-font:
+    "Inter",
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  --pretty-ink: #1e293b;
+  --pretty-muted: #64748b;
+  --pretty-accent: #10b981;
+  --pretty-accent-soft: rgba(16, 185, 129, 0.1);
+  --pretty-code-bg: #f1f5f9;
+  --pretty-border: #e2e8f0;
+}
+.mybook-obsidian-host .md-preview-pretty.obsidian-markdown-body {
+  font-family: var(--pretty-font);
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--pretty-ink);
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 28px 32px 60px 32px;
+  word-break: break-word;
+}
+.mybook-obsidian-host .md-preview-pretty h1 {
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  margin: 0.4em 0 0.5em 0;
+  padding-bottom: 0.35em;
+  border-bottom: 1px solid var(--pretty-border);
+  color: #0f172a;
+}
+.mybook-obsidian-host .md-preview-pretty h2 {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 1.1em 0 0.5em 0;
+  padding-bottom: 0.25em;
+  border-bottom: 1px solid var(--pretty-border);
+  color: #0f172a;
+}
+.mybook-obsidian-host .md-preview-pretty h3 {
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.45;
+  margin: 1em 0 0.4em 0;
+  color: #1e293b;
+}
+.mybook-obsidian-host .md-preview-pretty p {
+  margin: 0.55em 0;
+  line-height: 1.75;
+}
+.mybook-obsidian-host .md-preview-pretty ul,
+.mybook-obsidian-host .md-preview-pretty ol {
+  margin: 0.55em 0;
+  padding-left: 26px;
+}
+.mybook-obsidian-host .md-preview-pretty li {
+  line-height: 1.7;
+  margin: 0.2em 0;
+  padding-left: 2px;
+}
+.mybook-obsidian-host .md-preview-pretty li::marker {
+  color: var(--pretty-accent);
+  font-weight: 700;
+}
+.mybook-obsidian-host .md-preview-pretty .obsidian-task-item {
+  gap: 4px;
+  line-height: 1.7;
+}
+.mybook-obsidian-host .md-preview-pretty .obsidian-checkbox-box {
+  width: 17px;
+  height: 17px;
+  min-width: 17px;
+  border-radius: 5px;
+  margin-top: 4px;
+}
+.mybook-obsidian-host .md-preview-pretty a,
+.mybook-obsidian-host .md-preview-pretty .obsidian-wikilink {
+  color: var(--pretty-accent);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: 2px;
+  transition: background 0.12s ease;
+}
+.mybook-obsidian-host .md-preview-pretty a:hover,
+.mybook-obsidian-host .md-preview-pretty .obsidian-wikilink:hover {
+  background: var(--pretty-accent-soft);
+  border-bottom-color: var(--pretty-accent);
+}
+.mybook-obsidian-host .md-preview-pretty .obsidian-highlight {
+  background:
+    linear-gradient(
+      to top,
+      rgba(250, 204, 21, 0.45) 38%,
+      transparent 38%);
+  padding: 0 2px;
+  border-radius: 2px;
+  color: inherit;
+  font-weight: 500;
+}
+.mybook-obsidian-host .md-preview-pretty code:not(pre code) {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--pretty-code-bg);
+  border: 1px solid var(--pretty-border);
+  padding: 2px 6px;
+  border-radius: 6px;
+  color: #be123c;
+  word-break: break-word;
+}
+.mybook-obsidian-host .md-preview-pretty .obsidian-code-card {
+  border-radius: 12px;
+  margin: 14px 0;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+}
+.mybook-obsidian-host .md-preview-pretty .obsidian-code-card pre {
+  font-size: 13.5px;
+  line-height: 1.65;
+  padding: 14px 16px;
+}
+.mybook-obsidian-host .md-preview-pretty blockquote,
+.mybook-obsidian-host .md-preview-pretty .obsidian-callout {
+  border-left: 3.5px solid var(--pretty-accent);
+  background:
+    linear-gradient(
+      to right,
+      var(--pretty-accent-soft),
+      transparent 70%);
+  border-radius: 0 10px 10px 0;
+  padding: 10px 16px;
+  margin: 12px 0;
+  line-height: 1.7;
+}
+.mybook-obsidian-host .md-preview-pretty table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+  display: table;
+}
+.mybook-obsidian-host .md-preview-pretty th,
+.mybook-obsidian-host .md-preview-pretty td {
+  border: 1px solid var(--pretty-border);
+  padding: 8px 12px;
+  text-align: left;
+}
+.mybook-obsidian-host .md-preview-pretty th {
+  background: #f8fafc;
+  font-weight: 700;
+}
+.mybook-obsidian-host .md-preview-pretty tr:nth-child(even) td {
+  background: #fafbfc;
+}
+.mybook-obsidian-host .md-preview-pretty hr {
+  border: none;
+  border-top: 2px solid var(--pretty-border);
+  margin: 26px auto;
+  max-width: 240px;
+}
+.mybook-obsidian-host .md-preview-pretty .obsidian-image-container {
+  margin: 18px 0;
+}
+.mybook-obsidian-host .md-preview-pretty .obsidian-embedded-image {
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+}
+.mybook-obsidian-host .md-preview-pretty .obsidian-arrow {
+  font-weight: 800;
+}
+.mybook-obsidian-host .live-preview-container {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  background: #ffffff;
+  cursor: text;
+  position: relative;
+}
+.mybook-obsidian-host .live-suggest-popup {
+  position: sticky;
+  top: 0;
+  margin: 8px auto 0 auto;
+  z-index: 70;
+}
+.mybook-obsidian-host .live-preview-doc {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 28px 32px 120px 32px;
+  font-family:
+    "Inter",
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+  color: #1e293b;
+}
+.mybook-obsidian-host .live-fence-edit {
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  overflow: hidden;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: #0f172a;
+  padding: 12px 14px;
+  caret-color: #2563eb;
+}
+.mybook-obsidian-host .live-line {
+  min-height: 28px;
+  border-radius: 6px;
+  transition: background 0.1s ease;
+}
+.mybook-obsidian-host .live-line:hover {
+  background: rgba(241, 245, 249, 0.6);
+}
+.mybook-obsidian-host .live-line.active {
+  background: transparent;
+}
+.mybook-obsidian-host .live-line-rendered {
+  overflow-wrap: break-word;
+  font-size: 16px;
+  line-height: 1.75;
+  color: #1e293b;
+}
+.mybook-obsidian-host .live-line-rendered h1 {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.35;
+  margin: 0;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #e2e8f0;
+  color: #0f172a;
+}
+.mybook-obsidian-host .live-line-rendered h2 {
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0;
+  color: #0f172a;
+}
+.mybook-obsidian-host .live-line-rendered h3 {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.45;
+  margin: 0;
+  color: #1e293b;
+}
+.mybook-obsidian-host .live-line-rendered p {
+  margin: 0;
+  line-height: 1.75;
+}
+.mybook-obsidian-host .live-line-rendered ul,
+.mybook-obsidian-host .live-line-rendered ol {
+  margin: 0;
+  padding-left: 24px;
+}
+.mybook-obsidian-host .live-line-rendered code:not(pre code) {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 1px 5px;
+  border-radius: 5px;
+  color: #be123c;
+}
+.mybook-obsidian-host .live-line-rendered table {
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.mybook-obsidian-host .live-line-rendered th,
+.mybook-obsidian-host .live-line-rendered td {
+  border: 1px solid #e2e8f0;
+  padding: 5px 10px;
+}
+.mybook-obsidian-host .live-line-rendered th {
+  background: #f8fafc;
+}
+.mybook-obsidian-host .live-line-rendered hr {
+  border: none;
+  border-top: 2px solid #e2e8f0;
+  margin: 8px auto;
+  max-width: 200px;
+}
+.mybook-obsidian-host .live-line-rendered:empty::before {
+  content: "";
+}
+.mybook-obsidian-host .live-line-edit {
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  overflow: hidden;
+  background: rgba(239, 246, 255, 0.55);
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: #0f172a;
+  padding: 2px 8px;
+  margin-left: -8px;
+  caret-color: #2563eb;
+}
+.mybook-obsidian-host .live-empty-hint {
+  color: #94a3b8;
+  font-style: italic;
+  padding: 12px 0;
+}
+.mybook-obsidian-host .simple-editor-container {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  overflow: hidden;
+}
+.mybook-obsidian-host .simple-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  flex-wrap: wrap;
+  padding: 8px 14px;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8fafc;
+  user-select: none;
+}
+.mybook-obsidian-host .simple-toolbar.unified-toolbar {
+  border-bottom: 1px solid #f1f5f9;
+}
+.mybook-obsidian-host .simple-tool-btn {
+  min-width: 30px;
+  height: 30px;
+  padding: 0 7px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  transition: background 0.1s ease;
+}
+.mybook-obsidian-host .simple-tool-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+.mybook-obsidian-host .simple-tool-btn.active,
+.mybook-obsidian-host .simple-tool-btn.primary {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+.mybook-obsidian-host .simple-toolbar-sep {
+  width: 1px;
+  height: 20px;
+  background: #cbd5e1;
+  margin: 0 5px;
+  flex-shrink: 0;
+}
+.mybook-obsidian-host .simple-color-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  padding: 0;
+}
+.mybook-obsidian-host .simple-editable {
+  flex: 1;
+  overflow-y: auto;
+  outline: none;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 26px 34px 80px 34px;
+  font-family:
+    "Inter",
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+  color: #1e293b;
+  caret-color: #2563eb;
+}
+.mybook-obsidian-host .simple-editable:empty::before {
+  content: attr(data-placeholder);
+  color: #94a3b8;
+  font-style: italic;
+  pointer-events: none;
+}
+.mybook-obsidian-host .simple-editable h1 {
+  font-size: 28px;
+  font-weight: 800;
+  margin: 0.4em 0 0.5em 0;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid #e2e8f0;
+}
+.mybook-obsidian-host .simple-editable h2 {
+  font-size: 23px;
+  font-weight: 700;
+  margin: 0.8em 0 0.4em 0;
+}
+.mybook-obsidian-host .simple-editable h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0.8em 0 0.4em 0;
+}
+.mybook-obsidian-host .simple-editable p {
+  margin: 0.55em 0;
+}
+.mybook-obsidian-host .simple-editable ul,
+.mybook-obsidian-host .simple-editable ol {
+  padding-left: 26px;
+  margin: 0.55em 0;
+}
+.mybook-obsidian-host .simple-editable li {
+  margin: 0.2em 0;
+}
+.mybook-obsidian-host .simple-editable blockquote {
+  border-left: 3.5px solid #10b981;
+  background: rgba(16, 185, 129, 0.07);
+  margin: 10px 0;
+  padding: 8px 14px;
+  border-radius: 0 8px 8px 0;
+}
+.mybook-obsidian-host .simple-editable pre {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  overflow-x: auto;
+}
+.mybook-obsidian-host .simple-editable a {
+  color: #10b981;
+}
+.mybook-obsidian-host .simple-editable img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+.mybook-obsidian-host .simple-editable table {
+  border-collapse: collapse;
+  margin: 10px 0;
+}
+.mybook-obsidian-host .simple-editable th,
+.mybook-obsidian-host .simple-editable td {
+  border: 1px solid #cbd5e1;
+  padding: 6px 10px;
+}
+.mybook-obsidian-host .theme-pastel {
+  --desk-bg: #f4f1e8;
+  --paper-bg: #fffdf6;
+  --ruled-line-color: rgba(150, 163, 235, 0.35);
+  --margin-line-color: rgba(244, 114, 182, 0.4);
+  --header-line-color: rgba(150, 163, 235, 0.45);
+  --primary-color: #6c7bd6;
+  --primary-hover: #5a6ac2;
+  --toolbar-bg: #fffdf7;
+  --toolbar-border: #e9e2cf;
+  --text-main: #424b64;
+  --text-muted: #9298ad;
+}
+.mybook-obsidian-host .theme-pastel.html,
+.mybook-obsidian-host .theme-pastel body {
+  background-color: var(--desk-bg);
+}
+.mybook-obsidian-host .theme-pastel .app-center-workspace {
+  background: #f6f3ea;
+}
+.mybook-obsidian-host .theme-pastel .notebook-desk {
+  z-index: 1;
+}
+.mybook-obsidian-host .theme-pastel .notebook-sheet.pattern-grid {
+  background-color: #fffdf6;
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(124, 140, 248, 0.16) 1px,
+      transparent 1px),
+    linear-gradient(
+      to bottom,
+      rgba(124, 140, 248, 0.16) 1px,
+      transparent 1px);
+  background-size: 22px 22px;
+}
+.mybook-obsidian-host .theme-pastel .notebook-sheet.pattern-dots {
+  background-color: #fffdf6;
+  background-image: radial-gradient(rgba(124, 140, 248, 0.4) 1.2px, transparent 1.2px);
+  background-size: 22px 22px;
+}
+.mybook-obsidian-host .theme-pastel .notebook-sheet.pattern-blank {
+  background-color: #fffdf6;
+}
+.mybook-obsidian-host .theme-pastel .app-header {
+  background: #fffdf7;
+  border-bottom: 1px solid #e9e2cf;
+}
+.mybook-obsidian-host .theme-pastel .header-center-tools {
+  background: #fbf8ef;
+  border: 1px solid #e9e2cf;
+  border-radius: 14px;
+  padding: 3px 6px;
+}
+.mybook-obsidian-host .theme-pastel .tool-button {
+  color: #6b7390;
+  border-radius: 10px;
+}
+.mybook-obsidian-host .theme-pastel .tool-button:hover {
+  background: #f0ecdd;
+  color: #424b64;
+}
+.mybook-obsidian-host .theme-pastel .tool-button.active {
+  background: #e3e8ff !important;
+  color: #4a5ac8 !important;
+  box-shadow: 0 0 0 1.5px #8b9bf5 inset, 0 2px 6px rgba(108, 123, 214, 0.25);
+}
+.mybook-obsidian-host .theme-pastel .tool-button.active svg {
+  stroke: #4a5ac8;
+}
+.mybook-obsidian-host .theme-pastel .tool-button.active .tool-shortcut-badge {
+  color: #4a5ac8;
+}
+.mybook-obsidian-host .theme-pastel .tool-button.lock-button.active.locked {
+  background: #6c7bd6 !important;
+  color: #ffffff !important;
+}
+.mybook-obsidian-host .theme-pastel .file-menu-btn,
+.mybook-obsidian-host .theme-pastel .header-action-btn,
+.mybook-obsidian-host .theme-pastel .compact-select,
+.mybook-obsidian-host .theme-pastel .handdrawn-toggle-btn,
+.mybook-obsidian-host .theme-pastel .flip-toggle-btn {
+  background: #fffdf7;
+  border-color: #e3dcc6;
+  color: #5b637e;
+  border-radius: 10px;
+}
+.mybook-obsidian-host .theme-pastel .file-menu-btn:hover,
+.mybook-obsidian-host .theme-pastel .header-action-btn:hover,
+.mybook-obsidian-host .theme-pastel .compact-select:hover {
+  border-color: #b9c1f5;
+  background: #f4f2ff;
+  color: #4a5ac8;
+}
+.mybook-obsidian-host .theme-pastel .header-action-btn.add-page-btn {
+  background: #eef0ff;
+  border-color: #c6cff7;
+  color: #4a5ac8;
+}
+.mybook-obsidian-host .theme-pastel .header-action-btn.add-page-btn:hover {
+  background: #e0e6ff;
+}
+.mybook-obsidian-host .theme-pastel .autosave-indicator {
+  background: #f3efe1;
+  border-radius: 9999px;
+}
+.mybook-obsidian-host .theme-pastel .autosave-indicator.status-saved {
+  background: #e9f7ef;
+}
+.mybook-obsidian-host .theme-pastel .stroke-controls-pill {
+  background: #fbf8ef;
+  border-color: #e9e2cf;
+  border-radius: 10px;
+}
+.mybook-obsidian-host .theme-pastel .handdrawn-toggle-btn.active,
+.mybook-obsidian-host .theme-pastel .flip-toggle-btn.active {
+  background: #eef0ff;
+  border-color: #b9c1f5;
+  color: #4a5ac8;
+}
+.mybook-obsidian-host .theme-pastel .header-undo-redo-group {
+  border-color: #e3dcc6;
+  border-radius: 10px;
+  background: #fffdf7;
+}
+.mybook-obsidian-host .theme-pastel .obsidian-tab-strip {
+  background: #efe9d8;
+  border-bottom: 1px solid #e3dcc6;
+}
+.mybook-obsidian-host .theme-pastel .obsidian-tab {
+  background: #e7e0cd;
+  color: #6b7390;
+  border-radius: 10px 10px 0 0;
+}
+.mybook-obsidian-host .theme-pastel .obsidian-tab:hover {
+  background: #ded5bd;
+  color: #424b64;
+}
+.mybook-obsidian-host .theme-pastel .obsidian-tab.active {
+  background: #fffdf7;
+  color: #424b64;
+  border-top: 2px solid #7c8cf8;
+}
+.mybook-obsidian-host .theme-pastel .tabbar-sidebar-toggle-btn.active {
+  color: #4a5ac8;
+  background: #e3e8ff;
+}
+.mybook-obsidian-host .theme-pastel .obsidian-sidebar-container {
+  background: #faf7ee;
+  border-right: 1px solid #e9e2cf;
+}
+.mybook-obsidian-host .theme-pastel .vault-header {
+  background: #fffdf7;
+  border-bottom: 1px solid #ece5d1;
+}
+.mybook-obsidian-host .theme-pastel .vault-name-badge {
+  color: #424b64;
+}
+.mybook-obsidian-host .theme-pastel .vault-search-box {
+  background: #fffdf7;
+  border-bottom: 1px solid #f1ebda;
+}
+.mybook-obsidian-host .theme-pastel .vault-search-box .search-input {
+  background: #f6f2e6;
+  border-color: #e9e2cf;
+  border-radius: 10px;
+}
+.mybook-obsidian-host .theme-pastel .vault-search-box .search-input:focus {
+  border-color: #8b9bf5;
+  background: #ffffff;
+}
+.mybook-obsidian-host .theme-pastel .vault-tree-item {
+  color: #5b637e;
+  border-radius: 8px;
+}
+.mybook-obsidian-host .theme-pastel .vault-tree-item:hover {
+  background: #efe9d8;
+}
+.mybook-obsidian-host .theme-pastel .vault-tree-item.active {
+  background: #e3e8ff;
+  color: #4a5ac8;
+}
+.mybook-obsidian-host .theme-pastel .vault-action-icon-btn:hover {
+  background: #efe9d8;
+}
+.mybook-obsidian-host .theme-pastel .page-navigator-bar {
+  background: #fffdf7;
+  border-color: #e9e2cf;
+  border-radius: 24px;
+  box-shadow: 0 6px 20px rgba(108, 123, 214, 0.12);
+}
+.mybook-obsidian-host .theme-pastel .nav-page-btn {
+  background: #f6f2e6;
+  border-color: #e3dcc6;
+  border-radius: 8px;
+}
+.mybook-obsidian-host .theme-pastel .nav-page-btn:hover:not(:disabled) {
+  background: #e3e8ff;
+  border-color: #b9c1f5;
+}
+.mybook-obsidian-host .theme-pastel .nav-icon-btn:hover {
+  background: #f0ecdd;
+}
+.mybook-obsidian-host .theme-pastel .nav-icon-btn.active {
+  background: #e3e8ff;
+  color: #4a5ac8;
+}
+.mybook-obsidian-host .theme-pastel .page-thumbnail-drawer {
+  border-color: #e9e2cf;
+  border-radius: 16px;
+}
+.mybook-obsidian-host .theme-pastel .page-add-image-btn {
+  background: rgba(255, 253, 247, 0.95);
+  border-color: #d9dcf5;
+  color: #5b637e;
+  border-radius: 16px;
+}
+.mybook-obsidian-host .theme-pastel .page-add-image-btn:hover {
+  background: #eef0ff;
+  border-color: #8b9bf5;
+  color: #4a5ac8;
+}
+.mybook-obsidian-host .theme-pastel .pure-markdown-editor-container,
+.mybook-obsidian-host .theme-pastel .code-editor-container {
+  background: #f6f3ea;
+}
+.mybook-obsidian-host .theme-pastel .md-editor-header,
+.mybook-obsidian-host .theme-pastel .code-editor-header {
+  background: #fffdf7;
+  border-bottom: 1px solid #e9e2cf;
+}
+.mybook-obsidian-host .theme-pastel .md-raw-textarea,
+.mybook-obsidian-host .theme-pastel .code-textarea {
+  background: #fffdf6;
+  color: #424b64;
+}
+.mybook-obsidian-host .theme-pastel .code-gutter-line-numbers {
+  background: #f3efe1;
+}
+.mybook-obsidian-host .theme-pastel .code-status-bar {
+  background: #efe9d8;
+  color: #6b7390;
+}
+.mybook-obsidian-host .theme-pastel .view-mode-btn.active {
+  background: #e3e8ff;
+  color: #4a5ac8;
+}
+.mybook-obsidian-host .theme-pastel .modal-dialog,
+.mybook-obsidian-host .theme-pastel .folder-picker-modal,
+.mybook-obsidian-host .theme-pastel .settings-modal-card {
+  background: #fffdf7;
+  border: 1px solid #e9e2cf;
+  border-radius: 16px;
+}
+.mybook-obsidian-host .theme-pastel .modal-footer,
+.mybook-obsidian-host .theme-pastel .settings-footer {
+  background: #f6f2e6;
+}
+.mybook-obsidian-host .theme-pastel .file-dropdown-menu {
+  border-color: #e9e2cf;
+  border-radius: 12px;
+}
+.mybook-obsidian-host .theme-pastel .dropdown-item:hover {
+  background: #f0ecdd;
+}
+.mybook-obsidian-host .theme-pastel .notebook-textbox.selected:not(.is-framed)::before,
+.mybook-obsidian-host .theme-pastel .notebook-textbox.editing:not(.is-framed)::before {
+  content: "";
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 92px;
+  height: 22px;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(139, 155, 245, 0.55),
+      rgba(139, 155, 245, 0.45));
+  border-left: 1px dashed rgba(255, 255, 255, 0.7);
+  border-right: 1px dashed rgba(255, 255, 255, 0.7);
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 5;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+.mybook-obsidian-host .theme-pastel .notebook-textbox.selected,
+.mybook-obsidian-host .theme-pastel .notebook-textbox.is-selected {
+  background: rgba(255, 253, 246, 0.85);
+  box-shadow: 0 0 0 1.5px #8b9bf5, 0 8px 22px rgba(108, 123, 214, 0.12);
+  border-radius: 12px;
+}
+.mybook-obsidian-host .theme-pastel .notebook-textbox.editing,
+.mybook-obsidian-host .theme-pastel .notebook-textbox.is-editing {
+  box-shadow: 0 0 0 1.5px #6c7bd6, 0 8px 22px rgba(108, 123, 214, 0.14);
+  border-radius: 12px;
+}
+.mybook-obsidian-host .pastel-doodles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.mybook-obsidian-host .pastel-doodle {
+  position: absolute;
+  opacity: 0.9;
+  user-select: none;
+}
+.mybook-obsidian-host .pastel-doodle.doodle-cloud {
+  left: 5%;
+  top: 7%;
+  width: 110px;
+  opacity: 0.8;
+}
+.mybook-obsidian-host .pastel-doodle.doodle-quote {
+  left: 2%;
+  bottom: 7%;
+  width: 300px;
+  opacity: 0.9;
+}
+.mybook-obsidian-host .pastel-doodle.doodle-plant-quote {
+  left: 1.5%;
+  bottom: 6%;
+  width: 110px;
+  opacity: 0.9;
+}
+.mybook-obsidian-host .pastel-doodle.doodle-quote-text {
+  left: calc(1.5% + 100px);
+  bottom: 9%;
+  font-family:
+    "Patrick Hand",
+    "Comic Sans MS",
+    cursive;
+  color: #7b86b8;
+  font-size: 17px;
+  line-height: 1.5;
+  transform: rotate(-4deg);
+}
+.mybook-obsidian-host .pastel-doodle.doodle-flower {
+  right: 11%;
+  bottom: 11%;
+  width: 58px;
+  opacity: 0.9;
+}
+.mybook-obsidian-host .pastel-doodle.doodle-sparkles {
+  right: 16%;
+  top: 24%;
+  width: 56px;
+}
+.mybook-obsidian-host .pastel-doodle.slogan-br {
+  right: 26px;
+  bottom: 90px;
+  font-family:
+    "Patrick Hand",
+    "Comic Sans MS",
+    cursive;
+  color: #9aa3d6;
+  font-size: 19px;
+  line-height: 1.35;
+  transform: rotate(9deg);
+  text-align: center;
+}
+.mybook-obsidian-host .notebook-textbox.is-framed {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 20px 24px;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.12), 0 2px 6px rgba(15, 23, 42, 0.07);
+}
+.mybook-obsidian-host .theme-pastel .notebook-textbox.is-framed {
+  background: #fffdf9;
+  border-color: #f0ebdb;
+  box-shadow: 0 14px 34px rgba(93, 102, 160, 0.14), 0 2px 6px rgba(93, 102, 160, 0.08);
+}
+.mybook-obsidian-host .theme-pastel .notebook-textbox.is-framed::before {
+  content: "";
+  position: absolute;
+  top: -13px;
+  left: 34px;
+  width: 96px;
+  height: 24px;
+  transform: rotate(-32deg);
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(139, 155, 245, 0.6),
+      rgba(139, 155, 245, 0.42));
+  border-left: 1px dashed rgba(255, 255, 255, 0.7);
+  border-right: 1px dashed rgba(255, 255, 255, 0.7);
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 6;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+.mybook-obsidian-host .theme-pastel .notebook-textbox.is-framed::after {
+  content: "\2726";
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  color: #aab6f7;
+  font-size: 17px;
+  line-height: 1;
+  text-shadow: 20px 16px 0 #c9d1fa;
+  pointer-events: none;
+}
+.mybook-obsidian-host .frame-decor {
+  display: none;
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  z-index: 6;
+}
+.mybook-obsidian-host .theme-pastel .frame-decor {
+  display: block;
+}
+.mybook-obsidian-host .frame-cat {
+  right: -28px;
+  bottom: -20px;
+  width: 112px;
+}
+.mybook-obsidian-host .frame-sprig {
+  right: -32px;
+  top: 64px;
+  width: 48px;
+  opacity: 0.95;
+}
+.mybook-obsidian-host .theme-pastel .notebook-textbox.is-framed .obsidian-markdown-body h1:first-child {
+  background-image: none;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-size: 230px auto;
+  padding-bottom: 18px;
+}
+.mybook-obsidian-host .page-pasted-image {
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.mybook-obsidian-host .page-pasted-image.is-framed {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 10px;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.14), 0 2px 6px rgba(15, 23, 42, 0.08);
+}
+.mybook-obsidian-host .theme-pastel .page-pasted-image.is-framed {
+  background: #fffdf9;
+  border-color: #f0ebdb;
+  box-shadow: 0 14px 34px rgba(93, 102, 160, 0.16), 0 2px 6px rgba(93, 102, 160, 0.1);
+}
+.mybook-obsidian-host .sheet-watermark {
+  display: none;
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  background-repeat: no-repeat;
+}
+.mybook-obsidian-host .theme-pastel .sheet-watermark {
+  display: block;
+}
+.mybook-obsidian-host .theme-pastel .watermark-corner {
+  top: 10px;
+  right: 12px;
+  width: 120px;
+  height: 92px;
+  background-image: none;
+  background-size: contain;
+  background-position: top right;
+  opacity: 0.55;
+}
+.mybook-obsidian-host .theme-pastel .watermark-leaves {
+  left: 8px;
+  bottom: 6px;
+  width: 100px;
+  height: 223px;
+  background-image: none;
+  background-size: contain;
+  background-position: bottom left;
+  opacity: 0.55;
+}
+.mybook-obsidian-host .theme-pastel .page-pasted-image.is-framed::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 30px;
+  width: 84px;
+  height: 22px;
+  transform: rotate(-32deg);
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(139, 155, 245, 0.6),
+      rgba(139, 155, 245, 0.42));
+  border-left: 1px dashed rgba(255, 255, 255, 0.7);
+  border-right: 1px dashed rgba(255, 255, 255, 0.7);
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 6;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+.mybook-obsidian-host .page-image-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+.mybook-obsidian-host .page-pasted-image {
+  transition: box-shadow 0.15s ease;
+}
+.mybook-obsidian-host .page-pasted-image.selected {
+  z-index: 5;
+}
+.mybook-obsidian-host .page-add-image-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 14px;
+  border: 1px solid #cbd5e1;
+  background: rgba(255, 255, 255, 0.92);
+  color: #475569;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease, background 0.12s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(2px);
+}
+.mybook-obsidian-host .notebook-sheet:hover .page-add-image-btn {
+  opacity: 1;
+}
+.mybook-obsidian-host .page-add-image-btn:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #2563eb;
+}
+.mybook-obsidian-host .page-drop-image-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(37, 99, 235, 0.08);
+  border: 2px dashed #2563eb;
+  border-radius: 4px;
+  color: #1d4ed8;
+  font-size: 15px;
+  font-weight: 600;
+  pointer-events: none;
+}
+.mybook-obsidian-host .page-pasting-hint {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 41;
+  background: rgba(15, 23, 42, 0.85);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+/* ../node_modules/katex/dist/katex.min.css */
+@font-face  {
+  .mybook-obsidian-host font-display: block;
+  font-family: KaTeX_AMS;
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url("./KaTeX_AMS-Regular-U6PRYMIZ.woff2") format("woff2"),
+.mybook-obsidian-host url("./KaTeX_AMS-Regular-CYEKBG2K.woff") format("woff"),
+.mybook-obsidian-host url("./KaTeX_AMS-Regular-JKX5W2C4.ttf") format("truetype");
+}
+@font-face {
+  font-display: block;
+  font-family: KaTeX_Caligraphic;
+  font-style: normal;
+  font-weight: 700;
+  src:
+    url("./KaTeX_Caligraphic-Bold-5QL5CMTE.woff2") format("woff2"),
+    url("./KaTeX_Caligraphic-Bold-WZ3QSGD3.woff") format("woff"),
+    url("./KaTeX_Caligraphic-Bold-ZTS3R3HK.ttf") format("truetype");
+}
+@font-face  {
+  .mybook-obsidian-host font-display: block;
+  font-family: KaTeX_Caligraphic;
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url("./KaTeX_Caligraphic-Regular-KX5MEWCF.woff2") format("woff2"),
+.mybook-obsidian-host url("./KaTeX_Caligraphic-Regular-3LKEU76G.woff") format("woff"),
+.mybook-obsidian-host url("./KaTeX_Caligraphic-Regular-A7XRTZ5Q.ttf") format("truetype");
+}
+@font-face {
+  font-display: block;
+  font-family: KaTeX_Fraktur;
+  font-style: normal;
+  font-weight: 700;
+  src:
+    url("./KaTeX_Fraktur-Bold-2QVFK6NQ.woff2") format("woff2"),
+    url("./KaTeX_Fraktur-Bold-T4SWXBMT.woff") format("woff"),
+    url("./KaTeX_Fraktur-Bold-WGHVTYOR.ttf") format("truetype");
+}
+@font-face  {
+  .mybook-obsidian-host font-display: block;
+  font-family: KaTeX_Fraktur;
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url("./KaTeX_Fraktur-Regular-2PEIFJSJ.woff2") format("woff2"),
+.mybook-obsidian-host url("./KaTeX_Fraktur-Regular-PQMHCIK6.woff") format("woff"),
+.mybook-obsidian-host url("./KaTeX_Fraktur-Regular-5U4OPH2X.ttf") format("truetype");
+}
+@font-face {
+  font-display: block;
+  font-family: KaTeX_Main;
+  font-style: normal;
+  font-weight: 700;
+  src:
+    url("./KaTeX_Main-Bold-YP5VVQRP.woff2") format("woff2"),
+    url("./KaTeX_Main-Bold-2GA4IZIN.woff") format("woff"),
+    url("./KaTeX_Main-Bold-W5FBVCZM.ttf") format("truetype");
+}
+@font-face  {
+  .mybook-obsidian-host font-display: block;
+  font-family: KaTeX_Main;
+  font-style: italic;
+  font-weight: 700;
+  src:
+    url("./KaTeX_Main-BoldItalic-N4V3DX7S.woff2") format("woff2"),
+.mybook-obsidian-host url("./KaTeX_Main-BoldItalic-4P4C7HJH.woff") format("woff"),
+.mybook-obsidian-host url("./KaTeX_Main-BoldItalic-ODMLBJJQ.ttf") format("truetype");
+}
+@font-face {
+  font-display: block;
+  font-family: KaTeX_Main;
+  font-style: italic;
+  font-weight: 400;
+  src:
+    url("./KaTeX_Main-Italic-RELBIK7M.woff2") format("woff2"),
+    url("./KaTeX_Main-Italic-SASNQFN2.woff") format("woff"),
+    url("./KaTeX_Main-Italic-I43T2HSR.ttf") format("truetype");
+}
+@font-face  {
+  .mybook-obsidian-host font-display: block;
+  font-family: KaTeX_Main;
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url("./KaTeX_Main-Regular-ARRPAO67.woff2") format("woff2"),
+.mybook-obsidian-host url("./KaTeX_Main-Regular-P5I74A2A.woff") format("woff"),
+.mybook-obsidian-host url("./KaTeX_Main-Regular-W74P5G27.ttf") format("truetype");
+}
+@font-face {
+  font-display: block;
+  font-family: KaTeX_Math;
+  font-style: italic;
+  font-weight: 700;
+  src:
+    url("./KaTeX_Math-BoldItalic-K4WTGH3J.woff2") format("woff2"),
+    url("./KaTeX_Math-BoldItalic-6EBV3DK5.woff") format("woff"),
+    url("./KaTeX_Math-BoldItalic-VB447A4D.ttf") format("truetype");
+}
+@font-face  {
+  .mybook-obsidian-host font-display: block;
+  font-family: KaTeX_Math;
+  font-style: italic;
+  font-weight: 400;
+  src:
+    url("./KaTeX_Math-Italic-6KGCHLFN.woff2") format("woff2"),
+.mybook-obsidian-host url("./KaTeX_Math-Italic-KKK3USB2.woff") format("woff"),
+.mybook-obsidian-host url("./KaTeX_Math-Italic-SON4MRCA.ttf") format("truetype");
+}
+@font-face {
+  font-display: block;
+  font-family: "KaTeX_SansSerif";
+  font-style: normal;
+  font-weight: 700;
+  src:
+    url("./KaTeX_SansSerif-Bold-RRNVJFFW.woff2") format("woff2"),
+    url("./KaTeX_SansSerif-Bold-X5M5EMOD.woff") format("woff"),
+    url("./KaTeX_SansSerif-Bold-STQ6RXC7.ttf") format("truetype");
+}
+@font-face  {
+  .mybook-obsidian-host font-display: block;
+  font-family: "KaTeX_SansSerif";
+  font-style: italic;
+  font-weight: 400;
+  src:
+    url("./KaTeX_SansSerif-Italic-HMPFTM52.woff2") format("woff2"),
+.mybook-obsidian-host url("./KaTeX_SansSerif-Italic-PSN4QKYX.woff") format("woff"),
+.mybook-obsidian-host url("./KaTeX_SansSerif-Italic-WTBAZBGY.ttf") format("truetype");
+}
+@font-face {
+  font-display: block;
+  font-family: "KaTeX_SansSerif";
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url("./KaTeX_SansSerif-Regular-XIQ62X4E.woff2") format("woff2"),
+    url("./KaTeX_SansSerif-Regular-OQCII6EP.woff") format("woff"),
+    url("./KaTeX_SansSerif-Regular-2TL3USAE.ttf") format("truetype");
+}
+@font-face  {
+  .mybook-obsidian-host font-display: block;
+  font-family: KaTeX_Script;
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url("./KaTeX_Script-Regular-APUWIHLP.woff2") format("woff2"),
+.mybook-obsidian-host url("./KaTeX_Script-Regular-A5IFOEBS.woff") format("woff"),
+.mybook-obsidian-host url("./KaTeX_Script-Regular-72OLXYNA.ttf") format("truetype");
+}
+@font-face {
+  font-display: block;
+  font-family: KaTeX_Size1;
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url("./KaTeX_Size1-Regular-5LRUTBFT.woff2") format("woff2"),
+    url("./KaTeX_Size1-Regular-4HRHTS65.woff") format("woff"),
+    url("./KaTeX_Size1-Regular-7K6AASVL.ttf") format("truetype");
+}
+@font-face  {
+  .mybook-obsidian-host font-display: block;
+  font-family: KaTeX_Size2;
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url("./KaTeX_Size2-Regular-LELKET5D.woff2") format("woff2"),
+.mybook-obsidian-host url("./KaTeX_Size2-Regular-K5ZHAIS6.woff") format("woff"),
+.mybook-obsidian-host url("./KaTeX_Size2-Regular-222HN3GT.ttf") format("truetype");
+}
+@font-face {
+  font-display: block;
+  font-family: KaTeX_Size3;
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url("./KaTeX_Size3-Regular-WQRQ47UD.woff2") format("woff2"),
+    url("./KaTeX_Size3-Regular-TLFPAHDE.woff") format("woff"),
+    url("./KaTeX_Size3-Regular-UFCO6WCA.ttf") format("truetype");
+}
+@font-face  {
+  .mybook-obsidian-host font-display: block;
+  font-family: KaTeX_Size4;
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url("./KaTeX_Size4-Regular-CDMV7U5C.woff2") format("woff2"),
+.mybook-obsidian-host url("./KaTeX_Size4-Regular-PKMWZHNC.woff") format("woff"),
+.mybook-obsidian-host url("./KaTeX_Size4-Regular-7PGNVPQK.ttf") format("truetype");
+}
+@font-face {
+  font-display: block;
+  font-family: KaTeX_Typewriter;
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url("./KaTeX_Typewriter-Regular-VBYJ4NRC.woff2") format("woff2"),
+    url("./KaTeX_Typewriter-Regular-MJMFSK64.woff") format("woff"),
+    url("./KaTeX_Typewriter-Regular-3F5K6SQ6.ttf") format("truetype");
+}
+.mybook-obsidian-host .katex {
+  font:
+    normal 1.21em KaTeX_Main,
+    Times New Roman,
+    serif;
+  line-height: 1.2;
+  position: relative;
+  text-indent: 0;
+  text-rendering: auto;
+}
+.mybook-obsidian-host .katex * {
+  -ms-high-contrast-adjust: none !important;
+  border-color: currentColor;
+}
+.mybook-obsidian-host .katex .katex-version:after {
+  content: "0.18.9";
+}
+.mybook-obsidian-host .katex .katex-mathml {
+  border: 0;
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+.mybook-obsidian-host .katex .katex-html > .katex-newline {
+  display: block;
+}
+.mybook-obsidian-host .katex .katex-base {
+  position: relative;
+  white-space: nowrap;
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  width: min-content;
+}
+.mybook-obsidian-host .katex .katex-base,
+.mybook-obsidian-host .katex .katex-strut {
+  display: inline-block;
+}
+.mybook-obsidian-host .katex .textbf {
+  font-weight: 700;
+}
+.mybook-obsidian-host .katex .textit {
+  font-style: italic;
+}
+.mybook-obsidian-host .katex .textrm {
+  font-family: KaTeX_Main;
+}
+.mybook-obsidian-host .katex .textsf {
+  font-family: KaTeX_SansSerif;
+}
+.mybook-obsidian-host .katex .texttt {
+  font-family: KaTeX_Typewriter;
+}
+.mybook-obsidian-host .katex .mathnormal {
+  font-family: KaTeX_Math;
+  font-style: italic;
+}
+.mybook-obsidian-host .katex .mathit {
+  font-family: KaTeX_Main;
+  font-style: italic;
+}
+.mybook-obsidian-host .katex .mathrm {
+  font-style: normal;
+}
+.mybook-obsidian-host .katex .mathbf {
+  font-family: KaTeX_Main;
+  font-weight: 700;
+}
+.mybook-obsidian-host .katex .boldsymbol {
+  font-family: KaTeX_Math;
+  font-style: italic;
+  font-weight: 700;
+}
+.mybook-obsidian-host .katex .amsrm,
+.mybook-obsidian-host .katex .mathbb,
+.mybook-obsidian-host .katex .textbb {
+  font-family: KaTeX_AMS;
+}
+.mybook-obsidian-host .katex .mathcal {
+  font-family: KaTeX_Caligraphic;
+}
+.mybook-obsidian-host .katex .mathfrak,
+.mybook-obsidian-host .katex .textfrak {
+  font-family: KaTeX_Fraktur;
+}
+.mybook-obsidian-host .katex .mathboldfrak,
+.mybook-obsidian-host .katex .textboldfrak {
+  font-family: KaTeX_Fraktur;
+  font-weight: 700;
+}
+.mybook-obsidian-host .katex .mathtt {
+  font-family: KaTeX_Typewriter;
+}
+.mybook-obsidian-host .katex .mathscr,
+.mybook-obsidian-host .katex .textscr {
+  font-family: KaTeX_Script;
+}
+.mybook-obsidian-host .katex .mathsf,
+.mybook-obsidian-host .katex .textsf {
+  font-family: KaTeX_SansSerif;
+}
+.mybook-obsidian-host .katex .mathboldsf,
+.mybook-obsidian-host .katex .textboldsf {
+  font-family: KaTeX_SansSerif;
+  font-weight: 700;
+}
+.mybook-obsidian-host .katex .mathitsf,
+.mybook-obsidian-host .katex .mathsfit,
+.mybook-obsidian-host .katex .textitsf {
+  font-family: KaTeX_SansSerif;
+  font-style: italic;
+}
+.mybook-obsidian-host .katex .mainrm {
+  font-family: KaTeX_Main;
+  font-style: normal;
+}
+.mybook-obsidian-host .katex .vlist-t {
+  border-collapse: collapse;
+  display: inline-table;
+  table-layout: fixed;
+}
+.mybook-obsidian-host .katex .vlist-r {
+  display: table-row;
+}
+.mybook-obsidian-host .katex .vlist {
+  display: table-cell;
+  position: relative;
+  vertical-align: bottom;
+}
+.mybook-obsidian-host .katex .vlist > span {
+  display: block;
+  height: 0;
+  position: relative;
+}
+.mybook-obsidian-host .katex .vlist > span > span {
+  display: inline-block;
+}
+.mybook-obsidian-host .katex .vlist > span > .pstrut {
+  overflow: hidden;
+  width: 0;
+}
+.mybook-obsidian-host .katex .vlist-t2 {
+  margin-right: -2px;
+}
+.mybook-obsidian-host .katex .vlist-s {
+  display: table-cell;
+  font-size: 1px;
+  min-width: 2px;
+  vertical-align: bottom;
+  width: 2px;
+}
+.mybook-obsidian-host .katex .katex-vbox {
+  align-items: baseline;
+  display: inline-flex;
+  flex-direction: column;
+}
+.mybook-obsidian-host .katex .katex-thinbox {
+  display: inline-flex;
+  flex-direction: row;
+  max-width: 0;
+  width: 0;
+}
+.mybook-obsidian-host .katex .msupsub {
+  text-align: left;
+}
+.mybook-obsidian-host .katex .mfrac > span > span {
+  text-align: center;
+}
+.mybook-obsidian-host .katex .mfrac .frac-line {
+  border-bottom-style: solid;
+  display: inline-block;
+  width: 100%;
+}
+.mybook-obsidian-host .katex .katex-hdashline,
+.mybook-obsidian-host .katex .katex-hline,
+.mybook-obsidian-host .katex .katex-overline .overline-line,
+.mybook-obsidian-host .katex .katex-rule,
+.mybook-obsidian-host .katex .katex-underline .underline-line,
+.mybook-obsidian-host .katex .mfrac .frac-line {
+  min-height: 1px;
+}
+.mybook-obsidian-host .katex .mspace {
+  display: inline-block;
+}
+.mybook-obsidian-host .katex .katex-smash {
+  display: inline;
+  line-height: 0;
+}
+.mybook-obsidian-host .katex .clap,
+.mybook-obsidian-host .katex .llap,
+.mybook-obsidian-host .katex .rlap {
+  position: relative;
+  width: 0;
+}
+.mybook-obsidian-host .katex .clap > .katex-inner,
+.mybook-obsidian-host .katex .llap > .katex-inner,
+.mybook-obsidian-host .katex .rlap > .katex-inner {
+  position: absolute;
+}
+.mybook-obsidian-host .katex .clap > .katex-fix,
+.mybook-obsidian-host .katex .llap > .katex-fix,
+.mybook-obsidian-host .katex .rlap > .katex-fix {
+  display: inline-block;
+}
+.mybook-obsidian-host .katex .llap > .katex-inner {
+  right: 0;
+}
+.mybook-obsidian-host .katex .clap > .katex-inner,
+.mybook-obsidian-host .katex .rlap > .katex-inner {
+  left: 0;
+}
+.mybook-obsidian-host .katex .clap > .katex-inner > span {
+  margin-left: -50%;
+  margin-right: 50%;
+}
+.mybook-obsidian-host .katex .katex-rule {
+  border: 0 solid;
+  display: inline-block;
+  position: relative;
+}
+.mybook-obsidian-host .katex .katex-hline,
+.mybook-obsidian-host .katex .katex-overline .overline-line,
+.mybook-obsidian-host .katex .katex-underline .underline-line {
+  border-bottom-style: solid;
+  display: inline-block;
+  width: 100%;
+}
+.mybook-obsidian-host .katex .katex-hdashline {
+  border-bottom-style: dashed;
+  display: inline-block;
+  width: 100%;
+}
+.mybook-obsidian-host .katex .sqrt > .katex-root {
+  margin-left: .2777777778em;
+  margin-right: -.5555555556em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size1.size1,
+.mybook-obsidian-host .katex .katex-sizing.reset-size1.size1 {
+  font-size: 1em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size1.size2,
+.mybook-obsidian-host .katex .katex-sizing.reset-size1.size2 {
+  font-size: 1.2em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size1.size3,
+.mybook-obsidian-host .katex .katex-sizing.reset-size1.size3 {
+  font-size: 1.4em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size1.size4,
+.mybook-obsidian-host .katex .katex-sizing.reset-size1.size4 {
+  font-size: 1.6em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size1.size5,
+.mybook-obsidian-host .katex .katex-sizing.reset-size1.size5 {
+  font-size: 1.8em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size1.size6,
+.mybook-obsidian-host .katex .katex-sizing.reset-size1.size6 {
+  font-size: 2em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size1.size7,
+.mybook-obsidian-host .katex .katex-sizing.reset-size1.size7 {
+  font-size: 2.4em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size1.size8,
+.mybook-obsidian-host .katex .katex-sizing.reset-size1.size8 {
+  font-size: 2.88em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size1.size9,
+.mybook-obsidian-host .katex .katex-sizing.reset-size1.size9 {
+  font-size: 3.456em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size1.size10,
+.mybook-obsidian-host .katex .katex-sizing.reset-size1.size10 {
+  font-size: 4.148em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size1.size11,
+.mybook-obsidian-host .katex .katex-sizing.reset-size1.size11 {
+  font-size: 4.976em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size2.size1,
+.mybook-obsidian-host .katex .katex-sizing.reset-size2.size1 {
+  font-size: .8333333333em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size2.size2,
+.mybook-obsidian-host .katex .katex-sizing.reset-size2.size2 {
+  font-size: 1em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size2.size3,
+.mybook-obsidian-host .katex .katex-sizing.reset-size2.size3 {
+  font-size: 1.1666666667em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size2.size4,
+.mybook-obsidian-host .katex .katex-sizing.reset-size2.size4 {
+  font-size: 1.3333333333em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size2.size5,
+.mybook-obsidian-host .katex .katex-sizing.reset-size2.size5 {
+  font-size: 1.5em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size2.size6,
+.mybook-obsidian-host .katex .katex-sizing.reset-size2.size6 {
+  font-size: 1.6666666667em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size2.size7,
+.mybook-obsidian-host .katex .katex-sizing.reset-size2.size7 {
+  font-size: 2em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size2.size8,
+.mybook-obsidian-host .katex .katex-sizing.reset-size2.size8 {
+  font-size: 2.4em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size2.size9,
+.mybook-obsidian-host .katex .katex-sizing.reset-size2.size9 {
+  font-size: 2.88em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size2.size10,
+.mybook-obsidian-host .katex .katex-sizing.reset-size2.size10 {
+  font-size: 3.4566666667em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size2.size11,
+.mybook-obsidian-host .katex .katex-sizing.reset-size2.size11 {
+  font-size: 4.1466666667em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size3.size1,
+.mybook-obsidian-host .katex .katex-sizing.reset-size3.size1 {
+  font-size: .7142857143em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size3.size2,
+.mybook-obsidian-host .katex .katex-sizing.reset-size3.size2 {
+  font-size: .8571428571em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size3.size3,
+.mybook-obsidian-host .katex .katex-sizing.reset-size3.size3 {
+  font-size: 1em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size3.size4,
+.mybook-obsidian-host .katex .katex-sizing.reset-size3.size4 {
+  font-size: 1.1428571429em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size3.size5,
+.mybook-obsidian-host .katex .katex-sizing.reset-size3.size5 {
+  font-size: 1.2857142857em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size3.size6,
+.mybook-obsidian-host .katex .katex-sizing.reset-size3.size6 {
+  font-size: 1.4285714286em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size3.size7,
+.mybook-obsidian-host .katex .katex-sizing.reset-size3.size7 {
+  font-size: 1.7142857143em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size3.size8,
+.mybook-obsidian-host .katex .katex-sizing.reset-size3.size8 {
+  font-size: 2.0571428571em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size3.size9,
+.mybook-obsidian-host .katex .katex-sizing.reset-size3.size9 {
+  font-size: 2.4685714286em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size3.size10,
+.mybook-obsidian-host .katex .katex-sizing.reset-size3.size10 {
+  font-size: 2.9628571429em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size3.size11,
+.mybook-obsidian-host .katex .katex-sizing.reset-size3.size11 {
+  font-size: 3.5542857143em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size4.size1,
+.mybook-obsidian-host .katex .katex-sizing.reset-size4.size1 {
+  font-size: .625em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size4.size2,
+.mybook-obsidian-host .katex .katex-sizing.reset-size4.size2 {
+  font-size: .75em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size4.size3,
+.mybook-obsidian-host .katex .katex-sizing.reset-size4.size3 {
+  font-size: .875em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size4.size4,
+.mybook-obsidian-host .katex .katex-sizing.reset-size4.size4 {
+  font-size: 1em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size4.size5,
+.mybook-obsidian-host .katex .katex-sizing.reset-size4.size5 {
+  font-size: 1.125em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size4.size6,
+.mybook-obsidian-host .katex .katex-sizing.reset-size4.size6 {
+  font-size: 1.25em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size4.size7,
+.mybook-obsidian-host .katex .katex-sizing.reset-size4.size7 {
+  font-size: 1.5em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size4.size8,
+.mybook-obsidian-host .katex .katex-sizing.reset-size4.size8 {
+  font-size: 1.8em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size4.size9,
+.mybook-obsidian-host .katex .katex-sizing.reset-size4.size9 {
+  font-size: 2.16em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size4.size10,
+.mybook-obsidian-host .katex .katex-sizing.reset-size4.size10 {
+  font-size: 2.5925em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size4.size11,
+.mybook-obsidian-host .katex .katex-sizing.reset-size4.size11 {
+  font-size: 3.11em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size5.size1,
+.mybook-obsidian-host .katex .katex-sizing.reset-size5.size1 {
+  font-size: .5555555556em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size5.size2,
+.mybook-obsidian-host .katex .katex-sizing.reset-size5.size2 {
+  font-size: .6666666667em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size5.size3,
+.mybook-obsidian-host .katex .katex-sizing.reset-size5.size3 {
+  font-size: .7777777778em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size5.size4,
+.mybook-obsidian-host .katex .katex-sizing.reset-size5.size4 {
+  font-size: .8888888889em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size5.size5,
+.mybook-obsidian-host .katex .katex-sizing.reset-size5.size5 {
+  font-size: 1em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size5.size6,
+.mybook-obsidian-host .katex .katex-sizing.reset-size5.size6 {
+  font-size: 1.1111111111em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size5.size7,
+.mybook-obsidian-host .katex .katex-sizing.reset-size5.size7 {
+  font-size: 1.3333333333em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size5.size8,
+.mybook-obsidian-host .katex .katex-sizing.reset-size5.size8 {
+  font-size: 1.6em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size5.size9,
+.mybook-obsidian-host .katex .katex-sizing.reset-size5.size9 {
+  font-size: 1.92em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size5.size10,
+.mybook-obsidian-host .katex .katex-sizing.reset-size5.size10 {
+  font-size: 2.3044444444em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size5.size11,
+.mybook-obsidian-host .katex .katex-sizing.reset-size5.size11 {
+  font-size: 2.7644444444em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size6.size1,
+.mybook-obsidian-host .katex .katex-sizing.reset-size6.size1 {
+  font-size: .5em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size6.size2,
+.mybook-obsidian-host .katex .katex-sizing.reset-size6.size2 {
+  font-size: .6em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size6.size3,
+.mybook-obsidian-host .katex .katex-sizing.reset-size6.size3 {
+  font-size: .7em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size6.size4,
+.mybook-obsidian-host .katex .katex-sizing.reset-size6.size4 {
+  font-size: .8em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size6.size5,
+.mybook-obsidian-host .katex .katex-sizing.reset-size6.size5 {
+  font-size: .9em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size6.size6,
+.mybook-obsidian-host .katex .katex-sizing.reset-size6.size6 {
+  font-size: 1em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size6.size7,
+.mybook-obsidian-host .katex .katex-sizing.reset-size6.size7 {
+  font-size: 1.2em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size6.size8,
+.mybook-obsidian-host .katex .katex-sizing.reset-size6.size8 {
+  font-size: 1.44em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size6.size9,
+.mybook-obsidian-host .katex .katex-sizing.reset-size6.size9 {
+  font-size: 1.728em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size6.size10,
+.mybook-obsidian-host .katex .katex-sizing.reset-size6.size10 {
+  font-size: 2.074em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size6.size11,
+.mybook-obsidian-host .katex .katex-sizing.reset-size6.size11 {
+  font-size: 2.488em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size7.size1,
+.mybook-obsidian-host .katex .katex-sizing.reset-size7.size1 {
+  font-size: .4166666667em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size7.size2,
+.mybook-obsidian-host .katex .katex-sizing.reset-size7.size2 {
+  font-size: .5em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size7.size3,
+.mybook-obsidian-host .katex .katex-sizing.reset-size7.size3 {
+  font-size: .5833333333em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size7.size4,
+.mybook-obsidian-host .katex .katex-sizing.reset-size7.size4 {
+  font-size: .6666666667em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size7.size5,
+.mybook-obsidian-host .katex .katex-sizing.reset-size7.size5 {
+  font-size: .75em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size7.size6,
+.mybook-obsidian-host .katex .katex-sizing.reset-size7.size6 {
+  font-size: .8333333333em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size7.size7,
+.mybook-obsidian-host .katex .katex-sizing.reset-size7.size7 {
+  font-size: 1em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size7.size8,
+.mybook-obsidian-host .katex .katex-sizing.reset-size7.size8 {
+  font-size: 1.2em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size7.size9,
+.mybook-obsidian-host .katex .katex-sizing.reset-size7.size9 {
+  font-size: 1.44em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size7.size10,
+.mybook-obsidian-host .katex .katex-sizing.reset-size7.size10 {
+  font-size: 1.7283333333em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size7.size11,
+.mybook-obsidian-host .katex .katex-sizing.reset-size7.size11 {
+  font-size: 2.0733333333em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size8.size1,
+.mybook-obsidian-host .katex .katex-sizing.reset-size8.size1 {
+  font-size: .3472222222em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size8.size2,
+.mybook-obsidian-host .katex .katex-sizing.reset-size8.size2 {
+  font-size: .4166666667em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size8.size3,
+.mybook-obsidian-host .katex .katex-sizing.reset-size8.size3 {
+  font-size: .4861111111em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size8.size4,
+.mybook-obsidian-host .katex .katex-sizing.reset-size8.size4 {
+  font-size: .5555555556em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size8.size5,
+.mybook-obsidian-host .katex .katex-sizing.reset-size8.size5 {
+  font-size: .625em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size8.size6,
+.mybook-obsidian-host .katex .katex-sizing.reset-size8.size6 {
+  font-size: .6944444444em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size8.size7,
+.mybook-obsidian-host .katex .katex-sizing.reset-size8.size7 {
+  font-size: .8333333333em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size8.size8,
+.mybook-obsidian-host .katex .katex-sizing.reset-size8.size8 {
+  font-size: 1em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size8.size9,
+.mybook-obsidian-host .katex .katex-sizing.reset-size8.size9 {
+  font-size: 1.2em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size8.size10,
+.mybook-obsidian-host .katex .katex-sizing.reset-size8.size10 {
+  font-size: 1.4402777778em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size8.size11,
+.mybook-obsidian-host .katex .katex-sizing.reset-size8.size11 {
+  font-size: 1.7277777778em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size9.size1,
+.mybook-obsidian-host .katex .katex-sizing.reset-size9.size1 {
+  font-size: .2893518519em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size9.size2,
+.mybook-obsidian-host .katex .katex-sizing.reset-size9.size2 {
+  font-size: .3472222222em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size9.size3,
+.mybook-obsidian-host .katex .katex-sizing.reset-size9.size3 {
+  font-size: .4050925926em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size9.size4,
+.mybook-obsidian-host .katex .katex-sizing.reset-size9.size4 {
+  font-size: .462962963em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size9.size5,
+.mybook-obsidian-host .katex .katex-sizing.reset-size9.size5 {
+  font-size: .5208333333em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size9.size6,
+.mybook-obsidian-host .katex .katex-sizing.reset-size9.size6 {
+  font-size: .5787037037em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size9.size7,
+.mybook-obsidian-host .katex .katex-sizing.reset-size9.size7 {
+  font-size: .6944444444em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size9.size8,
+.mybook-obsidian-host .katex .katex-sizing.reset-size9.size8 {
+  font-size: .8333333333em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size9.size9,
+.mybook-obsidian-host .katex .katex-sizing.reset-size9.size9 {
+  font-size: 1em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size9.size10,
+.mybook-obsidian-host .katex .katex-sizing.reset-size9.size10 {
+  font-size: 1.2002314815em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size9.size11,
+.mybook-obsidian-host .katex .katex-sizing.reset-size9.size11 {
+  font-size: 1.4398148148em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size10.size1,
+.mybook-obsidian-host .katex .katex-sizing.reset-size10.size1 {
+  font-size: .2410800386em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size10.size2,
+.mybook-obsidian-host .katex .katex-sizing.reset-size10.size2 {
+  font-size: .2892960463em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size10.size3,
+.mybook-obsidian-host .katex .katex-sizing.reset-size10.size3 {
+  font-size: .337512054em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size10.size4,
+.mybook-obsidian-host .katex .katex-sizing.reset-size10.size4 {
+  font-size: .3857280617em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size10.size5,
+.mybook-obsidian-host .katex .katex-sizing.reset-size10.size5 {
+  font-size: .4339440694em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size10.size6,
+.mybook-obsidian-host .katex .katex-sizing.reset-size10.size6 {
+  font-size: .4821600771em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size10.size7,
+.mybook-obsidian-host .katex .katex-sizing.reset-size10.size7 {
+  font-size: .5785920926em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size10.size8,
+.mybook-obsidian-host .katex .katex-sizing.reset-size10.size8 {
+  font-size: .6943105111em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size10.size9,
+.mybook-obsidian-host .katex .katex-sizing.reset-size10.size9 {
+  font-size: .8331726133em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size10.size10,
+.mybook-obsidian-host .katex .katex-sizing.reset-size10.size10 {
+  font-size: 1em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size10.size11,
+.mybook-obsidian-host .katex .katex-sizing.reset-size10.size11 {
+  font-size: 1.1996142719em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size11.size1,
+.mybook-obsidian-host .katex .katex-sizing.reset-size11.size1 {
+  font-size: .2009646302em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size11.size2,
+.mybook-obsidian-host .katex .katex-sizing.reset-size11.size2 {
+  font-size: .2411575563em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size11.size3,
+.mybook-obsidian-host .katex .katex-sizing.reset-size11.size3 {
+  font-size: .2813504823em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size11.size4,
+.mybook-obsidian-host .katex .katex-sizing.reset-size11.size4 {
+  font-size: .3215434084em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size11.size5,
+.mybook-obsidian-host .katex .katex-sizing.reset-size11.size5 {
+  font-size: .3617363344em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size11.size6,
+.mybook-obsidian-host .katex .katex-sizing.reset-size11.size6 {
+  font-size: .4019292605em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size11.size7,
+.mybook-obsidian-host .katex .katex-sizing.reset-size11.size7 {
+  font-size: .4823151125em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size11.size8,
+.mybook-obsidian-host .katex .katex-sizing.reset-size11.size8 {
+  font-size: .578778135em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size11.size9,
+.mybook-obsidian-host .katex .katex-sizing.reset-size11.size9 {
+  font-size: .6945337621em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size11.size10,
+.mybook-obsidian-host .katex .katex-sizing.reset-size11.size10 {
+  font-size: .8336012862em;
+}
+.mybook-obsidian-host .katex .fontsize-ensurer.reset-size11.size11,
+.mybook-obsidian-host .katex .katex-sizing.reset-size11.size11 {
+  font-size: 1em;
+}
+.mybook-obsidian-host .katex .delimsizing.size1 {
+  font-family: KaTeX_Size1;
+}
+.mybook-obsidian-host .katex .delimsizing.size2 {
+  font-family: KaTeX_Size2;
+}
+.mybook-obsidian-host .katex .delimsizing.size3 {
+  font-family: KaTeX_Size3;
+}
+.mybook-obsidian-host .katex .delimsizing.size4 {
+  font-family: KaTeX_Size4;
+}
+.mybook-obsidian-host .katex .delimsizing.mult .delim-size1 > span {
+  font-family: KaTeX_Size1;
+}
+.mybook-obsidian-host .katex .delimsizing.mult .delim-size4 > span {
+  font-family: KaTeX_Size4;
+}
+.mybook-obsidian-host .katex .nulldelimiter {
+  display: inline-block;
+  width: .12em;
+}
+.mybook-obsidian-host .katex .delimcenter,
+.mybook-obsidian-host .katex .op-symbol {
+  position: relative;
+}
+.mybook-obsidian-host .katex .op-symbol.small-op {
+  font-family: KaTeX_Size1;
+}
+.mybook-obsidian-host .katex .op-symbol.large-op {
+  font-family: KaTeX_Size2;
+}
+.mybook-obsidian-host .katex .katex-accent > .vlist-t,
+.mybook-obsidian-host .katex .op-limits > .vlist-t {
+  text-align: center;
+}
+.mybook-obsidian-host .katex .katex-accent .accent-body {
+  position: relative;
+}
+.mybook-obsidian-host .katex .katex-accent .accent-body:not(.accent-full) {
+  width: 0;
+}
+.mybook-obsidian-host .katex .katex-overlay {
+  display: block;
+}
+.mybook-obsidian-host .katex .mtable .vertical-separator {
+  display: inline-block;
+  min-width: 1px;
+}
+.mybook-obsidian-host .katex .mtable .arraycolsep {
+  display: inline-block;
+}
+.mybook-obsidian-host .katex .mtable .col-align-c > .vlist-t {
+  text-align: center;
+}
+.mybook-obsidian-host .katex .mtable .col-align-l > .vlist-t {
+  text-align: left;
+}
+.mybook-obsidian-host .katex .mtable .col-align-r > .vlist-t {
+  text-align: right;
+}
+.mybook-obsidian-host .katex .svg-align {
+  text-align: left;
+}
+.mybook-obsidian-host .katex svg {
+  fill: currentColor;
+  stroke: currentColor;
+  display: block;
+  height: inherit;
+  position: absolute;
+  width: 100%;
+}
+.mybook-obsidian-host .katex svg path {
+  stroke: none;
+}
+.mybook-obsidian-host .katex svg {
+  fill-rule: nonzero;
+  fill-opacity: 1;
+  stroke-width: 1;
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+  stroke-miterlimit: 4;
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+  stroke-opacity: 1;
+}
+.mybook-obsidian-host .katex img {
+  border-style: none;
+  max-height: none;
+  max-width: none;
+  min-height: 0;
+  min-width: 0;
+}
+.mybook-obsidian-host .katex .katex-stretchy {
+  display: block;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+.mybook-obsidian-host .katex .katex-stretchy:after,
+.mybook-obsidian-host .katex .katex-stretchy:before {
+  content: "";
+}
+.mybook-obsidian-host .katex .hide-tail {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+.mybook-obsidian-host .katex .halfarrow-left {
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  width: 50.2%;
+}
+.mybook-obsidian-host .katex .halfarrow-right {
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  width: 50.2%;
+}
+.mybook-obsidian-host .katex .brace-left {
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  width: 25.1%;
+}
+.mybook-obsidian-host .katex .brace-center {
+  left: 25%;
+  overflow: hidden;
+  position: absolute;
+  width: 50%;
+}
+.mybook-obsidian-host .katex .brace-right {
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  width: 25.1%;
+}
+.mybook-obsidian-host .katex .x-arrow-pad {
+  padding: 0 .5em;
+}
+.mybook-obsidian-host .katex .cd-arrow-pad {
+  padding: 0 .55556em 0 .27778em;
+}
+.mybook-obsidian-host .katex .mover,
+.mybook-obsidian-host .katex .munder,
+.mybook-obsidian-host .katex .x-arrow {
+  text-align: center;
+}
+.mybook-obsidian-host .katex .boxpad {
+  padding: 0 .3em;
+}
+.mybook-obsidian-host .katex .fbox,
+.mybook-obsidian-host .katex .fcolorbox {
+  border: .04em solid;
+  box-sizing: border-box;
+}
+.mybook-obsidian-host .katex .cancel-pad {
+  padding: 0 .2em;
+}
+.mybook-obsidian-host .katex .cancel-lap {
+  margin-left: -.2em;
+  margin-right: -.2em;
+}
+.mybook-obsidian-host .katex .katex-sout {
+  border-bottom-style: solid;
+  border-bottom-width: .08em;
+}
+.mybook-obsidian-host .katex .angl {
+  border-right: .049em solid;
+  border-top: .049em solid;
+  box-sizing: border-box;
+  margin-right: .03889em;
+}
+.mybook-obsidian-host .katex .anglpad {
+  padding: 0 .03889em;
+}
+.mybook-obsidian-host .katex .reflectbox {
+  display: inline-block;
+  transform: scaleX(-1);
+}
+.mybook-obsidian-host .katex .eqn-num:before {
+  content: "(" counter(katexEqnNo) ")";
+  counter-increment: katexEqnNo;
+}
+.mybook-obsidian-host .katex .mml-eqn-num:before {
+  content: "(" counter(mmlEqnNo) ")";
+  counter-increment: mmlEqnNo;
+}
+.mybook-obsidian-host .katex .mtr-glue {
+  width: 50%;
+}
+.mybook-obsidian-host .katex .cd-vert-arrow {
+  display: inline-block;
+  position: relative;
+}
+.mybook-obsidian-host .katex .cd-label-left {
+  display: inline-block;
+  position: absolute;
+  right: calc(50% + .3em);
+  text-align: left;
+}
+.mybook-obsidian-host .katex .cd-label-right {
+  display: inline-block;
+  left: calc(50% + .3em);
+  position: absolute;
+  text-align: right;
+}
+.mybook-obsidian-host .katex-display {
+  display: block;
+  margin: 1em 0;
+  text-align: center;
+}
+.mybook-obsidian-host .katex-display > .katex {
+  display: block;
+  text-align: center;
+  white-space: nowrap;
+}
+.mybook-obsidian-host .katex-display > .katex > .katex-html {
+  display: block;
+  position: relative;
+}
+.mybook-obsidian-host .katex-display > .katex > .katex-html > .katex-tag {
+  position: absolute;
+  right: 0;
+}
+.mybook-obsidian-host .katex-display.leqno > .katex > .katex-html > .katex-tag {
+  left: 0;
+  right: auto;
+}
+.mybook-obsidian-host .katex-display.fleqn > .katex {
+  padding-left: 2em;
+  text-align: left;
+}
+
+}}}}}}}}}}}
+
+/* ===== obsidian-overrides.css ===== */
+/* Layout riêng cho view vở trong Obsidian (không dùng layout full-app của web) */
+.mybook-obsidian-host {
+  height: 100%;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  /* CỐ TÌNH visible (không hidden): khi chuỗi height:100% của Obsidian gãy,
+     chính container ngoài của Obsidian mới là thằng cuộn thật — sticky của
+     toolbar chỉ dính được scroll ngoài nếu không có wrapper nào chặn giữa
+     (bất kỳ overflow nào khác visible cũng thành "scroll container" gần nhất
+     và nuốt hiệu ứng sticky). */
+  overflow: visible;
+  background: var(--background-primary, var(--desk-bg, #e5e5e5));
+  color: var(--text-normal, var(--text-main, #0f172a));
+}
+
+.mybook-loading {
+  padding: 24px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.mybook-render-error {
+  margin: 24px;
+  padding: 16px 18px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  color: #991b1b;
+  font-size: 13px;
+  max-width: 640px;
+}
+
+.mybook-render-error pre {
+  margin-top: 8px;
+  font-size: 11px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #fff;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+.mybook-notebook-view {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  /* visible để sticky của toolbar bắt được scroll ngoài (lý do xem .mybook-obsidian-host) */
+  overflow: visible;
+}
+
+.mybook-pages-scroll {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: auto;
+  display: flex;
+  flex-direction: column;
+  /* Không dùng align-items: center cứng trên flex container để tránh cắt xén lề trái khi zoom > 100% */
+  padding: 24px 20px 120px 20px;
+  outline: none;
+}
+
+/* Container chứa tỷ lệ zoom thực tế trong luồng layout (đảm bảo scrollHeight và lề dưới luôn chính xác khi scale) */
+.mybook-zoom-container {
+  margin: 0 auto;
+  flex-shrink: 0;
+  position: relative;
+}
+
+/* Lớp bọc scale (transform KHÔNG nằm trên khung cuộn để không vỡ scroll) */
+.mybook-pages-fitwrap {
+  width: 800px;
+  max-width: none;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px; /* Khoảng cách giữa các trang: 16px (bằng 1 nửa 32px) */
+}
+
+.mybook-page-wrap {
+  flex-shrink: 0;
+  box-shadow: 0 6px 18px -4px rgba(0, 0, 0, 0.13), 0 2px 6px -1px rgba(0, 0, 0, 0.07);
+  border-radius: 2px;
+}
+
+/* Toolbar đứng NGOÀI khung cuộn, con trực tiếp của .mybook-notebook-view.
+   - Khung trong cuộn được (height chain còn nguyên) → toolbar nằm yên trên cùng
+     nhờ flex column + flex-shrink:0, sticky không cần kích hoạt.
+   - Obsidian cuộn cả view (height chain gãy, khung trong cao bằng content) →
+     sticky top:0 dính toolbar theo scroll ngoài, cuộn tới trang mấy cũng còn.
+   Nền đục + shadow: khi dính, trang giấy cuộn bên dưới không xuyên qua. */
+.mybook-notebook-view > .header-center-tools {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  flex-shrink: 0;
+  margin: 8px auto;
+  max-width: calc(100% - 16px);
+  flex-wrap: wrap;
+  row-gap: 4px;
+  box-shadow: 0 4px 14px -4px rgba(0, 0, 0, 0.18);
+}
+
+/* Ô nhập text chỉ 1 khung ngoài: tắt mọi viền/outline mặc định của Obsidian */
+.mybook-obsidian-host .notebook-textbox textarea,
+.mybook-obsidian-host .notebook-textbox textarea:focus,
+.mybook-obsidian-host .notebook-textbox textarea:focus-visible,
+.mybook-obsidian-host .live-line-edit,
+.mybook-obsidian-host .live-line-edit:focus {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.zoom-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  min-width: 44px;
+  text-align: center;
+}
+
+/* Ẩn decor cần asset /doodles (không ship theo plugin) — giữ washi + sparkle text */
+.mybook-obsidian-host .sheet-watermark,
+.mybook-obsidian-host .frame-decor,
+.mybook-obsidian-host .pastel-doodles,
+.mybook-obsidian-host .tabbar-mountain-doodle,
+.mybook-obsidian-host .sidebar-pastel-doodle {
+  display: none !important;
+}
+
+.mybook-obsidian-host .notebook-textbox.is-framed .obsidian-markdown-body h1:first-child {
+  background-image: none !important;
+}
+
+/* Toolbar mini gọn trong panel Obsidian */
+.mybook-mini-toolbar {
+  flex-wrap: wrap;
+  row-gap: 4px;
+}
+
+/* ==========================================================================
+   Mini Toolbar Redesign: Left & Right Groups
+   ========================================================================== */
+
+/* Cụm bên trái: Hoàn tác (Ctrl+Z) / Làm lại (Ctrl+Y) & Khóa tool */
+.mini-toolbar-left-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* Disabled state cho tool-button (Undo/Redo khi hết stack) */
+.mybook-obsidian-host .tool-button:disabled {
+  opacity: 0.32 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+}
+
+/* Cụm bên phải: Zoom pill + Actions + Autosave badge */
+.mini-toolbar-right-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Zoom Capsule Pill: Đảm bảo nền sáng đồng bộ, chống bị theme dark của Obsidian ghi đè đen */
+.mybook-obsidian-host .mini-zoom-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  height: 28px !important;
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 6px !important;
+  padding: 0 2px !important;
+  box-sizing: border-box !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+}
+
+.mybook-obsidian-host .mini-pill-btn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 24px !important;
+  height: 24px !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 4px !important;
+  color: #475569 !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  transition: all 0.12s ease !important;
+}
+
+.mybook-obsidian-host .mini-pill-btn:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  box-shadow: none !important;
+}
+
+.mybook-obsidian-host .mini-pill-btn:active {
+  background: #e2e8f0 !important;
+}
+
+.mybook-obsidian-host .mini-pill-divider {
+  width: 1px !important;
+  height: 14px !important;
+  background: #e2e8f0 !important;
+  margin: 0 2px !important;
+}
+
+.mybook-obsidian-host .mini-zoom-label {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 44px !important;
+  height: 24px !important;
+  padding: 0 4px !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 4px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #334155 !important;
+  cursor: pointer !important;
+  font-family: var(--font-monospace, monospace) !important;
+  user-select: none !important;
+  transition: all 0.12s ease !important;
+}
+
+.mybook-obsidian-host .mini-zoom-label:hover {
+  background: #eff6ff !important;
+  color: #2563eb !important;
+  box-shadow: none !important;
+}
+
+/* ==========================================================================
+   Selected State Highlights: Màu bút & Cỡ nét bút có viền xung quanh rõ ràng
+   ========================================================================== */
+
+/* 1. Chấm màu bút: Viền đôi (vòng đệm trắng + ring xanh dương đậm) */
+.mybook-obsidian-host .color-swatches.mini .color-dot {
+  width: 17px !important;
+  height: 17px !important;
+  border-radius: 50% !important;
+  border: 1.5px solid rgba(0, 0, 0, 0.18) !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.mybook-obsidian-host .color-swatches.mini .color-dot:hover {
+  transform: scale(1.15) !important;
+}
+
+.mybook-obsidian-host .color-swatches.mini .color-dot.selected {
+  transform: scale(1.2) !important;
+  /* Viền đôi: đệm trắng 2px + viền xanh dương 4px nổi bật trên mọi màu (kể cả màu đen) */
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #2563eb !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  z-index: 2 !important;
+}
+
+/* 2. Nấc nét bút: Viền xung quanh rõ ràng tương tự như chọn màu bút */
+.mybook-obsidian-host .stroke-level-btn {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  cursor: pointer !important;
+  height: 28px !important;
+  min-width: 26px !important;
+  padding: 0 4px !important;
+  border-radius: 6px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 3px !important;
+  transition: all 0.12s ease !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+}
+
+.mybook-obsidian-host .stroke-level-btn:hover {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+}
+
+.mybook-obsidian-host .stroke-level-btn.active {
+  background: #eff6ff !important;
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 1.5px #2563eb, 0 1px 2px rgba(37, 99, 235, 0.15) !important;
+}
+
+.mybook-obsidian-host .stroke-level-btn .level-dot {
+  border-radius: 50% !important;
+  display: inline-block !important;
+  transition: transform 0.12s ease !important;
+}
+
+.mybook-obsidian-host .stroke-level-btn.active .level-dot {
+  transform: scale(1.2) !important;
+}
+
+/* Cụm Actions Thêm trang & Xuất PDF */
+.mini-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* Autosave Badge */
+.mini-save-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-left: 2px;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.mini-save-badge.status-saved {
+  background: rgba(34, 197, 94, 0.14);
+  color: #16a34a;
+}
+
+.mini-save-badge.status-dirty {
+  background: rgba(245, 158, 11, 0.14);
+  color: #d97706;
+}
+
+.mini-save-dot {
+  font-size: 11px;
+  line-height: 1;
+}
+
+/* Con trỏ vẽ: crosshair mặc định khi chọn công cụ vẽ */
+.mybook-obsidian-host .page-drawing-layer.is-active-drawing:not(.is-eraser-mode),
+.mybook-obsidian-host .page-drawing-layer.is-active-drawing:not(.is-eraser-mode) canvas,
+.mybook-obsidian-host .page-drawing-layer.is-active-drawing:not(.is-eraser-mode) .active-canvas {
+  cursor: crosshair !important;
+}
+
+.mybook-obsidian-host .page-drawing-layer.is-eraser-mode,
+.mybook-obsidian-host .page-drawing-layer.is-eraser-mode canvas,
+.mybook-obsidian-host .page-drawing-layer.is-eraser-mode .active-canvas {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%23fbcfe8' stroke='%23334155' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21' /%3E%3Cpath d='M22 21H7' stroke='%23334155' /%3E%3Cpath d='m5 11 9 9' stroke='%23334155' /%3E%3C/svg%3E") 4 20, crosshair !important;
+}
