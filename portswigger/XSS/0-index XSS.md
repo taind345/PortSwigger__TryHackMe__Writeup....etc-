@@ -11,6 +11,7 @@ thứ tự này là do mình tự xếp từ dễ tới khó.
 - [[phòng chống xss]] + [[xss-filter bypass]] -> encode + bypass.
 - [[các cách phát hiện lỗ hổng XSS]] -> quy trình test 5 bước.
 
+==> [[0-XSS portswigger lab]]
 ### 1. lab dễ: chèn thẳng không filter
 - [[Lab-Reflected XSS basic]] -> search phản chiếu luôn, bắn `<script>` là ăn.
 - [[Lab-Stored XSS basic]] -> comment lưu lại, ai mở cũng dính alert.
@@ -28,3 +29,5 @@ thứ tự này là do mình tự xếp từ dễ tới khó.
 
 # LAB nâng cao
 - [[Lab-AngularJS sandbox escape]] -> thấy `{{7*7}}` render 49 là dính template, dùng `{{$on.constructor('alert(1)')()}}` để thoát sandbox. Nhớ check version Angular trước.
+
+

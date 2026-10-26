@@ -4,35 +4,53 @@
     "type": "split",
     "children": [
       {
-        "id": "344079031af9cab8",
+        "id": "88f39a83e9eeacfc",
         "type": "tabs",
         "children": [
           {
-            "id": "e53c658a5fbc7d2c",
+            "id": "4af2bc78f66014f3",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Xem biểu đồ"
+              "type": "mybook-notebook",
+              "state": {
+                "file": "0-Note/20-10.mynote.md"
+              },
+              "icon": "notebook-pen",
+              "title": "20-10"
             }
           },
           {
-            "id": "91d60e604f3c168e",
+            "id": "ee5b4384e26aafc7",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "3-Linux/wsl hoạt động như nào.md",
+                "file": "portswigger/XSS/0-xss cheetsheet.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "wsl hoạt động như nào"
+              "title": "0-xss cheetsheet"
+            }
+          },
+          {
+            "id": "56b4299335f8e5d4",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "portswigger/XSS/Lab-Reflected XSS into HTML context with most tags and attributes blocked.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "Lab-Reflected XSS into HTML context with most tags and attributes blocked"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -126,7 +144,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "0-Note/note-docker-pipeline.md",
+                "file": "portswigger/authetication bypass/Lab-2FA bypass using a brute-force attack.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -136,7 +154,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks"
+              "title": "Liên kết đến"
             }
           },
           {
@@ -163,9 +181,19 @@
               "icon": "excalidraw-icon",
               "title": "Excalidraw Sidepanel"
             }
+          },
+          {
+            "id": "46691fd16c66b55e",
+            "type": "leaf",
+            "state": {
+              "type": "hinote-view",
+              "state": {},
+              "icon": "highlighter",
+              "title": "HiNote"
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 4
       },
       {
         "id": "359bda98840e686f",
@@ -178,7 +206,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "MyBook Note 1.mynote.md",
+                "file": "portswigger/XSS/Lab-Reflected XSS into a JavaScript string with angle brackets and double quotes HTML-encoded and single quotes escaped.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -190,7 +218,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 224.281982421875,
+    "width": 309.109619140625,
     "collapsed": true
   },
   "left-ribbon": {
@@ -203,49 +231,52 @@
       "command-palette:Mở khay lệnh": false,
       "bases:Tạo cơ sở mới": false,
       "obsidian-excalidraw-plugin:New drawing": false,
-      "mybook-notebook:Mở vở MyBook mới": false
+      "mybook-notebook:Mở vở MyBook mới": false,
+      "hi-note:HiCard": false,
+      "hi-note:HiNote": false
     }
   },
-  "active": "e53c658a5fbc7d2c",
+  "active": "ee5b4384e26aafc7",
   "lastOpenFiles": [
-    "portswigger/server side vulnerabilities/Lab-Path traversal encoded.md",
-    "portswigger/server side vulnerabilities/Lab-File upload unrestricted.md",
-    "portswigger/OAuth/0-index OAuth.md",
-    "portswigger/OAuth/Lab-OpenID dynamic registration SSRF.md",
-    "portswigger/OAuth/Lab-Forced OAuth linking.md",
-    "portswigger/server side vulnerabilities/0-index server side.md",
-    "portswigger/SQL injection/0-index SQL injection.md",
-    "portswigger/SSRF/Lab-Blind SSRF Shellshock.md",
-    "portswigger/SQL injection/0-tổng hợp sql injection.md",
-    "portswigger/SQL injection/bai1- based errorr sql injection.md",
-    "portswigger/SSRF/0-index SSRF.md",
-    "portswigger/SQL injection/Lab-Blind OAST exfiltration.md",
-    "portswigger/SSRF/lys thuyet SSRF.md",
-    "portswigger/IDOR/Lab-Multi-step no access control.md",
-    "portswigger/IDOR/Lab-Referer-based access control.md",
-    "portswigger/XSS/Lab-AngularJS sandbox escape.md",
-    "portswigger/XSS/0-index XSS.md",
-    "portswigger/OAuth/Lab-OAuth open redirect steal.md",
-    "portswigger/OAuth/Lab-OAuth redirect_uri hijack.md",
-    "portswigger/OAuth/Lab-OAuth implicit flow.md",
-    "portswigger/OAuth/lys thuyet OAuth.md",
-    "portswigger/OAuth",
-    "portswigger/JWT/Lab-JWT kid SQL injection.md",
+    "file:/home/ti/Downloads/photo-sharing-v1/photo-sharing-v1/README.md",
+    "0-asset/Pasted image 20261023131728.png",
+    "0-asset/Pasted image 20261023131234.png",
+    "0-asset/Pasted image 20261023130909.png",
+    "portswigger/XSS/0-XSS portswigger lab.md",
+    "portswigger/XSS/Lab-Exploiting cross-site scripting to steal cookies.md",
+    "0-asset/Pasted image 20261023130333.png",
     "portswigger/XSS/0-XSS.md",
-    "Tools/0-tool.md",
-    "portswigger/JWT/Lab-JWT kid path traversal.md",
-    "portswigger/JWT/Lab-JWT jwk injection.md",
+    "portswigger/XSS/DOM XSS in jQuery anchor href attribute sink using location.search  source.md",
+    "portswigger/XSS/lab stored dom xss.md",
+    "portswigger/XSS/Lab- Stored XSS into anchor href attribute with double quotes HTML-encoded.md",
+    "portswigger/XSS/Lab-Dangling markup.md",
+    "portswigger/XSS/Lab-DOM innerHTML.md",
+    "portswigger/XSS/lab-DOM XSS in innerHTML sink using source location.search.md",
+    "portswigger/XSS/lab-DOM XSS in AngularJS expression with angle brackets and double quotes HTML-encoded.md",
+    "portswigger/XSS/lab-DOM XSS in jQuery selector sink using a hashchange event.md",
+    "portswigger/XSS/Lab-Reflected attribute encoded.md",
+    "portswigger/XSS/LAB-Reflected DOM XSS.md",
+    "portswigger/XSS/Lab-Reflected XSS basic.md",
+    "portswigger/XSS/Lab-Reflected XSS in canonical link tag.md",
+    "portswigger/XSS/Lab-Reflected XSS into a JavaScript string with angle brackets HTML encoded.md",
+    "portswigger/XSS/Lab-Reflected XSS into a JavaScript string with single quote and backslash escaped.md",
+    "portswigger/XSS/Lab-Reflected XSS into a template literal with angle brackets, single, double quotes, backslash and backticks Unicode-escaped.md",
+    "portswigger/XSS/Lab-Reflected XSS into attribute with angle brackets HTML-encoded.md",
+    "portswigger/XSS/Lab-Reflected XSS into HTML context with all tags blocked except custom ones.md",
+    "portswigger/XSS/Lab-Reflected XSS into HTML context with most tags and attributes blocked.md",
+    "portswigger/XSS/Lab-Reflected XSS into HTML context with nothing encoded.md",
+    "portswigger/XSS/Lab-Stored XSS basic.md",
+    "portswigger/XSS/Lab-Reflected XSS with some SVG markup allowed.md",
+    "portswigger/XSS/Lab-Stored XSS into -onclick- event with angle brackets and double quotes HTML-encoded and single quotes and backslash escaped.md",
+    "0-asset/Pasted image 20261023130125.png",
+    "0-asset/Pasted image 20261023125810.png",
+    "0-asset/Pasted image 20261023125236.png",
+    "0-asset/Pasted image 20261023124838.png",
+    "0-asset/Pasted image 20261023124704.png",
+    "0-asset/Pasted image 20261023124602.png",
+    "portswigger/writeup-portswigger",
+    "portswigger/OAuth",
     "portswigger/JWT",
-    "0-asset/Pasted image 20261014213505.png",
-    "0-asset/Pasted image 20261014204442.png",
-    "0-asset/Pasted image 20261014204355.png",
-    "0-asset/Pasted image 20261014204349.png",
-    "0-asset/Pasted image 20261014203648.png",
-    "0-asset/Pasted image 20261014203115.png",
-    "0-asset/Pasted image 20261014201925.png",
-    "0-asset/Pasted Image 20261010164636_846.png",
-    "0-asset/Pasted Image 20261010164419_374.png",
-    "0-asset/Pasted Image 20261009210501_135.png",
     "0-CODE/quiz/questions-deep.js",
     "0-CODE/quiz/questions-extra.js",
     "0-CODE/quiz/app.js",
@@ -253,7 +284,6 @@
     "0-CODE/quiz/index.html",
     "0-CODE/quiz/questions.js",
     "0-CODE/quiz",
-    "0-CODE",
     "red/Untitled.canvas",
     "Untitled.canvas"
   ]

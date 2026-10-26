@@ -1,10 +1,31 @@
 ### reflected XSS lab
 [[Lab-Reflected XSS into HTML context with nothing encoded]]
+[[Lab-Reflected XSS into a JavaScript string with angle brackets HTML encoded]]
+
+[[Lab-Reflected XSS into HTML context with nothing encoded]]
+
+[[Lab-Reflected XSS into HTML context with most tags and attributes blocked]]
+
+[[Lab-Reflected XSS into HTML context with all tags blocked except custom ones]]
+
+[[Lab-Reflected XSS with some SVG markup allowed]]
+
+[[Lab-Reflected XSS in canonical link tag]]
+
+[[Lab-Reflected XSS into a JavaScript string with single quote and backslash escaped]]
+
+[[Lab-Reflected XSS into a JavaScript string with angle brackets and double quotes HTML-encoded and single quotes escaped]]
+
+[[Lab-Reflected XSS into a template literal with angle brackets, single, double quotes, backslash and backticks Unicode-escaped]]
+
+
 
 ### stored xss lab
 [[lab-Stored XSS into HTML context with nothing encoded]]
 
+[[Lab-Stored XSS into -onclick- event with angle brackets and double quotes HTML-encoded and single quotes and backslash escaped]]
 
+[[Lab-Exploiting cross-site scripting to steal cookies]]
 ### DOM based XSS
 -đầu tiên ta sẽ làm các bài lab liên quan đến việc tận dụng *document.write()* ; hàm này sẽ cho phép nhận đầu vào là 1 element có dạng là script
 [[Lab- DOM XSS in document.write sink using source location.search]]
@@ -23,3 +44,10 @@
 
 -khai thac lo hong DOM+ reflected xss
 [[LAB-Reflected DOM XSS]]
+[[lab stored dom xss]]
+
+
+
+- khai thác xss bằng on mouse hover [[Lab-Reflected XSS into attribute with angle brackets HTML-encoded]]
+
+-[[Lab- Stored XSS into anchor href attribute with double quotes HTML-encoded]] => lab này có xss do đựng link trong thẻ `<a>`

@@ -215,7 +215,7 @@ $('#profileLink').attr('href', /^https?:\/\//.test(returnUrl) ? returnUrl : '/pr
 _Kiểm tra URL bắt đầu `http://` hoặc `https://`, không đúng thì về mặc định an toàn._
 ## Thực hành
 ### lab 1 
-[[XSS portswigger lab]]
+[[0-XSS portswigger lab]]
 
 ### lab2
-làm tiếp lab về nội dung phần này ở đây [[XSS portswigger lab]]
+làm tiếp lab về nội dung phần này ở đây [[0-XSS portswigger lab]]

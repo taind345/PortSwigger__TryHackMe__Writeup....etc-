@@ -1,4 +1,4 @@
-![[auth-reset-broken.png]]
+![[Pasted image 20261015104935.png]]
 -mô tả lab: chức năng reset password của lab này không check token, mình đổi được password của `carlos` luôn.
 
 > [!NOTE]

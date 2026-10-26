@@ -10,7 +10,7 @@
 ### hướng giải
 - [ ] mình login sai 3 lần liên tiếp, sau đó quan sát gói tin trả về, mình thấy nó báo `You have made too many incorrect login attempts. Please try again in 1 minute(s).` -> là mình biết đã bị block
 - [ ] mình thử login đúng `wiener:peter` 1 phát, sau đó quan sát gói tin này, mình thấy nó trả `302` về `/my-account`, và thử sai tiếp thì lại được, không bị block nữa
-- [ ] => nên mình chốt là counter block nó reset khi login thành công. Vậy mình cứ chèn 1 lần login đúng của mình vào giữa các lần brute carlos là bypass được
+- [ ] => nên mình chốt là<u> counter block nó reset khi login thành công.</u> Vậy mình cứ chèn 1 lần login đúng của mình vào giữa các lần brute carlos là bypass được
 - [ ] pattern của mình sẽ là: `wiener:peter` -> `carlos:pass1` -> `wiener:peter` -> `carlos:pass2`...
 
 ### giải
@@ -49,7 +49,7 @@ for pw in passwords:
 [8] try '1234567' -> 302 loc='/my-account?id=carlos'
 FOUND: carlos:1234567
 ```
-![[auth-ip-block-live-found.png]]
+
 -> nên mình chốt password của carlos là `1234567`, đúng là password thứ 9 trong list.
 
 -bước 3: mình login lại bằng `carlos:1234567`:

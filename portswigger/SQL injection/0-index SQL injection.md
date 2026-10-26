@@ -16,6 +16,8 @@ thứ tự lab mình đề xuất:
 - tiếp theo quất login -> [[Lab-SQLi login bypass]] => mình học được `administrator'--` bypass password.
 - xong tới đếm cột -> [[Lab-SQLi UNION determine columns]] => mình học được ORDER BY + UNION NULL.
 - rồi đọc version + users -> [[Lab-SQLi UNION retrieve version and users]] => mình học được đọc @@version / version() rồi dump users.
+- đọc version trên Oracle -> [[Lab-SQLi querying database version Oracle]] => mình học được `v$version.banner` + nhớ mọi SELECT phải có `FROM`.
+- qua bản Oracle list bảng/cột -> [[Lab-SQLi listing database contents Oracle]] => mình học được `all_tables` / `all_tab_columns` + `FROM dual` để tự tìm bảng/cột rồi dump users.
 - qua blind boolean -> [[Lab-Blind boolean conditional responses]] => mình học được TrackingId + SUBSTRING brute.
 - qua blind time -> [[Lab-Blind time delays]] => mình học được pg_sleep conditional exfil.
 - qua OAST cho gọn -> [[Lab-Blind OAST]] => mình học được DNS lookup ra Collaborator.

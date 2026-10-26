@@ -39,12 +39,13 @@ Bạn có thể sử dụng các chú thích để cắt bớt một truy vấn 
 
 Bạn có thể truy vấn cơ sở dữ liệu để xác định loại và phiên bản của nó. Thông tin này rất hữu ích khi xây dựng các cuộc tấn công phức tạp hơn.
 
-|   |   |
-|---|---|
-|Oracle|`SELECT banner FROM v$version   SELECT version FROM v$instance   `|
-|Microsoft|`SELECT @@version`|
-|PostgreSQL|`SELECT version()`|
-|MySQL|`SELECT @@version`|
+|            |                                                                    |
+| ---------- | ------------------------------------------------------------------ |
+| Oracle     | `SELECT banner FROM v$version   SELECT version FROM v$instance   ` |
+| Microsoft  | `SELECT @@version`                                                 |
+| PostgreSQL | `SELECT version()`                                                 |
+| MySQL      | `SELECT @@version`                                                 |
+|            |                                                                    |
 
 ## Nội dung cơ sở dữ liệu
 

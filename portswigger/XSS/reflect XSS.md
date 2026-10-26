@@ -163,4 +163,4 @@ Reflected XSS
 ```
 
 ### Làm lab
-xem tại đây -->[[XSS portswigger lab]]
+xem tại đây -->[[0-XSS portswigger lab]]

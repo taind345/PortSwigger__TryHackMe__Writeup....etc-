@@ -1,5 +1,5 @@
 
--lab này: https://0af400490383f08b81568952005e0027.web-security-academy.net/
+
 -title mình thấy khi vào là `Username enumeration via account lock`
 
 > [!NOTE]
@@ -8,11 +8,11 @@
 ### hướng giải
 - [ ] mình thử login `carlos:test` 7 lần liên tục, sau đó quan sát gói tin trả về, mình thấy toàn báo `Invalid username or password.` chứ không bị lock gì cả
 - [ ] => nên mình đoán `carlos` không phải username đúng của instance này. Username đúng là 1 user khác trong list mẫu
-- [ ] mình nhớ lý thuyết: chỉ username đúng mới bị lock (server mới đếm số lần sai để lock), còn username sai thì server không thèm đếm
-- [ ] nên mình sẽ brute username, mỗi username thử sai 5 lần, thằng nào báo `too many incorrect login attempts` thì thằng đó đúng
+- [ ] mình nhớ lý thuyết:<u> chỉ username đúng mới bị lock </u>(server mới đếm số lần sai để lock), còn username sai thì server không thèm đếm
+- [ ] nên mình sẽ brute username, mỗi username thử sai 5 lần, ==thằng nào báo `too many incorrect login attempts` thì thằng đó đúng==
 
 ### giải
--bước 1: mình lấy list username mẫu của portswigger (tầm 100 user: carlos, root, admin, test...), rồi chạy script thử mỗi user 5 lần:
+-bước 1: mình lấy list username mẫu của portswigger (tầm 100 user: carlos, root, admin, test...), rồi chạy script ==thử mỗi user 5 lần:==
 ```python
 import requests, re
 base = "https://0af400490383f08b81568952005e0027.web-security-academy.net"
@@ -30,13 +30,13 @@ miss root -> last: Invalid username or password.
 ...
 HIT: user -> ['Invalid username or password.', 'Invalid username or password.', 'Invalid username or password.', 'You have made too many incorrect login attempts. Please try again in 1 minute(s).', ...]
 ```
-![[auth-account-lock-enum.png]]
+
 -> nên mình chốt username đúng là `user`, chứ không phải `carlos` như mọi khi.
 
 -bước 2: brute password của `user`. Khó ở chỗ cứ sai 3 lần là bị lock 1 phút, nên mình phải brute chậm: sai -> đợi 65s -> thử lại. Mình để ý 1 điểm rất hay:
 - sai thường -> `200` + `Invalid username or password.`
 - bị lock -> `200` + `You have made too many incorrect login attempts...`
-- còn password `baseball` thì trả về `200` mà **không có câu báo lỗi nào cả**
+- ==còn password `baseball` thì trả về `200` mà **không có câu báo lỗi nào cả**==
 -> sau khi quan sát gói tin này, mình thấy `baseball` khác hẳn mọi password khác, đúng như solution PortSwigger mô tả (response đúng thì không chứa error message). Nên mình nghi `baseball` chính là password, nhưng lúc đó account đang bị lock nên chưa redirect.
 
 -bước 3: mình dừng hết brute, đợi sạch 2 phút không đụng gì, rồi thử đúng 1 phát:
@@ -57,9 +57,9 @@ Set-Cookie: session=UlpMOGklNkishYF6L3PQPyGCtTG3dDQ6
 GET /my-account?id=user
 -> 200 OK, body có: <p>Your username is: user</p>
 ```
-![[auth-account-lock-solved.png]]
--> là solve lab.
 
+-> là solve lab.
+![[Pasted image 20261018161517.png]]
 > [!NOTE]
 > -mẹo của mình: lúc brute mà thấy response nào không có warning gì thì note lại ngay, đó chính là password đúng đang bị lock che mất. Đợi hết lock rồi thử lại 1 phát là ra.
 > -bài học của mình: account lock tưởng là bảo mật, nhưng nếu báo khác nhau giữa user đúng/sai thì lại thành chỗ để enumerate. Lẽ ra lock hay không cũng phải báo 1 câu chung chung thôi.

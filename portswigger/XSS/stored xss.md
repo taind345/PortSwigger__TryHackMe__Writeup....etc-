@@ -106,7 +106,7 @@ let name = "x7Kp92Qa";
 
 ---
 ### bài tập && lab
-*lab ở đây-->*[[XSS portswigger lab]]
+*lab ở đây-->*[[0-XSS portswigger lab]]
 **Bài tập:** Một ứng dụng có chức năng `Profile name`. Bạn nhập:
 ```text
 x7Kp92Qa

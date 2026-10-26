@@ -29,7 +29,7 @@ ffuf -request login.txt -request-proto https -w usernames.txt:USER -fs 1500
 # mình chạy 1 lần không filter để xem length chuẩn là bao nhiêu, sau đó mình loại hết length phổ biến đi
 ```
 -sau khi quan sát bảng kết quả này, mình thấy tất cả đều length ~XXXX, chỉ có 1 dòng length lệch đi vài byte, đó là `carlos`.
-![[auth-subtly-different-ffuf-length.png]]
+
 -> nên mình chốt là `carlos`, chứ không phải lab lỗi như mình nghĩ lúc đầu.
 
 -mẹo của mình: nếu vẫn khó nhìn, mình copy 2 response vào `diff` hoặc vào Burp Comparer là thấy ngay dấu `.` lệch.
