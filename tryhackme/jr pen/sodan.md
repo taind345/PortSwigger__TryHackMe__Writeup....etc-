@@ -1,7 +1,7 @@
 ### 📘 Shodan – Công cụ tìm kiếm thiết bị kết nối Internet
-Shodan không chỉ *tìm web* mà *quét mọi thiết bị công khai:* *camera*, *server*, *hệ thống công nghiệp*... Nó cho biết **cái gì đang chạy, ở đâu, phiên bản nào**.
+==Shodan không chỉ *tìm web* mà *quét mọi thiết bị công khai:* *camera*, *server*, *hệ thống công nghiệp*... Nó cho biết **cái gì đang chạy, ở đâu, phiên bản nào**.==
 ### 🧪 Ví dụ
-Tìm server Apache phiên bản cũ:
+==Tìm server Apache phiên== bản cũ:
 ```
 apache 2.4.1
 ```

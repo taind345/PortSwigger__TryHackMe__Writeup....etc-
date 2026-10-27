@@ -1,7 +1,5 @@
 {
   "version": "2.0",
-  "mapping": {
-    "portswigger/XSS/Lab-Reflected XSS into a JavaScript string with single quote and backslash escaped.md": "note-1a891d09-4522-43f2-8c2d-62c9d25feffb.json"
-  },
-  "lastUpdated": 1792579964072
+  "mapping": {},
+  "lastUpdated": 1792580009624
 }

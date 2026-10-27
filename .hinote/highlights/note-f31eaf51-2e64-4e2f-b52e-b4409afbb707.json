@@ -1,0 +1,25 @@
+{
+  "version": "2.0",
+  "lastModified": 1793075968129,
+  "highlights": {
+    "highlight-89139a64-638e-4c96-b2ff-26e6938f8954": {
+      "text": "Shodan không chỉ *tìm web* mà *quét mọi thiết bị công khai:* *camera*, *server*, *hệ thống công nghiệp*... Nó cho biết **cái gì đang chạy, ở đâu, phiên bản nào**.",
+      "position": 59,
+      "created": 1793075949023,
+      "updated": 1793075949023,
+      "backgroundColor": "var(--text-highlight-bg, #ffeb3b)",
+      "syntax": "markdown",
+      "contextBefore": "### 📘 Shodan – Công cụ tìm kiếm thiết bị kết nối Internet",
+      "contextAfter": "### 🧪 Ví dụ ==Tìm server Apache phiên== bản cũ: ``` apache 2.4.1 ``` Kết quả l",
+      "textFingerprint": "Shodan không chỉ *tìm web* mà *quét mọi thiết bị công khai:* *camera*, *server*, *hệ thống công nghiệp*... Nó cho biết **cái gì đang chạy, ở đâu, phiên bản nào**.",
+      "comments": [
+        {
+          "id": "comment-1793075949023-my06hzyp6",
+          "content": "tìm ip công khai? -> các thiết bị iot có ip công khai, các server có ip công khai",
+          "created": 1793075949023,
+          "updated": 1793075949023
+        }
+      ]
+    }
+  }
+}

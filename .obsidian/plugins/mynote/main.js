@@ -797,7 +797,7 @@ var require_scheduler = __commonJS({
 var require_react_dom_production = __commonJS({
   "../node_modules/react-dom/cjs/react-dom.production.js"(exports) {
     "use strict";
-    var React8 = require_react();
+    var React9 = require_react();
     function formatProdErrorMessage(code2) {
       var url = "https://react.dev/errors/" + code2;
       if (1 < arguments.length) {
@@ -839,7 +839,7 @@ var require_react_dom_production = __commonJS({
         implementation
       };
     }
-    var ReactSharedInternals = React8.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+    var ReactSharedInternals = React9.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
     function getCrossOriginStringAs(as, input) {
       if ("font" === as) return "";
       if ("string" === typeof input)
@@ -981,7 +981,7 @@ var require_react_dom_client_production = __commonJS({
   "../node_modules/react-dom/cjs/react-dom-client.production.js"(exports) {
     "use strict";
     var Scheduler = require_scheduler();
-    var React8 = require_react();
+    var React9 = require_react();
     var ReactDOM = require_react_dom();
     function formatProdErrorMessage(code2) {
       var url = "https://react.dev/errors/" + code2;
@@ -1272,7 +1272,7 @@ var require_react_dom_client_production = __commonJS({
       return null;
     }
     var isArrayImpl = Array.isArray;
-    var ReactSharedInternals = React8.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+    var ReactSharedInternals = React9.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
     var ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
     var sharedNotPendingObject = {
       pending: false,
@@ -14421,7 +14421,7 @@ var require_react_dom_client_production = __commonJS({
         0 === i6 && attemptExplicitHydrationTarget(target);
       }
     };
-    var isomorphicReactPackageVersion$jscomp$inline_2043 = React8.version;
+    var isomorphicReactPackageVersion$jscomp$inline_2043 = React9.version;
     if ("19.3.0" !== isomorphicReactPackageVersion$jscomp$inline_2043)
       throw Error(
         formatProdErrorMessage(
@@ -14552,12 +14552,14 @@ function displayScale(rect, dataWidth) {
   const s4 = rect.width / dataWidth;
   return s4 > 0 ? s4 : 1;
 }
-var PAGE_WIDTH, PAGE_HEIGHT, TOP_MARGIN;
+var PAGE_WIDTH, PAGE_HEIGHT, TOP_MARGIN, FULL_TEXTBOX_WIDTH, DEFAULT_TEXTBOX_WIDTH;
 var init_lineSnap = __esm({
   "../src/shared/lib/lineSnap.ts"() {
     PAGE_WIDTH = 800;
     PAGE_HEIGHT = 1100;
     TOP_MARGIN = 64;
+    FULL_TEXTBOX_WIDTH = 520;
+    DEFAULT_TEXTBOX_WIDTH = Math.round(FULL_TEXTBOX_WIDTH * 0.45);
   }
 });
 
@@ -49542,13 +49544,14 @@ var init_es = __esm({
 // src/main.ts
 var main_exports = {};
 __export(main_exports, {
+  DEFAULT_SETTINGS: () => DEFAULT_SETTINGS,
   MYBOOK_EXTS: () => MYBOOK_EXTS,
   MYBOOK_VIEW_TYPE: () => MYBOOK_VIEW_TYPE,
   default: () => MyBookPlugin
 });
 module.exports = __toCommonJS(main_exports);
 var import_obsidian = require("obsidian");
-var React7 = __toESM(require_react());
+var React8 = __toESM(require_react());
 var import_client = __toESM(require_client());
 
 // ../node_modules/mdurl/index.mjs
@@ -69117,6 +69120,17 @@ var assetResolver = null;
 function setAssetResolver(fn) {
   assetResolver = fn;
 }
+function resolveAssetUrl(src) {
+  if (!src) return "";
+  if (src.startsWith("data:") || src.startsWith("http://") || src.startsWith("https://") || src.startsWith("app://") || src.startsWith("blob:")) {
+    return src;
+  }
+  if (assetResolver) {
+    const resolved = assetResolver(src);
+    if (resolved) return resolved;
+  }
+  return src;
+}
 function renderMarkdown(content, options) {
   if (!content) return "";
   const vaultDir = options?.vaultDir || (typeof localStorage !== "undefined" ? localStorage.getItem("mybook_vault_path") : "") || "/home/ti/Desktop/DATA_DESKTOP/0_Obsidian notebook/red";
@@ -69260,6 +69274,115 @@ function renderMarkdown(content, options) {
     '<div class="obsidian-callout"><span class="callout-chevron">\u203A</span><div class="callout-content">$1</div></div>'
   );
   return html2;
+}
+
+// ../src/shared/lib/imagePaste.ts
+init_lineSnap();
+var MAX_PASTE_IMAGE_WIDTH = 520;
+var MAX_PASTE_IMAGE_HEIGHT = 420;
+var attachmentSaver = null;
+function setImageAttachmentSaver(saver) {
+  attachmentSaver = saver;
+}
+function fileToDataURL(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(file);
+  });
+}
+function getImageNaturalSize(src) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve({ width: img.naturalWidth || 400, height: img.naturalHeight || 300 });
+    img.onerror = () => resolve({ width: 400, height: 300 });
+    img.src = src;
+  });
+}
+function fitSize(naturalW, naturalH) {
+  const safeW = Math.max(1, naturalW);
+  const safeH = Math.max(1, naturalH);
+  const scale = Math.min(
+    1,
+    MAX_PASTE_IMAGE_WIDTH / safeW,
+    MAX_PASTE_IMAGE_HEIGHT / safeH
+  );
+  return {
+    width: Math.round(safeW * scale),
+    height: Math.round(safeH * scale)
+  };
+}
+async function fileToPageImage(pageId, file, cascadeIndex = 0, anchor) {
+  let src;
+  let fileName = file.name || "pasted-image.png";
+  if (attachmentSaver) {
+    try {
+      const saved = await attachmentSaver(file);
+      src = saved.src;
+      fileName = saved.name;
+    } catch (err2) {
+      console.warn("[MyBook] attachmentSaver failed, falling back to data URL:", err2);
+      src = await fileToDataURL(file);
+    }
+  } else {
+    src = await fileToDataURL(file);
+  }
+  const resolvedUrl = resolveAssetUrl(src);
+  const natural = await getImageNaturalSize(resolvedUrl);
+  const fitted = fitSize(natural.width, natural.height);
+  const offset = cascadeIndex % 8 * 24;
+  const centerX = anchor ? anchor.x + offset : PAGE_WIDTH / 2 + offset;
+  const centerY = anchor ? anchor.y + offset : 220 + offset;
+  const x4 = Math.max(
+    8,
+    Math.min(PAGE_WIDTH - fitted.width - 8, Math.round(centerX - fitted.width / 2))
+  );
+  const y4 = Math.max(
+    8,
+    Math.min(PAGE_HEIGHT - fitted.height - 60, Math.round(centerY - fitted.height / 2))
+  );
+  return {
+    id: `img_${pageId}_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+    x: x4,
+    y: y4,
+    width: fitted.width,
+    height: fitted.height,
+    src,
+    name: fileName
+  };
+}
+function extractImagesFromClipboard(e3) {
+  const dt2 = e3.clipboardData;
+  if (!dt2) return [];
+  const files = [];
+  if (dt2.files && dt2.files.length > 0) {
+    for (let i6 = 0; i6 < dt2.files.length; i6++) {
+      const f4 = dt2.files[i6];
+      if (f4.type.startsWith("image/")) files.push(f4);
+    }
+    if (files.length > 0) return files;
+  }
+  if (dt2.items) {
+    for (let i6 = 0; i6 < dt2.items.length; i6++) {
+      const item = dt2.items[i6];
+      if (item.type.startsWith("image/")) {
+        const f4 = item.getAsFile();
+        if (f4) files.push(f4);
+      }
+    }
+  }
+  return files;
+}
+function extractImagesFromDrop(e3) {
+  const dt2 = e3.dataTransfer;
+  if (!dt2?.files) return [];
+  const files = [];
+  for (let i6 = 0; i6 < dt2.files.length; i6++) {
+    const f4 = dt2.files[i6];
+    if (f4.type.startsWith("image/")) files.push(f4);
+  }
+  return files;
 }
 
 // ../src/services/markdownFile.ts
@@ -69428,8 +69551,8 @@ function getEmptyNotebook(title = "Untitled Notebook", pattern = "ruled") {
 }
 
 // src/MyBookNotebook.tsx
-var import_react10 = __toESM(require_react());
-var React6 = __toESM(require_react());
+var import_react11 = __toESM(require_react());
+var React7 = __toESM(require_react());
 
 // ../src/features/notebook/components/NotebookPage.tsx
 var import_react8 = __toESM(require_react(), 1);
@@ -69859,8 +69982,24 @@ var __iconData14 = {
 __iconData14.node;
 var Frame = createLucideIcon(__iconData14);
 
-// ../node_modules/lucide-react/dist/esm/icons/grip-vertical.mjs
+// ../node_modules/lucide-react/dist/esm/icons/grid-3x3.mjs
 var __iconData15 = {
+  name: "grid-3x3",
+  size: 24,
+  node: [
+    ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
+    ["path", { d: "M3 9h18", key: "1pudct" }],
+    ["path", { d: "M3 15h18", key: "5xshup" }],
+    ["path", { d: "M9 3v18", key: "fh3hqa" }],
+    ["path", { d: "M15 3v18", key: "14nvp0" }]
+  ],
+  aliases: ["grid", "grid-3-x-3"]
+};
+__iconData15.node;
+var Grid3x3 = createLucideIcon(__iconData15);
+
+// ../node_modules/lucide-react/dist/esm/icons/grip-vertical.mjs
+var __iconData16 = {
   name: "grip-vertical",
   size: 24,
   node: [
@@ -69872,11 +70011,11 @@ var __iconData15 = {
     ["circle", { cx: "15", cy: "19", r: "1", key: "f4zoj3" }]
   ]
 };
-__iconData15.node;
-var GripVertical = createLucideIcon(__iconData15);
+__iconData16.node;
+var GripVertical = createLucideIcon(__iconData16);
 
 // ../node_modules/lucide-react/dist/esm/icons/heading-2.mjs
-var __iconData16 = {
+var __iconData17 = {
   name: "heading-2",
   size: 24,
   node: [
@@ -69886,11 +70025,11 @@ var __iconData16 = {
     ["path", { d: "M21 18h-4c0-4 4-3 4-6 0-1.5-2-2.5-4-1", key: "9jr5yi" }]
   ]
 };
-__iconData16.node;
-var Heading2 = createLucideIcon(__iconData16);
+__iconData17.node;
+var Heading2 = createLucideIcon(__iconData17);
 
 // ../node_modules/lucide-react/dist/esm/icons/heading-3.mjs
-var __iconData17 = {
+var __iconData18 = {
   name: "heading-3",
   size: 24,
   node: [
@@ -69901,11 +70040,11 @@ var __iconData17 = {
     ["path", { d: "M17 17.5c2 1.5 4 .3 4-1.5a2 2 0 0 0-2-2", key: "1ejuhz" }]
   ]
 };
-__iconData17.node;
-var Heading3 = createLucideIcon(__iconData17);
+__iconData18.node;
+var Heading3 = createLucideIcon(__iconData18);
 
 // ../node_modules/lucide-react/dist/esm/icons/highlighter.mjs
-var __iconData18 = {
+var __iconData19 = {
   name: "highlighter",
   size: 24,
   node: [
@@ -69913,11 +70052,11 @@ var __iconData18 = {
     ["path", { d: "m22 12-4.6 4.6a2 2 0 0 1-2.8 0l-5.2-5.2a2 2 0 0 1 0-2.8L14 4", key: "14a9rk" }]
   ]
 };
-__iconData18.node;
-var Highlighter = createLucideIcon(__iconData18);
+__iconData19.node;
+var Highlighter = createLucideIcon(__iconData19);
 
 // ../node_modules/lucide-react/dist/esm/icons/image-plus.mjs
-var __iconData19 = {
+var __iconData20 = {
   name: "image-plus",
   size: 24,
   node: [
@@ -69928,11 +70067,11 @@ var __iconData19 = {
     ["circle", { cx: "9", cy: "9", r: "2", key: "af1f0g" }]
   ]
 };
-__iconData19.node;
-var ImagePlus = createLucideIcon(__iconData19);
+__iconData20.node;
+var ImagePlus = createLucideIcon(__iconData20);
 
 // ../node_modules/lucide-react/dist/esm/icons/italic.mjs
-var __iconData20 = {
+var __iconData21 = {
   name: "italic",
   size: 24,
   node: [
@@ -69941,11 +70080,11 @@ var __iconData20 = {
     ["line", { x1: "15", x2: "9", y1: "4", y2: "20", key: "uljnxc" }]
   ]
 };
-__iconData20.node;
-var Italic = createLucideIcon(__iconData20);
+__iconData21.node;
+var Italic = createLucideIcon(__iconData21);
 
 // ../node_modules/lucide-react/dist/esm/icons/link.mjs
-var __iconData21 = {
+var __iconData22 = {
   name: "link",
   size: 24,
   node: [
@@ -69953,11 +70092,11 @@ var __iconData21 = {
     ["path", { d: "M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71", key: "19qd67" }]
   ]
 };
-__iconData21.node;
-var Link = createLucideIcon(__iconData21);
+__iconData22.node;
+var Link = createLucideIcon(__iconData22);
 
 // ../node_modules/lucide-react/dist/esm/icons/list-ordered.mjs
-var __iconData22 = {
+var __iconData23 = {
   name: "list-ordered",
   size: 24,
   node: [
@@ -69969,11 +70108,11 @@ var __iconData22 = {
     ["path", { d: "M6.5 20H3.4c0-1 2.6-1.925 2.6-3.5a1.5 1.5 0 0 0-2.6-1.02", key: "xtkcd5" }]
   ]
 };
-__iconData22.node;
-var ListOrdered = createLucideIcon(__iconData22);
+__iconData23.node;
+var ListOrdered = createLucideIcon(__iconData23);
 
 // ../node_modules/lucide-react/dist/esm/icons/list.mjs
-var __iconData23 = {
+var __iconData24 = {
   name: "list",
   size: 24,
   node: [
@@ -69985,21 +70124,21 @@ var __iconData23 = {
     ["path", { d: "M8 19h13", key: "m83p4d" }]
   ]
 };
-__iconData23.node;
-var List = createLucideIcon(__iconData23);
+__iconData24.node;
+var List = createLucideIcon(__iconData24);
 
 // ../node_modules/lucide-react/dist/esm/icons/loader-circle.mjs
-var __iconData24 = {
+var __iconData25 = {
   name: "loader-circle",
   size: 24,
   node: [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]],
   aliases: ["loader-2"]
 };
-__iconData24.node;
-var LoaderCircle = createLucideIcon(__iconData24);
+__iconData25.node;
+var LoaderCircle = createLucideIcon(__iconData25);
 
 // ../node_modules/lucide-react/dist/esm/icons/lock-open.mjs
-var __iconData25 = {
+var __iconData26 = {
   name: "lock-open",
   size: 24,
   node: [
@@ -70008,11 +70147,11 @@ var __iconData25 = {
   ],
   aliases: ["unlock"]
 };
-__iconData25.node;
-var LockOpen = createLucideIcon(__iconData25);
+__iconData26.node;
+var LockOpen = createLucideIcon(__iconData26);
 
 // ../node_modules/lucide-react/dist/esm/icons/lock.mjs
-var __iconData26 = {
+var __iconData27 = {
   name: "lock",
   size: 24,
   node: [
@@ -70020,11 +70159,11 @@ var __iconData26 = {
     ["path", { d: "M7 11V7a5 5 0 0 1 10 0v4", key: "fwvmzm" }]
   ]
 };
-__iconData26.node;
-var Lock = createLucideIcon(__iconData26);
+__iconData27.node;
+var Lock = createLucideIcon(__iconData27);
 
 // ../node_modules/lucide-react/dist/esm/icons/maximize.mjs
-var __iconData27 = {
+var __iconData28 = {
   name: "maximize",
   size: 24,
   node: [
@@ -70034,20 +70173,20 @@ var __iconData27 = {
     ["path", { d: "M16 21h3a2 2 0 0 0 2-2v-3", key: "18trek" }]
   ]
 };
-__iconData27.node;
-var Maximize = createLucideIcon(__iconData27);
+__iconData28.node;
+var Maximize = createLucideIcon(__iconData28);
 
 // ../node_modules/lucide-react/dist/esm/icons/minus.mjs
-var __iconData28 = {
+var __iconData29 = {
   name: "minus",
   size: 24,
   node: [["path", { d: "M5 12h14", key: "1ays0h" }]]
 };
-__iconData28.node;
-var Minus = createLucideIcon(__iconData28);
+__iconData29.node;
+var Minus = createLucideIcon(__iconData29);
 
 // ../node_modules/lucide-react/dist/esm/icons/mouse-pointer.mjs
-var __iconData29 = {
+var __iconData30 = {
   name: "mouse-pointer",
   size: 24,
   node: [
@@ -70061,11 +70200,11 @@ var __iconData29 = {
     ]
   ]
 };
-__iconData29.node;
-var MousePointer = createLucideIcon(__iconData29);
+__iconData30.node;
+var MousePointer = createLucideIcon(__iconData30);
 
 // ../node_modules/lucide-react/dist/esm/icons/pen.mjs
-var __iconData30 = {
+var __iconData31 = {
   name: "pen",
   size: 24,
   node: [
@@ -70079,11 +70218,11 @@ var __iconData30 = {
   ],
   aliases: ["edit-2"]
 };
-__iconData30.node;
-var Pen = createLucideIcon(__iconData30);
+__iconData31.node;
+var Pen = createLucideIcon(__iconData31);
 
 // ../node_modules/lucide-react/dist/esm/icons/plus.mjs
-var __iconData31 = {
+var __iconData32 = {
   name: "plus",
   size: 24,
   node: [
@@ -70091,11 +70230,11 @@ var __iconData31 = {
     ["path", { d: "M12 5v14", key: "s699le" }]
   ]
 };
-__iconData31.node;
-var Plus = createLucideIcon(__iconData31);
+__iconData32.node;
+var Plus = createLucideIcon(__iconData32);
 
 // ../node_modules/lucide-react/dist/esm/icons/quote.mjs
-var __iconData32 = {
+var __iconData33 = {
   name: "quote",
   size: 24,
   node: [
@@ -70115,11 +70254,11 @@ var __iconData32 = {
     ]
   ]
 };
-__iconData32.node;
-var Quote = createLucideIcon(__iconData32);
+__iconData33.node;
+var Quote = createLucideIcon(__iconData33);
 
 // ../node_modules/lucide-react/dist/esm/icons/redo-2.mjs
-var __iconData33 = {
+var __iconData34 = {
   name: "redo-2",
   size: 24,
   node: [
@@ -70127,11 +70266,11 @@ var __iconData33 = {
     ["path", { d: "M20 9H9.5A5.5 5.5 0 0 0 4 14.5A5.5 5.5 0 0 0 9.5 20H13", key: "6uklza" }]
   ]
 };
-__iconData33.node;
-var Redo2 = createLucideIcon(__iconData33);
+__iconData34.node;
+var Redo2 = createLucideIcon(__iconData34);
 
 // ../node_modules/lucide-react/dist/esm/icons/rotate-ccw.mjs
-var __iconData34 = {
+var __iconData35 = {
   name: "rotate-ccw",
   size: 24,
   node: [
@@ -70139,11 +70278,11 @@ var __iconData34 = {
     ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
   ]
 };
-__iconData34.node;
-var RotateCcw = createLucideIcon(__iconData34);
+__iconData35.node;
+var RotateCcw = createLucideIcon(__iconData35);
 
 // ../node_modules/lucide-react/dist/esm/icons/rotate-cw.mjs
-var __iconData35 = {
+var __iconData36 = {
   name: "rotate-cw",
   size: 24,
   node: [
@@ -70151,11 +70290,11 @@ var __iconData35 = {
     ["path", { d: "M21 3v5h-5", key: "1q7to0" }]
   ]
 };
-__iconData35.node;
-var RotateCw = createLucideIcon(__iconData35);
+__iconData36.node;
+var RotateCw = createLucideIcon(__iconData36);
 
 // ../node_modules/lucide-react/dist/esm/icons/square-check-big.mjs
-var __iconData36 = {
+var __iconData37 = {
   name: "square-check-big",
   size: 24,
   node: [
@@ -70167,20 +70306,20 @@ var __iconData36 = {
   ],
   aliases: ["check-square"]
 };
-__iconData36.node;
-var SquareCheckBig = createLucideIcon(__iconData36);
+__iconData37.node;
+var SquareCheckBig = createLucideIcon(__iconData37);
 
 // ../node_modules/lucide-react/dist/esm/icons/square.mjs
-var __iconData37 = {
+var __iconData38 = {
   name: "square",
   size: 24,
   node: [["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }]]
 };
-__iconData37.node;
-var Square = createLucideIcon(__iconData37);
+__iconData38.node;
+var Square = createLucideIcon(__iconData38);
 
 // ../node_modules/lucide-react/dist/esm/icons/strikethrough.mjs
-var __iconData38 = {
+var __iconData39 = {
   name: "strikethrough",
   size: 24,
   node: [
@@ -70189,11 +70328,11 @@ var __iconData38 = {
     ["line", { x1: "4", x2: "20", y1: "12", y2: "12", key: "1e0a9i" }]
   ]
 };
-__iconData38.node;
-var Strikethrough = createLucideIcon(__iconData38);
+__iconData39.node;
+var Strikethrough = createLucideIcon(__iconData39);
 
 // ../node_modules/lucide-react/dist/esm/icons/table.mjs
-var __iconData39 = {
+var __iconData40 = {
   name: "table",
   size: 24,
   node: [
@@ -70203,11 +70342,25 @@ var __iconData39 = {
     ["path", { d: "M3 15h18", key: "5xshup" }]
   ]
 };
-__iconData39.node;
-var Table = createLucideIcon(__iconData39);
+__iconData40.node;
+var Table = createLucideIcon(__iconData40);
+
+// ../node_modules/lucide-react/dist/esm/icons/text-align-justify.mjs
+var __iconData41 = {
+  name: "text-align-justify",
+  size: 24,
+  node: [
+    ["path", { d: "M3 5h18", key: "1u36vt" }],
+    ["path", { d: "M3 12h18", key: "1i2n21" }],
+    ["path", { d: "M3 19h18", key: "awlh7x" }]
+  ],
+  aliases: ["align-justify"]
+};
+__iconData41.node;
+var TextAlignJustify = createLucideIcon(__iconData41);
 
 // ../node_modules/lucide-react/dist/esm/icons/trash.mjs
-var __iconData40 = {
+var __iconData42 = {
   name: "trash",
   size: 24,
   node: [
@@ -70219,11 +70372,11 @@ var __iconData40 = {
   ],
   aliases: ["trash-2"]
 };
-__iconData40.node;
-var Trash = createLucideIcon(__iconData40);
+__iconData42.node;
+var Trash = createLucideIcon(__iconData42);
 
 // ../node_modules/lucide-react/dist/esm/icons/type.mjs
-var __iconData41 = {
+var __iconData43 = {
   name: "type",
   size: 24,
   node: [
@@ -70232,11 +70385,11 @@ var __iconData41 = {
     ["path", { d: "M9 20h6", key: "s66wpe" }]
   ]
 };
-__iconData41.node;
-var Type = createLucideIcon(__iconData41);
+__iconData43.node;
+var Type = createLucideIcon(__iconData43);
 
 // ../node_modules/lucide-react/dist/esm/icons/underline.mjs
-var __iconData42 = {
+var __iconData44 = {
   name: "underline",
   size: 24,
   node: [
@@ -70244,11 +70397,11 @@ var __iconData42 = {
     ["line", { x1: "4", x2: "20", y1: "20", y2: "20", key: "nun2al" }]
   ]
 };
-__iconData42.node;
-var Underline = createLucideIcon(__iconData42);
+__iconData44.node;
+var Underline = createLucideIcon(__iconData44);
 
 // ../node_modules/lucide-react/dist/esm/icons/undo-2.mjs
-var __iconData43 = {
+var __iconData45 = {
   name: "undo-2",
   size: 24,
   node: [
@@ -70256,11 +70409,11 @@ var __iconData43 = {
     ["path", { d: "M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11", key: "f3b9sd" }]
   ]
 };
-__iconData43.node;
-var Undo2 = createLucideIcon(__iconData43);
+__iconData45.node;
+var Undo2 = createLucideIcon(__iconData45);
 
 // ../node_modules/lucide-react/dist/esm/icons/x.mjs
-var __iconData44 = {
+var __iconData46 = {
   name: "x",
   size: 24,
   node: [
@@ -70268,11 +70421,11 @@ var __iconData44 = {
     ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
   ]
 };
-__iconData44.node;
-var X = createLucideIcon(__iconData44);
+__iconData46.node;
+var X = createLucideIcon(__iconData46);
 
 // ../node_modules/lucide-react/dist/esm/icons/zoom-in.mjs
-var __iconData45 = {
+var __iconData47 = {
   name: "zoom-in",
   size: 24,
   node: [
@@ -70282,11 +70435,11 @@ var __iconData45 = {
     ["line", { x1: "8", x2: "14", y1: "11", y2: "11", key: "durymu" }]
   ]
 };
-__iconData45.node;
-var ZoomIn = createLucideIcon(__iconData45);
+__iconData47.node;
+var ZoomIn = createLucideIcon(__iconData47);
 
 // ../node_modules/lucide-react/dist/esm/icons/zoom-out.mjs
-var __iconData46 = {
+var __iconData48 = {
   name: "zoom-out",
   size: 24,
   node: [
@@ -70295,8 +70448,8 @@ var __iconData46 = {
     ["line", { x1: "8", x2: "14", y1: "11", y2: "11", key: "durymu" }]
   ]
 };
-__iconData46.node;
-var ZoomOut = createLucideIcon(__iconData46);
+__iconData48.node;
+var ZoomOut = createLucideIcon(__iconData48);
 
 // ../src/features/markdown/toolbar/ObsidianMarkdownToolbar.tsx
 var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
@@ -70566,6 +70719,11 @@ function NotebookTextBoxInner({
     }
   }, [isEditing, isLocked]);
   (0, import_react4.useEffect)(() => {
+    if (isEditing && textareaRef.current) {
+      adjustTextareaHeight();
+    }
+  }, [width, isEditing]);
+  (0, import_react4.useEffect)(() => {
     const handleOutsideClick = () => {
       if (contextMenuPos) setContextMenuPos(null);
     };
@@ -70588,8 +70746,23 @@ function NotebookTextBoxInner({
       onUpdate(id, { content: text4 });
     }, 200)
   ).current;
+  const handlePaste = (e3) => {
+    const text4 = e3.clipboardData?.getData("text");
+    if (text4 && (text4.length > 40 || text4.includes("\n"))) {
+      const fullWidth = Math.min(FULL_TEXTBOX_WIDTH, PAGE_WIDTH - dragPos.x - 20);
+      if (width < fullWidth) {
+        onUpdate(id, { width: fullWidth });
+      }
+    }
+  };
   const handleTextChange = (e3) => {
     const val = e3.target.value;
+    if (val.length - rawText.length > 40 || val.length > 50 && width <= DEFAULT_TEXTBOX_WIDTH) {
+      const fullWidth = Math.min(FULL_TEXTBOX_WIDTH, PAGE_WIDTH - dragPos.x - 20);
+      if (width < fullWidth) {
+        onUpdate(id, { width: fullWidth });
+      }
+    }
     setRawText(val);
     adjustTextareaHeight();
     debouncedParse(val);
@@ -70869,7 +71042,7 @@ ${selected || "// code here"}
     const startWidth = width;
     const onPointerMove = (moveEv) => {
       const dx = (moveEv.clientX - startX) / scale;
-      const newWidth = Math.max(160, Math.min(PAGE_WIDTH - dragPos.x - 20, startWidth + dx));
+      const newWidth = Math.max(120, Math.min(PAGE_WIDTH - dragPos.x - 20, startWidth + dx));
       onUpdate(id, { width: newWidth });
     };
     const onPointerUp = () => {
@@ -70888,7 +71061,7 @@ ${selected || "// code here"}
         left: `${dragPos.x}px`,
         top: `${dragPos.y}px`,
         width: `${width}px`,
-        fontFamily: fontFamily === "handwriting" ? "var(--font-handwriting)" : fontFamily === "serif" ? "var(--font-serif)" : fontFamily === "sans" ? "var(--font-sans)" : "var(--font-cascadia)"
+        fontFamily: fontFamily === "dfvn-excalidraw" ? "var(--font-dfvn-excalidraw)" : fontFamily === "custom" ? "var(--font-custom)" : fontFamily === "handwriting" ? "var(--font-handwriting)" : fontFamily === "serif" ? "var(--font-serif)" : fontFamily === "sans" ? "var(--font-sans)" : "var(--font-cascadia)"
       },
       onClick: handleSingleClick,
       onDoubleClick: handleDoubleClick,
@@ -70914,6 +71087,7 @@ ${selected || "// code here"}
             value: rawText,
             onChange: handleTextChange,
             onKeyDown: handleTextareaKeyDown,
+            onPaste: handlePaste,
             placeholder: "Type notes in Markdown here (# Heading, - [ ] Todo, [[Note]], - list)...",
             style: {
               lineHeight: `${linePitch}px`,
@@ -72574,7 +72748,8 @@ function PageCanvas({
   };
   const canvasScaleNow = () => displayScale(activeCanvasRef.current?.getBoundingClientRect(), PAGE_WIDTH);
   const hitTestElement = (point) => {
-    const threshold = 18;
+    const scale = canvasScaleNow();
+    const threshold = Math.max(12, Math.round(18 / Math.max(0.3, scale)));
     for (let i6 = elements2.length - 1; i6 >= 0; i6--) {
       const elem = elements2[i6];
       if ((elem.type === "arrow" || elem.type === "line") && elem.points.length >= 2) {
@@ -72984,12 +73159,7 @@ function PageCanvas({
         const scale = canvasRect && canvasRect.width > 0 ? canvasRect.width / PAGE_WIDTH : 1;
         if (start) {
           const rawRect = normalizeRect(start.x, start.y, end.x, end.y);
-          const rect = {
-            minX: rawRect.minX / scale,
-            minY: rawRect.minY / scale,
-            maxX: rawRect.maxX / scale,
-            maxY: rawRect.maxY / scale
-          };
+          const rect = rawRect;
           if (isClickRect(rawRect)) {
             if (!marqueeAdditiveRef.current) clearAllSelection();
           } else {
@@ -73068,7 +73238,7 @@ function PageCanvas({
       for (const p4 of pendingTail) stream.push(p4);
     }
     const anchorPt = isFreehand ? stream?.lastAcceptedPoint() ?? sp : pendingTail[pendingTail.length - 1] ?? sp;
-    const endPoint = Math.hypot(rawEnd.x - anchorPt.x, rawEnd.y - anchorPt.y) > MAX_RELEASE_JUMP_PX ? { ...anchorPt } : rawEnd;
+    const endPoint = isFreehand && Math.hypot(rawEnd.x - anchorPt.x, rawEnd.y - anchorPt.y) > MAX_RELEASE_JUMP_PX ? { ...anchorPt } : rawEnd;
     const elemId = `elem_${pageId}_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
     if (activeTool === "pen" || activeTool === "highlighter") {
       const cleanPoints = strokeStreamRef.current?.finish(endPoint) ?? [];
@@ -73420,7 +73590,7 @@ function PageCanvas({
           id: `tb_${pageId}_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
           x: Math.max(16, Math.min(PAGE_WIDTH - 240, Math.round(point.x))),
           y: Math.max(16, Math.min(PAGE_HEIGHT - 60, Math.round(point.y))),
-          width: Math.min(520, PAGE_WIDTH - point.x - 20),
+          width: Math.min(DEFAULT_TEXTBOX_WIDTH, PAGE_WIDTH - point.x - 20),
           content: "",
           isEditing: true
         });
@@ -74110,16 +74280,17 @@ function PageImageLayerInner({ pageId: _pageId, images }) {
             /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
               "img",
               {
-                src: img.src,
+                src: resolveAssetUrl(img.src),
                 alt: img.name || "pasted image",
                 draggable: false,
                 style: {
                   width: "100%",
                   height: "100%",
-                  objectFit: "fill",
+                  objectFit: "contain",
                   borderRadius: "5px",
                   display: "block",
-                  pointerEvents: "none"
+                  pointerEvents: "none",
+                  imageRendering: "-webkit-optimize-contrast"
                 }
               }
             ),
@@ -74156,99 +74327,6 @@ var PageImageLayer = import_react6.default.memo(
 
 // ../src/features/notebook/components/NotebookPage.tsx
 init_lineSnap();
-
-// ../src/shared/lib/imagePaste.ts
-init_lineSnap();
-var MAX_PASTE_IMAGE_WIDTH = 520;
-var MAX_PASTE_IMAGE_HEIGHT = 420;
-function fileToDataURL(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = () => reject(reader.error);
-    reader.readAsDataURL(file);
-  });
-}
-function getImageNaturalSize(src) {
-  return new Promise((resolve) => {
-    const img = new Image();
-    img.onload = () => resolve({ width: img.naturalWidth || 400, height: img.naturalHeight || 300 });
-    img.onerror = () => resolve({ width: 400, height: 300 });
-    img.src = src;
-  });
-}
-function fitSize(naturalW, naturalH) {
-  const safeW = Math.max(1, naturalW);
-  const safeH = Math.max(1, naturalH);
-  const scale = Math.min(
-    1,
-    MAX_PASTE_IMAGE_WIDTH / safeW,
-    MAX_PASTE_IMAGE_HEIGHT / safeH
-  );
-  return {
-    width: Math.round(safeW * scale),
-    height: Math.round(safeH * scale)
-  };
-}
-async function fileToPageImage(pageId, file, cascadeIndex = 0, anchor) {
-  const src = await fileToDataURL(file);
-  const natural = await getImageNaturalSize(src);
-  const fitted = fitSize(natural.width, natural.height);
-  const offset = cascadeIndex % 8 * 24;
-  const centerX = anchor ? anchor.x + offset : PAGE_WIDTH / 2 + offset;
-  const centerY = anchor ? anchor.y + offset : 220 + offset;
-  const x4 = Math.max(
-    8,
-    Math.min(PAGE_WIDTH - fitted.width - 8, Math.round(centerX - fitted.width / 2))
-  );
-  const y4 = Math.max(
-    8,
-    Math.min(PAGE_HEIGHT - fitted.height - 60, Math.round(centerY - fitted.height / 2))
-  );
-  return {
-    id: `img_${pageId}_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
-    x: x4,
-    y: y4,
-    width: fitted.width,
-    height: fitted.height,
-    src,
-    name: file.name || "pasted-image.png"
-  };
-}
-function extractImagesFromClipboard(e3) {
-  const dt2 = e3.clipboardData;
-  if (!dt2) return [];
-  const files = [];
-  if (dt2.files && dt2.files.length > 0) {
-    for (let i6 = 0; i6 < dt2.files.length; i6++) {
-      const f4 = dt2.files[i6];
-      if (f4.type.startsWith("image/")) files.push(f4);
-    }
-    if (files.length > 0) return files;
-  }
-  if (dt2.items) {
-    for (let i6 = 0; i6 < dt2.items.length; i6++) {
-      const item = dt2.items[i6];
-      if (item.type.startsWith("image/")) {
-        const f4 = item.getAsFile();
-        if (f4) files.push(f4);
-      }
-    }
-  }
-  return files;
-}
-function extractImagesFromDrop(e3) {
-  const dt2 = e3.dataTransfer;
-  if (!dt2?.files) return [];
-  const files = [];
-  for (let i6 = 0; i6 < dt2.files.length; i6++) {
-    const f4 = dt2.files[i6];
-    if (f4.type.startsWith("image/")) files.push(f4);
-  }
-  return files;
-}
-
-// ../src/features/notebook/components/NotebookPage.tsx
 var import_jsx_runtime6 = __toESM(require_jsx_runtime(), 1);
 var ExcalidrawPageCanvas2 = import_react8.default.lazy(() => Promise.resolve().then(() => (init_ExcalidrawPageCanvas(), ExcalidrawPageCanvas_exports)));
 function NotebookPage({
@@ -74372,12 +74450,37 @@ function NotebookPage({
     }
   };
   const handlePagePaste = (e3) => {
+    const targetTag = e3.target?.tagName;
+    if (targetTag === "TEXTAREA" || targetTag === "INPUT") return;
     const imageFiles = extractImagesFromClipboard(e3);
     if (imageFiles.length > 0) {
       e3.preventDefault();
       e3.stopPropagation();
       handledPasteAtRef.current = Date.now();
       insertImageFiles(imageFiles, mousePosRef.current);
+      return;
+    }
+    const text4 = e3.clipboardData?.getData("text");
+    if (text4 && text4.trim()) {
+      e3.preventDefault();
+      e3.stopPropagation();
+      handledPasteAtRef.current = Date.now();
+      const isLong = text4.length > 40 || text4.includes("\n");
+      const targetW = isLong ? FULL_TEXTBOX_WIDTH : DEFAULT_TEXTBOX_WIDTH;
+      const anchor = mousePosRef.current || { x: 80, y: 120 };
+      const newX = Math.max(16, Math.min(PAGE_WIDTH - 120, Math.round(anchor.x)));
+      const newY = Math.max(16, Math.min(PAGE_HEIGHT - 60, Math.round(anchor.y)));
+      const newBox = {
+        id: `tb_${page.id}_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+        x: newX,
+        y: newY,
+        width: Math.min(targetW, PAGE_WIDTH - newX - 20),
+        content: text4,
+        isEditing: false
+      };
+      onAddTextBox(page.id, newBox);
+      onSelectTextBox(newBox.id);
+      clearCanvasSelection();
     }
   };
   const insertRef = (0, import_react8.useRef)(insertImageFiles);
@@ -74387,6 +74490,8 @@ function NotebookPage({
       if (Date.now() - handledPasteAtRef.current < 400) return;
       const el = pageContainerRef.current;
       if (!el) return;
+      const activeTag = document.activeElement?.tagName;
+      if (activeTag === "TEXTAREA" || activeTag === "INPUT") return;
       const focusInside = !!document.activeElement && el.contains(document.activeElement);
       if (!focusInside && !mouseInsideRef.current) return;
       let imageFiles = [];
@@ -74399,6 +74504,28 @@ function NotebookPage({
         e3.preventDefault();
         handledPasteAtRef.current = Date.now();
         insertRef.current(imageFiles, mousePosRef.current);
+        return;
+      }
+      const text4 = e3.clipboardData?.getData("text");
+      if (text4 && text4.trim()) {
+        e3.preventDefault();
+        handledPasteAtRef.current = Date.now();
+        const isLong = text4.length > 40 || text4.includes("\n");
+        const targetW = isLong ? FULL_TEXTBOX_WIDTH : DEFAULT_TEXTBOX_WIDTH;
+        const anchor = mousePosRef.current || { x: 80, y: 120 };
+        const newX = Math.max(16, Math.min(PAGE_WIDTH - 120, Math.round(anchor.x)));
+        const newY = Math.max(16, Math.min(PAGE_HEIGHT - 60, Math.round(anchor.y)));
+        const newBox = {
+          id: `tb_${page.id}_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+          x: newX,
+          y: newY,
+          width: Math.min(targetW, PAGE_WIDTH - newX - 20),
+          content: text4,
+          isEditing: false
+        };
+        onAddTextBox(page.id, newBox);
+        onSelectTextBox(newBox.id);
+        clearCanvasSelection();
       }
     };
     window.addEventListener("paste", handleWindowPaste);
@@ -74452,7 +74579,7 @@ function NotebookPage({
       id: `tb_${page.id}_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
       x: newX,
       y: newY,
-      width: Math.min(520, PAGE_WIDTH - newX - 20),
+      width: Math.min(DEFAULT_TEXTBOX_WIDTH, PAGE_WIDTH - newX - 20),
       content: "",
       isEditing: true
     };
@@ -74500,7 +74627,6 @@ function NotebookPage({
             }
           }
         ),
-        page.pattern === "ruled" && /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("div", { className: "notebook-margin-line" }),
         /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("div", { className: "notebook-header-line" }),
         /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("div", { className: "sheet-watermark watermark-corner", "aria-hidden": "true" }),
         /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("div", { className: "sheet-watermark watermark-leaves", "aria-hidden": "true" }),
@@ -74710,11 +74836,6 @@ async function renderOffscreenPageSheet(page, opts) {
   sheet.style.height = "1100px";
   sheet.style.position = "relative";
   sheet.style.backgroundColor = "#ffffff";
-  if (page.pattern === "ruled") {
-    const marginLine = document.createElement("div");
-    marginLine.className = "notebook-margin-line";
-    sheet.appendChild(marginLine);
-  }
   for (const box of page.textBoxes) {
     const boxDiv = document.createElement("div");
     boxDiv.className = "notebook-textbox";
@@ -74796,12 +74917,13 @@ async function renderOffscreenPageSheet(page, opts) {
   }
   for (const img of page.images ?? []) {
     const el = document.createElement("img");
-    el.src = img.src;
+    el.src = resolveAssetUrl(img.src);
     el.style.position = "absolute";
     el.style.left = `${img.x}px`;
     el.style.top = `${img.y}px`;
     el.style.width = `${img.width}px`;
     el.style.height = `${img.height}px`;
+    el.style.objectFit = "contain";
     el.style.zIndex = "3";
     sheet.appendChild(el);
   }
@@ -74992,6 +75114,9 @@ function ExportPdfModal({
   );
 }
 
+// src/MiniToolbar.tsx
+var import_react10 = __toESM(require_react());
+
 // ../src/shared/lib/tools-config.ts
 var STROKE_COLORS = [
   { label: "Ink Black", value: "#1e293b" },
@@ -75059,6 +75184,137 @@ function WidthPicker({ value, onChange, compact = false, widths = STROKE_WIDTHS,
   }) });
 }
 
+// src/i18n.ts
+var translations = {
+  en: {
+    // Settings
+    settingsTitle: "MyBook Notebook Settings",
+    // Section: Language
+    languageSection: "Language",
+    languageName: "Display Language",
+    languageDesc: "Choose the display language for settings and interface (Default: English).",
+    // Section: Attachments
+    attachmentSection: "Pasted Images & Attachments",
+    attachmentFolderTitle: "Pasted Image Folder",
+    attachmentFolderDesc: "Folder in Vault to save pasted images (Ctrl+V / drag & drop). Leave empty to use Obsidian default attachment folder (e.g. 0-asset).",
+    attachmentFolderPlaceholder: "Obsidian default (e.g. 0-asset)",
+    // Section: Typography
+    typographySection: "Typography & Fonts",
+    defaultFontTitle: "Default Notebook Font",
+    defaultFontDesc: "Default font applied to notebook text boxes.",
+    fontCascadia: "Cascadia Code (Default)",
+    fontDfvn: "DFVN Excalidraw (Vietnamese Handwriting)",
+    fontHandwriting: "Handwriting (Virgil / Patrick Hand)",
+    fontSans: "Sans-serif (Inter / System)",
+    fontSerif: "Serif (Georgia)",
+    fontMono: "Monospace",
+    fontCustom: "Custom Font",
+    customFontPathTitle: "Custom Font Path in Vault",
+    customFontPathDesc: "Path to a font file (.ttf, .otf, .woff, .woff2) inside your Vault (e.g. 0_Excalidraw/font/DFVN-Excalifont.ttf).",
+    customFontNameTitle: "Custom Font Name",
+    customFontNameDesc: "Display name or system font name (e.g. DFVN Excalifont or Be Vietnam Pro).",
+    // Toolbar Tools
+    toolSelect: "Select / Move (1)",
+    toolRect: "Rectangle (2)",
+    toolCircle: "Circle (3)",
+    toolArrow: "Arrow (4)",
+    toolLine: "Line (5)",
+    toolPen: "Pen (6)",
+    toolHighlighter: "Highlighter (7)",
+    toolText: "Text Box (8)",
+    toolEraser: "Eraser (9)",
+    lockToolActive: "Unlock tool (Q)",
+    lockToolInactive: "Lock tool (keep active after drawing) (Q)",
+    // Toolbar Actions & Options
+    fontMenuTitle: "Notebook Font",
+    undo: "Undo (Ctrl+Z)",
+    redo: "Redo (Ctrl+Y)",
+    ruled: "Ruled lines",
+    grid: "Grid pattern",
+    fontBtnTitle: "Notebook font (Click to select)",
+    zoomOut: "Zoom out",
+    zoomIn: "Zoom in",
+    zoomReset: "Current zoom level (Click to reset 100%)",
+    fitZoom: "Fit to view",
+    addPage: "Add new page",
+    exportPdf: "Export notebook to PDF",
+    saved: "All changes saved to file",
+    saving: "Unsaved changes (saving...)",
+    // Commands & Context Menu
+    newNotebookRibbon: "Open new MyBook notebook",
+    newNotebookCmd: "Create new MyBook notebook",
+    openActiveCmd: "Open active file as MyBook notebook",
+    exportPdfCmd: "Export active notebook to PDF",
+    contextOpenMyBook: "Open as MyBook notebook",
+    contextOpenMarkdown: "Open as raw Markdown"
+  },
+  vi: {
+    // Settings
+    settingsTitle: "C\xE0i \u0111\u1EB7t V\u1EDF vi\u1EBFt MyBook",
+    // Section: Language
+    languageSection: "Ng\xF4n ng\u1EEF (Language)",
+    languageName: "Ng\xF4n ng\u1EEF hi\u1EC3n th\u1ECB",
+    languageDesc: "Ch\u1ECDn ng\xF4n ng\u1EEF hi\u1EC3n th\u1ECB cho ph\u1EA7n c\xE0i \u0111\u1EB7t v\xE0 giao di\u1EC7n (M\u1EB7c \u0111\u1ECBnh: Ti\u1EBFng Anh).",
+    // Section: Attachments
+    attachmentSection: "\u1EA2nh d\xE1n & \u0110\xEDnh k\xE8m (Pasted Images)",
+    attachmentFolderTitle: "Th\u01B0 m\u1EE5c l\u01B0u \u1EA3nh d\xE1n",
+    attachmentFolderDesc: "Th\u01B0 m\u1EE5c trong Vault \u0111\u1EC3 l\u01B0u file \u1EA3nh d\xE1n (Ctrl+V / k\xE9o-th\u1EA3). \u0110\u1EC3 tr\u1ED1ng \u0111\u1EC3 t\u1EF1 \u0111\u1ED9ng l\u1EA5y theo th\u01B0 m\u1EE5c attachment c\u1EE7a Obsidian (v\xED d\u1EE5: 0-asset).",
+    attachmentFolderPlaceholder: "M\u1EB7c \u0111\u1ECBnh Obsidian (v\xED d\u1EE5: 0-asset)",
+    // Section: Typography
+    typographySection: "Ph\xF4ng ch\u1EEF & Typography",
+    defaultFontTitle: "Ph\xF4ng ch\u1EEF m\u1EB7c \u0111\u1ECBnh c\u1EE7a v\u1EDF",
+    defaultFontDesc: "Ph\xF4ng ch\u1EEF m\u1EB7c \u0111\u1ECBnh \xE1p d\u1EE5ng cho c\xE1c \xF4 v\u0103n b\u1EA3n ghi ch\xE9p trong v\u1EDF.",
+    fontCascadia: "Cascadia Code (M\u1EB7c \u0111\u1ECBnh)",
+    fontDfvn: "DFVN Excalidraw (ti\u1EBFng Vi\u1EC7t)",
+    fontHandwriting: "Ch\u1EEF vi\u1EBFt tay (Virgil / Patrick Hand)",
+    fontSans: "Sans-serif (Inter / H\u1EC7 th\u1ED1ng)",
+    fontSerif: "Serif (Georgia)",
+    fontMono: "Monospace",
+    fontCustom: "Font t\xF9y ch\u1EC9nh (Custom Font)",
+    customFontPathTitle: "\u0110\u01B0\u1EDDng d\u1EABn file font t\xF9y ch\u1ECDn trong Vault",
+    customFontPathDesc: "\u0110\u01B0\u1EDDng d\u1EABn t\u1EDBi file font (.ttf, .otf, .woff, .woff2) trong Vault c\u1EE7a b\u1EA1n (v\xED d\u1EE5: 0_Excalidraw/font/DFVN-Excalifont.ttf).",
+    customFontNameTitle: "T\xEAn ph\xF4ng ch\u1EEF t\xF9y ch\u1ECDn",
+    customFontNameDesc: "T\xEAn font hi\u1EC3n th\u1ECB ho\u1EB7c t\xEAn font h\u1EC7 th\u1ED1ng \u0111\xE3 c\xE0i tr\xEAn m\xE1y b\u1EA1n (v\xED d\u1EE5: DFVN Excalifont ho\u1EB7c Be Vietnam Pro).",
+    // Toolbar Tools
+    toolSelect: "Ch\u1ECDn / di chuy\u1EC3n (1)",
+    toolRect: "H\xECnh ch\u1EEF nh\u1EADt (2)",
+    toolCircle: "H\xECnh tr\xF2n (3)",
+    toolArrow: "M\u0169i t\xEAn (4)",
+    toolLine: "\u0110o\u1EA1n th\u1EB3ng (5)",
+    toolPen: "B\xFAt vi\u1EBFt (6)",
+    toolHighlighter: "B\xFAt d\u1EA1 quang (7)",
+    toolText: "H\u1ED9p ch\u1EEF (8)",
+    toolEraser: "T\u1EA9y (9)",
+    lockToolActive: "M\u1EDF kh\xF3a c\xF4ng c\u1EE5 (Q)",
+    lockToolInactive: "Kh\xF3a c\xF4ng c\u1EE5 (gi\u1EEF tool sau khi v\u1EBD) (Q)",
+    // Toolbar Actions & Options
+    fontMenuTitle: "Ph\xF4ng ch\u1EEF v\u1EDF",
+    undo: "Ho\xE0n t\xE1c (Ctrl+Z)",
+    redo: "L\xE0m l\u1EA1i (Ctrl+Y)",
+    ruled: "D\xF2ng k\u1EBB ngang (Ruled)",
+    grid: "L\u01B0\u1EDBi \xF4 vu\xF4ng (Grid)",
+    fontBtnTitle: "Ph\xF4ng ch\u1EEF v\u1EDF vi\u1EBFt (Click \u0111\u1EC3 ch\u1ECDn font)",
+    zoomOut: "Thu nh\u1ECF",
+    zoomIn: "Ph\xF3ng to",
+    zoomReset: "M\u1EE9c zoom hi\u1EC7n t\u1EA1i (Click \u0111\u1EC3 \u0111\u1EB7t l\u1EA1i 100%)",
+    fitZoom: "Fit v\u1EEBa khung xem",
+    addPage: "Th\xEAm trang m\u1EDBi",
+    exportPdf: "Xu\u1EA5t v\u1EDF ra PDF",
+    saved: "\u0110\xE3 l\u01B0u v\xE0o file",
+    saving: "\u0110ang c\xF3 thay \u0111\u1ED5i (ch\u1EDD t\u1EF1 \u0111\u1ED9ng l\u01B0u...)",
+    // Commands & Context Menu
+    newNotebookRibbon: "M\u1EDF v\u1EDF MyBook m\u1EDBi",
+    newNotebookCmd: "T\u1EA1o v\u1EDF MyBook m\u1EDBi",
+    openActiveCmd: "M\u1EDF file \u0111ang xem b\u1EB1ng MyBook",
+    exportPdfCmd: "Xu\u1EA5t v\u1EDF \u0111ang m\u1EDF ra PDF",
+    contextOpenMyBook: "M\u1EDF b\u1EB1ng v\u1EDF MyBook",
+    contextOpenMarkdown: "M\u1EDF d\u1EA1ng Markdown th\xF4"
+  }
+};
+function getT(lang = "en") {
+  return translations[lang] || translations.en;
+}
+
 // src/MiniToolbar.tsx
 var import_jsx_runtime10 = __toESM(require_jsx_runtime());
 var WIDTHS = [
@@ -75082,6 +75338,27 @@ function toolBtn(active, title, onClick, children, className = "") {
   );
 }
 function MiniToolbar(p4) {
+  const [showFontMenu, setShowFontMenu] = (0, import_react10.useState)(false);
+  const fontMenuRef = (0, import_react10.useRef)(null);
+  const t4 = getT(p4.language || "en");
+  const fontOptions = [
+    { value: "cascadia", label: t4.fontCascadia, fontStyle: "var(--font-cascadia)" },
+    { value: "dfvn-excalidraw", label: t4.fontDfvn, fontStyle: "var(--font-dfvn-excalidraw)" },
+    { value: "handwriting", label: t4.fontHandwriting, fontStyle: "var(--font-handwriting)" },
+    { value: "sans", label: t4.fontSans, fontStyle: "var(--font-sans)" },
+    { value: "serif", label: t4.fontSerif, fontStyle: "var(--font-serif)" },
+    { value: "custom", label: t4.fontCustom, fontStyle: "var(--font-custom)" }
+  ];
+  (0, import_react10.useEffect)(() => {
+    if (!showFontMenu) return;
+    const onMouseDown = (e3) => {
+      if (fontMenuRef.current && !fontMenuRef.current.contains(e3.target)) {
+        setShowFontMenu(false);
+      }
+    };
+    window.addEventListener("mousedown", onMouseDown);
+    return () => window.removeEventListener("mousedown", onMouseDown);
+  }, [showFontMenu]);
   return /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "header-center-tools mybook-mini-toolbar", children: [
     /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "mini-toolbar-left-group", children: [
       /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
@@ -75089,7 +75366,7 @@ function MiniToolbar(p4) {
         {
           type: "button",
           className: "tool-button",
-          title: "Ho\xE0n t\xE1c (Ctrl+Z)",
+          title: t4.undo,
           disabled: !p4.canUndo,
           onClick: p4.onUndo,
           children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(RotateCcw, { size: 15 })
@@ -75100,7 +75377,7 @@ function MiniToolbar(p4) {
         {
           type: "button",
           className: "tool-button",
-          title: "L\xE0m l\u1EA1i (Ctrl+Y)",
+          title: t4.redo,
           disabled: !p4.canRedo,
           onClick: p4.onRedo,
           children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(RotateCw, { size: 15 })
@@ -75112,25 +75389,79 @@ function MiniToolbar(p4) {
         {
           type: "button",
           className: `tool-button lock-button ${p4.isToolLocked ? "active locked" : ""}`,
-          title: p4.isToolLocked ? "M\u1EDF kh\xF3a c\xF4ng c\u1EE5 (Q)" : "Kh\xF3a c\xF4ng c\u1EE5 (gi\u1EEF tool sau khi v\u1EBD) (Q)",
+          title: p4.isToolLocked ? t4.lockToolActive : t4.lockToolInactive,
           onClick: p4.onToggleLock,
           children: p4.isToolLocked ? /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Lock, { size: 15 }) : /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(LockOpen, { size: 15 })
         }
       )
     ] }),
     /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("div", { className: "tool-divider" }),
-    toolBtn(p4.activeTool === "select", "Ch\u1ECDn / di chuy\u1EC3n (1)", () => p4.onSelectTool("select"), /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(MousePointer, { size: 15 })),
-    toolBtn(p4.activeTool === "rect", "H\xECnh ch\u1EEF nh\u1EADt (2)", () => p4.onSelectTool("rect"), /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Square, { size: 15 })),
-    toolBtn(p4.activeTool === "circle", "H\xECnh tr\xF2n (3)", () => p4.onSelectTool("circle"), /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Circle, { size: 15 })),
-    toolBtn(p4.activeTool === "arrow", "M\u0169i t\xEAn (4)", () => p4.onSelectTool("arrow"), /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ArrowUpRight, { size: 15 })),
-    toolBtn(p4.activeTool === "line", "\u0110o\u1EA1n th\u1EB3ng (5)", () => p4.onSelectTool("line"), /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Minus, { size: 15 })),
-    toolBtn(p4.activeTool === "pen", "B\xFAt vi\u1EBFt (6)", () => p4.onSelectTool("pen"), /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Pen, { size: 15 })),
-    toolBtn(p4.activeTool === "highlighter", "B\xFAt d\u1EA1 quang (7)", () => p4.onSelectTool("highlighter"), /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Highlighter, { size: 15 })),
-    toolBtn(p4.activeTool === "text", "H\u1ED9p ch\u1EEF (8)", () => p4.onSelectTool("text"), /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Type, { size: 15 })),
-    toolBtn(p4.activeTool === "eraser", "T\u1EA9y (9)", () => p4.onSelectTool("eraser"), /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Eraser, { size: 15 })),
+    toolBtn(p4.activeTool === "select", t4.toolSelect, () => p4.onSelectTool("select"), /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(MousePointer, { size: 15 })),
+    toolBtn(p4.activeTool === "rect", t4.toolRect, () => p4.onSelectTool("rect"), /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Square, { size: 15 })),
+    toolBtn(p4.activeTool === "circle", t4.toolCircle, () => p4.onSelectTool("circle"), /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Circle, { size: 15 })),
+    toolBtn(p4.activeTool === "arrow", t4.toolArrow, () => p4.onSelectTool("arrow"), /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ArrowUpRight, { size: 15 })),
+    toolBtn(p4.activeTool === "line", t4.toolLine, () => p4.onSelectTool("line"), /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Minus, { size: 15 })),
+    toolBtn(p4.activeTool === "pen", t4.toolPen, () => p4.onSelectTool("pen"), /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Pen, { size: 15 })),
+    toolBtn(p4.activeTool === "highlighter", t4.toolHighlighter, () => p4.onSelectTool("highlighter"), /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Highlighter, { size: 15 })),
+    toolBtn(p4.activeTool === "text", t4.toolText, () => p4.onSelectTool("text"), /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Type, { size: 15 })),
+    toolBtn(p4.activeTool === "eraser", t4.toolEraser, () => p4.onSelectTool("eraser"), /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Eraser, { size: 15 })),
     /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("div", { className: "tool-divider" }),
     /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ColorSwatches, { value: p4.strokeColor, onChange: p4.onChangeColor }),
     /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(WidthPicker, { value: p4.strokeWidth, onChange: p4.onChangeWidth, compact: true, widths: WIDTHS, strokeColor: p4.strokeColor }),
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("div", { className: "tool-divider" }),
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "mini-pattern-group", style: { display: "inline-flex", alignItems: "center", gap: "2px" }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
+        "button",
+        {
+          type: "button",
+          className: `tool-button ${p4.pattern === "ruled" ? "active" : ""}`,
+          title: t4.ruled,
+          onClick: () => p4.onChangePattern("ruled"),
+          children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(TextAlignJustify, { size: 15 })
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
+        "button",
+        {
+          type: "button",
+          className: `tool-button ${p4.pattern === "grid" ? "active" : ""}`,
+          title: t4.grid,
+          onClick: () => p4.onChangePattern("grid"),
+          children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Grid3x3, { size: 15 })
+        }
+      ),
+      p4.onChangeFontFamily && /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "mini-font-popover-wrap", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
+          "button",
+          {
+            type: "button",
+            className: `tool-button ${showFontMenu ? "active" : ""}`,
+            title: t4.fontBtnTitle,
+            onClick: () => setShowFontMenu((v4) => !v4),
+            children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Type, { size: 15 })
+          }
+        ),
+        showFontMenu && /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { ref: fontMenuRef, className: "mini-font-menu-popover", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("div", { className: "mini-font-menu-title", children: t4.fontMenuTitle }),
+          fontOptions.map((opt) => /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(
+            "button",
+            {
+              type: "button",
+              className: `mini-font-menu-item ${p4.fontFamily === opt.value ? "selected" : ""}`,
+              onClick: () => {
+                p4.onChangeFontFamily?.(opt.value);
+                setShowFontMenu(false);
+              },
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { style: { fontFamily: opt.fontStyle }, children: opt.label }),
+                p4.fontFamily === opt.value && /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Check, { size: 13, className: "mini-font-menu-check" })
+              ]
+            },
+            opt.value
+          ))
+        ] })
+      ] })
+    ] }),
     /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("div", { className: "tool-divider" }),
     /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "mini-toolbar-right-group", children: [
       /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "mini-zoom-pill", children: [
@@ -75139,7 +75470,7 @@ function MiniToolbar(p4) {
           {
             type: "button",
             className: "mini-pill-btn",
-            title: "Thu nh\u1ECF",
+            title: t4.zoomOut,
             onClick: p4.onZoomOut,
             children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ZoomOut, { size: 13 })
           }
@@ -75149,7 +75480,7 @@ function MiniToolbar(p4) {
           {
             type: "button",
             className: "mini-zoom-label",
-            title: "M\u1EE9c zoom hi\u1EC7n t\u1EA1i (Click \u0111\u1EC3 \u0111\u1EB7t l\u1EA1i 100%)",
+            title: t4.zoomReset,
             onClick: p4.onResetZoom,
             children: p4.zoomLabel
           }
@@ -75159,7 +75490,7 @@ function MiniToolbar(p4) {
           {
             type: "button",
             className: "mini-pill-btn",
-            title: "Ph\xF3ng to",
+            title: t4.zoomIn,
             onClick: p4.onZoomIn,
             children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ZoomIn, { size: 13 })
           }
@@ -75170,7 +75501,7 @@ function MiniToolbar(p4) {
           {
             type: "button",
             className: "mini-pill-btn",
-            title: "Fit v\u1EEBa khung xem",
+            title: t4.fitZoom,
             onClick: p4.onFitZoom,
             children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Maximize, { size: 13 })
           }
@@ -75182,7 +75513,7 @@ function MiniToolbar(p4) {
           {
             type: "button",
             className: "tool-button",
-            title: "Th\xEAm trang m\u1EDBi",
+            title: t4.addPage,
             onClick: p4.onAddPage,
             children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Plus, { size: 15 })
           }
@@ -75192,7 +75523,7 @@ function MiniToolbar(p4) {
           {
             type: "button",
             className: "tool-button",
-            title: "Xu\u1EA5t v\u1EDF ra PDF",
+            title: t4.exportPdf,
             onClick: p4.onExportPdf,
             children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Download, { size: 15 })
           }
@@ -75202,7 +75533,7 @@ function MiniToolbar(p4) {
         "div",
         {
           className: `mini-save-badge status-${p4.savedState === "dirty" ? "dirty" : "saved"}`,
-          title: p4.savedState === "dirty" ? "\u0110ang c\xF3 thay \u0111\u1ED5i (ch\u1EDD t\u1EF1 \u0111\u1ED9ng l\u01B0u...)" : "\u0110\xE3 l\u01B0u v\xE0o file",
+          title: p4.savedState === "dirty" ? t4.saving : t4.saved,
           children: p4.savedState === "dirty" ? /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "mini-save-dot", children: "\u25CF" }) : /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Check, { size: 12, strokeWidth: 2.6 })
         }
       )
@@ -75213,8 +75544,8 @@ function MiniToolbar(p4) {
 // src/MyBookNotebook.tsx
 var import_jsx_runtime11 = __toESM(require_jsx_runtime());
 function ScrollWidthReporter({ onWidth }) {
-  const ref = (0, import_react10.useRef)(null);
-  (0, import_react10.useEffect)(() => {
+  const ref = (0, import_react11.useRef)(null);
+  (0, import_react11.useEffect)(() => {
     const scroller = ref.current?.parentElement;
     if (!scroller) return;
     const compute = () => onWidth(scroller.clientWidth);
@@ -75229,7 +75560,7 @@ var MAX_HISTORY = 30;
 function clone2(v4) {
   return JSON.parse(JSON.stringify(v4));
 }
-var MyBookErrorBoundary = class extends React6.Component {
+var MyBookErrorBoundary = class extends React7.Component {
   constructor() {
     super(...arguments);
     this.state = { error: null };
@@ -75252,18 +75583,87 @@ var MyBookErrorBoundary = class extends React6.Component {
     return this.props.children;
   }
 };
-function MyBookNotebook({ initialMeta, initialPages, filePath, fileBasename, onSave, onSavePdf, onNavigateLink }) {
-  const [meta, setMeta] = (0, import_react10.useState)(initialMeta);
-  const [pages, setPages] = (0, import_react10.useState)(initialPages);
-  const [zoom, setZoom] = (0, import_react10.useState)(1);
-  const [activeTool, setActiveTool] = (0, import_react10.useState)("select");
-  const [strokeColor, setStrokeColor] = (0, import_react10.useState)("#1e293b");
-  const [strokeWidth, setStrokeWidth] = (0, import_react10.useState)(2.8);
-  const [isToolLocked, setIsToolLocked] = (0, import_react10.useState)(false);
-  const [savedState, setSavedState] = (0, import_react10.useState)("saved");
-  const [showExport, setShowExport] = (0, import_react10.useState)(false);
-  const hostRef = (0, import_react10.useRef)(null);
-  (0, import_react10.useEffect)(() => {
+function MyBookNotebook({ initialMeta, initialPages, filePath, fileBasename, defaultFontFamily, language, onSave, onSavePdf, onNavigateLink }) {
+  const [meta, setMeta] = (0, import_react11.useState)(initialMeta);
+  const [pages, setPages] = (0, import_react11.useState)(initialPages);
+  const [currentLang, setCurrentLang] = (0, import_react11.useState)(() => {
+    try {
+      const stored = localStorage.getItem("mybook:language");
+      if (stored === "en" || stored === "vi") return stored;
+    } catch {
+    }
+    return language || "en";
+  });
+  (0, import_react11.useEffect)(() => {
+    if (language) setCurrentLang(language);
+  }, [language]);
+  (0, import_react11.useEffect)(() => {
+    const handleLang = (e3) => {
+      const custom = e3;
+      if (custom.detail?.language) {
+        setCurrentLang(custom.detail.language);
+      }
+    };
+    window.addEventListener("mybook:language-change", handleLang);
+    return () => window.removeEventListener("mybook:language-change", handleLang);
+  }, []);
+  const [fontFamily, setFontFamily] = (0, import_react11.useState)(() => {
+    try {
+      const stored = localStorage.getItem("mybook:font_family");
+      return initialMeta.settings?.fontFamily || stored || defaultFontFamily || "cascadia";
+    } catch {
+      return initialMeta.settings?.fontFamily || defaultFontFamily || "cascadia";
+    }
+  });
+  const [zoom, setZoom] = (0, import_react11.useState)(1);
+  const [activeTool, setActiveTool] = (0, import_react11.useState)("select");
+  const [penColor, setPenColor] = (0, import_react11.useState)(() => {
+    try {
+      return localStorage.getItem("mybook:pen_color") || "#1e293b";
+    } catch {
+      return "#1e293b";
+    }
+  });
+  const [penWidth, setPenWidth] = (0, import_react11.useState)(() => {
+    try {
+      const v4 = localStorage.getItem("mybook:pen_width");
+      const n3 = v4 ? parseFloat(v4) : NaN;
+      return isNaN(n3) ? 2.8 : n3;
+    } catch {
+      return 2.8;
+    }
+  });
+  const [highlighterColor, setHighlighterColor] = (0, import_react11.useState)(() => {
+    try {
+      return localStorage.getItem("mybook:highlighter_color") || "#eab308";
+    } catch {
+      return "#eab308";
+    }
+  });
+  const [highlighterWidth, setHighlighterWidth] = (0, import_react11.useState)(() => {
+    try {
+      const v4 = localStorage.getItem("mybook:highlighter_width");
+      const n3 = v4 ? parseFloat(v4) : NaN;
+      return isNaN(n3) ? 10 : n3;
+    } catch {
+      return 10;
+    }
+  });
+  const penColorRef = (0, import_react11.useRef)(penColor);
+  penColorRef.current = penColor;
+  const penWidthRef = (0, import_react11.useRef)(penWidth);
+  penWidthRef.current = penWidth;
+  const highlighterColorRef = (0, import_react11.useRef)(highlighterColor);
+  highlighterColorRef.current = highlighterColor;
+  const highlighterWidthRef = (0, import_react11.useRef)(highlighterWidth);
+  highlighterWidthRef.current = highlighterWidth;
+  const [strokeColor, setStrokeColor] = (0, import_react11.useState)(penColor);
+  const [strokeWidth, setStrokeWidth] = (0, import_react11.useState)(penWidth);
+  const [isToolLocked, setIsToolLocked] = (0, import_react11.useState)(false);
+  const [savedState, setSavedState] = (0, import_react11.useState)("saved");
+  const [showExport, setShowExport] = (0, import_react11.useState)(false);
+  const hostRef = (0, import_react11.useRef)(null);
+  (0, import_react11.useEffect)(() => {
     const onRequest = (e3) => {
       const path2 = e3.detail?.path;
       if (path2 === filePath) setShowExport(true);
@@ -75271,12 +75671,12 @@ function MyBookNotebook({ initialMeta, initialPages, filePath, fileBasename, onS
     window.addEventListener("mybook:export-pdf", onRequest);
     return () => window.removeEventListener("mybook:export-pdf", onRequest);
   }, [filePath]);
-  const [selText, setSelText] = (0, import_react10.useState)([]);
-  const [selDraw, setSelDraw] = (0, import_react10.useState)([]);
-  const [selImg, setSelImg] = (0, import_react10.useState)([]);
-  const scrollElRef = (0, import_react10.useRef)(null);
-  const [scrollW, setScrollW] = (0, import_react10.useState)(0);
-  const reportScrollW = (0, import_react10.useCallback)((w3) => {
+  const [selText, setSelText] = (0, import_react11.useState)([]);
+  const [selDraw, setSelDraw] = (0, import_react11.useState)([]);
+  const [selImg, setSelImg] = (0, import_react11.useState)([]);
+  const scrollElRef = (0, import_react11.useRef)(null);
+  const [scrollW, setScrollW] = (0, import_react11.useState)(0);
+  const reportScrollW = (0, import_react11.useCallback)((w3) => {
     setScrollW((prev) => prev === w3 ? prev : w3);
   }, []);
   const fitZoom = () => {
@@ -75286,17 +75686,17 @@ function MyBookNotebook({ initialMeta, initialPages, filePath, fileBasename, onS
       setZoom(Number(Math.min(2, Math.max(0.3, (w3 - 48) / 800)).toFixed(2)));
     }
   };
-  const undoStack = (0, import_react10.useRef)([]);
-  const redoStack = (0, import_react10.useRef)([]);
-  const [, forceHist] = (0, import_react10.useState)(0);
+  const undoStack = (0, import_react11.useRef)([]);
+  const redoStack = (0, import_react11.useRef)([]);
+  const [, forceHist] = (0, import_react11.useState)(0);
   const linePitch = meta.settings.linePitch || 32;
-  const pushHistory = (0, import_react10.useCallback)((snapshotPages, snapshotIds) => {
+  const pushHistory = (0, import_react11.useCallback)((snapshotPages, snapshotIds) => {
     undoStack.current.push({ pages: clone2(snapshotPages), pageIds: [...snapshotIds] });
     if (undoStack.current.length > MAX_HISTORY) undoStack.current.shift();
     redoStack.current = [];
     forceHist((x4) => x4 + 1);
   }, []);
-  const applyPages = (0, import_react10.useCallback)(
+  const applyPages = (0, import_react11.useCallback)(
     (nextPages, nextIds) => {
       setPages(nextPages);
       if (nextIds) {
@@ -75306,19 +75706,19 @@ function MyBookNotebook({ initialMeta, initialPages, filePath, fileBasename, onS
     },
     []
   );
-  const saveRef = (0, import_react10.useRef)(onSave);
+  const saveRef = (0, import_react11.useRef)(onSave);
   saveRef.current = onSave;
-  const metaRef = (0, import_react10.useRef)(meta);
+  const metaRef = (0, import_react11.useRef)(meta);
   metaRef.current = meta;
-  const debouncedSave = (0, import_react10.useRef)(
+  const debouncedSave = (0, import_react11.useRef)(
     debounce((m5, p4) => {
       saveRef.current(m5, p4).then(() => setSavedState("saved")).catch(() => setSavedState("dirty"));
     }, 1200)
   ).current;
-  (0, import_react10.useEffect)(() => {
+  (0, import_react11.useEffect)(() => {
     debouncedSave(metaRef.current, pages);
   }, [pages]);
-  const mutatePage = (0, import_react10.useCallback)(
+  const mutatePage = (0, import_react11.useCallback)(
     (pageId, fn, recordHistory = true) => {
       setPages((curr) => {
         const target = curr.find((p4) => p4.id === pageId);
@@ -75335,7 +75735,7 @@ function MyBookNotebook({ initialMeta, initialPages, filePath, fileBasename, onS
     },
     []
   );
-  const handleUndo = (0, import_react10.useCallback)(() => {
+  const handleUndo = (0, import_react11.useCallback)(() => {
     const prev = undoStack.current.pop();
     if (!prev) return;
     setPages((curr) => {
@@ -75346,7 +75746,7 @@ function MyBookNotebook({ initialMeta, initialPages, filePath, fileBasename, onS
     setSavedState("dirty");
     forceHist((x4) => x4 + 1);
   }, []);
-  const handleRedo = (0, import_react10.useCallback)(() => {
+  const handleRedo = (0, import_react11.useCallback)(() => {
     const next = redoStack.current.pop();
     if (!next) return;
     setPages((curr) => {
@@ -75357,7 +75757,7 @@ function MyBookNotebook({ initialMeta, initialPages, filePath, fileBasename, onS
     setSavedState("dirty");
     forceHist((x4) => x4 + 1);
   }, []);
-  const getScroller = (0, import_react10.useCallback)(() => {
+  const getScroller = (0, import_react11.useCallback)(() => {
     const el = scrollElRef.current;
     if (el && el.scrollHeight > el.clientHeight + 2) return el;
     let p4 = hostRef.current?.parentElement;
@@ -75367,18 +75767,18 @@ function MyBookNotebook({ initialMeta, initialPages, filePath, fileBasename, onS
     }
     return el;
   }, []);
-  const animScrollRef = (0, import_react10.useRef)({
+  const animScrollRef = (0, import_react11.useRef)({
     rafId: null,
     targetTop: 0,
     targetLeft: 0
   });
-  const cancelKeyScroll = (0, import_react10.useCallback)(() => {
+  const cancelKeyScroll = (0, import_react11.useCallback)(() => {
     if (animScrollRef.current.rafId !== null) {
       cancelAnimationFrame(animScrollRef.current.rafId);
       animScrollRef.current.rafId = null;
     }
   }, []);
-  const queueSmoothScroll = (0, import_react10.useCallback)(
+  const queueSmoothScroll = (0, import_react11.useCallback)(
     (deltaTop, deltaLeft, absolute) => {
       const scroller = getScroller();
       if (!scroller) return;
@@ -75440,7 +75840,7 @@ function MyBookNotebook({ initialMeta, initialPages, filePath, fileBasename, onS
     },
     [getScroller, cancelKeyScroll]
   );
-  (0, import_react10.useEffect)(() => {
+  (0, import_react11.useEffect)(() => {
     const el = scrollElRef.current;
     if (!el) return;
     const onUserInteract = () => cancelKeyScroll();
@@ -75452,8 +75852,23 @@ function MyBookNotebook({ initialMeta, initialPages, filePath, fileBasename, onS
       cancelKeyScroll();
     };
   }, [cancelKeyScroll]);
+  const handleSelectTool = (0, import_react11.useCallback)((t4) => {
+    setActiveTool(t4);
+    if (t4 !== "select") {
+      setSelDraw([]);
+      setSelText([]);
+      setSelImg([]);
+    }
+    if (t4 === "pen") {
+      setStrokeColor(penColorRef.current);
+      setStrokeWidth(penWidthRef.current);
+    } else if (t4 === "highlighter") {
+      setStrokeColor(highlighterColorRef.current);
+      setStrokeWidth(highlighterWidthRef.current);
+    }
+  }, []);
   const TOOL_ORDER = ["select", "rect", "circle", "arrow", "line", "pen", "highlighter", "text", "eraser"];
-  (0, import_react10.useEffect)(() => {
+  (0, import_react11.useEffect)(() => {
     const onKey = (e3) => {
       const t4 = e3.target;
       if (t4.tagName === "TEXTAREA" || t4.tagName === "INPUT" || t4.isContentEditable) return;
@@ -75467,7 +75882,7 @@ function MyBookNotebook({ initialMeta, initialPages, filePath, fileBasename, onS
         const tool = TOOL_ORDER[Number(e3.key) - 1];
         if (tool) {
           e3.preventDefault();
-          setActiveTool(tool);
+          handleSelectTool(tool);
         }
         return;
       }
@@ -75530,7 +75945,7 @@ function MyBookNotebook({ initialMeta, initialPages, filePath, fileBasename, onS
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [handleUndo, handleRedo, getScroller, queueSmoothScroll]);
+  }, [handleUndo, handleRedo, getScroller, queueSmoothScroll, handleSelectTool]);
   const addTextBox = (pageId, box) => {
     mutatePage(pageId, (p4) => ({ ...p4, textBoxes: [...p4.textBoxes, box] }));
     setSelText([box.id]);
@@ -75597,7 +76012,7 @@ function MyBookNotebook({ initialMeta, initialPages, filePath, fileBasename, onS
   };
   const addDrawing = (pageId, elem) => {
     mutatePage(pageId, (p4) => ({ ...p4, drawings: [...p4.drawings, elem] }));
-    setSelDraw([elem.id]);
+    setSelDraw([]);
     setSelText([]);
     setSelImg([]);
   };
@@ -75667,8 +76082,33 @@ function MyBookNotebook({ initialMeta, initialPages, filePath, fileBasename, onS
     else next.unshift(im);
     mutatePage(pageId, (p4) => ({ ...p4, images: next }));
   };
+  const currentPattern = pages[0]?.pattern || meta.settings.defaultPattern || "ruled";
+  const handleChangePattern = (newPattern) => {
+    pushHistory(pages, meta.pageIds);
+    const nextPages = pages.map((p4) => ({ ...p4, pattern: newPattern, updatedAt: Date.now() }));
+    setPages(nextPages);
+    setMeta((m5) => ({
+      ...m5,
+      settings: { ...m5.settings, defaultPattern: newPattern, pattern: newPattern },
+      updatedAt: Date.now()
+    }));
+    setSavedState("dirty");
+  };
+  const handleFontChange = (newFont) => {
+    setFontFamily(newFont);
+    try {
+      localStorage.setItem("mybook:font_family", newFont);
+    } catch {
+    }
+    setMeta((m5) => ({
+      ...m5,
+      settings: { ...m5.settings, fontFamily: newFont },
+      updatedAt: Date.now()
+    }));
+    setSavedState("dirty");
+  };
   const addPage = () => {
-    const lastPattern = pages[pages.length - 1]?.pattern || "ruled";
+    const lastPattern = currentPattern || pages[pages.length - 1]?.pattern || "ruled";
     const newPage = {
       id: `page_${Date.now()}`,
       pageNumber: pages.length + 1,
@@ -75685,6 +76125,62 @@ function MyBookNotebook({ initialMeta, initialPages, filePath, fileBasename, onS
       document.getElementById(`page-sheet-${newPage.id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   };
+  const handleChangeColor = (c5) => {
+    setStrokeColor(c5);
+    if (activeTool === "pen") {
+      setPenColor(c5);
+      penColorRef.current = c5;
+      try {
+        localStorage.setItem("mybook:pen_color", c5);
+      } catch {
+      }
+    } else if (activeTool === "highlighter") {
+      setHighlighterColor(c5);
+      highlighterColorRef.current = c5;
+      try {
+        localStorage.setItem("mybook:highlighter_color", c5);
+      } catch {
+      }
+    }
+    if (activeTool === "select" && selDraw.length > 0) {
+      for (const p4 of pages) {
+        const hits = p4.drawings.filter((d3) => selDraw.includes(d3.id));
+        if (hits.length > 0) {
+          for (const h4 of hits) {
+            updateDrawing(p4.id, h4.id, { color: c5 });
+          }
+        }
+      }
+    }
+  };
+  const handleChangeWidth = (w3) => {
+    setStrokeWidth(w3);
+    if (activeTool === "pen") {
+      setPenWidth(w3);
+      penWidthRef.current = w3;
+      try {
+        localStorage.setItem("mybook:pen_width", String(w3));
+      } catch {
+      }
+    } else if (activeTool === "highlighter") {
+      setHighlighterWidth(w3);
+      highlighterWidthRef.current = w3;
+      try {
+        localStorage.setItem("mybook:highlighter_width", String(w3));
+      } catch {
+      }
+    }
+    if (activeTool === "select" && selDraw.length > 0) {
+      for (const p4 of pages) {
+        const hits = p4.drawings.filter((d3) => selDraw.includes(d3.id));
+        if (hits.length > 0) {
+          for (const h4 of hits) {
+            updateDrawing(p4.id, h4.id, { strokeWidth: w3 });
+          }
+        }
+      }
+    }
+  };
   return /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)(
     "div",
     {
@@ -75694,6 +76190,7 @@ function MyBookNotebook({ initialMeta, initialPages, filePath, fileBasename, onS
         /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
           MiniToolbar,
           {
+            language: currentLang,
             activeTool,
             strokeColor,
             strokeWidth,
@@ -75701,32 +76198,14 @@ function MyBookNotebook({ initialMeta, initialPages, filePath, fileBasename, onS
             canUndo: undoStack.current.length > 0,
             canRedo: redoStack.current.length > 0,
             savedState,
-            onSelectTool: setActiveTool,
+            pattern: currentPattern,
+            onChangePattern: handleChangePattern,
+            fontFamily,
+            onChangeFontFamily: handleFontChange,
+            onSelectTool: handleSelectTool,
             onToggleLock: () => setIsToolLocked((v4) => !v4),
-            onChangeColor: (c5) => {
-              setStrokeColor(c5);
-              const primary = selDraw[0];
-              if (primary) {
-                for (const p4 of pages) {
-                  if (p4.drawings.some((d3) => d3.id === primary)) {
-                    updateDrawing(p4.id, primary, { color: c5 });
-                    break;
-                  }
-                }
-              }
-            },
-            onChangeWidth: (w3) => {
-              setStrokeWidth(w3);
-              const primary = selDraw[0];
-              if (primary) {
-                for (const p4 of pages) {
-                  if (p4.drawings.some((d3) => d3.id === primary)) {
-                    updateDrawing(p4.id, primary, { strokeWidth: w3 });
-                    break;
-                  }
-                }
-              }
-            },
+            onChangeColor: handleChangeColor,
+            onChangeWidth: handleChangeWidth,
             onUndo: handleUndo,
             onRedo: handleRedo,
             zoomLabel: `${Math.round(zoom * 100)}%`,
@@ -75763,7 +76242,7 @@ function MyBookNotebook({ initialMeta, initialPages, filePath, fileBasename, onS
                       linePitch,
                       selectedTextBoxIds: selText,
                       selectedElementIds: selDraw,
-                      fontFamily: "cascadia",
+                      fontFamily,
                       isToolLocked,
                       handDrawnStyle: true,
                       canvasPixelScale: zoom,
@@ -75799,7 +76278,7 @@ function MyBookNotebook({ initialMeta, initialPages, filePath, fileBasename, onS
                       onDuplicateImage: duplicateImage,
                       onReorderImage: reorderImage,
                       onAutoSwitchToSelect: () => {
-                        if (!isToolLocked) setActiveTool("select");
+                        if (!isToolLocked) handleSelectTool("select");
                       },
                       onNavigateLink
                     }
@@ -75847,6 +76326,13 @@ function around(obj, factories) {
 }
 
 // src/main.ts
+var DEFAULT_SETTINGS = {
+  language: "en",
+  attachmentFolder: "",
+  defaultFontFamily: "cascadia",
+  customFontPath: "0_Excalidraw/font/DFVN-Excalifont.ttf",
+  customFontName: "DFVN Excalifont"
+};
 var MYBOOK_VIEW_TYPE = "mybook-notebook";
 var MYBOOK_EXTS = ["mynote.md"];
 var lastMyBookDir = "";
@@ -75899,26 +76385,39 @@ var MyBookPlugin = class extends import_obsidian.Plugin {
     super(...arguments);
     this.isLoaded = false;
     this.forceOpenAsMarkdownPath = null;
+    this.settings = DEFAULT_SETTINGS;
+  }
+  async loadSettings() {
+    this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+  }
+  async saveSettings() {
+    await this.saveData(this.settings);
   }
   async onload() {
     this.isLoaded = true;
+    await this.loadSettings();
+    this.addSettingTab(new MyBookSettingTab(this.app, this));
+    await this.loadCustomFonts();
     setAssetResolver((filename) => this.resolveVaultImage(filename));
+    setImageAttachmentSaver((file) => this.saveImageAttachment(file));
     this.registerView(MYBOOK_VIEW_TYPE, (leaf) => new MyBookView(leaf, this));
     this.registerExtensions(["mynote", MYBOOK_EXTS[0]], MYBOOK_VIEW_TYPE);
     this.patchWorkspaceLeaf();
     this.app.workspace.onLayoutReady(() => {
       this.switchToMyBookAfterLoad();
     });
+    const t4 = getT(this.settings.language || "en");
     this.registerEvent(
       this.app.workspace.on("file-menu", (menu, file, _source, leaf) => {
         if (file instanceof import_obsidian.TFile && isMyBookNote(this.app, file)) {
+          const tNow = getT(this.settings.language || "en");
           menu.addItem(
-            (item) => item.setTitle("M\u1EDF b\u1EB1ng v\u1EDF MyBook").setIcon("notebook-pen").onClick(() => {
+            (item) => item.setTitle(tNow.contextOpenMyBook).setIcon("notebook-pen").onClick(() => {
               void this.openInMyBook(file);
             })
           );
           menu.addItem(
-            (item) => item.setTitle("M\u1EDF d\u1EA1ng Markdown th\xF4").setIcon("file-text").onClick(async () => {
+            (item) => item.setTitle(tNow.contextOpenMarkdown).setIcon("file-text").onClick(async () => {
               this.forceOpenAsMarkdownPath = file.path;
               const targetLeaf = leaf ?? this.app.workspace.getLeaf(false);
               await targetLeaf.setViewState({
@@ -75931,19 +76430,19 @@ var MyBookPlugin = class extends import_obsidian.Plugin {
         }
       })
     );
-    this.addRibbonIcon("notebook-pen", "M\u1EDF v\u1EDF MyBook m\u1EDBi", () => {
+    this.addRibbonIcon("notebook-pen", t4.newNotebookRibbon, () => {
       void this.createAndOpenNotebook();
     });
     this.addCommand({
       id: "mybook-new-notebook",
-      name: "T\u1EA1o v\u1EDF MyBook m\u1EDBi",
+      name: t4.newNotebookCmd,
       callback: () => {
         void this.createAndOpenNotebook();
       }
     });
     this.addCommand({
       id: "mybook-open-active",
-      name: "M\u1EDF file \u0111ang xem b\u1EB1ng MyBook",
+      name: t4.openActiveCmd,
       checkCallback: (checking) => {
         const file = this.app.workspace.getActiveFile();
         if (file && isMyBookNote(this.app, file)) {
@@ -75955,7 +76454,7 @@ var MyBookPlugin = class extends import_obsidian.Plugin {
     });
     this.addCommand({
       id: "mybook-export-pdf",
-      name: "Xu\u1EA5t v\u1EDF \u0111ang m\u1EDF ra PDF",
+      name: t4.exportPdfCmd,
       checkCallback: (checking) => {
         const leaf = this.app.workspace.activeLeaf;
         if (leaf?.view instanceof MyBookView) {
@@ -75973,6 +76472,119 @@ var MyBookPlugin = class extends import_obsidian.Plugin {
   onunload() {
     this.isLoaded = false;
     setAssetResolver(null);
+    setImageAttachmentSaver(null);
+  }
+  /**
+   * Lưu ảnh dán (pasted image) vào thư mục Attachment của Vault (theo chuẩn Obsidian / Excalidraw).
+   * Giúp file .mynote.md siêu nhẹ và load nhanh chóng, không bị phình to bởi chuỗi Base64.
+   */
+  async saveImageAttachment(file) {
+    const now = /* @__PURE__ */ new Date();
+    const pad2 = (n3) => String(n3).padStart(2, "0");
+    const timestamp = `${now.getFullYear()}${pad2(now.getMonth() + 1)}${pad2(now.getDate())}${pad2(now.getHours())}${pad2(now.getMinutes())}${pad2(now.getSeconds())}`;
+    let ext = "png";
+    if (file.type === "image/jpeg" || file.type === "image/jpg") ext = "jpg";
+    else if (file.type === "image/webp") ext = "webp";
+    else if (file.type === "image/gif") ext = "gif";
+    else if (file.type === "image/svg+xml") ext = "svg";
+    const defaultName = `Pasted image ${timestamp}.${ext}`;
+    let targetPath = "";
+    const customFolder = this.settings.attachmentFolder?.trim();
+    if (customFolder) {
+      const normalizedFolder = customFolder.replace(/^\/+|\/+$/g, "");
+      const folderExists = await this.app.vault.adapter.exists(normalizedFolder);
+      if (!folderExists) {
+        await this.app.vault.createFolder(normalizedFolder).catch(() => {
+        });
+      }
+      let candidate = `${normalizedFolder}/${defaultName}`;
+      let counter = 1;
+      while (await this.app.vault.adapter.exists(candidate)) {
+        candidate = `${normalizedFolder}/Pasted image ${timestamp} ${counter}.${ext}`;
+        counter++;
+      }
+      targetPath = candidate;
+    } else {
+      const activeFile = this.app.workspace.getActiveFile();
+      const sourcePath = activeFile instanceof import_obsidian.TFile ? activeFile.path : "";
+      targetPath = await this.app.fileManager.getAvailablePathForAttachment(defaultName, sourcePath);
+    }
+    const arrayBuffer = await file.arrayBuffer();
+    const created = await this.app.vault.createBinary(targetPath, arrayBuffer);
+    return {
+      src: targetPath,
+      name: created.name
+    };
+  }
+  /**
+   * Nạp font tùy chỉnh và DFVN Excalifont từ Vault vào Document Fonts
+   */
+  async loadCustomFonts() {
+    const allFiles = this.app.vault.getFiles();
+    const dfvnCandidates = [
+      this.settings.customFontPath?.trim(),
+      "0_Excalidraw/font/DFVN-Excalifont.ttf",
+      "0_Excalidraw/font/DFVN-Excalifont.otf"
+    ].filter(Boolean);
+    let dfvnLoaded = false;
+    for (const cand of dfvnCandidates) {
+      let f4 = this.app.vault.getAbstractFileByPath(cand);
+      if (!f4) {
+        const base2 = cand.split("/").pop()?.toLowerCase() || "";
+        f4 = allFiles.find((file) => file.name.toLowerCase() === base2) || null;
+      }
+      if (f4 instanceof import_obsidian.TFile) {
+        await this.registerFontFaceFromTFile(f4, "DFVN Excalifont");
+        await this.registerFontFaceFromTFile(f4, "DFVN-Excalifont");
+        dfvnLoaded = true;
+        break;
+      }
+    }
+    if (!dfvnLoaded) {
+      const autoHit = allFiles.find((f4) => /dfvn.*excali/i.test(f4.name));
+      if (autoHit instanceof import_obsidian.TFile) {
+        await this.registerFontFaceFromTFile(autoHit, "DFVN Excalifont");
+        await this.registerFontFaceFromTFile(autoHit, "DFVN-Excalifont");
+      }
+    }
+    const customPath = this.settings.customFontPath?.trim();
+    if (customPath) {
+      let f4 = this.app.vault.getAbstractFileByPath(customPath);
+      if (!f4) {
+        const base2 = customPath.split("/").pop()?.toLowerCase() || "";
+        f4 = allFiles.find((file) => file.name.toLowerCase() === base2) || null;
+      }
+      if (f4 instanceof import_obsidian.TFile) {
+        const familyName = this.settings.customFontName?.trim() || "MyBookCustomFont";
+        await this.registerFontFaceFromTFile(f4, familyName);
+        await this.registerFontFaceFromTFile(f4, "MyBookCustomFont");
+      }
+    }
+    const fontName = this.settings.customFontName?.trim() || "DFVN Excalifont";
+    document.documentElement.style.setProperty(
+      "--user-custom-font",
+      `'${fontName}', 'DFVN Excalifont', 'DFVN-Excalifont', sans-serif`
+    );
+  }
+  async registerFontFaceFromTFile(file, familyName) {
+    try {
+      const ext = file.extension.toLowerCase();
+      if (!["ttf", "otf", "woff", "woff2"].includes(ext)) return false;
+      const buffer = await this.app.vault.readBinary(file);
+      const mime = ext === "woff2" ? "font/woff2" : ext === "woff" ? "font/woff" : ext === "otf" ? "font/otf" : "font/ttf";
+      const blob = new Blob([buffer], { type: mime });
+      const fontUrl = URL.createObjectURL(blob);
+      const fontFace = new FontFace(familyName, `url("${fontUrl}")`, {
+        style: "normal",
+        weight: "normal"
+      });
+      await fontFace.load();
+      document.fonts.add(fontFace);
+      return true;
+    } catch (err2) {
+      console.warn("[MyBook] Failed to register fontFace:", familyName, err2);
+      return false;
+    }
   }
   /**
    * Hook đồng bộ vào WorkspaceLeaf.prototype.setViewState (chuẩn Excalidraw):
@@ -76070,7 +76682,16 @@ var MyBookPlugin = class extends import_obsidian.Plugin {
         const name = `note_${n3}`;
         const fileName = `${dir}${name}.mynote.md`;
         try {
-          const fresh = getEmptyNotebook(name, "grid");
+          let defaultFont = this.settings.defaultFontFamily;
+          try {
+            const stored = localStorage.getItem("mybook:font_family");
+            if (stored) defaultFont = stored;
+          } catch {
+          }
+          const fresh = getEmptyNotebook(name, "ruled");
+          if (defaultFont) {
+            fresh.meta.settings.fontFamily = defaultFont;
+          }
           const content = exportNotebookToMarkdown(fresh.meta, fresh.pages);
           const file = await this.app.vault.create(fileName, content);
           await this.openInMyBook(file);
@@ -76263,22 +76884,24 @@ var MyBookView = class extends import_obsidian.ItemView {
       cancelLoading();
       return;
     }
-    const initialMeta = parsed ? parsed.meta : getEmptyNotebook(file.basename, "grid").meta;
-    const initialPages = parsed ? parsed.pages : getEmptyNotebook(file.basename, "grid").pages;
+    const initialMeta = parsed ? parsed.meta : getEmptyNotebook(file.basename, "ruled").meta;
+    const initialPages = parsed ? parsed.pages : getEmptyNotebook(file.basename, "ruled").pages;
     cancelLoading();
     container.empty();
     this.root = (0, import_client.createRoot)(container);
     if (this.loadingPath === path2) this.loadingPath = null;
     try {
       this.root.render(
-        React7.createElement(
+        React8.createElement(
           MyBookErrorBoundary,
           null,
-          React7.createElement(MyBookNotebook, {
+          React8.createElement(MyBookNotebook, {
             initialMeta,
             initialPages,
             filePath: path2,
             fileBasename: file.basename,
+            defaultFontFamily: this.plugin.settings.defaultFontFamily,
+            language: this.plugin.settings.language || "en",
             onSave: async (meta, pages) => {
               const live = this.currentFilePath;
               if (!live) return;
@@ -76324,6 +76947,63 @@ var MyBookView = class extends import_obsidian.ItemView {
     this.root = null;
     this.currentFilePath = null;
     this.loadingPath = null;
+  }
+};
+var MyBookSettingTab = class extends import_obsidian.PluginSettingTab {
+  constructor(app, plugin) {
+    super(app, plugin);
+    this.plugin = plugin;
+  }
+  display() {
+    const { containerEl } = this;
+    containerEl.empty();
+    const t4 = getT(this.plugin.settings.language || "en");
+    containerEl.createEl("h2", { text: t4.settingsTitle });
+    containerEl.createEl("h3", { text: t4.languageSection });
+    new import_obsidian.Setting(containerEl).setName(t4.languageName).setDesc(t4.languageDesc).addDropdown(
+      (drop) => drop.addOption("en", "English (Default)").addOption("vi", "Ti\u1EBFng Vi\u1EC7t").setValue(this.plugin.settings.language || "en").onChange(async (val) => {
+        this.plugin.settings.language = val;
+        try {
+          localStorage.setItem("mybook:language", val);
+        } catch {
+        }
+        await this.plugin.saveSettings();
+        window.dispatchEvent(new CustomEvent("mybook:language-change", { detail: { language: val } }));
+        this.display();
+      })
+    );
+    containerEl.createEl("h3", { text: t4.attachmentSection });
+    new import_obsidian.Setting(containerEl).setName(t4.attachmentFolderTitle).setDesc(t4.attachmentFolderDesc).addText(
+      (text4) => text4.setPlaceholder(t4.attachmentFolderPlaceholder).setValue(this.plugin.settings.attachmentFolder).onChange(async (value) => {
+        this.plugin.settings.attachmentFolder = value.trim();
+        await this.plugin.saveSettings();
+      })
+    );
+    containerEl.createEl("h3", { text: t4.typographySection });
+    new import_obsidian.Setting(containerEl).setName(t4.defaultFontTitle).setDesc(t4.defaultFontDesc).addDropdown(
+      (drop) => drop.addOption("cascadia", t4.fontCascadia).addOption("dfvn-excalidraw", t4.fontDfvn).addOption("handwriting", t4.fontHandwriting).addOption("sans", t4.fontSans).addOption("serif", t4.fontSerif).addOption("mono", t4.fontMono).addOption("custom", t4.fontCustom).setValue(this.plugin.settings.defaultFontFamily).onChange(async (val) => {
+        this.plugin.settings.defaultFontFamily = val;
+        try {
+          localStorage.setItem("mybook:font_family", val);
+        } catch {
+        }
+        await this.plugin.saveSettings();
+      })
+    );
+    new import_obsidian.Setting(containerEl).setName(t4.customFontPathTitle).setDesc(t4.customFontPathDesc).addText(
+      (text4) => text4.setPlaceholder("0_Excalidraw/font/DFVN-Excalifont.ttf").setValue(this.plugin.settings.customFontPath).onChange(async (val) => {
+        this.plugin.settings.customFontPath = val.trim();
+        await this.plugin.saveSettings();
+        await this.plugin.loadCustomFonts();
+      })
+    );
+    new import_obsidian.Setting(containerEl).setName(t4.customFontNameTitle).setDesc(t4.customFontNameDesc).addText(
+      (text4) => text4.setPlaceholder("DFVN Excalifont").setValue(this.plugin.settings.customFontName).onChange(async (val) => {
+        this.plugin.settings.customFontName = val.trim();
+        await this.plugin.saveSettings();
+        await this.plugin.loadCustomFonts();
+      })
+    );
   }
 };
 /*! Bundled license information:
@@ -76605,6 +77285,7 @@ lucide-react/dist/esm/icons/download.mjs:
 lucide-react/dist/esm/icons/eraser.mjs:
 lucide-react/dist/esm/icons/file-text.mjs:
 lucide-react/dist/esm/icons/frame.mjs:
+lucide-react/dist/esm/icons/grid-3x3.mjs:
 lucide-react/dist/esm/icons/grip-vertical.mjs:
 lucide-react/dist/esm/icons/heading-2.mjs:
 lucide-react/dist/esm/icons/heading-3.mjs:
@@ -76630,6 +77311,7 @@ lucide-react/dist/esm/icons/square-check-big.mjs:
 lucide-react/dist/esm/icons/square.mjs:
 lucide-react/dist/esm/icons/strikethrough.mjs:
 lucide-react/dist/esm/icons/table.mjs:
+lucide-react/dist/esm/icons/text-align-justify.mjs:
 lucide-react/dist/esm/icons/trash.mjs:
 lucide-react/dist/esm/icons/type.mjs:
 lucide-react/dist/esm/icons/underline.mjs:

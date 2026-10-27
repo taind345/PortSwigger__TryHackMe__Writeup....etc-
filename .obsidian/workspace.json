@@ -4,53 +4,56 @@
     "type": "split",
     "children": [
       {
-        "id": "88f39a83e9eeacfc",
+        "id": "b3a5052f8c30ddd1",
         "type": "tabs",
         "children": [
           {
-            "id": "4af2bc78f66014f3",
-            "type": "leaf",
-            "state": {
-              "type": "mybook-notebook",
-              "state": {
-                "file": "0-Note/20-10.mynote.md"
-              },
-              "icon": "notebook-pen",
-              "title": "20-10"
-            }
-          },
-          {
-            "id": "ee5b4384e26aafc7",
+            "id": "402edcf2bf095255",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "portswigger/XSS/0-xss cheetsheet.md",
+                "file": "portswigger/CSRF/0-note-csrf.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "0-xss cheetsheet"
+              "title": "0-note-csrf"
             }
           },
           {
-            "id": "56b4299335f8e5d4",
+            "id": "cbfa82f7a2d26ba0",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "portswigger/XSS/Lab-Reflected XSS into HTML context with most tags and attributes blocked.md",
+                "file": "portswigger/CSRF/0-CSRF.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lab-Reflected XSS into HTML context with most tags and attributes blocked"
+              "title": "0-CSRF"
+            }
+          },
+          {
+            "id": "437a86134fd6107b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "portswigger/authetication bypass/0-authentication.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "0-authentication"
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -112,7 +115,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 215.68142700195312
+    "width": 264.6514587402344
   },
   "right": {
     "id": "46d537e6b1c9f82a",
@@ -183,7 +186,7 @@
             }
           },
           {
-            "id": "46691fd16c66b55e",
+            "id": "4ed5e3014dbf833d",
             "type": "leaf",
             "state": {
               "type": "hinote-view",
@@ -206,7 +209,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "portswigger/XSS/Lab-Reflected XSS into a JavaScript string with angle brackets and double quotes HTML-encoded and single quotes escaped.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -223,6 +225,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "mybook-notebook:Open new MyBook notebook": false,
       "switcher:Mở bộ chuyển đổi nhanh": false,
       "graph:Mở xem biểu đồ": false,
       "canvas:Tạo bảng mới": false,
@@ -231,49 +234,49 @@
       "command-palette:Mở khay lệnh": false,
       "bases:Tạo cơ sở mới": false,
       "obsidian-excalidraw-plugin:New drawing": false,
-      "mybook-notebook:Mở vở MyBook mới": false,
       "hi-note:HiCard": false,
       "hi-note:HiNote": false
     }
   },
-  "active": "ee5b4384e26aafc7",
+  "active": "35a67487ee4c9143",
   "lastOpenFiles": [
-    "file:/home/ti/Downloads/photo-sharing-v1/photo-sharing-v1/README.md",
+    "portswigger/CSRF/0-CSRF.md",
+    "portswigger/authetication bypass/0-authentication.md",
+    "portswigger/authetication bypass/Lab-2FA simple bypass.md",
+    "portswigger/SSRF/0-SSRF.md",
+    "portswigger/SSRF/0-roadmap SSRF.md",
+    "portswigger/SSRF/0-note-ssrf.md",
+    "portswigger/SSRF/0-index SSRF.md",
+    "portswigger/server side vulnerabilities/0-index server side.md",
+    "portswigger/OAuth/0-index OAuth.md",
+    "portswigger/JWT/0-index JWT.md",
+    "portswigger/IDOR/0-index IDOR.md",
+    "portswigger/CSRF/Lab-SameSite Lax bypass via cookie refresh.md",
+    "portswigger/CSRF/0-note-csrf.md",
+    "portswigger/CORS/whitelist CORS.md",
+    "portswigger/CORS/0-index CORS.md",
+    "portswigger/authetication bypass/lys thuyet authentication.md",
+    "portswigger/authetication bypass/Lab-Username enumeration via account lock.md",
+    "portswigger/authetication bypass/Lab-Username enumeration via response timing.md",
+    "portswigger/authetication bypass/Lab-Username enumeration via subtly different responses.md",
+    "portswigger/authetication bypass/Lab-Username enumeration via different responses.md",
+    "file:/home/ti/Desktop/DATA_DESKTOP/0-CYBER_SEC/CVE/wordpress/0-working_progress/cve_root_round8/EP-0025_user_registration_rest_comments/REPORT.vi.md",
+    "file:/home/ti/Desktop/DATA_DESKTOP/0-CYBER_SEC/CVE/wordpress/0-working_progress/disclosure_WPRM_video_embed/SUBMIT_WPRM_video_embed.md",
+    "file:/home/ti/Desktop/DATA_DESKTOP/0-CYBER_SEC/CVE/wordpress/0-working_progress/cve_root_round8/EP-0025_user_registration_rest_comments/PATCHSTACK_FORM.md",
+    "file:/home/ti/Desktop/DATA_DESKTOP/0-CYBER_SEC/CVE/wordpress/0-working_progress/cve_root_round8/EP-0025_user_registration_rest_comments/EP-0025_evidence_bundle/REPORT.md",
+    "tryhackme/jr pen/0-Try hackme.md",
+    "0-asset/Pasted image 20261027182505.png",
+    "0-asset/Screenshot From 2026-08-28 00-42-05.png",
+    "0-asset/Screenshot From 2026-08-28 01-19-38.png",
+    "0-Note/0-index note.md",
+    "3-Linux/tai_lieu_netcat_tong_hop-v2.pdf",
+    "0-asset/Pasted image 20261026214259.png",
+    "0-asset/Pasted image 20261026214235.png",
     "0-asset/Pasted image 20261023131728.png",
     "0-asset/Pasted image 20261023131234.png",
     "0-asset/Pasted image 20261023130909.png",
-    "portswigger/XSS/0-XSS portswigger lab.md",
-    "portswigger/XSS/Lab-Exploiting cross-site scripting to steal cookies.md",
     "0-asset/Pasted image 20261023130333.png",
-    "portswigger/XSS/0-XSS.md",
-    "portswigger/XSS/DOM XSS in jQuery anchor href attribute sink using location.search  source.md",
-    "portswigger/XSS/lab stored dom xss.md",
-    "portswigger/XSS/Lab- Stored XSS into anchor href attribute with double quotes HTML-encoded.md",
-    "portswigger/XSS/Lab-Dangling markup.md",
-    "portswigger/XSS/Lab-DOM innerHTML.md",
-    "portswigger/XSS/lab-DOM XSS in innerHTML sink using source location.search.md",
-    "portswigger/XSS/lab-DOM XSS in AngularJS expression with angle brackets and double quotes HTML-encoded.md",
-    "portswigger/XSS/lab-DOM XSS in jQuery selector sink using a hashchange event.md",
-    "portswigger/XSS/Lab-Reflected attribute encoded.md",
-    "portswigger/XSS/LAB-Reflected DOM XSS.md",
-    "portswigger/XSS/Lab-Reflected XSS basic.md",
-    "portswigger/XSS/Lab-Reflected XSS in canonical link tag.md",
-    "portswigger/XSS/Lab-Reflected XSS into a JavaScript string with angle brackets HTML encoded.md",
-    "portswigger/XSS/Lab-Reflected XSS into a JavaScript string with single quote and backslash escaped.md",
-    "portswigger/XSS/Lab-Reflected XSS into a template literal with angle brackets, single, double quotes, backslash and backticks Unicode-escaped.md",
-    "portswigger/XSS/Lab-Reflected XSS into attribute with angle brackets HTML-encoded.md",
-    "portswigger/XSS/Lab-Reflected XSS into HTML context with all tags blocked except custom ones.md",
-    "portswigger/XSS/Lab-Reflected XSS into HTML context with most tags and attributes blocked.md",
-    "portswigger/XSS/Lab-Reflected XSS into HTML context with nothing encoded.md",
-    "portswigger/XSS/Lab-Stored XSS basic.md",
-    "portswigger/XSS/Lab-Reflected XSS with some SVG markup allowed.md",
-    "portswigger/XSS/Lab-Stored XSS into -onclick- event with angle brackets and double quotes HTML-encoded and single quotes and backslash escaped.md",
     "0-asset/Pasted image 20261023130125.png",
-    "0-asset/Pasted image 20261023125810.png",
-    "0-asset/Pasted image 20261023125236.png",
-    "0-asset/Pasted image 20261023124838.png",
-    "0-asset/Pasted image 20261023124704.png",
-    "0-asset/Pasted image 20261023124602.png",
     "portswigger/writeup-portswigger",
     "portswigger/OAuth",
     "portswigger/JWT",
@@ -283,7 +286,6 @@
     "0-CODE/quiz/style.css",
     "0-CODE/quiz/index.html",
     "0-CODE/quiz/questions.js",
-    "0-CODE/quiz",
     "red/Untitled.canvas",
     "Untitled.canvas"
   ]
