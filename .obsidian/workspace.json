@@ -43,13 +43,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "portswigger/authetication bypass/0-authentication.md",
+                "file": "tryhackme/Soc1/0-note-soclv1.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "0-authentication"
+              "title": "0-note-soclv1"
             }
           }
         ],
@@ -238,10 +238,10 @@
       "hi-note:HiNote": false
     }
   },
-  "active": "35a67487ee4c9143",
+  "active": "437a86134fd6107b",
   "lastOpenFiles": [
-    "portswigger/CSRF/0-CSRF.md",
     "portswigger/authetication bypass/0-authentication.md",
+    "portswigger/CSRF/0-CSRF.md",
     "portswigger/authetication bypass/Lab-2FA simple bypass.md",
     "portswigger/SSRF/0-SSRF.md",
     "portswigger/SSRF/0-roadmap SSRF.md",
