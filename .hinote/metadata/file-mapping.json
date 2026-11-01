@@ -1,7 +1,8 @@
 {
   "version": "2.0",
   "mapping": {
-    "tryhackme/jr pen/sodan.md": "note-f31eaf51-2e64-4e2f-b52e-b4409afbb707.json"
+    "tryhackme/jr pen/sodan.md": "note-f31eaf51-2e64-4e2f-b52e-b4409afbb707.json",
+    "portswigger/XSS/Lab-Exploiting cross-site scripting to capture passwords.md": "note-e916c92d-9e87-4ae5-bce4-f2f808aaca79.json"
   },
-  "lastUpdated": 1793075949031
+  "lastUpdated": 1793263898738
 }

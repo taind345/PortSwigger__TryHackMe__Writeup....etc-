@@ -8,52 +8,33 @@
         "type": "tabs",
         "children": [
           {
-            "id": "402edcf2bf095255",
+            "id": "43ef09209e869631",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "portswigger/CSRF/0-note-csrf.md",
+                "file": "portswigger/JWT/Lab-JWT algorithm confusion.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "0-note-csrf"
+              "title": "Lab-JWT algorithm confusion"
             }
           },
           {
-            "id": "cbfa82f7a2d26ba0",
+            "id": "e38e0da3ea97d3fc",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "mybook-notebook",
               "state": {
-                "file": "portswigger/CSRF/0-CSRF.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
+                "file": "0-Note/20-10-nháp.mynote.md"
               },
-              "icon": "lucide-file",
-              "title": "0-CSRF"
-            }
-          },
-          {
-            "id": "437a86134fd6107b",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "tryhackme/Soc1/0-note-soclv1.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "0-note-soclv1"
+              "icon": "notebook-pen",
+              "title": "20-10-nháp"
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -82,12 +63,12 @@
             }
           },
           {
-            "id": "cf5c90a926f97676",
+            "id": "33c5d9e0d745d20b",
             "type": "leaf",
             "state": {
               "type": "search",
               "state": {
-                "query": "jwt ",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -99,7 +80,7 @@
             }
           },
           {
-            "id": "7a1fbe2829098bfa",
+            "id": "d38f4c224a320dfe",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -115,16 +96,16 @@
       }
     ],
     "direction": "horizontal",
-    "width": 264.6514587402344
+    "width": 281.9266052246094
   },
   "right": {
     "id": "46d537e6b1c9f82a",
     "type": "split",
     "children": [
       {
-        "id": "3808726dc222e10a",
+        "id": "73c9c5e040e75aba",
         "type": "tabs",
-        "dimension": 62.5,
+        "dimension": 21.28755364806867,
         "children": [
           {
             "id": "b239fa0e4b7e86f3",
@@ -132,7 +113,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "hack the box/on tap vin.md",
+                "file": "file:/home/ti/Desktop/CVE-reports/0-working_progress/cve_root_round8/EP-0028_dll_media_exposure/PATCHSTACK_FORM.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -140,7 +121,14 @@
               "icon": "lucide-list",
               "title": "Đề cương"
             }
-          },
+          }
+        ]
+      },
+      {
+        "id": "3808726dc222e10a",
+        "type": "tabs",
+        "dimension": 61.5450643776824,
+        "children": [
           {
             "id": "b011b4d6f8790a7f",
             "type": "leaf",
@@ -196,12 +184,12 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       },
       {
         "id": "359bda98840e686f",
         "type": "tabs",
-        "dimension": 37.5,
+        "dimension": 17.167381974248926,
         "children": [
           {
             "id": "5678013efca81752",
@@ -209,6 +197,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "file:/home/ti/Desktop/CVE-reports/0-working_progress/cve_root_round8/EP-0028_dll_media_exposure/PATCHSTACK_FORM.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -238,45 +227,46 @@
       "hi-note:HiNote": false
     }
   },
-  "active": "437a86134fd6107b",
+  "active": "43ef09209e869631",
   "lastOpenFiles": [
-    "portswigger/authetication bypass/0-authentication.md",
-    "portswigger/CSRF/0-CSRF.md",
-    "portswigger/authetication bypass/Lab-2FA simple bypass.md",
-    "portswigger/SSRF/0-SSRF.md",
-    "portswigger/SSRF/0-roadmap SSRF.md",
-    "portswigger/SSRF/0-note-ssrf.md",
-    "portswigger/SSRF/0-index SSRF.md",
-    "portswigger/server side vulnerabilities/0-index server side.md",
-    "portswigger/OAuth/0-index OAuth.md",
+    "0-asset/Pasted image 20261101235750.png",
     "portswigger/JWT/0-index JWT.md",
-    "portswigger/IDOR/0-index IDOR.md",
-    "portswigger/CSRF/Lab-SameSite Lax bypass via cookie refresh.md",
-    "portswigger/CSRF/0-note-csrf.md",
-    "portswigger/CORS/whitelist CORS.md",
-    "portswigger/CORS/0-index CORS.md",
-    "portswigger/authetication bypass/lys thuyet authentication.md",
-    "portswigger/authetication bypass/Lab-Username enumeration via account lock.md",
-    "portswigger/authetication bypass/Lab-Username enumeration via response timing.md",
-    "portswigger/authetication bypass/Lab-Username enumeration via subtly different responses.md",
-    "portswigger/authetication bypass/Lab-Username enumeration via different responses.md",
-    "file:/home/ti/Desktop/DATA_DESKTOP/0-CYBER_SEC/CVE/wordpress/0-working_progress/cve_root_round8/EP-0025_user_registration_rest_comments/REPORT.vi.md",
-    "file:/home/ti/Desktop/DATA_DESKTOP/0-CYBER_SEC/CVE/wordpress/0-working_progress/disclosure_WPRM_video_embed/SUBMIT_WPRM_video_embed.md",
-    "file:/home/ti/Desktop/DATA_DESKTOP/0-CYBER_SEC/CVE/wordpress/0-working_progress/cve_root_round8/EP-0025_user_registration_rest_comments/PATCHSTACK_FORM.md",
-    "file:/home/ti/Desktop/DATA_DESKTOP/0-CYBER_SEC/CVE/wordpress/0-working_progress/cve_root_round8/EP-0025_user_registration_rest_comments/EP-0025_evidence_bundle/REPORT.md",
-    "tryhackme/jr pen/0-Try hackme.md",
-    "0-asset/Pasted image 20261027182505.png",
-    "0-asset/Screenshot From 2026-08-28 00-42-05.png",
-    "0-asset/Screenshot From 2026-08-28 01-19-38.png",
+    "portswigger/JWT/Lab-JWT authentication bypass via jwk header injection.md",
+    "portswigger/JWT/Lab-JWT flawed signature verification.md",
+    "portswigger/JWT/Lab-JWT authentication bypass via weak signing key.md",
+    "portswigger/JWT/Lab-JWT authentication bypass via flawed signature verification.md",
+    "portswigger/JWT/Lab-JWT authentication bypass via unverified signature.md",
+    "0-asset/Pasted image 20261101234556.png",
+    "0-asset/Pasted image 20261101234408.png",
+    "0-asset/Pasted image 20261101234337.png",
+    "0-asset/Pasted image 20261101233806.png",
+    "0-asset/Pasted image 20261101233732.png",
+    "0-asset/Pasted image 20261101233717.png",
+    "0-asset/Pasted image 20261101233259.png",
+    "0-asset/Pasted image 20261101232351.png",
+    "0-asset/Pasted image 20261101232336.png",
+    "0-asset/Pasted image 20261101231249.png",
+    "portswigger/JWT/Lab-JWT algorithm confusion.md",
+    "file:/home/ti/Desktop/CVE-reports/0-working_progress/cve_root_round8/EP-0028_dll_media_exposure/PATCHSTACK_FORM.md",
+    "file:/home/ti/Desktop/CVE-reports/0-working_progress/cve_root_round8/EP-0028_dll_media_exposure/EP-0028_evidence_bundle (2)/REPORT.md",
+    "file:/home/ti/Desktop/CVE-reports/0-working_progress/cve_root_round8/EP-0028_dll_media_exposure/submit/HUONG_DAN.md",
+    "file:/home/ti/Desktop/CVE-reports/0-working_progress/cve_root_round8/EP-0028_dll_media_exposure/REPORT.md",
+    "portswigger/JWT/0-Lý thuyet JWT.md",
+    "file:/home/ti/Desktop/CVE-reports/0-working_progress/cve_root_round8/EP-0028_dll_media_exposure/EP-0028_evidence_bundle/PATCHSTACK_FORM.md",
+    "portswigger/JWT/images",
+    "portswigger/XSS/0-XSS portswigger lab.md",
+    "portswigger/XSS/Lab-Reflected XSS with some SVG markup allowed.md",
+    "portswigger/XSS/Lab-Reflected XSS with strict CSP & Dangling Markup Attack.md",
+    "2026-11-01.md",
+    "portswigger/XSS/Lab- Stored XSS into anchor href attribute with double quotes HTML-encoded.md",
+    "portswigger/CSRF/Csrf Same site.md",
+    "portswigger/XSS/CSP.md",
     "0-Note/0-index note.md",
+    "portswigger/XSS/Lab-Exploiting XSS to bypass CSRF defenses.md",
+    "portswigger/XSS/0-xss cheetsheet.md",
+    "portswigger/XSS/0-index XSS.md",
+    "portswigger/XSS/0-XSS.md",
     "3-Linux/tai_lieu_netcat_tong_hop-v2.pdf",
-    "0-asset/Pasted image 20261026214259.png",
-    "0-asset/Pasted image 20261026214235.png",
-    "0-asset/Pasted image 20261023131728.png",
-    "0-asset/Pasted image 20261023131234.png",
-    "0-asset/Pasted image 20261023130909.png",
-    "0-asset/Pasted image 20261023130333.png",
-    "0-asset/Pasted image 20261023130125.png",
     "portswigger/writeup-portswigger",
     "portswigger/OAuth",
     "portswigger/JWT",
@@ -285,7 +275,6 @@
     "0-CODE/quiz/app.js",
     "0-CODE/quiz/style.css",
     "0-CODE/quiz/index.html",
-    "0-CODE/quiz/questions.js",
     "red/Untitled.canvas",
     "Untitled.canvas"
   ]

@@ -1,16 +1,293 @@
 /* Inline code + code block trong Reading View */
 .markdown-rendered code,
 .markdown-rendered pre {
-  font-family: "JetBrains Mono", "Cascadia Code", "Consolas", monospace;
-  font-size: 14px;
-  line-height: 1.6;
+  font-family: "Cascadia Code", "JetBrains Mono", "Consolas", monospace;
+  font-size: var(--custom-code-size, 14.5px);
+  line-height: 1.65;
 }
 
 /* Code block trong Live Preview / Source Mode */
 .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock,
 .markdown-source-view.mod-cm6 .cm-hmd-codeblock,
 .markdown-source-view.mod-cm6 .cm-inline-code {
-  font-family: "JetBrains Mono", "Cascadia Code", "Consolas", monospace;
-  font-size: 14px;
-  line-height: 1.6;
+  font-family: "Cascadia Code", "JetBrains Mono", "Consolas", monospace;
+  font-size: var(--custom-code-size, 14.5px);
+  line-height: 1.65;
+}
+
+
+/* ==========================================================================
+   HINOTE PLUGIN COMPATIBILITY & FIXES
+   ========================================================================== */
+
+.hinote-selection-color-popover {
+  z-index: var(--layer-popover, 1000) !important;
+}
+
+.hinote-selection-color-toolbar {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 5px 8px !important;
+  border-radius: 8px !important;
+  background: var(--background-primary, #1e1e2e) !important;
+  border: 1px solid var(--background-modifier-border, rgba(255, 255, 255, 0.15)) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Color Swatches (Floating toolbar & palette) */
+.hinote-selection-color-toolbar button.hinote-selection-color-swatch,
+.hinote-color-palette button.hinote-color-swatch,
+button.hinote-selection-color-swatch,
+button.hinote-color-swatch {
+  appearance: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  min-height: 22px !important;
+  flex: 0 0 22px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 50% !important;
+  border: 1.5px solid rgba(0, 0, 0, 0.2) !important;
+  background-color: var(--swatch-color) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+  cursor: pointer !important;
+  transform: none !important;
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s ease !important;
+}
+
+/* Default swatch: vibrant highlight yellow */
+.hinote-selection-color-toolbar button.hinote-selection-color-swatch.is-default,
+.hinote-color-palette button.hinote-color-swatch.is-default {
+  background-color: #ffd54f !important;
+}
+
+/* Fallback colors for swatches in order: Default, Red, Orange, Yellow, Green, Blue, Purple */
+.hinote-selection-color-toolbar button.hinote-selection-color-swatch:nth-of-type(1) { background-color: var(--swatch-color, #ffd54f) !important; }
+.hinote-selection-color-toolbar button.hinote-selection-color-swatch:nth-of-type(2) { background-color: var(--swatch-color, #e93147) !important; }
+.hinote-selection-color-toolbar button.hinote-selection-color-swatch:nth-of-type(3) { background-color: var(--swatch-color, #ec7500) !important; }
+.hinote-selection-color-toolbar button.hinote-selection-color-swatch:nth-of-type(4) { background-color: var(--swatch-color, #e0ac00) !important; }
+.hinote-selection-color-toolbar button.hinote-selection-color-swatch:nth-of-type(5) { background-color: var(--swatch-color, #08b94e) !important; }
+.hinote-selection-color-toolbar button.hinote-selection-color-swatch:nth-of-type(6) { background-color: var(--swatch-color, #086ddd) !important; }
+.hinote-selection-color-toolbar button.hinote-selection-color-swatch:nth-of-type(7) { background-color: var(--swatch-color, #7852ee) !important; }
+
+/* Swatch Hover */
+.hinote-selection-color-toolbar button.hinote-selection-color-swatch:hover,
+.hinote-color-palette button.hinote-color-swatch:hover,
+button.hinote-selection-color-swatch:hover,
+button.hinote-color-swatch:hover {
+  transform: scale(1.22) !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.45) !important;
+  outline: none !important;
+}
+
+/* Swatch Active / Selected (when the text already has this color) */
+.hinote-selection-color-toolbar button.hinote-selection-color-swatch[aria-pressed="true"],
+.hinote-color-palette button.hinote-color-swatch[aria-checked="true"] {
+  box-shadow: inset 0 0 0 2px var(--background-primary, #1e1e2e), 0 0 0 2px var(--swatch-color) !important;
+  transform: scale(1.08) !important;
+}
+
+.hinote-selection-color-swatch[aria-pressed="true"] svg {
+  width: 14px !important;
+  height: 14px !important;
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  stroke-width: 2.5px !important;
+  opacity: 1 !important;
+  pointer-events: none !important;
+}
+
+/* Action Buttons (Comment & Copy) */
+.hinote-selection-color-toolbar button.hinote-selection-annotate-button,
+.hinote-selection-color-toolbar button.hinote-selection-action-button,
+button.hinote-selection-annotate-button,
+button.hinote-selection-action-button {
+  appearance: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  flex: 0 0 24px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 1px solid var(--background-modifier-border, rgba(255, 255, 255, 0.15)) !important;
+  border-radius: 6px !important;
+  background: var(--background-modifier-hover, rgba(255, 255, 255, 0.08)) !important;
+  box-shadow: none !important;
+  color: var(--text-normal, #e0e0e0) !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+}
+
+.hinote-selection-color-toolbar button.hinote-selection-annotate-button:hover,
+.hinote-selection-color-toolbar button.hinote-selection-action-button:hover,
+button.hinote-selection-annotate-button:hover,
+button.hinote-selection-action-button:hover {
+  background: var(--interactive-accent, #38bdf8) !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+  transform: scale(1.12) !important;
+}
+
+.hinote-selection-color-toolbar button.hinote-selection-annotate-button.is-active {
+  background: var(--interactive-accent, #38bdf8) !important;
+  color: #ffffff !important;
+}
+
+.hinote-selection-annotate-button svg,
+.hinote-selection-action-button svg {
+  width: 14px !important;
+  height: 14px !important;
+  stroke-width: 2px !important;
+}
+
+/* Flashcard rating buttons in HiCard */
+.flashcard-rating-button[data-rating="again"] { background-color: var(--color-red, #e93147) !important; color: #fff !important; }
+.flashcard-rating-button[data-rating="hard"] { background-color: var(--color-yellow, #e0ac00) !important; color: #fff !important; }
+.flashcard-rating-button[data-rating="good"] { background-color: var(--color-blue, #086ddd) !important; color: #fff !important; }
+.flashcard-rating-button[data-rating="easy"] { background-color: var(--color-green, #08b94e) !important; color: #fff !important; }
+
+
+/* ==========================================================================
+   SIDEBAR TABS & FILE EXPLORER HEADER FIX
+   ========================================================================== */
+
+:is(.mod-left-split, .mod-right-split, .mod-sidedock) .workspace-tab-header-container {
+  height: 38px !important;
+  min-height: 38px !important;
+  padding: 4px 8px !important;
+  background: transparent !important;
+  border-bottom: 1px solid var(--divider-color, rgba(255, 255, 255, 0.08)) !important;
+  z-index: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+:is(.mod-left-split, .mod-right-split, .mod-sidedock) .workspace-tab-header-container-inner {
+  height: 100% !important;
+  gap: 4px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+:is(.mod-left-split, .mod-right-split, .mod-sidedock) .workspace-tab-header {
+  min-width: 34px !important;
+  max-width: 34px !important;
+  width: 34px !important;
+  height: 30px !important;
+  flex: 0 0 34px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 6px !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+:is(.mod-left-split, .mod-right-split, .mod-sidedock) .workspace-tab-header.is-active {
+  min-width: 34px !important;
+  max-width: 34px !important;
+  width: 34px !important;
+  background: var(--background-modifier-hover, rgba(255, 255, 255, 0.1)) !important;
+  color: var(--interactive-accent, #38bdf8) !important;
+  border: 1px solid var(--interactive-accent, #38bdf8) !important;
+  box-shadow: none !important;
+}
+
+:is(.mod-left-split, .mod-right-split, .mod-sidedock) .workspace-tab-header-inner {
+  padding: 0 !important;
+  gap: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: none !important;
+}
+
+:is(.mod-left-split, .mod-right-split, .mod-sidedock) .workspace-tab-header-inner-title,
+:is(.mod-left-split, .mod-right-split, .mod-sidedock) .workspace-tab-header-inner-close-button,
+:is(.mod-left-split, .mod-right-split, .mod-sidedock) .workspace-tab-header-new-tab {
+  display: none !important;
+}
+
+:is(.mod-left-split, .mod-right-split, .mod-sidedock) .workspace-tab-header::before,
+:is(.mod-left-split, .mod-right-split, .mod-sidedock) .workspace-tab-header::after {
+  display: none !important;
+  content: none !important;
+}
+
+:is(.mod-left-split, .mod-right-split) .workspace-tabs .workspace-leaf-content[data-type="file-explorer"] {
+  border-radius: var(--rtm-interface-radius, 8px) !important;
+  border: var(--rtm-workspace-primary-border, 1px solid rgba(255, 255, 255, 0.12)) !important;
+  background: var(--rtm-nav-folder-pane-bg, var(--background-secondary)) !important;
+  padding: 8px !important;
+  overflow: visible !important;
+}
+
+.workspace-leaf-content[data-type="file-explorer"] .view-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 28px !important;
+  height: auto !important;
+  padding: 4px 6px 6px 6px !important;
+  margin: 0 0 6px 0 !important;
+  overflow: visible !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.workspace-leaf-content[data-type="file-explorer"] .view-header-title-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  overflow: visible !important;
+}
+
+.workspace-leaf-content[data-type="file-explorer"] .view-header-title {
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  color: var(--text-normal, #f1f5f9) !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0.3px !important;
+  text-align: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+}
+
+.workspace-leaf-content[data-type="file-explorer"] .nav-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 6px 8px !important;
+  margin-bottom: 8px !important;
+  border-radius: var(--rtm-nav-folder-pane-header-radius, 8px) !important;
+  background: var(--rtm-nav-folder-pane-header-bg, rgba(255, 255, 255, 0.04)) !important;
+  border: var(--rtm-nav-folder-pane-header-border, 1px solid rgba(255, 255, 255, 0.1)) !important;
+}
+
+.workspace-leaf-content[data-type="file-explorer"] .nav-buttons-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }

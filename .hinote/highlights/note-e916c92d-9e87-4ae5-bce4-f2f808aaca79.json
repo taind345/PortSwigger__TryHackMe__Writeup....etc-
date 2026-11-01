@@ -1,0 +1,25 @@
+{
+  "version": "2.0",
+  "lastModified": 1793263898737,
+  "highlights": {
+    "highlight-03aa6f35-2bb4-4530-8412-80bf7a2f2ffb": {
+      "text": "tự động gửi một request tạo comment mới chứa thông tin đăng nhập đó.",
+      "position": 3162,
+      "created": 1793263898736,
+      "updated": 1793263898736,
+      "backgroundColor": "var(--text-highlight-bg, #ffeb3b)",
+      "syntax": "markdown",
+      "contextBefore": "mình dùng JavaScript để \"hút\" dữ liệu đó, ==lấy thêm CSRF token của trang==, và",
+      "contextAfter": "Sau đó mình chỉ cần F5 trang web để đọc comment. ### Các bước thực hiện **1.",
+      "textFingerprint": "tự động gửi một request tạo comment mới chứa thông tin đăng nhập đó.",
+      "comments": [
+        {
+          "id": "comment-1793263898736-tiob947ft",
+          "content": "nó gửi pas và mật khẩu lên comment luôn .Tại sao làm được? do nó chôm được csrf token--> nó có thể csrf để có thể gửi username và password lên phần comment",
+          "created": 1793263898736,
+          "updated": 1793263898736
+        }
+      ]
+    }
+  }
+}

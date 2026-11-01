@@ -1,0 +1,2317 @@
+/* @settings
+
+name: 🎨 Tùy chọn Giao Diện & Hệ Thống (Retroma Pro)
+id: custom-theme-options
+settings:
+    -
+        id: custom-preset-section
+        title: 🌟 Bộ Phối Màu Nổi Tiếng (Curated Color Schemes)
+        type: heading
+        level: 1
+        collapsed: false
+    -
+        id: custom-color-palette
+        title: Chọn Bảng Phối Màu Toàn Diện (Full Theme Palette)
+        description: Hỗ trợ chuyển đổi hoàn hảo giữa Sáng (Light) & Tối (Dark). Tự động đồng bộ màu nền ghi chú, sidebar, tabs, khối code, đường link và thanh công cụ.
+        type: class-select
+        default: palette-underwater
+        allowEmpty: false
+        options:
+            -
+                label: "🌊 Underwater (Đại dương sâu thẳm - Huyền bí, dịu mắt, cực đẹp)"
+                value: palette-underwater
+            -
+                label: "🌌 Tokyo Night (Đêm Shinjuku huyền ảo - Neon Dark đỉnh cao)"
+                value: palette-tokyonight
+            -
+                label: "🌸 Rosé Pine (Tĩnh lặng & Thơ mộng - Phong cách Bắc Âu/Ghibli)"
+                value: palette-rosepine
+            -
+                label: "🌅 Horizon (Hoàng hôn vũ trụ & Cam San Hô ấm áp)"
+                value: palette-horizon
+            -
+                label: "🍵 Sage Matcha (Xanh matcha dịu mắt, thư thái - Êm dịu cả Sáng & Tối)"
+                value: palette-sage
+            -
+                label: "🌲 Everforest (Matcha & Rừng xanh tự nhiên ấm cúng)"
+                value: palette-everforest
+            -
+                label: "❄️ Nord (Băng tuyết Bắc Âu - Arctic Slate Blue tinh tế)"
+                value: palette-nord
+            -
+                label: "🐱 Catppuccin (Mocha & Latte - Pastel êm ái số 1 dev thế giới)"
+                value: palette-catppuccin
+            -
+                label: "🧛 Dracula (Tím huyền bí & Dark Neon tương phản cao)"
+                value: palette-dracula
+            -
+                label: "🍂 Gruvbox Retro (Tông màu cổ điển ấm áp của giới hacker/coder)"
+                value: palette-gruvbox
+            -
+                label: "📄 Minimal Paper / Sanctum (Giấy ngà thanh lịch chống mỏi mắt)"
+                value: palette-paper
+            -
+                label: "🌌 Slate Modern / GitHub (Xám than công nghệ)"
+                value: palette-slate
+            -
+                label: "🖤 AMOLED Deep Black (Đen tuyền tuyệt đối tiết kiệm pin)"
+                value: palette-amoled
+            -
+                label: "📜 Retroma Classic Default (Giấy Retro mặc định ban đầu)"
+                value: palette-default
+
+    -
+        id: custom-system-section
+        title: 🖥️ Tùy Chỉnh Thành Phần Hệ Thống (System UI)
+        type: heading
+        level: 1
+        collapsed: false
+    -
+        id: custom-sidebar-style
+        title: Kiểu hiển thị danh sách File trong Sidebar
+        description: Loại bỏ các khung viền hộp xanh lá lộn xộn trong theme tối, chuyển sang giao diện phẳng hiện đại.
+        type: class-select
+        default: sidebar-style-flat
+        allowEmpty: false
+        options:
+            -
+                label: "Phẳng tối giản hiện đại (Modern Flat - Đẹp & Gọn gàng - Khuyên dùng)"
+                value: sidebar-style-flat
+            -
+                label: "Khung viền hộp Retro cổ điển (Boxed - Nguyên bản Retroma)"
+                value: sidebar-style-boxed
+    -
+        id: custom-border-style
+        title: Kiểu đường viền phân chia giao diện (Workspace Dividers)
+        description: Thay đổi đường kẻ giữa sidebar và vùng soạn thảo.
+        type: class-select
+        default: border-style-minimal
+        allowEmpty: false
+        options:
+            -
+                label: "Đường kẻ mỏng phẳng hiện đại (1px Solid - Khuyên dùng)"
+                value: border-style-minimal
+            -
+                label: "Đường kẻ liền mạch không viền (Seamless / No Border)"
+                value: border-style-none
+            -
+                label: "Đường kẻ rõ nét (2px Solid)"
+                value: border-style-thick
+            -
+                label: "Nguyên bản Retroma (Groove nổi 3D cổ điển)"
+                value: border-style-retroma
+    -
+        id: custom-sidebar-bg
+        title: Màu nền Sidebar (Ghi đè thủ công nếu muốn)
+        type: variable-themed-color
+        opacity: true
+        alt-format: hex
+        default-light: '#f4f8f3'
+        default-dark: '#0e1726'
+    -
+        id: custom-titlebar-bg
+        title: Màu nền Titlebar (Thanh tiêu đề trên cùng)
+        type: variable-themed-color
+        opacity: true
+        alt-format: hex
+        default-light: '#dce7d9'
+        default-dark: '#080d16'
+    -
+        id: custom-tab-bg
+        title: Màu nền Tab đang chọn (Active Tab)
+        type: variable-themed-color
+        opacity: true
+        alt-format: hex
+        default-light: '#ffffff'
+        default-dark: '#0b1320'
+
+    -
+        id: custom-link-section
+        title: 🔗 Tùy Chỉnh Đường Link (Links)
+        type: heading
+        level: 1
+        collapsed: false
+    -
+        id: custom-link-color
+        title: Màu đường Link nội bộ ([[Liên kết]])
+        type: variable-themed-color
+        opacity: true
+        alt-format: hex
+        default-light: '#0284c7'
+        default-dark: '#38bdf8'
+    -
+        id: custom-link-ext-color
+        title: Màu đường Link ngoài (Web URL)
+        type: variable-themed-color
+        opacity: true
+        alt-format: hex
+        default-light: '#0d9488'
+        default-dark: '#2dd4bf'
+
+    -
+        id: custom-codeblock-section
+        title: 💻 Tùy Chọn Khối Code & Inline Code
+        type: heading
+        level: 1
+        collapsed: false
+    -
+        id: custom-code-theme
+        title: Phong cách Khối Code (Codeblock Theme)
+        type: class-select
+        default: code-theme-sync
+        allowEmpty: false
+        options:
+            -
+                label: "🔄 Tự động đồng bộ với Bảng Phối Màu (Auto-Sync) - Hoàn hảo nhất"
+                value: code-theme-sync
+            -
+                label: "🌑 Dark One Dark (Nền tối tương phản cao)"
+                value: code-theme-dark
+            -
+                label: "📄 Retro Paper (Nền giấy cổ điển)"
+                value: code-theme-retro
+            -
+                label: "🪐 Charcoal Minimal (Xám than hiện đại)"
+                value: code-theme-charcoal
+    -
+        id: custom-code-border-width
+        title: Độ dày đường viền khối code (Border Width)
+        type: variable-number-slider
+        format: px
+        default: 1.5
+        min: 0.5
+        max: 5
+        step: 0.5
+    -
+        id: custom-code-weight
+        title: Độ đậm chữ trong Code (Code Font Weight)
+        type: class-select
+        default: code-weight-bold
+        allowEmpty: false
+        options:
+            -
+                label: "Vừa vặn (Medium 500)"
+                value: code-weight-medium
+            -
+                label: "Đậm đà (SemiBold 550)"
+                value: code-weight-semibold
+            -
+                label: "Rất đậm (Bold 650 - Sắc nét nhất)"
+                value: code-weight-bold
+    -
+        id: custom-code-size
+        title: Cỡ chữ trong Code
+        type: variable-number-slider
+        format: px
+        default: 14.5
+        min: 12
+        max: 20
+        step: 0.5
+    -
+        id: custom-code-radius
+        title: Bo góc khối code (Radius)
+        type: variable-number-slider
+        format: px
+        default: 8
+        min: 0
+        max: 20
+        step: 1
+
+    -
+        id: custom-callout-section
+        title: 📌 Tùy Chọn Callout / Note (Ctrl + .)
+        type: heading
+        level: 1
+        collapsed: false
+    -
+        id: custom-callout-border-width
+        title: Độ dày đường viền Note / Callout
+        type: variable-number-slider
+        format: px
+        default: 2
+        min: 1
+        max: 5
+        step: 0.5
+    -
+        id: custom-callout-radius
+        title: Bo góc Note / Callout
+        type: variable-number-slider
+        format: px
+        default: 8
+        min: 0
+        max: 20
+        step: 1
+
+    -
+        id: custom-general-section
+        title: 🔤 Tùy Chọn Chữ & Tiêu Đề (Typography & Headers)
+        type: heading
+        level: 1
+        collapsed: false
+    -
+        id: custom-heading-weight
+        title: Độ đậm của Tiêu đề / Header (H1 - H6)
+        type: class-select
+        default: heading-weight-heavy
+        allowEmpty: false
+        options:
+            -
+                label: "Đậm rõ nét (Bold 700)"
+                value: heading-weight-bold
+            -
+                label: "Rất đậm & Nổi bật (Heavy Bold 800 - Khuyên dùng)"
+                value: heading-weight-heavy
+            -
+                label: "Cực đậm (Black 900)"
+                value: heading-weight-black
+    -
+        id: custom-note-weight
+        title: Độ đậm chữ nội dung ghi chú (Note Text Weight)
+        type: class-select
+        default: note-weight-bold
+        allowEmpty: false
+        options:
+            -
+                label: "Tiêu chuẩn (Normal 450)"
+                value: note-weight-normal
+            -
+                label: "Đậm rõ nét (Medium 500)"
+                value: note-weight-medium
+            -
+                label: "Rất đậm (SemiBold 550 - Rõ ràng nhất)"
+                value: note-weight-bold
+    -
+        id: custom-nav-weight
+        title: Độ đậm thanh duyệt thư mục (File Explorer)
+        type: class-select
+        default: nav-weight-bold
+        allowEmpty: false
+        options:
+            -
+                label: "Vừa (Medium 500)"
+                value: nav-weight-medium
+            -
+                label: "Đậm (SemiBold 600 - Mặc định)"
+                value: nav-weight-bold
+            -
+                label: "Cực đậm (Bold 700)"
+                value: nav-weight-heavy
+    -
+        id: custom-folder-radius
+        title: Bo góc thanh thư mục (Folder Radius)
+        type: variable-number-slider
+        format: px
+        default: 6
+        min: 0
+        max: 16
+        step: 1
+*/
+
+/* ==========================================================================
+   1. SỬA LỖI THANH DUYỆT THƯ MỤC ĐỔI MÀU KHI CUỘN (SCROLL)
+   ========================================================================== */
+:root,
+body,
+.nav-files-container,
+.nav-files-container>div>.nav-folder,
+.nav-files-container>div>.nav-folder:nth-child(n) {
+  --rtm-folder-color: oklch(from var(--rtm-interactive-accent, var(--interactive-accent, #38bdf8)) l calc(c * var(--rtm-c-accent, 0.4) * 2) h) !important;
+  --rtm-folder-color-1: var(--rtm-folder-color) !important;
+  --rtm-folder-color-2: var(--rtm-folder-color) !important;
+  --rtm-folder-color-3: var(--rtm-folder-color) !important;
+  --rtm-folder-color-4: var(--rtm-folder-color) !important;
+  --rtm-folder-color-5: var(--rtm-folder-color) !important;
+  --rtm-folder-color-6: var(--rtm-folder-color) !important;
+  --rtm-folder-color-7: var(--rtm-folder-color) !important;
+  --rtm-folder-color-8: var(--rtm-folder-color) !important;
+  --rtm-folder-color-9: var(--rtm-folder-color) !important;
+  --rtm-folder-color-10: var(--rtm-folder-color) !important;
+  --rtm-folder-color-11: var(--rtm-folder-color) !important;
+  --rtm-folder-color-12: var(--rtm-folder-color) !important;
+  --rtm-folder-color-13: var(--rtm-folder-color) !important;
+  --rtm-folder-color-14: var(--rtm-folder-color) !important;
+  --rtm-folder-color-15: var(--rtm-folder-color) !important;
+}
+
+.nav-files-container>div>.nav-folder {
+  border-radius: var(--custom-folder-radius, 6px) !important;
+}
+
+/* ==========================================================================
+   2. HỆ THỐNG MÀU SẮC CHỮ THANH TAB & VIEW HEADER (KHÔNG BỊ LẪN VÀO NỀN TỐI)
+   ========================================================================== */
+
+/* Định nghĩa mặc định cho Light mode và Dark mode */
+body.theme-light {
+  --tab-text-color: #475569 !important;
+  --tab-text-color-active: #0f172a !important;
+  --tab-text-color-focused: #475569 !important;
+  --tab-text-color-focused-active-current: #0f172a !important;
+  --rtm-tab-txt-color: #475569 !important;
+  --rtm-tab-txt-color-active: #0f172a !important;
+  --rtm-tab-txt-color-focused-active-current: #0f172a !important;
+  --rtm-view-header-title-color: #0f172a !important;
+  --rtm-view-header-title-parent-color: #64748b !important;
+}
+
+body.theme-dark {
+  --tab-text-color: #94a3b8 !important;
+  --tab-text-color-active: #ffffff !important;
+  --tab-text-color-focused: #94a3b8 !important;
+  --tab-text-color-focused-active-current: #ffffff !important;
+  --rtm-tab-txt-color: #94a3b8 !important;
+  --rtm-tab-txt-color-active: #ffffff !important;
+  --rtm-tab-txt-color-focused-active-current: #ffffff !important;
+  --rtm-view-header-title-color: #ffffff !important;
+  --rtm-view-header-title-parent-color: #94a3b8 !important;
+}
+
+/* Áp dụng trực tiếp lên tiêu đề Tab đang mở và Tab không hoạt động */
+.workspace-tab-header-inner-title,
+.workspace-tab-header:not(.is-active) .workspace-tab-header-inner-title {
+  color: var(--tab-text-color, var(--text-muted)) !important;
+  opacity: 0.85 !important;
+}
+
+.workspace-tab-header.is-active .workspace-tab-header-inner-title,
+.is-focused .workspace-tab-header.is-active .workspace-tab-header-inner-title {
+  color: var(--tab-text-color-active, var(--text-normal)) !important;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+}
+
+.workspace-tab-header:hover .workspace-tab-header-inner-title {
+  color: var(--tab-text-color-active, var(--text-normal)) !important;
+  opacity: 1 !important;
+}
+
+/* Icon và nút đóng Tab (x) */
+.workspace-tab-header-inner-close-button,
+.workspace-tab-header-inner-icon {
+  color: var(--tab-text-color, var(--text-muted)) !important;
+  opacity: 0.75 !important;
+}
+
+.workspace-tab-header:hover .workspace-tab-header-inner-close-button,
+.workspace-tab-header:hover .workspace-tab-header-inner-icon,
+.workspace-tab-header.is-active .workspace-tab-header-inner-close-button,
+.workspace-tab-header.is-active .workspace-tab-header-inner-icon {
+  color: var(--tab-text-color-active, var(--text-normal)) !important;
+  opacity: 1 !important;
+}
+
+/* Tiêu đề trên thanh công cụ / Pane Header (ví dụ: portswigger / JWT / lys thuyet JWT) */
+.view-header-title,
+.is-focused .workspace-leaf.mod-active .view-header-title {
+  color: var(--text-normal) !important;
+  font-weight: 600 !important;
+}
+
+.view-header-title-parent,
+.view-header-breadcrumb,
+.view-header-breadcrumb-separator {
+  color: var(--text-muted) !important;
+  opacity: 0.9 !important;
+}
+
+.view-header-title-parent .view-header-breadcrumb:hover {
+  color: var(--text-normal) !important;
+  opacity: 1 !important;
+}
+
+.view-header-nav-buttons .clickable-icon,
+.view-actions .clickable-icon {
+  color: var(--text-muted) !important;
+}
+
+.view-header-nav-buttons .clickable-icon:hover,
+.view-actions .clickable-icon:hover {
+  color: var(--text-normal) !important;
+}
+
+.titlebar-text {
+  color: var(--text-muted) !important;
+}
+
+/* ==========================================================================
+   3. HỆ THỐNG BẢNG PHỐI MÀU TOÀN DIỆN (FULL THEME PALETTES)
+   Tách bạch 100% giữa Sáng (Light Mode) và Tối (Dark Mode)
+   Loại bỏ hoàn toàn lỗi kẹt màu chữ khi chuyển đổi giữa Light và Dark
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   🌊 1. UNDERWATER (Đại Dương Sâu Thẳm - Deep Ocean Blue)
+   -------------------------------------------------------------------------- */
+body.theme-light.palette-underwater,
+body:not(.theme-dark).palette-underwater {
+  --rtm-bg-paper: #f0f7fb !important;
+  --rtm-bg-primary: #f0f7fb !important;
+  --rtm-bg-primary-alt: #e4f0f7 !important;
+  --rtm-bg-secondary: #d8e9f3 !important;
+  --rtm-workspace-leaf-bg: #f0f7fb !important;
+  --rtm-markdown-editor-leaf-bg: #f0f7fb !important;
+  --rtm-nav-folder-pane-bg: #e2eff7 !important;
+  --rtm-nav-folder-pane-content-bg: #e2eff7 !important;
+  --rtm-titlebar-bg: #d0e4f0 !important;
+  --rtm-titlebar-bg-focus: #e2eff7 !important;
+  --rtm-tab-bg-active: #f0f7fb !important;
+  --rtm-tab-inactive-bg: #d0e4f0 !important;
+  --rtm-workspace-primary-border-color: #bad6ea !important;
+  --rtm-workspace-secondary-border-color: #cbdfed !important;
+  --background-primary: #f0f7fb !important;
+  --background-primary-alt: #e4f0f7 !important;
+  --background-secondary: #e2eff7 !important;
+  --background-secondary-alt: #d0e4f0 !important;
+  --titlebar-background: #d0e4f0 !important;
+  --tab-background-active: #f0f7fb !important;
+  --divider-color: #bad6ea !important;
+  --text-normal: #0c2340 !important;
+  --text-muted: #2d557a !important;
+  --text-faint: #5a7f9f !important;
+  --tab-text-color: #2d557a !important;
+  --tab-text-color-active: #0c2340 !important;
+  --interactive-accent: #0284c7 !important;
+  --rtm-interactive-accent: #0284c7 !important;
+  --link-color: #0284c7 !important;
+  --link-color-hover: #0369a1 !important;
+  --link-external-color: #0d9488 !important;
+  --link-external-color-hover: #0f766e !important;
+  --link-unresolved-color: #7293b0 !important;
+  --h1-color: #0284c7 !important;
+  --h2-color: #0d9488 !important;
+  --h3-color: #1d4ed8 !important;
+  --code-inline-bg: rgba(2, 132, 199, 0.08) !important;
+  --code-inline-color: #0369a1 !important;
+  --code-inline-border: rgba(2, 132, 199, 0.2) !important;
+  --code-bg: #e6f1f8 !important;
+  --code-border: #bad6ea !important;
+  --code-text: #0c2340 !important;
+}
+
+body.theme-dark.palette-underwater {
+  --rtm-bg-paper: #0b1320 !important;
+  --rtm-bg-primary: #0b1320 !important;
+  --rtm-bg-primary-alt: #101a2b !important;
+  --rtm-bg-secondary: #080e18 !important;
+  --rtm-workspace-leaf-bg: #0b1320 !important;
+  --rtm-markdown-editor-leaf-bg: #0b1320 !important;
+  --rtm-nav-folder-pane-bg: #0e1726 !important;
+  --rtm-nav-folder-pane-content-bg: #0e1726 !important;
+  --rtm-titlebar-bg: #080d16 !important;
+  --rtm-titlebar-bg-focus: #0e1726 !important;
+  --rtm-tab-bg-active: #0b1320 !important;
+  --rtm-tab-inactive-bg: #080d16 !important;
+  --rtm-workspace-primary-border-color: #1a2a40 !important;
+  --rtm-workspace-secondary-border-color: #132032 !important;
+  --background-primary: #0b1320 !important;
+  --background-primary-alt: #101a2b !important;
+  --background-secondary: #0e1726 !important;
+  --background-secondary-alt: #080d16 !important;
+  --titlebar-background: #080d16 !important;
+  --tab-background-active: #0b1320 !important;
+  --divider-color: #1a2a40 !important;
+  --text-normal: #e0ecf8 !important;
+  --text-muted: #8ba2be !important;
+  --text-faint: #526b88 !important;
+  --tab-text-color: #8ba2be !important;
+  --tab-text-color-active: #ffffff !important;
+  --interactive-accent: #38bdf8 !important;
+  --rtm-interactive-accent: #38bdf8 !important;
+  --link-color: #38bdf8 !important;
+  --link-color-hover: #7dd3fc !important;
+  --link-external-color: #2dd4bf !important;
+  --link-external-color-hover: #5eead4 !important;
+  --link-unresolved-color: #486581 !important;
+  --h1-color: #38bdf8 !important;
+  --h2-color: #2dd4bf !important;
+  --h3-color: #67e8f9 !important;
+  --code-inline-bg: rgba(56, 189, 248, 0.12) !important;
+  --code-inline-color: #7dd3fc !important;
+  --code-inline-border: rgba(56, 189, 248, 0.25) !important;
+  --code-bg: #070c14 !important;
+  --code-border: #1a2f4a !important;
+  --code-text: #e0ecf8 !important;
+}
+
+/* --------------------------------------------------------------------------
+   🌌 2. TOKYO NIGHT (Đêm Shinjuku Huyền Ảo - Cyberpunk Neon Dark)
+   -------------------------------------------------------------------------- */
+body.theme-light.palette-tokyonight,
+body:not(.theme-dark).palette-tokyonight {
+  --rtm-bg-paper: #e1e2e7 !important;
+  --rtm-bg-primary: #e1e2e7 !important;
+  --rtm-bg-primary-alt: #d5d6db !important;
+  --rtm-bg-secondary: #cbccd1 !important;
+  --rtm-workspace-leaf-bg: #e1e2e7 !important;
+  --rtm-markdown-editor-leaf-bg: #e1e2e7 !important;
+  --rtm-nav-folder-pane-bg: #d5d6db !important;
+  --rtm-nav-folder-pane-content-bg: #d5d6db !important;
+  --rtm-titlebar-bg: #cbccd1 !important;
+  --rtm-tab-bg-active: #e1e2e7 !important;
+  --rtm-tab-inactive-bg: #cbccd1 !important;
+  --background-primary: #e1e2e7 !important;
+  --background-primary-alt: #d5d6db !important;
+  --background-secondary: #d5d6db !important;
+  --divider-color: #b4b5b9 !important;
+  --text-normal: #343b58 !important;
+  --text-muted: #565f89 !important;
+  --text-faint: #8990b3 !important;
+  --tab-text-color: #565f89 !important;
+  --tab-text-color-active: #343b58 !important;
+  --interactive-accent: #2e7de9 !important;
+  --rtm-interactive-accent: #2e7de9 !important;
+  --link-color: #2e7de9 !important;
+  --link-external-color: #9854f1 !important;
+  --code-bg: #d5d6db !important;
+  --code-border: #b4b5b9 !important;
+  --code-text: #343b58 !important;
+}
+
+body.theme-dark.palette-tokyonight {
+  --rtm-bg-paper: #1a1b26 !important;
+  --rtm-bg-primary: #1a1b26 !important;
+  --rtm-bg-primary-alt: #16161e !important;
+  --rtm-bg-secondary: #13131a !important;
+  --rtm-workspace-leaf-bg: #1a1b26 !important;
+  --rtm-markdown-editor-leaf-bg: #1a1b26 !important;
+  --rtm-nav-folder-pane-bg: #16161e !important;
+  --rtm-nav-folder-pane-content-bg: #16161e !important;
+  --rtm-titlebar-bg: #13131a !important;
+  --rtm-tab-bg-active: #1a1b26 !important;
+  --rtm-tab-inactive-bg: #13131a !important;
+  --rtm-workspace-primary-border-color: #292e42 !important;
+  --background-primary: #1a1b26 !important;
+  --background-primary-alt: #16161e !important;
+  --background-secondary: #16161e !important;
+  --divider-color: #292e42 !important;
+  --text-normal: #c0caf5 !important;
+  --text-muted: #9aa5ce !important;
+  --text-faint: #565f89 !important;
+  --tab-text-color: #9aa5ce !important;
+  --tab-text-color-active: #ffffff !important;
+  --interactive-accent: #7aa2f7 !important;
+  --rtm-interactive-accent: #7aa2f7 !important;
+  --link-color: #7aa2f7 !important;
+  --link-external-color: #bb9af7 !important;
+  --h1-color: #7aa2f7 !important;
+  --h2-color: #bb9af7 !important;
+  --h3-color: #7dcfff !important;
+  --code-inline-bg: rgba(122, 162, 247, 0.12) !important;
+  --code-inline-color: #7dcfff !important;
+  --code-inline-border: rgba(122, 162, 247, 0.25) !important;
+  --code-bg: #16161e !important;
+  --code-border: #292e42 !important;
+  --code-text: #c0caf5 !important;
+}
+
+/* --------------------------------------------------------------------------
+   🌸 3. ROSÉ PINE (Thơ Mộng & Tĩnh Lặng - Studio Ghibli)
+   -------------------------------------------------------------------------- */
+body.theme-light.palette-rosepine,
+body:not(.theme-dark).palette-rosepine {
+  --rtm-bg-paper: #faf4ed !important;
+  --rtm-bg-primary: #faf4ed !important;
+  --rtm-bg-primary-alt: #f2e9de !important;
+  --rtm-bg-secondary: #eae0d0 !important;
+  --rtm-workspace-leaf-bg: #faf4ed !important;
+  --rtm-markdown-editor-leaf-bg: #faf4ed !important;
+  --rtm-nav-folder-pane-bg: #f2e9de !important;
+  --rtm-tab-bg-active: #faf4ed !important;
+  --rtm-tab-inactive-bg: #eae0d0 !important;
+  --background-primary: #faf4ed !important;
+  --background-secondary: #f2e9de !important;
+  --text-normal: #575279 !important;
+  --text-muted: #797593 !important;
+  --text-faint: #9893a5 !important;
+  --tab-text-color: #797593 !important;
+  --tab-text-color-active: #575279 !important;
+  --interactive-accent: #d7827e !important;
+  --rtm-interactive-accent: #d7827e !important;
+  --link-color: #286983 !important;
+  --link-external-color: #907aa9 !important;
+  --code-bg: #f2e9de !important;
+  --code-border: #dfdad9 !important;
+  --code-text: #575279 !important;
+}
+
+body.theme-dark.palette-rosepine {
+  --rtm-bg-paper: #191724 !important;
+  --rtm-bg-primary: #191724 !important;
+  --rtm-bg-primary-alt: #1f1d2e !important;
+  --rtm-bg-secondary: #14121f !important;
+  --rtm-workspace-leaf-bg: #191724 !important;
+  --rtm-markdown-editor-leaf-bg: #191724 !important;
+  --rtm-nav-folder-pane-bg: #1f1d2e !important;
+  --rtm-nav-folder-pane-content-bg: #1f1d2e !important;
+  --rtm-titlebar-bg: #14121f !important;
+  --rtm-tab-bg-active: #191724 !important;
+  --rtm-tab-inactive-bg: #14121f !important;
+  --rtm-workspace-primary-border-color: #312f41 !important;
+  --background-primary: #191724 !important;
+  --background-primary-alt: #1f1d2e !important;
+  --background-secondary: #1f1d2e !important;
+  --divider-color: #312f41 !important;
+  --text-normal: #e0def4 !important;
+  --text-muted: #908caa !important;
+  --text-faint: #6e6a86 !important;
+  --tab-text-color: #908caa !important;
+  --tab-text-color-active: #ffffff !important;
+  --interactive-accent: #ebbcba !important;
+  --rtm-interactive-accent: #ebbcba !important;
+  --link-color: #9ccfd8 !important;
+  --link-external-color: #c4a7e7 !important;
+  --h1-color: #ebbcba !important;
+  --h2-color: #9ccfd8 !important;
+  --h3-color: #c4a7e7 !important;
+  --code-inline-bg: rgba(235, 188, 186, 0.12) !important;
+  --code-inline-color: #ebbcba !important;
+  --code-inline-border: rgba(235, 188, 186, 0.25) !important;
+  --code-bg: #1f1d2e !important;
+  --code-border: #312f41 !important;
+  --code-text: #e0def4 !important;
+}
+
+/* --------------------------------------------------------------------------
+   🌅 4. HORIZON (Hoàng Hôn Vũ Trụ & Cam San Hô)
+   -------------------------------------------------------------------------- */
+body.theme-light.palette-horizon,
+body:not(.theme-dark).palette-horizon {
+  --rtm-bg-paper: #fdf0ed !important;
+  --rtm-bg-primary: #fdf0ed !important;
+  --rtm-bg-primary-alt: #fae3dd !important;
+  --rtm-bg-secondary: #f4d4cc !important;
+  --rtm-workspace-leaf-bg: #fdf0ed !important;
+  --rtm-nav-folder-pane-bg: #fae3dd !important;
+  --rtm-tab-bg-active: #fdf0ed !important;
+  --rtm-tab-inactive-bg: #f4d4cc !important;
+  --background-primary: #fdf0ed !important;
+  --background-secondary: #fae3dd !important;
+  --text-normal: #1c1e26 !important;
+  --text-muted: #6b6d76 !important;
+  --text-faint: #9c9ea6 !important;
+  --tab-text-color: #6b6d76 !important;
+  --tab-text-color-active: #1c1e26 !important;
+  --interactive-accent: #da103f !important;
+  --rtm-interactive-accent: #da103f !important;
+  --link-color: #da103f !important;
+  --link-external-color: #dc3318 !important;
+  --code-bg: #fae3dd !important;
+  --code-border: #ecc8be !important;
+  --code-text: #1c1e26 !important;
+}
+
+body.theme-dark.palette-horizon {
+  --rtm-bg-paper: #1c1e26 !important;
+  --rtm-bg-primary: #1c1e26 !important;
+  --rtm-bg-primary-alt: #16171d !important;
+  --rtm-bg-secondary: #121318 !important;
+  --rtm-workspace-leaf-bg: #1c1e26 !important;
+  --rtm-markdown-editor-leaf-bg: #1c1e26 !important;
+  --rtm-nav-folder-pane-bg: #16171d !important;
+  --rtm-nav-folder-pane-content-bg: #16171d !important;
+  --rtm-titlebar-bg: #121318 !important;
+  --rtm-tab-bg-active: #1c1e26 !important;
+  --rtm-tab-inactive-bg: #121318 !important;
+  --rtm-workspace-primary-border-color: #2e303e !important;
+  --background-primary: #1c1e26 !important;
+  --background-primary-alt: #16171d !important;
+  --background-secondary: #16171d !important;
+  --divider-color: #2e303e !important;
+  --text-normal: #d5d8da !important;
+  --text-muted: #9da0a2 !important;
+  --text-faint: #6c6f71 !important;
+  --tab-text-color: #9da0a2 !important;
+  --tab-text-color-active: #ffffff !important;
+  --interactive-accent: #e95678 !important;
+  --rtm-interactive-accent: #e95678 !important;
+  --link-color: #f09383 !important;
+  --link-external-color: #25b0bc !important;
+  --h1-color: #e95678 !important;
+  --h2-color: #f09383 !important;
+  --h3-color: #fab795 !important;
+  --code-inline-bg: rgba(233, 86, 120, 0.12) !important;
+  --code-inline-color: #f09383 !important;
+  --code-inline-border: rgba(233, 86, 120, 0.25) !important;
+  --code-bg: #16171d !important;
+  --code-border: #2e303e !important;
+  --code-text: #d5d8da !important;
+}
+
+/* --------------------------------------------------------------------------
+   🌿 5. SAGE MATCHA (Xanh Matcha Dịu Mắt)
+   -------------------------------------------------------------------------- */
+body.theme-light.palette-sage,
+body:not(.theme-dark).palette-sage,
+body.bg-theme-sage:not(.theme-dark) {
+  --rtm-bg-paper: #f4f8f3 !important;
+  --rtm-bg-primary: #f4f8f3 !important;
+  --rtm-bg-primary-alt: #eaf2e8 !important;
+  --rtm-bg-secondary: #e2ede0 !important;
+  --rtm-workspace-leaf-bg: #f4f8f3 !important;
+  --rtm-markdown-editor-leaf-bg: #f4f8f3 !important;
+  --rtm-nav-folder-pane-bg: #e5efe3 !important;
+  --rtm-nav-folder-pane-content-bg: #e5efe3 !important;
+  --rtm-titlebar-bg: #dce7d9 !important;
+  --rtm-tab-bg-active: #f4f8f3 !important;
+  --rtm-tab-inactive-bg: #dce7d9 !important;
+  --background-primary: #f4f8f3 !important;
+  --background-secondary: #e5efe3 !important;
+  --divider-color: #b8cfb5 !important;
+  --text-normal: #122818 !important;
+  --text-muted: #2d4c35 !important;
+  --text-faint: #57755f !important;
+  --tab-text-color: #2d4c35 !important;
+  --tab-text-color-active: #122818 !important;
+  --interactive-accent: #2e7d32 !important;
+  --rtm-interactive-accent: #2e7d32 !important;
+  --link-color: #15803d !important;
+  --link-external-color: #0284c7 !important;
+  --code-bg: #eaf2e8 !important;
+  --code-border: #b8cfb5 !important;
+  --code-text: #122818 !important;
+}
+
+body.theme-dark.palette-sage,
+body.theme-dark.bg-theme-sage {
+  --rtm-bg-paper: #151e16 !important;
+  --rtm-bg-primary: #151e16 !important;
+  --rtm-bg-primary-alt: #19231a !important;
+  --rtm-bg-secondary: #101711 !important;
+  --rtm-workspace-leaf-bg: #151e16 !important;
+  --rtm-markdown-editor-leaf-bg: #151e16 !important;
+  --rtm-nav-folder-pane-bg: #111712 !important;
+  --rtm-nav-folder-pane-content-bg: #111712 !important;
+  --rtm-titlebar-bg: #0c110d !important;
+  --rtm-tab-bg-active: #151e16 !important;
+  --rtm-tab-inactive-bg: #0c110d !important;
+  --rtm-workspace-primary-border-color: #253828 !important;
+  --background-primary: #151e16 !important;
+  --background-primary-alt: #19231a !important;
+  --background-secondary: #111712 !important;
+  --divider-color: #253828 !important;
+  --text-normal: #d8e6d9 !important;
+  --text-muted: #95b396 !important;
+  --text-faint: #5d785e !important;
+  --tab-text-color: #95b396 !important;
+  --tab-text-color-active: #ffffff !important;
+  --interactive-accent: #66bb6a !important;
+  --rtm-interactive-accent: #66bb6a !important;
+  --link-color: #6ee7b7 !important;
+  --link-external-color: #60a5fa !important;
+  --h1-color: #86efac !important;
+  --h2-color: #6ee7b7 !important;
+  --h3-color: #fde047 !important;
+  --code-inline-bg: rgba(110, 231, 183, 0.12) !important;
+  --code-inline-color: #a7f3d0 !important;
+  --code-inline-border: rgba(110, 231, 183, 0.25) !important;
+  --code-bg: #101611 !important;
+  --code-border: #253828 !important;
+  --code-text: #d8e6d9 !important;
+}
+
+/* --------------------------------------------------------------------------
+   🌲 6. EVERFOREST (Rừng Xanh Tự Nhiên & Ấm Cúng)
+   -------------------------------------------------------------------------- */
+body.theme-light.palette-everforest,
+body:not(.theme-dark).palette-everforest {
+  --rtm-bg-paper: #fdf6e3 !important;
+  --rtm-bg-primary: #fdf6e3 !important;
+  --rtm-bg-primary-alt: #f4f0d9 !important;
+  --rtm-bg-secondary: #edf0e5 !important;
+  --rtm-workspace-leaf-bg: #fdf6e3 !important;
+  --rtm-markdown-editor-leaf-bg: #fdf6e3 !important;
+  --rtm-nav-folder-pane-bg: #edf0e5 !important;
+  --rtm-tab-bg-active: #fdf6e3 !important;
+  --rtm-tab-inactive-bg: #e5e9dc !important;
+  --background-primary: #fdf6e3 !important;
+  --background-secondary: #edf0e5 !important;
+  --divider-color: #d3d8c8 !important;
+  --text-normal: #2d353b !important;
+  --text-muted: #5c6a72 !important;
+  --text-faint: #859289 !important;
+  --tab-text-color: #5c6a72 !important;
+  --tab-text-color-active: #2d353b !important;
+  --interactive-accent: #4a7c59 !important;
+  --rtm-interactive-accent: #4a7c59 !important;
+  --link-color: #4a7c59 !important;
+  --link-external-color: #3a94c5 !important;
+  --code-bg: #f4f0d9 !important;
+  --code-border: #d3d8c8 !important;
+  --code-text: #2d353b !important;
+}
+
+body.theme-dark.palette-everforest {
+  --rtm-bg-paper: #2d353b !important;
+  --rtm-bg-primary: #2d353b !important;
+  --rtm-bg-primary-alt: #283035 !important;
+  --rtm-bg-secondary: #232a2e !important;
+  --rtm-workspace-leaf-bg: #2d353b !important;
+  --rtm-markdown-editor-leaf-bg: #2d353b !important;
+  --rtm-nav-folder-pane-bg: #232a2e !important;
+  --rtm-tab-bg-active: #2d353b !important;
+  --rtm-tab-inactive-bg: #1e2326 !important;
+  --rtm-workspace-primary-border-color: #3d484d !important;
+  --background-primary: #2d353b !important;
+  --background-primary-alt: #283035 !important;
+  --background-secondary: #232a2e !important;
+  --divider-color: #3d484d !important;
+  --text-normal: #d3c6aa !important;
+  --text-muted: #9da9a0 !important;
+  --text-faint: #7a8478 !important;
+  --tab-text-color: #9da9a0 !important;
+  --tab-text-color-active: #ffffff !important;
+  --interactive-accent: #a7c080 !important;
+  --rtm-interactive-accent: #a7c080 !important;
+  --link-color: #a7c080 !important;
+  --link-external-color: #7fbbb3 !important;
+  --h1-color: #a7c080 !important;
+  --code-inline-bg: rgba(167, 192, 128, 0.12) !important;
+  --code-inline-color: #a7c080 !important;
+  --code-inline-border: rgba(167, 192, 128, 0.25) !important;
+  --code-bg: #232a2e !important;
+  --code-border: #3d484d !important;
+  --code-text: #d3c6aa !important;
+}
+
+/* --------------------------------------------------------------------------
+   ❄️ 7. NORD (Băng Tuyết Bắc Âu)
+   -------------------------------------------------------------------------- */
+body.theme-light.palette-nord,
+body:not(.theme-dark).palette-nord {
+  --rtm-bg-paper: #eceff4 !important;
+  --rtm-bg-primary: #eceff4 !important;
+  --rtm-bg-primary-alt: #e5e9f0 !important;
+  --rtm-bg-secondary: #e0e4ec !important;
+  --rtm-workspace-leaf-bg: #eceff4 !important;
+  --rtm-nav-folder-pane-bg: #e5e9f0 !important;
+  --rtm-tab-bg-active: #eceff4 !important;
+  --rtm-tab-inactive-bg: #d8dee9 !important;
+  --background-primary: #eceff4 !important;
+  --background-secondary: #e5e9f0 !important;
+  --text-normal: #2e3440 !important;
+  --text-muted: #4c566a !important;
+  --text-faint: #768299 !important;
+  --tab-text-color: #4c566a !important;
+  --tab-text-color-active: #2e3440 !important;
+  --interactive-accent: #5e81ac !important;
+  --rtm-interactive-accent: #5e81ac !important;
+  --link-color: #5e81ac !important;
+  --link-external-color: #81a1c1 !important;
+  --code-bg: #e5e9f0 !important;
+  --code-border: #c2c9d6 !important;
+  --code-text: #2e3440 !important;
+}
+
+body.theme-dark.palette-nord {
+  --rtm-bg-paper: #2e3440 !important;
+  --rtm-bg-primary: #2e3440 !important;
+  --rtm-bg-primary-alt: #292e39 !important;
+  --rtm-bg-secondary: #242933 !important;
+  --rtm-workspace-leaf-bg: #2e3440 !important;
+  --rtm-nav-folder-pane-bg: #242933 !important;
+  --rtm-tab-bg-active: #2e3440 !important;
+  --rtm-tab-inactive-bg: #1c2027 !important;
+  --background-primary: #2e3440 !important;
+  --background-secondary: #242933 !important;
+  --text-normal: #eceff4 !important;
+  --text-muted: #d8dee9 !important;
+  --text-faint: #8190aa !important;
+  --tab-text-color: #d8dee9 !important;
+  --tab-text-color-active: #ffffff !important;
+  --interactive-accent: #88c0d0 !important;
+  --rtm-interactive-accent: #88c0d0 !important;
+  --link-color: #88c0d0 !important;
+  --link-external-color: #81a1c1 !important;
+  --h1-color: #88c0d0 !important;
+  --code-inline-bg: rgba(136, 192, 208, 0.12) !important;
+  --code-inline-color: #88c0d0 !important;
+  --code-inline-border: rgba(136, 192, 208, 0.25) !important;
+  --code-bg: #242933 !important;
+  --code-border: #434c5e !important;
+  --code-text: #eceff4 !important;
+}
+
+/* --------------------------------------------------------------------------
+   🐱 8. CATPPUCCIN (Latte & Mocha)
+   -------------------------------------------------------------------------- */
+body.theme-light.palette-catppuccin,
+body:not(.theme-dark).palette-catppuccin {
+  --rtm-bg-paper: #eff1f5 !important;
+  --rtm-bg-primary: #eff1f5 !important;
+  --rtm-bg-primary-alt: #e6e9ef !important;
+  --rtm-bg-secondary: #dce0e8 !important;
+  --rtm-workspace-leaf-bg: #eff1f5 !important;
+  --rtm-nav-folder-pane-bg: #e6e9ef !important;
+  --rtm-tab-bg-active: #eff1f5 !important;
+  --rtm-tab-inactive-bg: #dce0e8 !important;
+  --background-primary: #eff1f5 !important;
+  --background-secondary: #e6e9ef !important;
+  --text-normal: #4c4f69 !important;
+  --text-muted: #6c6f85 !important;
+  --text-faint: #8c8fa1 !important;
+  --tab-text-color: #6c6f85 !important;
+  --tab-text-color-active: #4c4f69 !important;
+  --interactive-accent: #1e66f5 !important;
+  --rtm-interactive-accent: #1e66f5 !important;
+  --link-color: #1e66f5 !important;
+  --link-external-color: #8839ef !important;
+  --code-bg: #e6e9ef !important;
+  --code-border: #bcc0cc !important;
+  --code-text: #4c4f69 !important;
+}
+
+body.theme-dark.palette-catppuccin {
+  --rtm-bg-paper: #1e1e2e !important;
+  --rtm-bg-primary: #1e1e2e !important;
+  --rtm-bg-primary-alt: #181825 !important;
+  --rtm-bg-secondary: #11111b !important;
+  --rtm-workspace-leaf-bg: #1e1e2e !important;
+  --rtm-nav-folder-pane-bg: #181825 !important;
+  --rtm-tab-bg-active: #1e1e2e !important;
+  --rtm-tab-inactive-bg: #11111b !important;
+  --background-primary: #1e1e2e !important;
+  --background-secondary: #181825 !important;
+  --text-normal: #cdd6f4 !important;
+  --text-muted: #a6adc8 !important;
+  --text-faint: #6c7086 !important;
+  --tab-text-color: #a6adc8 !important;
+  --tab-text-color-active: #ffffff !important;
+  --interactive-accent: #cba6f7 !important;
+  --rtm-interactive-accent: #cba6f7 !important;
+  --link-color: #89b4fa !important;
+  --link-external-color: #cba6f7 !important;
+  --h1-color: #cba6f7 !important;
+  --code-inline-bg: rgba(203, 166, 247, 0.12) !important;
+  --code-inline-color: #fab387 !important;
+  --code-inline-border: rgba(203, 166, 247, 0.25) !important;
+  --code-bg: #181825 !important;
+  --code-border: #313244 !important;
+  --code-text: #cdd6f4 !important;
+}
+
+/* --------------------------------------------------------------------------
+   🧛 9. DRACULA
+   -------------------------------------------------------------------------- */
+body.theme-light.palette-dracula,
+body:not(.theme-dark).palette-dracula {
+  --rtm-bg-paper: #f8f8f2 !important;
+  --rtm-bg-primary: #f8f8f2 !important;
+  --rtm-bg-primary-alt: #ebebf0 !important;
+  --rtm-bg-secondary: #dedee6 !important;
+  --rtm-workspace-leaf-bg: #f8f8f2 !important;
+  --rtm-nav-folder-pane-bg: #ebebf0 !important;
+  --rtm-tab-bg-active: #f8f8f2 !important;
+  --rtm-tab-inactive-bg: #dedee6 !important;
+  --background-primary: #f8f8f2 !important;
+  --background-secondary: #ebebf0 !important;
+  --text-normal: #282a36 !important;
+  --text-muted: #6272a4 !important;
+  --text-faint: #919dc2 !important;
+  --tab-text-color: #6272a4 !important;
+  --tab-text-color-active: #282a36 !important;
+  --interactive-accent: #bd93f9 !important;
+  --link-color: #6272a4 !important;
+  --link-external-color: #bd93f9 !important;
+  --code-bg: #ebebf0 !important;
+  --code-border: #d0d0dc !important;
+  --code-text: #282a36 !important;
+}
+
+body.theme-dark.palette-dracula {
+  --rtm-bg-paper: #282a36 !important;
+  --rtm-bg-primary: #282a36 !important;
+  --rtm-bg-primary-alt: #21222c !important;
+  --rtm-bg-secondary: #191a21 !important;
+  --rtm-workspace-leaf-bg: #282a36 !important;
+  --rtm-nav-folder-pane-bg: #21222c !important;
+  --rtm-tab-bg-active: #282a36 !important;
+  --rtm-tab-inactive-bg: #191a21 !important;
+  --background-primary: #282a36 !important;
+  --background-secondary: #21222c !important;
+  --text-normal: #f8f8f2 !important;
+  --text-muted: #b6b8c9 !important;
+  --text-faint: #6272a4 !important;
+  --tab-text-color: #b6b8c9 !important;
+  --tab-text-color-active: #ffffff !important;
+  --interactive-accent: #bd93f9 !important;
+  --rtm-interactive-accent: #bd93f9 !important;
+  --link-color: #bd93f9 !important;
+  --link-external-color: #8be9fd !important;
+  --h1-color: #bd93f9 !important;
+  --code-inline-bg: rgba(189, 147, 249, 0.12) !important;
+  --code-inline-color: #ff79c6 !important;
+  --code-inline-border: rgba(189, 147, 249, 0.25) !important;
+  --code-bg: #1e1f29 !important;
+  --code-border: #44475a !important;
+  --code-text: #f8f8f2 !important;
+}
+
+/* --------------------------------------------------------------------------
+   🍂 10. GRUVBOX RETRO
+   -------------------------------------------------------------------------- */
+body.theme-light.palette-gruvbox,
+body:not(.theme-dark).palette-gruvbox {
+  --rtm-bg-paper: #fbf1c7 !important;
+  --rtm-bg-primary: #fbf1c7 !important;
+  --rtm-bg-primary-alt: #f2e5bc !important;
+  --rtm-bg-secondary: #ebdbb2 !important;
+  --rtm-workspace-leaf-bg: #fbf1c7 !important;
+  --rtm-nav-folder-pane-bg: #f2e5bc !important;
+  --rtm-tab-bg-active: #fbf1c7 !important;
+  --rtm-tab-inactive-bg: #ebdbb2 !important;
+  --background-primary: #fbf1c7 !important;
+  --background-secondary: #f2e5bc !important;
+  --text-normal: #282828 !important;
+  --text-muted: #504945 !important;
+  --text-faint: #7c6f64 !important;
+  --tab-text-color: #504945 !important;
+  --tab-text-color-active: #282828 !important;
+  --interactive-accent: #af3a03 !important;
+  --link-color: #af3a03 !important;
+  --link-external-color: #458588 !important;
+  --code-bg: #f2e5bc !important;
+  --code-border: #d5c4a1 !important;
+  --code-text: #282828 !important;
+}
+
+body.theme-dark.palette-gruvbox {
+  --rtm-bg-paper: #282828 !important;
+  --rtm-bg-primary: #282828 !important;
+  --rtm-bg-primary-alt: #1d2021 !important;
+  --rtm-bg-secondary: #141617 !important;
+  --rtm-workspace-leaf-bg: #282828 !important;
+  --rtm-nav-folder-pane-bg: #1d2021 !important;
+  --rtm-tab-bg-active: #282828 !important;
+  --rtm-tab-inactive-bg: #141617 !important;
+  --background-primary: #282828 !important;
+  --background-secondary: #1d2021 !important;
+  --text-normal: #ebdbb2 !important;
+  --text-muted: #d5c4a1 !important;
+  --text-faint: #a89984 !important;
+  --tab-text-color: #d5c4a1 !important;
+  --tab-text-color-active: #ffffff !important;
+  --interactive-accent: #fe8019 !important;
+  --rtm-interactive-accent: #fe8019 !important;
+  --link-color: #fe8019 !important;
+  --link-external-color: #83a598 !important;
+  --h1-color: #fe8019 !important;
+  --code-inline-bg: rgba(254, 128, 25, 0.12) !important;
+  --code-inline-color: #fabd2f !important;
+  --code-inline-border: rgba(254, 128, 25, 0.25) !important;
+  --code-bg: #1d2021 !important;
+  --code-border: #3c3836 !important;
+  --code-text: #ebdbb2 !important;
+}
+
+/* --------------------------------------------------------------------------
+   📄 11. MINIMAL PAPER / SANCTUM
+   -------------------------------------------------------------------------- */
+body.theme-light.palette-paper,
+body:not(.theme-dark).palette-paper,
+body.bg-theme-latte:not(.theme-dark) {
+  --rtm-bg-paper: #fbfbf8 !important;
+  --rtm-bg-primary: #fbfbf8 !important;
+  --rtm-bg-primary-alt: #f4f3ee !important;
+  --rtm-bg-secondary: #eae8e1 !important;
+  --rtm-workspace-leaf-bg: #fbfbf8 !important;
+  --rtm-nav-folder-pane-bg: #f4f3ee !important;
+  --rtm-tab-bg-active: #fbfbf8 !important;
+  --rtm-tab-inactive-bg: #eae8e1 !important;
+  --background-primary: #fbfbf8 !important;
+  --background-secondary: #f4f3ee !important;
+  --text-normal: #242424 !important;
+  --text-muted: #555555 !important;
+  --text-faint: #7e7e7e !important;
+  --tab-text-color: #555555 !important;
+  --tab-text-color-active: #242424 !important;
+  --interactive-accent: #2c5d63 !important;
+  --link-color: #2c5d63 !important;
+  --link-external-color: #2b5b84 !important;
+  --code-bg: #f4f3ee !important;
+  --code-border: #d8d5cb !important;
+  --code-text: #242424 !important;
+}
+
+body.theme-dark.palette-paper,
+body.theme-dark.bg-theme-latte {
+  --rtm-bg-paper: #181817 !important;
+  --rtm-bg-primary: #181817 !important;
+  --rtm-bg-primary-alt: #1f1f1d !important;
+  --rtm-bg-secondary: #121211 !important;
+  --rtm-workspace-leaf-bg: #181817 !important;
+  --rtm-nav-folder-pane-bg: #121211 !important;
+  --rtm-tab-bg-active: #181817 !important;
+  --rtm-tab-inactive-bg: #121211 !important;
+  --background-primary: #181817 !important;
+  --background-secondary: #121211 !important;
+  --text-normal: #e4e2dd !important;
+  --text-muted: #8f8c85 !important;
+  --text-faint: #5a5853 !important;
+  --tab-text-color: #8f8c85 !important;
+  --tab-text-color-active: #ffffff !important;
+  --interactive-accent: #5ea3a8 !important;
+  --link-color: #5ea3a8 !important;
+  --link-external-color: #77a1c4 !important;
+  --code-bg: #121211 !important;
+  --code-border: #2c2b29 !important;
+  --code-text: #e4e2dd !important;
+}
+
+/* --------------------------------------------------------------------------
+   🌌 12. SLATE MODERN / GITHUB
+   -------------------------------------------------------------------------- */
+body.theme-light.palette-slate,
+body:not(.theme-dark).palette-slate,
+body.bg-theme-slate:not(.theme-dark) {
+  --rtm-bg-paper: #ffffff !important;
+  --rtm-bg-primary: #ffffff !important;
+  --rtm-bg-primary-alt: #f6f8fa !important;
+  --rtm-bg-secondary: #eaeef2 !important;
+  --rtm-workspace-leaf-bg: #ffffff !important;
+  --rtm-nav-folder-pane-bg: #f6f8fa !important;
+  --rtm-tab-bg-active: #ffffff !important;
+  --rtm-tab-inactive-bg: #eaeef2 !important;
+  --background-primary: #ffffff !important;
+  --background-secondary: #f6f8fa !important;
+  --text-normal: #1f2328 !important;
+  --text-muted: #656d76 !important;
+  --text-faint: #8c959f !important;
+  --tab-text-color: #656d76 !important;
+  --tab-text-color-active: #1f2328 !important;
+  --interactive-accent: #0969da !important;
+  --link-color: #0969da !important;
+  --link-external-color: #8250df !important;
+  --code-bg: #f6f8fa !important;
+  --code-border: #d0d7de !important;
+  --code-text: #1f2328 !important;
+}
+
+body.theme-dark.palette-slate,
+body.theme-dark.bg-theme-slate {
+  --rtm-bg-paper: #0d1117 !important;
+  --rtm-bg-primary: #0d1117 !important;
+  --rtm-bg-primary-alt: #161b22 !important;
+  --rtm-bg-secondary: #010409 !important;
+  --rtm-workspace-leaf-bg: #0d1117 !important;
+  --rtm-nav-folder-pane-bg: #161b22 !important;
+  --rtm-tab-bg-active: #0d1117 !important;
+  --rtm-tab-inactive-bg: #010409 !important;
+  --background-primary: #0d1117 !important;
+  --background-secondary: #161b22 !important;
+  --text-normal: #e6edf3 !important;
+  --text-muted: #8b949e !important;
+  --text-faint: #6e7681 !important;
+  --tab-text-color: #8b949e !important;
+  --tab-text-color-active: #ffffff !important;
+  --interactive-accent: #2f81f7 !important;
+  --rtm-interactive-accent: #2f81f7 !important;
+  --link-color: #58a6ff !important;
+  --link-external-color: #bc8cff !important;
+  --code-bg: #161b22 !important;
+  --code-border: #30363d !important;
+  --code-text: #e6edf3 !important;
+}
+
+/* --------------------------------------------------------------------------
+   🖤 13. AMOLED PURE BLACK / PURE WHITE
+   -------------------------------------------------------------------------- */
+body.theme-light.palette-amoled,
+body:not(.theme-dark).palette-amoled,
+body.bg-theme-amoled:not(.theme-dark) {
+  --rtm-bg-paper: #ffffff !important;
+  --rtm-bg-primary: #ffffff !important;
+  --rtm-bg-primary-alt: #f4f4f5 !important;
+  --rtm-bg-secondary: #e4e4e7 !important;
+  --rtm-workspace-leaf-bg: #ffffff !important;
+  --rtm-nav-folder-pane-bg: #f4f4f5 !important;
+  --rtm-tab-bg-active: #ffffff !important;
+  --rtm-tab-inactive-bg: #e4e4e7 !important;
+  --background-primary: #ffffff !important;
+  --background-secondary: #f4f4f5 !important;
+  --text-normal: #09090b !important;
+  --text-muted: #71717a !important;
+  --text-faint: #a1a1aa !important;
+  --tab-text-color: #71717a !important;
+  --tab-text-color-active: #09090b !important;
+  --interactive-accent: #2563eb !important;
+  --link-color: #2563eb !important;
+  --link-external-color: #7c3aed !important;
+  --code-bg: #f4f4f5 !important;
+  --code-border: #e4e4e7 !important;
+  --code-text: #09090b !important;
+}
+
+body.theme-dark.palette-amoled,
+body.theme-dark.bg-theme-amoled {
+  --rtm-bg-paper: #000000 !important;
+  --rtm-bg-primary: #000000 !important;
+  --rtm-bg-primary-alt: #0a0a0a !important;
+  --rtm-bg-secondary: #000000 !important;
+  --rtm-workspace-leaf-bg: #000000 !important;
+  --rtm-nav-folder-pane-bg: #080808 !important;
+  --rtm-tab-bg-active: #000000 !important;
+  --rtm-tab-inactive-bg: #050505 !important;
+  --background-primary: #000000 !important;
+  --background-secondary: #080808 !important;
+  --text-normal: #ffffff !important;
+  --text-muted: #a3a3a3 !important;
+  --text-faint: #737373 !important;
+  --tab-text-color: #a3a3a3 !important;
+  --tab-text-color-active: #ffffff !important;
+  --interactive-accent: #3b82f6 !important;
+  --link-color: #60a5fa !important;
+  --link-external-color: #c084fc !important;
+  --code-bg: #080808 !important;
+  --code-border: #262626 !important;
+  --code-text: #ffffff !important;
+}
+
+/* --------------------------------------------------------------------------
+   📜 14. RETROMA DEFAULT
+   -------------------------------------------------------------------------- */
+body.theme-light.palette-default,
+body:not(.theme-dark).palette-default {
+  --tab-text-color: #5c6a72 !important;
+  --tab-text-color-active: #1f2328 !important;
+  --link-color: #008702 !important;
+  --link-external-color: #0284c7 !important;
+}
+
+body.theme-dark.palette-default {
+  --tab-text-color: #94a3b8 !important;
+  --tab-text-color-active: #ffffff !important;
+  --link-color: #38bdf8 !important;
+  --link-external-color: #2dd4bf !important;
+}
+
+/* ==========================================================================
+   4. SỬA LỖI GIAO DIỆN HỆ THỐNG & THANH SIDEBAR
+   ========================================================================== */
+
+/* Thiết lập màu nền Sidebar theo lựa chọn */
+.workspace-leaf-content[data-type="file-explorer"],
+.nav-files-container,
+.nav-folder-pane,
+.workspace-split.mod-left-split {
+  background-color: var(--custom-sidebar-bg, var(--background-secondary, var(--rtm-nav-folder-pane-bg))) !important;
+}
+
+/* Loại bỏ viền outline/box-shadow xanh lá cứng nhắc quanh từng file */
+body:not(.sidebar-style-boxed) .nav-file-title,
+body:not(.sidebar-style-boxed) .nav-file-title-content,
+body:not(.sidebar-style-boxed) .nav-folder-title,
+body:not(.sidebar-style-boxed) .nav-folder-title-content,
+body.sidebar-style-flat .nav-file-title,
+body.sidebar-style-flat .nav-file-title-content,
+body.sidebar-style-flat .nav-folder-title,
+body.sidebar-style-flat .nav-folder-title-content,
+body:not(.sidebar-style-boxed) .nav-files-container>div>.nav-folder:not(.is-collapsed) .nav-file-title-content {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.nav-file-title,
+.nav-folder-title {
+  border-radius: 6px !important;
+  margin: 1px 4px !important;
+  transition: background-color 0.15s ease, color 0.15s ease !important;
+}
+
+.nav-file-title:hover .nav-file-title-content,
+.nav-folder-title:hover .nav-folder-title-content {
+  background-color: var(--background-modifier-hover, rgba(255, 255, 255, 0.08)) !important;
+  color: var(--text-normal) !important;
+}
+
+.nav-file-title.is-active .nav-file-title-content {
+  background-color: var(--nav-item-background-active, rgba(56, 189, 248, 0.18)) !important;
+  color: var(--interactive-accent, #38bdf8) !important;
+  font-weight: 600 !important;
+}
+
+/* Khắc phục lỗi Titlebar che phủ làm mất thanh Tab trên Linux / Wayland / Flatpak */
+.titlebar,
+.titlebar-container {
+  background: transparent !important;
+  border: none !important;
+  pointer-events: none !important;
+}
+
+.titlebar .titlebar-button,
+.titlebar .titlebar-button-container,
+.titlebar .clickable-icon {
+  pointer-events: auto !important;
+}
+
+/* ==========================================================================
+   THANH TAB (WORKSPACE TABS) - RỘNG RÃI, THÔNG THOÁNG, HIỆN ĐẠI & RÕ NÉT
+   ========================================================================== */
+
+/* Biến kích thước tab mặc định */
+:root {
+  --tab-max-width: 450px !important;
+  --tab-width: 260px !important;
+  --header-height: 44px !important;
+}
+
+/* Thanh chứa các Tab bên trên vùng soạn thảo - Chiều cao thoáng, padding rộng rãi */
+.workspace-tabs .workspace-tab-header-container,
+.workspace-split.mod-root .workspace-tab-header-container,
+.workspace-tab-header-container {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  height: 44px !important;
+  min-height: 44px !important;
+  padding-top: 6px !important;
+  padding-bottom: 0 !important;
+  padding-inline: 12px !important;
+  background-color: var(--tab-container-background, var(--background-secondary, var(--rtm-tab-inactive-bg))) !important;
+  border-bottom: 1px solid var(--divider-color, var(--rtm-workspace-primary-border-color)) !important;
+  z-index: 10 !important;
+}
+
+/* Khung chứa danh sách các Tab bên trong */
+.workspace-tab-header-container-inner {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  height: 100% !important;
+  gap: 8px !important; /* Khoảng cách thông thoáng giữa các tab */
+  align-items: flex-end !important;
+}
+
+/* Từng Tab riêng lẻ - Tự động mở rộng thoải mái, không bị bóp nghẹt */
+.workspace-tab-header {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  flex: 0 1 auto !important;
+  min-width: 170px !important;
+  max-width: 440px !important;
+  width: auto !important;
+  height: 38px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 8px 8px 0 0 !important;
+  transition: all 0.15s ease !important;
+}
+
+/* Tab đang hoạt động (Active Tab) - Được ưu tiên rộng hơn, nổi bật hơn */
+.workspace-tab-header.is-active,
+.workspace-tabs .workspace-tab-header.is-active,
+.workspace-split.mod-root .workspace-tab-header-container .workspace-tab-header.is-active {
+  min-width: 250px !important;
+  max-width: 520px !important;
+  flex: 0 0 auto !important;
+  background-color: var(--tab-background-active, var(--background-primary, var(--rtm-bg-primary))) !important;
+  border-top: 2.5px solid var(--interactive-accent, #38bdf8) !important;
+  border-inline: 1px solid var(--divider-color, rgba(255, 255, 255, 0.12)) !important;
+  border-bottom: none !important;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.08) !important;
+  opacity: 1 !important;
+  z-index: 2 !important;
+}
+
+body.theme-light .workspace-tab-header.is-active,
+body.theme-light .workspace-tabs .workspace-tab-header.is-active,
+body.theme-light .workspace-split.mod-root .workspace-tab-header-container .workspace-tab-header.is-active {
+  border-inline: 1px solid var(--divider-color, rgba(0, 0, 0, 0.1)) !important;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Phần ruột bên trong mỗi Tab (Inner content) - Padding rộng rãi, không bị chen chúc */
+.workspace-tab-header-inner,
+.mod-root .workspace-tab-header-inner,
+.mod-root .workspace-tab-header-inner:not(.mod-root .workspace-tab-header.is-active .workspace-tab-header-inner) {
+  padding: 0 16px !important;
+  gap: 10px !important;
+  height: 100% !important;
+  border-radius: 8px 8px 0 0 !important;
+  border: none !important; /* Loại bỏ viền con nhộng chật hẹp */
+  box-shadow: none !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Tab không hoạt động (Inactive Tab) - Thanh lịch, tinh tế */
+.workspace-tab-header:not(.is-active) {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid var(--divider-color, rgba(255, 255, 255, 0.08)) !important;
+  border-bottom: none !important;
+  opacity: 0.82 !important;
+}
+
+body.theme-light .workspace-tab-header:not(.is-active) {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+  border: 1px solid var(--divider-color, rgba(0, 0, 0, 0.08)) !important;
+  border-bottom: none !important;
+}
+
+.workspace-tab-header:not(.is-active):hover {
+  background-color: var(--background-modifier-hover, rgba(125, 125, 125, 0.14)) !important;
+  border-color: var(--interactive-accent, #38bdf8) !important;
+  opacity: 1 !important;
+}
+
+/* Tiêu đề chữ trên Tab */
+.workspace-tab-header-inner-title {
+  font-size: 13.5px !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0.2px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* Nút đóng Tab (x) - Đặt lùi ra có khoảng cách dễ bấm */
+.workspace-tab-header-inner-close-button {
+  margin-inline-start: 8px !important;
+  padding: 3px !important;
+  border-radius: 4px !important;
+  width: 18px !important;
+  height: 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 0.7 !important;
+  transition: opacity 0.15s ease, background-color 0.15s ease !important;
+}
+
+.workspace-tab-header-inner-close-button:hover {
+  opacity: 1 !important;
+  background-color: var(--background-modifier-hover, rgba(125, 125, 125, 0.22)) !important;
+}
+
+/* Nút thêm Tab mới (+) */
+.workspace-tab-header-new-tab {
+  display: flex !important;
+  visibility: visible !important;
+  height: 32px !important;
+  width: 32px !important;
+  border-radius: 6px !important;
+  align-self: center !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: var(--text-muted) !important;
+  margin-inline-start: 6px !important;
+  transition: background-color 0.15s ease, color 0.15s ease !important;
+}
+
+.workspace-tab-header-new-tab:hover {
+  color: var(--text-normal) !important;
+  background-color: var(--background-modifier-hover, rgba(125, 125, 125, 0.15)) !important;
+}
+
+/* Kiểu đường viền Workspace Dividers */
+body.border-style-minimal {
+  --rtm-workspace-primary-border-style: solid !important;
+  --rtm-workspace-primary-border-width: 1px !important;
+  --rtm-workspace-primary-border: 1px solid var(--divider-color, var(--rtm-workspace-primary-border-color)) !important;
+}
+
+body.border-style-none {
+  --rtm-workspace-primary-border-style: none !important;
+  --rtm-workspace-primary-border-width: 0px !important;
+  --rtm-workspace-primary-border: none !important;
+}
+
+body.border-style-thick {
+  --rtm-workspace-primary-border-style: solid !important;
+  --rtm-workspace-primary-border-width: 2px !important;
+  --rtm-workspace-primary-border: 2px solid var(--divider-color, var(--rtm-workspace-primary-border-color)) !important;
+}
+
+/* ==========================================================================
+   5. HỆ THỐNG MÀU SẮC ĐƯỜNG LINK (INTERNAL & EXTERNAL LINKS)
+   ========================================================================== */
+
+/* Link nội bộ ([[Liên kết]]) */
+a.internal-link,
+.markdown-source-view.mod-cm6 .cm-hmd-internal-link,
+.markdown-source-view.mod-cm6 .cm-hmd-internal-link .cm-underline {
+  color: var(--custom-link-color, var(--link-color, #38bdf8)) !important;
+  font-weight: 600 !important;
+  text-decoration: underline !important;
+  text-decoration-color: var(--custom-link-color, var(--link-color, #38bdf8)) !important;
+  text-decoration-thickness: 1.5px !important;
+  text-underline-offset: 3px !important;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease !important;
+}
+
+/* Link ngoài ([Tên](https://...)) */
+a.external-link,
+.markdown-source-view.mod-cm6 .cm-link,
+.markdown-source-view.mod-cm6 .cm-link .cm-underline,
+.markdown-source-view.mod-cm6 .cm-url {
+  color: var(--custom-link-ext-color, var(--link-external-color, #2dd4bf)) !important;
+  font-weight: 600 !important;
+  text-decoration: underline !important;
+  text-decoration-color: var(--custom-link-ext-color, var(--link-external-color, #2dd4bf)) !important;
+  text-decoration-thickness: 1.5px !important;
+  text-underline-offset: 3px !important;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease !important;
+}
+
+/* Link nội bộ chưa tạo trang (Unresolved) */
+a.internal-link.is-unresolved,
+.markdown-source-view.mod-cm6 .cm-hmd-internal-link.is-unresolved,
+.markdown-source-view.mod-cm6 .cm-hmd-internal-link.is-unresolved .cm-underline {
+  color: var(--link-unresolved-color, #64748b) !important;
+  opacity: 0.75 !important;
+  text-decoration-style: dashed !important;
+  text-decoration-color: var(--link-unresolved-color, #64748b) !important;
+}
+
+/* Hover Link */
+a.internal-link:hover,
+.markdown-source-view.mod-cm6 .cm-hmd-internal-link:hover,
+.markdown-source-view.mod-cm6 .cm-hmd-internal-link:hover .cm-underline {
+  color: var(--link-color-hover, #7dd3fc) !important;
+  text-decoration-color: var(--link-color-hover, #7dd3fc) !important;
+  opacity: 1 !important;
+}
+
+a.external-link:hover,
+.markdown-source-view.mod-cm6 .cm-link:hover,
+.markdown-source-view.mod-cm6 .cm-link:hover .cm-underline,
+.markdown-source-view.mod-cm6 .cm-url:hover {
+  color: var(--link-external-color-hover, #5eead4) !important;
+  text-decoration-color: var(--link-external-color-hover, #5eead4) !important;
+}
+
+/* ==========================================================================
+   6. HEADINGS (H1 -> H6) & TIÊU ĐỀ IN ĐẬM VÀ ĐỒNG BỘ MÀU SẮC
+   ========================================================================== */
+
+h1, h2, h3, h4, h5, h6,
+.markdown-rendered h1,
+.markdown-rendered h2,
+.markdown-rendered h3,
+.markdown-rendered h4,
+.markdown-rendered h5,
+.markdown-rendered h6,
+.cm-header-1,
+.cm-header-2,
+.cm-header-3,
+.cm-header-4,
+.cm-header-5,
+.cm-header-6,
+.HyperMD-header,
+.HyperMD-header-1,
+.HyperMD-header-2,
+.HyperMD-header-3,
+.HyperMD-header-4,
+.HyperMD-header-5,
+.HyperMD-header-6,
+.inline-title,
+.view-header-title {
+  font-weight: 750 !important;
+  letter-spacing: -0.015em;
+}
+
+/* H1 & Tiêu đề ghi chú */
+h1, .markdown-rendered h1, .cm-header-1, .HyperMD-header-1, .inline-title {
+  font-weight: 800 !important;
+  color: var(--h1-color, var(--text-normal));
+}
+
+/* H2 */
+h2, .markdown-rendered h2, .cm-header-2, .HyperMD-header-2 {
+  font-weight: 750 !important;
+  color: var(--h2-color, var(--text-normal));
+}
+
+/* H3 -> H6 */
+h3, .markdown-rendered h3, .cm-header-3, .HyperMD-header-3 {
+  font-weight: 700 !important;
+  color: var(--h3-color, var(--text-normal));
+}
+
+h4, h5, h6,
+.markdown-rendered h4, .markdown-rendered h5, .markdown-rendered h6,
+.cm-header-4, .cm-header-5, .cm-header-6,
+.HyperMD-header-4, .HyperMD-header-5, .HyperMD-header-6 {
+  font-weight: 700 !important;
+  color: var(--h4-color, var(--text-normal));
+}
+
+/* Tuỳ chọn cấp độ đậm cho Header từ Style Settings */
+body.heading-weight-bold :is(h1, h2, h3, h4, h5, h6, .cm-header-1, .cm-header-2, .cm-header-3, .cm-header-4, .cm-header-5, .cm-header-6, .HyperMD-header, .inline-title) {
+  font-weight: 700 !important;
+}
+
+body.heading-weight-heavy :is(h1, h2, h3, h4, h5, h6, .cm-header-1, .cm-header-2, .cm-header-3, .cm-header-4, .cm-header-5, .cm-header-6, .HyperMD-header, .inline-title) {
+  font-weight: 800 !important;
+}
+
+body.heading-weight-black :is(h1, h2, h3, h4, h5, h6, .cm-header-1, .cm-header-2, .cm-header-3, .cm-header-4, .cm-header-5, .cm-header-6, .HyperMD-header, .inline-title) {
+  font-weight: 900 !important;
+}
+
+/* ==========================================================================
+   7. TRIỆT TIÊU KHUNG VIỀN ẢO & NÚT </> THỪA KHI HOVER TRÊN CALLOUT / NOTE
+   ========================================================================== */
+
+:root,
+body {
+  --embed-block-shadow-hover: none !important;
+}
+
+.markdown-source-view.mod-cm6 .cm-embed-block:not(.cm-table-widget, .cm-lang-base):hover {
+  box-shadow: none !important;
+}
+
+.markdown-source-view.mod-cm6 .cm-embed-block:has(.callout),
+.markdown-source-view.mod-cm6 .cm-embed-block.cm-callout,
+.markdown-source-view.mod-cm6 .cm-callout {
+  box-shadow: none !important;
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+.markdown-source-view.mod-cm6 .cm-embed-block:has(.callout):hover,
+.markdown-source-view.mod-cm6 .cm-embed-block.cm-callout:hover,
+.markdown-source-view.mod-cm6 .cm-callout:hover {
+  box-shadow: none !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+blockquote:has(.callout),
+blockquote.callout,
+.markdown-rendered blockquote:has(.callout) {
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  margin-inline-start: 0 !important;
+  box-shadow: none !important;
+}
+
+.markdown-source-view.mod-cm6 .cm-embed-block:has(.callout) .embed-actions {
+  top: 10px !important;
+  right: 14px !important;
+  opacity: 0 !important;
+  transition: opacity 0.2s ease-in-out !important;
+}
+
+.markdown-source-view.mod-cm6 .cm-embed-block:has(.callout):hover .embed-actions {
+  opacity: 0.6 !important;
+}
+
+.markdown-source-view.mod-cm6 .cm-embed-block:has(.callout) .embed-actions:hover {
+  opacity: 1 !important;
+}
+
+/* ==========================================================================
+   8. HỆ THỐNG MÀU SẮC NOTE / CALLOUT (CTRL + .)
+   ========================================================================== */
+
+.callout {
+  border-radius: var(--custom-callout-radius, 8px) !important;
+  margin: 1.2em 0 !important;
+  padding: 12px 18px !important;
+  border-width: var(--custom-callout-border-width, 2px) !important;
+  border-style: solid !important;
+  border-left-width: calc(var(--custom-callout-border-width, 2px) + 3.5px) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+.callout .callout-title {
+  font-weight: 700 !important;
+  font-size: 1.05em !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.callout .callout-title-inner {
+  font-weight: 700 !important;
+}
+
+.callout .callout-content {
+  margin-top: 8px !important;
+  font-weight: 500 !important;
+  line-height: 1.65 !important;
+}
+
+/* 🔵 1. XANH DƯƠNG */
+.callout[data-callout="note"],
+.callout[data-callout="info"],
+.callout[data-callout="todo"] {
+  border-color: #60a5fa !important;
+  border-left-color: #2563eb !important;
+  background-color: rgba(37, 99, 235, 0.08) !important;
+}
+.callout[data-callout="note"] .callout-title,
+.callout[data-callout="info"] .callout-title,
+.callout[data-callout="todo"] .callout-title,
+.callout[data-callout="note"] .callout-icon,
+.callout[data-callout="info"] .callout-icon,
+.callout[data-callout="todo"] .callout-icon {
+  color: #1d4ed8 !important;
+}
+
+/* 🔴 2. ĐỎ */
+.callout[data-callout="danger"],
+.callout[data-callout="error"],
+.callout[data-callout="bug"],
+.callout[data-callout="failure"],
+.callout[data-callout="fail"],
+.callout[data-callout="missing"] {
+  border-color: #f87171 !important;
+  border-left-color: #dc2626 !important;
+  background-color: rgba(220, 38, 38, 0.08) !important;
+}
+.callout[data-callout="danger"] .callout-title,
+.callout[data-callout="error"] .callout-title,
+.callout[data-callout="bug"] .callout-title,
+.callout[data-callout="danger"] .callout-icon,
+.callout[data-callout="error"] .callout-icon,
+.callout[data-callout="bug"] .callout-icon {
+  color: #b91c1c !important;
+}
+
+/* 🟣 3. TÍM */
+.callout[data-callout="example"] {
+  border-color: #c084fc !important;
+  border-left-color: #9333ea !important;
+  background-color: rgba(147, 51, 234, 0.08) !important;
+}
+.callout[data-callout="example"] .callout-title,
+.callout[data-callout="example"] .callout-icon {
+  color: #7e22ce !important;
+}
+
+/* 🟡 4. VÀNG / CAM */
+.callout[data-callout="warning"],
+.callout[data-callout="caution"],
+.callout[data-callout="attention"],
+.callout[data-callout="question"],
+.callout[data-callout="help"],
+.callout[data-callout="faq"] {
+  border-color: #fbbf24 !important;
+  border-left-color: #d97706 !important;
+  background-color: rgba(217, 119, 6, 0.08) !important;
+}
+.callout[data-callout="warning"] .callout-title,
+.callout[data-callout="caution"] .callout-title,
+.callout[data-callout="question"] .callout-title,
+.callout[data-callout="warning"] .callout-icon,
+.callout[data-callout="caution"] .callout-icon,
+.callout[data-callout="question"] .callout-icon {
+  color: #b45309 !important;
+}
+
+/* 🟢 5. XANH LÁ */
+.callout[data-callout="tip"],
+.callout[data-callout="hint"],
+.callout[data-callout="important"],
+.callout[data-callout="success"],
+.callout[data-callout="check"],
+.callout[data-callout="done"] {
+  border-color: #4ade80 !important;
+  border-left-color: #16a34a !important;
+  background-color: rgba(22, 163, 74, 0.08) !important;
+}
+.callout[data-callout="tip"] .callout-title,
+.callout[data-callout="hint"] .callout-title,
+.callout[data-callout="important"] .callout-title,
+.callout[data-callout="success"] .callout-title,
+.callout[data-callout="tip"] .callout-icon,
+.callout[data-callout="hint"] .callout-icon,
+.callout[data-callout="success"] .callout-icon {
+  color: #15803d !important;
+}
+
+/* ⚪ 6. TRẮNG / XÁM */
+.callout[data-callout="quote"],
+.callout[data-callout="cite"],
+.callout[data-callout="summary"],
+.callout[data-callout="tldr"],
+.callout[data-callout="abstract"],
+.callout[data-callout="default"],
+.callout:not([data-callout]) {
+  border-color: #94a3b8 !important;
+  border-left-color: #64748b !important;
+  background-color: rgba(100, 116, 139, 0.07) !important;
+}
+.callout[data-callout="quote"] .callout-title,
+.callout[data-callout="cite"] .callout-title,
+.callout[data-callout="summary"] .callout-title,
+.callout[data-callout="quote"] .callout-icon,
+.callout[data-callout="summary"] .callout-icon {
+  color: #334155 !important;
+}
+
+/* Màu Callout Dark Mode */
+body.theme-dark .callout[data-callout="note"] .callout-title,
+body.theme-dark .callout[data-callout="info"] .callout-title,
+body.theme-dark .callout[data-callout="todo"] .callout-title { color: #93c5fd !important; }
+
+body.theme-dark .callout[data-callout="danger"] .callout-title,
+body.theme-dark .callout[data-callout="error"] .callout-title,
+body.theme-dark .callout[data-callout="bug"] .callout-title { color: #fca5a5 !important; }
+
+body.theme-dark .callout[data-callout="example"] .callout-title { color: #d8b4fe !important; }
+
+body.theme-dark .callout[data-callout="warning"] .callout-title,
+body.theme-dark .callout[data-callout="caution"] .callout-title,
+body.theme-dark .callout[data-callout="question"] .callout-title { color: #fde68a !important; }
+
+body.theme-dark .callout[data-callout="tip"] .callout-title,
+body.theme-dark .callout[data-callout="important"] .callout-title,
+body.theme-dark .callout[data-callout="success"] .callout-title { color: #86efac !important; }
+
+body.theme-dark .callout[data-callout="quote"] .callout-title,
+body.theme-dark .callout[data-callout="summary"] .callout-title { color: #e2e8f0 !important; }
+
+body.theme-dark .callout .callout-content {
+  color: #f1f5f9 !important;
+}
+
+/* ==========================================================================
+   9. TÙY CHỌN KHỐI CODE (CODE BLOCK)
+   ========================================================================== */
+
+/* Cấu trúc khối Code */
+pre,
+.markdown-rendered pre {
+  background-color: var(--code-bg, rgba(0, 0, 0, 0.04)) !important;
+  border-width: var(--custom-code-border-width, 1.5px) !important;
+  border-style: solid !important;
+  border-color: var(--code-border, rgba(0, 0, 0, 0.12)) !important;
+  border-radius: var(--custom-code-radius, 8px) !important;
+  padding: 14px 18px !important;
+  margin: 1.2em 0 !important;
+  position: relative !important;
+  color: var(--code-text, var(--text-normal)) !important;
+}
+
+body.theme-dark pre,
+body.theme-dark .markdown-rendered pre,
+body.theme-dark .HyperMD-codeblock {
+  color: var(--code-text, #e2e8f0) !important;
+}
+
+/* Độ đậm chữ trong Code */
+body.code-weight-medium pre,
+body.code-weight-medium code,
+body.code-weight-medium .HyperMD-codeblock {
+  font-weight: 500 !important;
+}
+
+body.code-weight-semibold pre,
+body.code-weight-semibold code,
+body.code-weight-semibold .HyperMD-codeblock {
+  font-weight: 550 !important;
+}
+
+body.code-weight-bold pre,
+body.code-weight-bold code,
+body.code-weight-bold .HyperMD-codeblock {
+  font-weight: 650 !important;
+}
+
+/* Màu cú pháp (Syntax Highlighting) */
+.cm-s-obsidian span.cm-keyword,
+.markdown-rendered code .token.keyword {
+  color: #d73a49 !important;
+  font-weight: 700 !important;
+}
+
+.cm-s-obsidian span.cm-def,
+.cm-s-obsidian span.cm-variable-2,
+.markdown-rendered code .token.function {
+  color: #005cc5 !important;
+  font-weight: 650 !important;
+}
+
+.cm-s-obsidian span.cm-string,
+.markdown-rendered code .token.string {
+  color: #22863a !important;
+  font-weight: 550 !important;
+}
+
+.cm-s-obsidian span.cm-number,
+.markdown-rendered code .token.number {
+  color: #e36209 !important;
+  font-weight: 650 !important;
+}
+
+.cm-s-obsidian span.cm-comment,
+.markdown-rendered code .token.comment {
+  color: #6a737d !important;
+  font-style: italic !important;
+  font-weight: 500 !important;
+}
+
+/* Dark mode syntax colors */
+body.theme-dark .cm-s-obsidian span.cm-keyword,
+body.theme-dark .markdown-rendered code .token.keyword {
+  color: #ff7b72 !important;
+}
+body.theme-dark .cm-s-obsidian span.cm-def,
+body.theme-dark .cm-s-obsidian span.cm-variable-2,
+body.theme-dark .markdown-rendered code .token.function {
+  color: #79c0ff !important;
+}
+body.theme-dark .cm-s-obsidian span.cm-string,
+body.theme-dark .markdown-rendered code .token.string {
+  color: #7ee787 !important;
+}
+body.theme-dark .cm-s-obsidian span.cm-number,
+body.theme-dark .markdown-rendered code .token.number {
+  color: #ffa657 !important;
+}
+body.theme-dark .cm-s-obsidian span.cm-comment,
+body.theme-dark .markdown-rendered code .token.comment {
+  color: #8b949e !important;
+}
+
+/* ==========================================================================
+   10. INLINE CODE ()
+   ========================================================================== */
+.cm-inline-code,
+.markdown-rendered code:not(pre code) {
+  font-weight: 600 !important;
+  padding: 2.5px 6.5px !important;
+  border-radius: 5px !important;
+  font-size: 0.9em !important;
+  transition: background-color 0.15s ease !important;
+}
+
+body.theme-light .cm-inline-code,
+body.theme-light .markdown-rendered code:not(pre code) {
+  background-color: var(--code-inline-bg, rgba(0, 0, 0, 0.06)) !important;
+  color: var(--code-inline-color, #b91c1c) !important;
+  border: 1px solid var(--code-inline-border, rgba(0, 0, 0, 0.12)) !important;
+}
+
+body.theme-dark .cm-inline-code,
+body.theme-dark .markdown-rendered code:not(pre code) {
+  background-color: var(--code-inline-bg, rgba(255, 255, 255, 0.08)) !important;
+  color: var(--code-inline-color, #7dd3fc) !important;
+  border: 1px solid var(--code-inline-border, rgba(255, 255, 255, 0.14)) !important;
+}
+
+/* ==========================================================================
+   11. ĐỘ ĐẬM VĂN BẢN VÀ CÂY THƯ MỤC (TYPOGRAPHY)
+   ========================================================================== */
+
+/* Độ đậm nội dung ghi chú thường (Không ảnh hưởng đến Tiêu đề) */
+body.note-weight-normal .markdown-rendered p,
+body.note-weight-normal .markdown-rendered li,
+body.note-weight-normal .markdown-rendered td,
+body.note-weight-normal .cm-line:not(.HyperMD-header) {
+  font-weight: 450 !important;
+}
+
+body.note-weight-medium .markdown-rendered p,
+body.note-weight-medium .markdown-rendered li,
+body.note-weight-medium .markdown-rendered td,
+body.note-weight-medium .cm-line:not(.HyperMD-header) {
+  font-weight: 500 !important;
+}
+
+body.note-weight-bold .markdown-rendered p,
+body.note-weight-bold .markdown-rendered li,
+body.note-weight-bold .markdown-rendered td,
+body.note-weight-bold .cm-line:not(.HyperMD-header) {
+  font-weight: 550 !important;
+}
+
+/* Độ đậm thanh duyệt cây thư mục */
+body.nav-weight-medium .nav-folder-title,
+body.nav-weight-medium .nav-file-title-content {
+  font-weight: 500 !important;
+}
+
+body.nav-weight-bold .nav-folder-title,
+body.nav-weight-bold .nav-file-title-content {
+  font-weight: 600 !important;
+}
+
+body.nav-weight-heavy .nav-folder-title,
+body.nav-weight-heavy .nav-file-title-content {
+  font-weight: 700 !important;
+}
+
+
+/* ==========================================================================
+   HINOTE PLUGIN COMPATIBILITY & FIXES
+   ========================================================================== */
+
+.hinote-selection-color-popover {
+  z-index: var(--layer-popover, 1000) !important;
+}
+
+.hinote-selection-color-toolbar {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 5px 8px !important;
+  border-radius: 8px !important;
+  background: var(--background-primary, #1e1e2e) !important;
+  border: 1px solid var(--background-modifier-border, rgba(255, 255, 255, 0.15)) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Color Swatches (Floating toolbar & palette) */
+.hinote-selection-color-toolbar button.hinote-selection-color-swatch,
+.hinote-color-palette button.hinote-color-swatch,
+button.hinote-selection-color-swatch,
+button.hinote-color-swatch {
+  appearance: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  min-height: 22px !important;
+  flex: 0 0 22px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 50% !important;
+  border: 1.5px solid rgba(0, 0, 0, 0.2) !important;
+  background-color: var(--swatch-color) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+  cursor: pointer !important;
+  transform: none !important;
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s ease !important;
+}
+
+/* Default swatch: vibrant highlight yellow */
+.hinote-selection-color-toolbar button.hinote-selection-color-swatch.is-default,
+.hinote-color-palette button.hinote-color-swatch.is-default {
+  background-color: #ffd54f !important;
+}
+
+/* Fallback colors for swatches in order: Default, Red, Orange, Yellow, Green, Blue, Purple */
+.hinote-selection-color-toolbar button.hinote-selection-color-swatch:nth-of-type(1) { background-color: var(--swatch-color, #ffd54f) !important; }
+.hinote-selection-color-toolbar button.hinote-selection-color-swatch:nth-of-type(2) { background-color: var(--swatch-color, #e93147) !important; }
+.hinote-selection-color-toolbar button.hinote-selection-color-swatch:nth-of-type(3) { background-color: var(--swatch-color, #ec7500) !important; }
+.hinote-selection-color-toolbar button.hinote-selection-color-swatch:nth-of-type(4) { background-color: var(--swatch-color, #e0ac00) !important; }
+.hinote-selection-color-toolbar button.hinote-selection-color-swatch:nth-of-type(5) { background-color: var(--swatch-color, #08b94e) !important; }
+.hinote-selection-color-toolbar button.hinote-selection-color-swatch:nth-of-type(6) { background-color: var(--swatch-color, #086ddd) !important; }
+.hinote-selection-color-toolbar button.hinote-selection-color-swatch:nth-of-type(7) { background-color: var(--swatch-color, #7852ee) !important; }
+
+/* Swatch Hover */
+.hinote-selection-color-toolbar button.hinote-selection-color-swatch:hover,
+.hinote-color-palette button.hinote-color-swatch:hover,
+button.hinote-selection-color-swatch:hover,
+button.hinote-color-swatch:hover {
+  transform: scale(1.22) !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.45) !important;
+  outline: none !important;
+}
+
+/* Swatch Active / Selected (when the text already has this color) */
+.hinote-selection-color-toolbar button.hinote-selection-color-swatch[aria-pressed="true"],
+.hinote-color-palette button.hinote-color-swatch[aria-checked="true"] {
+  box-shadow: inset 0 0 0 2px var(--background-primary, #1e1e2e), 0 0 0 2px var(--swatch-color) !important;
+  transform: scale(1.08) !important;
+}
+
+.hinote-selection-color-swatch[aria-pressed="true"] svg {
+  width: 14px !important;
+  height: 14px !important;
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  stroke-width: 2.5px !important;
+  opacity: 1 !important;
+  pointer-events: none !important;
+}
+
+/* Action Buttons (Comment & Copy) */
+.hinote-selection-color-toolbar button.hinote-selection-annotate-button,
+.hinote-selection-color-toolbar button.hinote-selection-action-button,
+button.hinote-selection-annotate-button,
+button.hinote-selection-action-button {
+  appearance: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  flex: 0 0 24px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 1px solid var(--background-modifier-border, rgba(255, 255, 255, 0.15)) !important;
+  border-radius: 6px !important;
+  background: var(--background-modifier-hover, rgba(255, 255, 255, 0.08)) !important;
+  box-shadow: none !important;
+  color: var(--text-normal, #e0e0e0) !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+}
+
+.hinote-selection-color-toolbar button.hinote-selection-annotate-button:hover,
+.hinote-selection-color-toolbar button.hinote-selection-action-button:hover,
+button.hinote-selection-annotate-button:hover,
+button.hinote-selection-action-button:hover {
+  background: var(--interactive-accent, #38bdf8) !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+  transform: scale(1.12) !important;
+}
+
+.hinote-selection-color-toolbar button.hinote-selection-annotate-button.is-active {
+  background: var(--interactive-accent, #38bdf8) !important;
+  color: #ffffff !important;
+}
+
+.hinote-selection-annotate-button svg,
+.hinote-selection-action-button svg {
+  width: 14px !important;
+  height: 14px !important;
+  stroke-width: 2px !important;
+}
+
+/* Flashcard rating buttons in HiCard */
+.flashcard-rating-button[data-rating="again"] { background-color: var(--color-red, #e93147) !important; color: #fff !important; }
+.flashcard-rating-button[data-rating="hard"] { background-color: var(--color-yellow, #e0ac00) !important; color: #fff !important; }
+.flashcard-rating-button[data-rating="good"] { background-color: var(--color-blue, #086ddd) !important; color: #fff !important; }
+.flashcard-rating-button[data-rating="easy"] { background-color: var(--color-green, #08b94e) !important; color: #fff !important; }
+
+
+/* ==========================================================================
+   SIDEBAR TABS & FILE EXPLORER HEADER FIX
+   ========================================================================== */
+
+:is(.mod-left-split, .mod-right-split, .mod-sidedock) .workspace-tab-header-container {
+  height: 38px !important;
+  min-height: 38px !important;
+  padding: 4px 8px !important;
+  background: transparent !important;
+  border-bottom: 1px solid var(--divider-color, rgba(255, 255, 255, 0.08)) !important;
+  z-index: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+:is(.mod-left-split, .mod-right-split, .mod-sidedock) .workspace-tab-header-container-inner {
+  height: 100% !important;
+  gap: 4px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+:is(.mod-left-split, .mod-right-split, .mod-sidedock) .workspace-tab-header {
+  min-width: 34px !important;
+  max-width: 34px !important;
+  width: 34px !important;
+  height: 30px !important;
+  flex: 0 0 34px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 6px !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+:is(.mod-left-split, .mod-right-split, .mod-sidedock) .workspace-tab-header.is-active {
+  min-width: 34px !important;
+  max-width: 34px !important;
+  width: 34px !important;
+  background: var(--background-modifier-hover, rgba(255, 255, 255, 0.1)) !important;
+  color: var(--interactive-accent, #38bdf8) !important;
+  border: 1px solid var(--interactive-accent, #38bdf8) !important;
+  box-shadow: none !important;
+}
+
+:is(.mod-left-split, .mod-right-split, .mod-sidedock) .workspace-tab-header-inner {
+  padding: 0 !important;
+  gap: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: none !important;
+}
+
+:is(.mod-left-split, .mod-right-split, .mod-sidedock) .workspace-tab-header-inner-title,
+:is(.mod-left-split, .mod-right-split, .mod-sidedock) .workspace-tab-header-inner-close-button,
+:is(.mod-left-split, .mod-right-split, .mod-sidedock) .workspace-tab-header-new-tab {
+  display: none !important;
+}
+
+:is(.mod-left-split, .mod-right-split, .mod-sidedock) .workspace-tab-header::before,
+:is(.mod-left-split, .mod-right-split, .mod-sidedock) .workspace-tab-header::after {
+  display: none !important;
+  content: none !important;
+}
+
+:is(.mod-left-split, .mod-right-split) .workspace-tabs .workspace-leaf-content[data-type="file-explorer"] {
+  border-radius: var(--rtm-interface-radius, 8px) !important;
+  border: var(--rtm-workspace-primary-border, 1px solid rgba(255, 255, 255, 0.12)) !important;
+  background: var(--rtm-nav-folder-pane-bg, var(--background-secondary)) !important;
+  padding: 8px !important;
+  overflow: visible !important;
+}
+
+.workspace-leaf-content[data-type="file-explorer"] .view-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 28px !important;
+  height: auto !important;
+  padding: 4px 6px 6px 6px !important;
+  margin: 0 0 6px 0 !important;
+  overflow: visible !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.workspace-leaf-content[data-type="file-explorer"] .view-header-title-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  overflow: visible !important;
+}
+
+.workspace-leaf-content[data-type="file-explorer"] .view-header-title {
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  color: var(--text-normal, #f1f5f9) !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0.3px !important;
+  text-align: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+}
+
+.workspace-leaf-content[data-type="file-explorer"] .nav-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 6px 8px !important;
+  margin-bottom: 8px !important;
+  border-radius: var(--rtm-nav-folder-pane-header-radius, 8px) !important;
+  background: var(--rtm-nav-folder-pane-header-bg, rgba(255, 255, 255, 0.04)) !important;
+  border: var(--rtm-nav-folder-pane-header-border, 1px solid rgba(255, 255, 255, 0.1)) !important;
+}
+
+.workspace-leaf-content[data-type="file-explorer"] .nav-buttons-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}

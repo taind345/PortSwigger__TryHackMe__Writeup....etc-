@@ -1,14 +1,20 @@
--đọc lý thuyết tổng hợp ở đây -> [[lys thuyet JWT]] (cấu trúc 3 phần, luồng verify, các đòn, tool JWT Editor/hashcat)
+-đọc lý thuyết tổng hợp ở đây -> [[0-Lý thuyet JWT]] (cấu trúc 3 phần, luồng verify, các đòn, tool JWT Editor/hashcat)
 -tool bắt buộc: Burp extension **JWT Editor Keys**, wordlist rockyou cho hashcat.
 
+ -ok trước tiên cần phải học cách sử dụng jwt editgor trong burp site https://portswigger.net/burp/documentation/desktop/testing-workflow/vulnerabilities/session-management/jwts
+-hoặc đơn giản hơn lên trang này https://www.jwt.io/
 # LAB (từ dễ tới khó)
--mở bát bằng bài secret yếu -> [[Lab-JWT weak signing key]] => `hashcat -m 16500` brute secret rồi tự ký token `administrator`.
+đầu tiên dễ nhất [[Lab-JWT authentication bypass via flawed signature verification]]
 
--tiếp là bài bỏ signature -> [[Lab-JWT flawed signature verification]] => sửa `alg` thành `none`, xóa signature, server ẩu vẫn cho vào admin.
+-tiếp
+[[Lab-JWT authentication bypass via unverified signature]] -> bypass thông qua việc sever nó ko check cái signature 
+
+-mở bát bằng bài secret yếu -> [[Lab-JWT authentication bypass via weak signing key]] => `hashcat -m 16500` brute secret rồi tự ký token `administrator`.
+
 
 -tiếp là bài nhầm lẫn thuật toán -> [[Lab-JWT algorithm confusion]] => server RS256 nhưng mình đổi `alg` thành HS256 rồi ký bằng public key lấy ở `/jwks.json`.
 
--tiếp là bài nhúng key -> [[Lab-JWT jwk injection]] => tự tạo cặp RSA, nhét public key mình vào header `jwk`, ký bằng private key mình.
+-tiếp là bài nhúng key -> [[Lab-JWT authentication bypass via jwk header injection]] => tự tạo cặp RSA, nhét public key mình vào header `jwk`, ký bằng private key mình.
 
 -tiếp là bài kid path traversal -> [[Lab-JWT kid path traversal]] => `kid` là đường dẫn file nên mình trỏ về `/dev/null` (secret rỗng) rồi ký rỗng.
 

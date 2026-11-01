@@ -1,5 +1,7 @@
 {
   "version": "2.0",
-  "mapping": {},
-  "lastUpdated": 1792580009624
+  "mapping": {
+    "tryhackme/jr pen/sodan.md": "note-f31eaf51-2e64-4e2f-b52e-b4409afbb707.json"
+  },
+  "lastUpdated": 1793075949031
 }

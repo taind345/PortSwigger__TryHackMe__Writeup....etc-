@@ -1,12 +1,14 @@
 {
   "textFontFamily": "Cascadia Code,DFVN Excalifont,SVN-Book Antiqua,Consolas",
   "interfaceFontFamily": "Cascadia Code,SVN-Book Antiqua,DFVN Excalifont",
-  "cssTheme": "",
+  "cssTheme": "Retroma Pro",
   "baseFontSizeAction": true,
   "baseFontSize": 17,
   "monospaceFontFamily": "Cascadia Code,DFVN Excalifont",
   "nativeMenus": false,
-  "enabledCssSnippets": [],
-  "theme": "system",
-  "accentColor": "#00b303"
+  "enabledCssSnippets": [
+    "code-font"
+  ],
+  "theme": "obsidian",
+  "accentColor": ""
 }
