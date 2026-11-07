@@ -8,3 +8,5 @@ mở đầu với bài lab này [[Lab-Basic clickjacking with CSRF token protect
 
 
 [[Lab-Exploiting clickjacking vulnerability to trigger DOM-based XSS]]
+
+[[Lab-Multistep clickjacking]]
