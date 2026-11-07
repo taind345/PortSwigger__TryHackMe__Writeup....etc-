@@ -26,7 +26,7 @@ Một JWT chuẩn bao gồm **3 phần riêng biệt**, ngăn cách nhau bởi d
 
 $$\text{Header} \ .\  \text{Payload} \ .\  \text{Signature}$$
 
-![Tampering with JWT claims](images/jwt-infographic.jpg)
+![Tampering with JWT claims](jwt-infographic.jpg)
 
 Ví dụ thực tế của một JWT:
 ```text
@@ -94,7 +94,7 @@ Các claim phổ biến:
 
 Nhiều tài liệu dùng lẫn lộn các khái niệm này. Thực tế mối quan hệ của chúng như sau:
 
-![Relationship between JWT, JWS, and JWE](images/jwt-jws-jwe.jpg)
+![Relationship between JWT, JWS, and JWE](jwt-jws-jwe.jpg)
 
 1. **JWT (JSON Web Token):** Tiêu chuẩn chung quy định cách biểu diễn claims dưới dạng JSON.
 2. **JWS (JSON Web Signature):** Token có chữ ký số (Header + Payload dưới dạng Base64URL + Signature). Dữ liệu **đọc được công khai**, nhưng **không giả mạo được**. Trong 99% tài liệu bảo mật và thực tế (kể cả PortSwigger), khi người ta nói đến "JWT", họ đang ám chỉ **JWS**.
@@ -161,7 +161,7 @@ mindmap
 
 ### Đòn 2: Bẻ khóa Secret Key yếu (Brute-forcing Weak Signing Keys)
 
-![Signing and verifying JWTs using a symmetric algorithm](images/jwt-symmetric-signing-algorithm.jpg)
+![Signing and verifying JWTs using a symmetric algorithm](jwt-symmetric-signing-algorithm.jpg)
 
 Với các thuật toán đối xứng như **HS256 (HMAC-SHA256)**, server dùng một chuỗi bí mật (Shared Secret) duy nhất để vừa ký vừa xác minh token.
 * **Lỗ hổng:** Lập trình viên đặt secret quá ngắn, dùng từ điển đơn giản (như `secret`, `123456`, `password`), hoặc quên không đổi secret mặc định khi copy code mẫu từ tutorial.
@@ -228,7 +228,7 @@ Tham số `kid` là một chuỗi định danh giúp server chọn đúng key kh
 
 #### Đối xứng (Symmetric) vs Bất đối xứng (Asymmetric)
 
-![Signing and verifying JWTs using an asymmetric algorithm](images/jwt-asymmetric-signing-algorithm.jpg)
+![Signing and verifying JWTs using an asymmetric algorithm](jwt-asymmetric-signing-algorithm.jpg)
 
 | Đặc điểm | Thuật toán Đối Xứng (HS256) | Thuật toán Bất Đối Xứng (RS256) |
 | :--- | :--- | :--- |

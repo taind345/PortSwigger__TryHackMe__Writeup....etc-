@@ -8,30 +8,18 @@
         "type": "tabs",
         "children": [
           {
-            "id": "43ef09209e869631",
+            "id": "11e5501800e1d634",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "portswigger/JWT/Lab-JWT algorithm confusion.md",
+                "file": "portswigger/clickjacking/Lab-Clickjacking with form input data prefilled from a URL parameter.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lab-JWT algorithm confusion"
-            }
-          },
-          {
-            "id": "e38e0da3ea97d3fc",
-            "type": "leaf",
-            "state": {
-              "type": "mybook-notebook",
-              "state": {
-                "file": "0-Note/20-10-nháp.mynote.md"
-              },
-              "icon": "notebook-pen",
-              "title": "20-10-nháp"
+              "title": "Lab-Clickjacking with form input data prefilled from a URL parameter"
             }
           }
         ]
@@ -113,7 +101,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "file:/home/ti/Desktop/CVE-reports/0-working_progress/cve_root_round8/EP-0028_dll_media_exposure/PATCHSTACK_FORM.md",
+                "file": "portswigger/CSRF/Lab-SameSite Lax bypass via cookie refresh.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -169,8 +157,8 @@
             "state": {
               "type": "excalidraw-sidepanel",
               "state": {},
-              "icon": "excalidraw-icon",
-              "title": "Excalidraw Sidepanel"
+              "icon": "lucide-ghost",
+              "title": "excalidraw-sidepanel"
             }
           },
           {
@@ -197,7 +185,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "file:/home/ti/Desktop/CVE-reports/0-working_progress/cve_root_round8/EP-0028_dll_media_exposure/PATCHSTACK_FORM.md",
+                "file": "portswigger/CSRF/Lab-SameSite Lax bypass via cookie refresh.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -214,7 +202,6 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "mybook-notebook:Open new MyBook notebook": false,
       "switcher:Mở bộ chuyển đổi nhanh": false,
       "graph:Mở xem biểu đồ": false,
       "canvas:Tạo bảng mới": false,
@@ -223,58 +210,59 @@
       "command-palette:Mở khay lệnh": false,
       "bases:Tạo cơ sở mới": false,
       "obsidian-excalidraw-plugin:New drawing": false,
+      "mybook-notebook:Open new MyBook notebook": false,
       "hi-note:HiCard": false,
       "hi-note:HiNote": false
     }
   },
-  "active": "43ef09209e869631",
+  "active": "11e5501800e1d634",
   "lastOpenFiles": [
-    "0-asset/Pasted image 20261101235750.png",
-    "portswigger/JWT/0-index JWT.md",
-    "portswigger/JWT/Lab-JWT authentication bypass via jwk header injection.md",
-    "portswigger/JWT/Lab-JWT flawed signature verification.md",
-    "portswigger/JWT/Lab-JWT authentication bypass via weak signing key.md",
-    "portswigger/JWT/Lab-JWT authentication bypass via flawed signature verification.md",
-    "portswigger/JWT/Lab-JWT authentication bypass via unverified signature.md",
-    "0-asset/Pasted image 20261101234556.png",
-    "0-asset/Pasted image 20261101234408.png",
-    "0-asset/Pasted image 20261101234337.png",
-    "0-asset/Pasted image 20261101233806.png",
-    "0-asset/Pasted image 20261101233732.png",
-    "0-asset/Pasted image 20261101233717.png",
-    "0-asset/Pasted image 20261101233259.png",
-    "0-asset/Pasted image 20261101232351.png",
-    "0-asset/Pasted image 20261101232336.png",
-    "0-asset/Pasted image 20261101231249.png",
-    "portswigger/JWT/Lab-JWT algorithm confusion.md",
-    "file:/home/ti/Desktop/CVE-reports/0-working_progress/cve_root_round8/EP-0028_dll_media_exposure/PATCHSTACK_FORM.md",
-    "file:/home/ti/Desktop/CVE-reports/0-working_progress/cve_root_round8/EP-0028_dll_media_exposure/EP-0028_evidence_bundle (2)/REPORT.md",
-    "file:/home/ti/Desktop/CVE-reports/0-working_progress/cve_root_round8/EP-0028_dll_media_exposure/submit/HUONG_DAN.md",
-    "file:/home/ti/Desktop/CVE-reports/0-working_progress/cve_root_round8/EP-0028_dll_media_exposure/REPORT.md",
-    "portswigger/JWT/0-Lý thuyet JWT.md",
-    "file:/home/ti/Desktop/CVE-reports/0-working_progress/cve_root_round8/EP-0028_dll_media_exposure/EP-0028_evidence_bundle/PATCHSTACK_FORM.md",
+    "portswigger/clickjacking/0-lab clickjacking.md",
+    "portswigger/clickjacking/Lab-Clickjacking with form input data prefilled from a URL parameter.md",
+    "portswigger/clickjacking/Lab-Basic clickjacking with CSRF token protection.md",
+    "0-asset/Pasted image 20261107121927.png",
+    "0-asset/Pasted image 20261107120245.png",
+    "portswigger/clickjacking/0-Clickjacking.md",
+    "pass.md",
+    "3-Linux/các cách cài ứng dụng trên linux.md",
+    "README.md",
+    "file:/home/ti/Desktop/DATA_DESKTOP/0-CYBER_SEC/CVE/HACKERONE/targets/vercel/0-working-progress/HACKERONE-POLICY-REFERENCE.md",
+    "file:/home/ti/Desktop/DATA_DESKTOP/0-CYBER_SEC/CVE/HACKERONE/targets/vercel/0-working-progress/findings/candidates/EP-0013/SUBMIT-COPY.md",
+    "file:/home/ti/Desktop/DATA_DESKTOP/0-CYBER_SEC/CVE/HACKERONE/targets/vercel/0-working-progress/findings/candidates/EP-0013/FORM-PASTE.md",
+    "file:/home/ti/Desktop/DATA_DESKTOP/0-CYBER_SEC/CVE/HACKERONE/targets/vercel/0-working-progress/findings/candidates/EP-0013/SUBMIT-GUIDE.local.md",
+    "file:/home/ti/Desktop/DATA_DESKTOP/0-CYBER_SEC/CVE/HACKERONE/targets/vercel/0-working-progress/findings/candidates/EP-0013/FORM-FIELDS.md",
+    "file:/home/ti/Downloads/EP-0012-full-bundle/full-submission-bundle/report/SUBMIT-GUIDE.md",
+    "file:/home/ti/Desktop/DATA_DESKTOP/0-CYBER_SEC/CVE/HACKERONE/targets/vercel/0-working-progress/findings/candidates/EP-0012/submission-package/body-for-h1-form.md",
+    "file:/home/ti/Downloads/EP-0012-full-bundle/full-submission-bundle/report/body-for-h1-form.md",
+    "file:/home/ti/Downloads/EP-0012-full-bundle/full-submission-bundle/HOW-TO-VERIFY.md",
+    "file:/home/ti/Desktop/DATA_DESKTOP/0-CYBER_SEC/CVE/HACKERONE/targets/vercel/0-working-progress/findings/candidates/EP-0012/submission-package/body-for-h1.md",
+    "portswigger/CSRF/Lab-SameSite Lax bypass via cookie refresh.md",
+    "portswigger/CSRF/0-CSRF.md",
+    "portswigger/CSRF/Lab-CSRF where token validation depends on token being present.md",
+    "portswigger/CSRF/Lab-CSRF where token is duplicated in cookie.md",
+    "portswigger/CSRF/Lab-SameSite Strict bypass via client-side redirect.md",
+    "portswigger/CSRF/0-note-csrf.md",
+    "portswigger/CSRF/Lab-CSRF where token validation depends on request method.md",
+    "file:/mnt/DATA_D/DESKTOP/DATA_DESKTOP/0-CYBER_SEC/CVE/wordpress/0-working_progress/EP-0029_webba_booking_token_idor/EP-0029_evidence_bundle/README.md",
+    "file:/mnt/DATA_D/DESKTOP/DATA_DESKTOP/0-CYBER_SEC/CVE/wordpress/0-working_progress/EP-0029_webba_booking_token_idor/EP-0029_evidence_bundle/CHECKLIST.md",
+    "0-asset/Pasted image 20261103174955.png",
+    "0-asset/Pasted image 20261103172826.png",
+    "0-asset/Pasted image 20261103172548.png",
+    "Chưa đặt tên",
+    "0-asset/Pasted image 20261103150954.png",
+    "0-asset/Pasted image 20261103150932.png",
+    "0-asset/Pasted image 20261103150706.png",
+    "0-asset/Pasted image 20261103150644.png",
+    "0-asset/Pasted image 20261103145211.png",
+    "portswigger/clickjacking/images",
+    "portswigger/clickjacking",
+    "Chưa đặt tên 1",
     "portswigger/JWT/images",
-    "portswigger/XSS/0-XSS portswigger lab.md",
-    "portswigger/XSS/Lab-Reflected XSS with some SVG markup allowed.md",
-    "portswigger/XSS/Lab-Reflected XSS with strict CSP & Dangling Markup Attack.md",
-    "2026-11-01.md",
-    "portswigger/XSS/Lab- Stored XSS into anchor href attribute with double quotes HTML-encoded.md",
-    "portswigger/CSRF/Csrf Same site.md",
-    "portswigger/XSS/CSP.md",
-    "0-Note/0-index note.md",
-    "portswigger/XSS/Lab-Exploiting XSS to bypass CSRF defenses.md",
-    "portswigger/XSS/0-xss cheetsheet.md",
-    "portswigger/XSS/0-index XSS.md",
-    "portswigger/XSS/0-XSS.md",
     "3-Linux/tai_lieu_netcat_tong_hop-v2.pdf",
     "portswigger/writeup-portswigger",
     "portswigger/OAuth",
     "portswigger/JWT",
     "0-CODE/quiz/questions-deep.js",
-    "0-CODE/quiz/questions-extra.js",
-    "0-CODE/quiz/app.js",
-    "0-CODE/quiz/style.css",
-    "0-CODE/quiz/index.html",
     "red/Untitled.canvas",
     "Untitled.canvas"
   ]

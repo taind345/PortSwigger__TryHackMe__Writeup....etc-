@@ -28,5 +28,5 @@
   "retroma-obsidian-theme@@rtm-ss-nav-item-unrainbow": true,
   "custom-theme-options@@custom-color-palette": "palette-underwater",
   "custom-theme-options@@custom-border-style": "border-style-minimal",
-  "custom-theme-options@@custom-sidebar-style": "sidebar-style-flat"
+  "custom-theme-options@@custom-sidebar-style": "sidebar-style-boxed"
 }
