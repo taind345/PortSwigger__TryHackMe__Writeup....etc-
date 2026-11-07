@@ -13,13 +13,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "portswigger/clickjacking/Lab-Clickjacking with form input data prefilled from a URL parameter.md",
+                "file": "portswigger/clickjacking/Lab-Exploiting clickjacking vulnerability to trigger DOM-based XSS.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lab-Clickjacking with form input data prefilled from a URL parameter"
+              "title": "Lab-Exploiting clickjacking vulnerability to trigger DOM-based XSS"
             }
           }
         ]
@@ -218,7 +218,15 @@
   "active": "11e5501800e1d634",
   "lastOpenFiles": [
     "portswigger/clickjacking/0-lab clickjacking.md",
+    "portswigger/clickjacking/Lab-Exploiting clickjacking vulnerability to trigger DOM-based XSS.md",
+    "portswigger/clickjacking/Lab-Clickjacking with a frame buster script.md",
+    "0-asset/Pasted image 20261107123906.png",
+    "0-asset/Pasted image 20261107123748.png",
+    "0-asset/Pasted image 20261107123604.png",
     "portswigger/clickjacking/Lab-Clickjacking with form input data prefilled from a URL parameter.md",
+    "0-asset/Pasted image 20261107122908.png",
+    "0-asset/Pasted image 20261107122847.png",
+    "0-asset/Pasted image 20261107122753.png",
     "portswigger/clickjacking/Lab-Basic clickjacking with CSRF token protection.md",
     "0-asset/Pasted image 20261107121927.png",
     "0-asset/Pasted image 20261107120245.png",
@@ -243,17 +251,9 @@
     "portswigger/CSRF/Lab-SameSite Strict bypass via client-side redirect.md",
     "portswigger/CSRF/0-note-csrf.md",
     "portswigger/CSRF/Lab-CSRF where token validation depends on request method.md",
-    "file:/mnt/DATA_D/DESKTOP/DATA_DESKTOP/0-CYBER_SEC/CVE/wordpress/0-working_progress/EP-0029_webba_booking_token_idor/EP-0029_evidence_bundle/README.md",
-    "file:/mnt/DATA_D/DESKTOP/DATA_DESKTOP/0-CYBER_SEC/CVE/wordpress/0-working_progress/EP-0029_webba_booking_token_idor/EP-0029_evidence_bundle/CHECKLIST.md",
     "0-asset/Pasted image 20261103174955.png",
     "0-asset/Pasted image 20261103172826.png",
-    "0-asset/Pasted image 20261103172548.png",
     "Chưa đặt tên",
-    "0-asset/Pasted image 20261103150954.png",
-    "0-asset/Pasted image 20261103150932.png",
-    "0-asset/Pasted image 20261103150706.png",
-    "0-asset/Pasted image 20261103150644.png",
-    "0-asset/Pasted image 20261103145211.png",
     "portswigger/clickjacking/images",
     "portswigger/clickjacking",
     "Chưa đặt tên 1",
