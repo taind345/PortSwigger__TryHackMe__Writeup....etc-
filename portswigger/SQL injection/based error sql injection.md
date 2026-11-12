@@ -26,7 +26,7 @@ nếu when đúng:
 
 lý thuyết ^uLiPmv6f
 
-[[bai1- based errorr sql injection]] ^mJA6eviR
+[[lab- based errorr sql injection]] ^mJA6eviR
 
 đại khái là thông báo lỗi nó sẽ vô tình khai luôn sai ở đâu
 --> biết được thêm thông tin ^rHaYqZ36
@@ -35,7 +35,7 @@ Lộ bí mật: Thông báo lỗi đó chứa chính xác nội dung dữ liệu
 
 Ví dụ: Lệnh CAST('Tên_bí_mật' AS int) sẽ gây lỗi: Invalid input for integer: "Tên_bí_mật". Lúc này, kẻ xấu đã đọc được "Tên_bí_mật" ngay trong dòng lỗi. ^LYQvoMg1
 
-[[bai2-error based injection]] ^Aspvggae
+[[lab2-error based injection]] ^Aspvggae
 
 tóm tắt lại ^nke4n1lq
 

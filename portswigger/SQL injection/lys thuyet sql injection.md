@@ -21,8 +21,8 @@ chi tiết thì nằm ở mấy file rời mình đã ghi:
 - [[tấn công mật khẩu]]
 - [[Blind sql injection]]
 - [[based error sql injection]]
-- [[bai1- based errorr sql injection]]
-- [[bai2-error based injection]]
+- [[lab- based errorr sql injection]]
+- [[lab2-error based injection]]
 - [[payload giúp brute force mật khẩu cho blind && error-sql]]
 
 ### 1. UNION

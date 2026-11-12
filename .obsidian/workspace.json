@@ -13,13 +13,47 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "portswigger/XML injecttion/0-XML external entity injection.md",
+                "file": "portswigger/XML injecttion/0-LAB XXE.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "0-XML external entity injection"
+              "title": "0-LAB XXE"
+            }
+          },
+          {
+            "id": "850ce0baca7abc0a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "file:/home/ti/Desktop/DATA_DESKTOP/0-CYBER_SEC/CVE/SKILL/cve-root-hunter/SKILL.vi.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "SKILL.vi"
+            }
+          }
+        ],
+        "currentTab": 1
+      },
+      {
+        "id": "c2117fe1687a55f2",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "66563e806d591644",
+            "type": "leaf",
+            "state": {
+              "type": "mybook-notebook",
+              "state": {
+                "file": "nháp.mynote.md"
+              },
+              "icon": "notebook-pen",
+              "title": "nháp"
             }
           }
         ]
@@ -84,7 +118,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 281.9266052246094
+    "width": 281.9266052246094,
+    "collapsed": true
   },
   "right": {
     "id": "46d537e6b1c9f82a",
@@ -215,46 +250,46 @@
       "hi-note:HiNote": false
     }
   },
-  "active": "11e5501800e1d634",
+  "active": "66563e806d591644",
   "lastOpenFiles": [
-    "portswigger/XML injecttion/images/xxe-hidden-surface.svg",
-    "portswigger/XML injecttion/images/blind-xxe-oob-dtd.svg",
-    "portswigger/XML injecttion/images/xxe-ssrf-metadata.svg",
-    "portswigger/XML injecttion/images/xxe-file-retrieval.svg",
-    "portswigger/XML injecttion/images/xxe-injection.svg",
-    "portswigger/XML injecttion/images",
-    "portswigger/clickjacking/Lab-Exploiting clickjacking vulnerability to trigger DOM-based XSS.md",
-    "portswigger/XML injecttion/0-XML external entity injection.md",
-    "portswigger/XML injecttion",
-    "portswigger/clickjacking/Lab-Multistep clickjacking.md",
-    "0-asset/Pasted image 20261107144712.png",
-    "0-asset/Pasted image 20261107144654.png",
-    "0-asset/Pasted image 20261107144603.png",
-    "0-asset/Pasted image 20261107143308.png",
-    "0-asset/Pasted image 20261107142902.png",
-    "portswigger/clickjacking/0-lab clickjacking.md",
-    "portswigger/clickjacking/0-Clickjacking.md",
-    "portswigger/clickjacking/Lab-Clickjacking with form input data prefilled from a URL parameter.md",
-    "0-asset/Pasted image 20261107142516.png",
-    "portswigger/clickjacking/Lab-Clickjacking with a frame buster script.md",
-    "portswigger/clickjacking/Lab-Basic clickjacking with CSRF token protection.md",
     "pass.md",
-    "3-Linux/các cách cài ứng dụng trên linux.md",
-    "README.md",
-    "file:/home/ti/Desktop/DATA_DESKTOP/0-CYBER_SEC/CVE/HACKERONE/targets/vercel/0-working-progress/HACKERONE-POLICY-REFERENCE.md",
-    "file:/home/ti/Desktop/DATA_DESKTOP/0-CYBER_SEC/CVE/HACKERONE/targets/vercel/0-working-progress/findings/candidates/EP-0013/SUBMIT-COPY.md",
-    "file:/home/ti/Desktop/DATA_DESKTOP/0-CYBER_SEC/CVE/HACKERONE/targets/vercel/0-working-progress/findings/candidates/EP-0013/FORM-PASTE.md",
-    "file:/home/ti/Desktop/DATA_DESKTOP/0-CYBER_SEC/CVE/HACKERONE/targets/vercel/0-working-progress/findings/candidates/EP-0013/SUBMIT-GUIDE.local.md",
-    "file:/home/ti/Desktop/DATA_DESKTOP/0-CYBER_SEC/CVE/HACKERONE/targets/vercel/0-working-progress/findings/candidates/EP-0013/FORM-FIELDS.md",
-    "file:/home/ti/Downloads/EP-0012-full-bundle/full-submission-bundle/report/SUBMIT-GUIDE.md",
-    "file:/home/ti/Desktop/DATA_DESKTOP/0-CYBER_SEC/CVE/HACKERONE/targets/vercel/0-working-progress/findings/candidates/EP-0012/submission-package/body-for-h1-form.md",
-    "file:/home/ti/Downloads/EP-0012-full-bundle/full-submission-bundle/report/body-for-h1-form.md",
-    "file:/home/ti/Downloads/EP-0012-full-bundle/full-submission-bundle/HOW-TO-VERIFY.md",
-    "file:/home/ti/Desktop/DATA_DESKTOP/0-CYBER_SEC/CVE/HACKERONE/targets/vercel/0-working-progress/findings/candidates/EP-0012/submission-package/body-for-h1.md",
-    "portswigger/CSRF/Lab-SameSite Lax bypass via cookie refresh.md",
-    "portswigger/CSRF/0-CSRF.md",
-    "portswigger/CSRF/Lab-CSRF where token validation depends on token being present.md",
-    "portswigger/CSRF/Lab-CSRF where token is duplicated in cookie.md",
+    "nháp.mynote.md",
+    "file:/home/ti/Desktop/DATA_DESKTOP/0-CYBER_SEC/CVE/SKILL/cve-root-hunter/SKILL.vi.md",
+    "note_1.mynote.md",
+    "2026-11-01.md",
+    "portswigger/XML injecttion/0-LAB XXE.md",
+    "0-asset/Pasted image 20261108071346.png",
+    "0-asset/Pasted image 20261108071330.png",
+    "portswigger/XML injecttion/Lab-Exploiting blind XXE to retrieve data via error messages.md",
+    "0-asset/Pasted image 20261108071211.png",
+    "0-asset/Pasted image 20261108071129.png",
+    "0-asset/Pasted image 20261108071125.png",
+    "0-asset/Pasted image 20261108071105.png",
+    "portswigger/XML injecttion/Lab-Exploiting XXE to perform SSRF attacks.md",
+    "portswigger/XML injecttion/Lab-Blind XXE with out-of-band interaction via XML parameter entities.md",
+    "portswigger/XML injecttion/0-XML external entity injection.md",
+    "portswigger/XML injecttion/Lab-Exploiting XXE using external entities to retrieve files.md",
+    "portswigger/SQL injection/lab- based errorr sql injection.md",
+    "portswigger/SQL injection/cơ bản về sql injection.md",
+    "portswigger/SQL injection/Lab-Blind boolean conditional responses.md",
+    "portswigger/SQL injection/các kỹ thuật chèn sql.md",
+    "portswigger/SQL injection/các bước thu thập thông tin về csdl.md",
+    "portswigger/SQL injection/based error sql injection.md",
+    "portswigger/SQL injection/0-tổng hợp sql injection.md",
+    "portswigger/SQL injection/0-index SQL injection.md",
+    "portswigger/SQL injection/Minh_hoa_prepare_sql.md",
+    "portswigger/SQL injection/Lab-SQLi UNION retrieve version and users.md",
+    "portswigger/SQL injection/Lab-SQLi filter bypass.md",
+    "portswigger/SQL injection/Lab-Blind time delays.md",
+    "portswigger/SQL injection/Lab-Blind OAST exfiltration.md",
+    "portswigger/server side vulnerabilities/Lab-SSTI engine-specific.md",
+    "portswigger/server side vulnerabilities/Lab-Path traversal absolute bypass.md",
+    "0-asset/Pasted image 20261108062625.png",
+    "0-asset/Pasted image 20261108061922.png",
+    "0-asset/Pasted image 20261108061720.png",
+    "0-asset/Pasted image 20261108061530.png",
+    "portswigger/XML injecttion/images",
+    "portswigger/XML injecttion",
     "Chưa đặt tên",
     "portswigger/clickjacking/images",
     "portswigger/clickjacking",
